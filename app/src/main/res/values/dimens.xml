@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="paddingLeft">40px</dimen>
+    <dimen name="paddingRight">40px</dimen>
+    <dimen name="paddingTop">20dp</dimen>
+    <dimen name="marginTop">20dp</dimen>
+    <dimen name="marginTopButtin">24dp</dimen>
+    <dimen name="marginLeftRight_Edittext">20dp</dimen>
+    <dimen name="TextSize">18sp</dimen>
+    <dimen name="inputHeight">46dp</dimen>
+</resources>
