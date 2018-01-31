@@ -5,85 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:paddingLeft="@dimen/paddingLeft"
-    android:paddingRight="@dimen/paddingRight"
     android:orientation="vertical"
- android:gravity="top"
     tools:context="com.project.walktogether.MainActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="50dp"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="170dp"
-                android:src="@drawable/logo"/>
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="170dp"
+            android:src="@drawable/logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp">
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="@dimen/inputHeight"
-            android:textSize="@dimen/TextSize"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/username"
             android:textColor="@color/colorOffwhite"
-            android:layout_marginLeft="@dimen/marginLeftRight_Edittext"
-            android:layout_marginRight="@dimen/marginLeftRight_Edittext"
-            android:textColorHint="@color/colorOffwhite"/>
+            android:textColorHint="@color/colorOffwhite"
+            android:textSize="@dimen/TextSize" />
+
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="@dimen/inputHeight"
-            android:textSize="@dimen/TextSize"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
-            android:layout_marginTop="@dimen/marginTop"
-            android:layout_marginLeft="@dimen/marginLeftRight_Edittext"
-            android:layout_marginRight="@dimen/marginLeftRight_Edittext"
             android:hint="@string/password"
-            android:inputType="numberPassword"
             android:textColor="@color/colorOffwhite"
-            android:textColorHint="@color/colorOffwhite"/>
+            android:textColorHint="@color/colorOffwhite"
+            android:textSize="@dimen/TextSize" />
+
         <Button
             android:layout_width="match_parent"
-            android:layout_height="@dimen/inputHeight"
-            android:textSize="@dimen/TextSize"
-            android:textColor="@color/colorBackground"
-            android:layout_marginLeft="@dimen/marginLeftRight_Edittext"
-            android:layout_marginRight="@dimen/marginLeftRight_Edittext"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/shapebutton"
-            android:layout_marginTop="@dimen/marginTopButtin"
-            android:text="@string/login"/>
+            android:text="@string/login"
+            android:textColor="@color/colorBackground"
+            android:textSize="@dimen/TextSize" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/inputHeight"
-            android:layout_marginTop="@dimen/marginTop"
+            android:layout_height="48dp"
             android:orientation="horizontal">
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_weight="0.5"
                 android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:background="@color/colorBackground"
                 android:text="ลืมรหัสผ่าน?"
                 android:textColor="@color/colorOffwhite"
-                android:textSize="@dimen/TextSize"
-                android:layout_marginLeft="@dimen/marginLeftRight_Edittext"/>
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorOffwhite"></LinearLayout>
+                android:textSize="@dimen/TextSize" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorOffwhite"></LinearLayout>
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_weight="0.5"
                 android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:background="@color/colorBackground"
                 android:text="ลงทะเบียน"
                 android:textColor="@color/colorOffwhite"
-                android:textSize="@dimen/TextSize"
-                android:layout_marginRight="@dimen/marginLeftRight_Edittext"/>
+                android:textSize="@dimen/TextSize" />
         </LinearLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

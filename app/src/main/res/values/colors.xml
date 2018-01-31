@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#3F51B5</color>
     <color name="colorOffwhite">#FFFFFF</color>
+    <color name="colorAllblack">#000000</color>
+    <color name="colorBgProgress">#E0E0E0</color>
 </resources>
