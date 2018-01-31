@@ -9,14 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.Main2Activity" />
+        <activity
+            android:name="com.custu.project.walktogether.TopicsOneActivity"
+            android:label="@string/topics_name">
+
+        </activity>
+        <activity android:name="com.custu.project.walktogether.PageOneActivity" android:label="@string/topics_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.Main2Activity"></activity>
     </application>
 
 </manifest>
