@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
  * Created by Pannawat on 20/07/2017.
  */
 
-public interface OnNetworkCallbackListener {
+public interface OnDataSuccessListener {
     void onResponse(JsonObject object, Retrofit retrofit);
     void onBodyError(ResponseBody responseBodyError);
     void onBodyErrorIsNull();

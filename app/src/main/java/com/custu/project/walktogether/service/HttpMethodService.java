@@ -29,7 +29,7 @@ public interface HttpMethodService {
 
     @Multipart
     @POST()
-    Call<JsonObject> uploadImageProfile(@Url String url, @Part MultipartBody.Part image);
+    Call<JsonObject> uploadImageProfile(@Url String url, @Part MultipartBody.Part image, @Part MultipartBody.Part data);
     
     @PATCH
     Call<JsonObject> patch(@Url String url, @Body RequestBody user);
