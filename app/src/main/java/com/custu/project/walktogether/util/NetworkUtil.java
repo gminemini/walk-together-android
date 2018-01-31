@@ -1,4 +1,4 @@
-package com.custu.project.walktogether.network;
+package com.custu.project.walktogether.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

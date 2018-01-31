@@ -26,7 +26,6 @@ public class ConnectServer extends NetworkManager {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private RequestBody body;
 
-
     private ConnectServer() {
         super();
     }
