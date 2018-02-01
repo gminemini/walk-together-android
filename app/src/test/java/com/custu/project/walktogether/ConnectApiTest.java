@@ -1,5 +1,7 @@
 package com.custu.project.walktogether;
 
+import android.util.Log;
+
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.google.gson.JsonObject;
@@ -35,10 +37,15 @@ public class ConnectApiTest {
         jsonObject.addProperty("occupation","ผอ.");
         jsonObject.addProperty("email","goku.pun@hotmail.com");
 
+        ConnectServer connectServer = ConnectServer.getInstance();
+        ConnectServer.setTestingInstance(connectServer);
+
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
+                Log.d("onResponse: ", "onResponse: " + object);
                 Assert.assertNotNull(object);
+
             }
 
             @Override

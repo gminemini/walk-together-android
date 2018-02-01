@@ -36,6 +36,10 @@ public class ConnectServer extends NetworkManager {
         return instance;
     }
 
+    public static void setTestingInstance(ConnectServer newInstance) {
+        instance = newInstance;
+    }
+
     public void get(final OnDataSuccessListener listener, String url) {
         httpMethodService = retrofit.create(HttpMethodService.class);
         Call<JsonObject> call = httpMethodService.get(url);
