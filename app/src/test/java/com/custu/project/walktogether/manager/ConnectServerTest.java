@@ -1,3 +1,5 @@
+package com.custu.project.walktogether.manager;
+
 import static org.junit.Assert.*;
 
 /**

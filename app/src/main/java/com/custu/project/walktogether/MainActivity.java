@@ -1,9 +1,11 @@
-package com.project.walktogether;
+package com.custu.project.walktogether;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.custu.project.project.walktogether.R;
 
 public class MainActivity extends Activity {
 
