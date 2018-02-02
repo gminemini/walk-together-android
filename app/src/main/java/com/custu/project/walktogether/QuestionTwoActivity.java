@@ -36,6 +36,11 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     }
 
     @Override
+    public void initValue() {
+
+    }
+
+    @Override
     public void setUI() {
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
 

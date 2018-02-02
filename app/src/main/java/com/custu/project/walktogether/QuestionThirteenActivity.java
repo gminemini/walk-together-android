@@ -15,6 +15,11 @@ public class QuestionThirteenActivity extends  AppCompatActivity implements Basi
     }
 
     @Override
+    public void initValue() {
+
+    }
+
+    @Override
     public void setUI() {
 
     }

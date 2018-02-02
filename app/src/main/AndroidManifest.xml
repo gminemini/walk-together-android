@@ -45,12 +45,17 @@
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
            
         </activity>
         <activity android:name="com.custu.project.walktogether.DrawImageActivity">
 
         </activity>
-        <activity android:name="com.custu.project.walktogether.Question7Activity" />
         <activity
             android:name="com.custu.project.walktogether.QuestionThreeActivity"
             android:label="@string/topics_name" />
@@ -75,11 +80,7 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionThirteenActivity"
             android:label="@string/topics_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.QuestionNineActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionTenActivity" />

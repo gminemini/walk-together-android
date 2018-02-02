@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;

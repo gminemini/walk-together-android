@@ -27,6 +27,11 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
         answerSpinner.setAdapter(adapterArray);
     }
 
+    @Override
+    public void initValue() {
+
+    }
+
     public void setUI() {
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
     }

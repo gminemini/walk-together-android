@@ -23,6 +23,11 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
 
     }
 
+    @Override
+    public void initValue() {
+
+    }
+
     public void setUI() {
 
     }

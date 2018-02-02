@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="คำสั่ง"
+                android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
                 android:textSize="16sp" />
 
@@ -75,26 +75,52 @@
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
-                android:layout_toLeftOf="@+id/imageView"
-                android:layout_toStartOf="@+id/imageView"
-                android:text="วาดภาพให้เหมือนตัวอย่างให้มากที่สุด "
+                android:text="จงวาดรูปให้เหมือนตัวอย่างมากที่สุด"
                 android:textColor="@color/colorAllblack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/draw"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
 
-            <com.custu.project.walktogether
+            <com.custu.project.walktogether.DrawImage
                 android:id="@+id/draw_line"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="0dp"
+                android:layout_weight="8" />
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/margin_edittext_4dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/delete_draw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shapeclear"
+                    android:text="ลบ"
+                    android:textColor="@color/colorOffwhite"
+                    android:textSize="@dimen/TextSize" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -108,10 +134,11 @@
         android:padding="8dp">
 
         <Button
+            android:id="@+id/next_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shapetopics"
-            android:text="เริ่มวาด"
+            android:text="ถัดไป"
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
     </LinearLayout>
