@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.QuestionSevenActivity">
+    tools:context="com.custu.project.walktogether.QuestionSeventeenActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="คำถาม"
+                android:text="คำสั่ง"
                 android:textColor="@color/colorAllblack"
                 android:textSize="16sp" />
 
@@ -75,64 +75,31 @@
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
-                android:text="จงบอกสิ่งของ 3 อย่างที่ได้ยิน"
+                android:layout_toLeftOf="@+id/imageView"
+                android:layout_toStartOf="@+id/imageView"
+                android:text="วาดภาพให้เหมือนตัวอย่างให้มากที่สุด "
                 android:textColor="@color/colorAllblack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/speaker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
 
-        <TextView
+        <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="คำตอบ"
-            android:textColor="@color/colorAllblack"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/checkbox1"
+            <com.custu.project.walktogether
+                android:id="@+id/draw_line"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/checkbox2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/checkbox3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/checkbox4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:id="@+id/checkbox5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
 
-        </RadioGroup>
-
+        </LinearLayout>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -144,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shapetopics"
-            android:text="ถัดไป"
+            android:text="เริ่มวาด"
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
     </LinearLayout>

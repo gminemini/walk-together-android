@@ -19,6 +19,9 @@
             android:label="@string/topics_name" />
         <activity
             android:name="com.custu.project.walktogether.PageOneActivity"
+            android:label="@string/topics_name">
+
+        </activity>
             android:label="@string/topics_name" />
 
         <meta-data
@@ -36,6 +39,17 @@
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
+        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity">
+           
+        </activity>
+        <activity android:name="com.custu.project.walktogether.DrawImageActivity">
+
+        </activity>
         <activity android:name="com.custu.project.walktogether.Question7Activity" />
         <activity
             android:name="com.custu.project.walktogether.QuestionThreeActivity"
