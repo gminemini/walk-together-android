@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/paddingRight"
     android:orientation="vertical"
     android:gravity="top"
-    tools:context="com.project.walktogether.MainActivity">
+    tools:context="com.custu.project.walktogether.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

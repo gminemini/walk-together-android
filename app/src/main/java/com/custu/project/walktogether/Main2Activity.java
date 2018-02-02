@@ -3,7 +3,7 @@ package com.custu.project.walktogether;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.project.walktogether.R;
+import com.custu.project.project.walktogether.R;
 
 public class Main2Activity extends AppCompatActivity {
 

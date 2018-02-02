@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.walktogether">
+    package="com.custu.project.project.walktogether">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.MainActivity"></activity>
         <activity android:name="com.custu.project.walktogether.Main2Activity" />
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"
@@ -24,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
     </application>
 
 </manifest>
