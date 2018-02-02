@@ -4,4 +4,5 @@
     <string name="password">รหัสผ่าน</string>
     <string name="login">เข้าสู่ระบบ</string>
     <string name="topics_name">แบบทดสอบ</string>
+    <string name="pleaseinput">กรุณาพิมพ์คำตอบลงในช่อง</string>
 </resources>
