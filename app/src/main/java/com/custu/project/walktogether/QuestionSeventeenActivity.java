@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
 import com.custu.project.project.walktogether.R;
 
 import com.custu.project.walktogether.util.BasicActivity;
@@ -47,7 +51,6 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         Button nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(this);
 
-
     }
 
     @Override
@@ -83,6 +86,30 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         }
     }
 
+    public Boolean compareImage() {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        int count = 0;
+        float percentage;
+
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File file = new File(directory, "capture.jpg");
+        File file2 = new File(directory, "capture_user_draw.jpg");
+
+        Bitmap fileA = BitmapFactory.decodeFile(file.getPath());
+        Bitmap fileB = BitmapFactory.decodeFile(file2.getPath());
+
+        for (int y = 0; y < fileA.getHeight(); ++y){
+            for (int x = 0; x < fileA.getWidth(); ++x){
+                if (fileA.getPixel(x, y) == fileB.getPixel(x, y)) {
+                    count++;
+                }
+            }
+        }
+        percentage = (count * 100) / (fileA.getHeight() * fileA.getWidth());
+        Log.d("onClick: ", "onClick: "+percentage);
+        return fileA.sameAs(fileB);
+    }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -90,8 +117,11 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         switch (id) {
             case R.id.delete_draw:
                 drawImage.clear();
+                break;
             case R.id.next_button:
                 takeScreenshot();
+                Log.d("onClick: ", "onClick: "+compareImage());
+                break;
         }
     }
 }
