@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.custu.project.project.walktogether.R;
 
+
 public class Main2Activity extends AppCompatActivity {
 
     @Override
