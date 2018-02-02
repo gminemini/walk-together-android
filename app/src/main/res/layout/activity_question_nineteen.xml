@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.QuestionSevenActivity">
+    tools:context="com.custu.project.walktogether.QuestionNineteenActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,64 +75,71 @@
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
-                android:text="จงบอกสิ่งของ 3 อย่างที่ได้ยิน"
+                android:layout_toLeftOf="@+id/imageView"
+                android:layout_toStartOf="@+id/imageView"
+                android:text="สิ่งของ 3 อย่างที่ให้จำเมื่อสักครู่มีอะไรบ้าง"
                 android:textColor="@color/colorAllblack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/speaker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="คำตอบ"
-            android:textColor="@color/colorAllblack"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:id="@+id/checkbox1"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="คำตอบ"
+                android:textColor="@color/colorAllblack"
+                android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/checkbox2"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
-            <CheckBox
-                android:id="@+id/checkbox3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <RadioGroup
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
 
-            <CheckBox
-                android:id="@+id/checkbox4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:layout_weight="25"
+                        android:id="@+id/radio1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-            <CheckBox
-                android:id="@+id/checkbox5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:layout_weight="25"
+                        android:id="@+id/radio2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:layout_weight="25"
+                        android:id="@+id/radio3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:layout_weight="25"
+                        android:id="@+id/radio4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
+            </ScrollView>
 
 
-        </RadioGroup>
+        </LinearLayout>
 
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
