@@ -8,4 +8,10 @@
     <dimen name="marginLeftRight_Edittext">20dp</dimen>
     <dimen name="TextSize">18sp</dimen>
     <dimen name="inputHeight">46dp</dimen>
+    <dimen name="width_img_logo">150dp</dimen>
+    <dimen name="height_img_logo">170dp</dimen>
+    <dimen name="height_0dp">0dp</dimen>
+    <dimen name="margin_edittext_4dp">4dp</dimen>
+    <dimen name="height_edittext_40dp">50dp</dimen>
+    <dimen name="TextSizeBold_20sp">20sp</dimen>
 </resources>
