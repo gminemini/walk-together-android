@@ -14,4 +14,5 @@
     <dimen name="margin_edittext_4dp">4dp</dimen>
     <dimen name="height_edittext_40dp">50dp</dimen>
     <dimen name="TextSizeBold_20sp">20sp</dimen>
+    <dimen name="TextSize_Spinner">30sp</dimen>
 </resources>

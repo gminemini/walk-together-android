@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.custu.project.project.walktogether">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -27,21 +28,48 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionOneActivity"
             android:label="@string/topics_name" />
-       
-        <activity android:name="com.custu.project.walktogether.QuestionTwoActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name="com.custu.project.walktogether.QuestionTwoActivity"
+            android:label="@string/topics_name" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
         <activity android:name="com.custu.project.walktogether.Question7Activity" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionThreeActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionFourActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionFiveActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionSixActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionEightActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionEighteenActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionTwelveActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionThirteenActivity"
+            android:label="@string/topics_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.custu.project.walktogether.QuestionNineActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionTenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionElevenActivity"></activity>
     </application>
 
 </manifest>

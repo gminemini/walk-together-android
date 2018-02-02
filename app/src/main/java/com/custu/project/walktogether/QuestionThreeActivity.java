@@ -10,7 +10,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionOneActivity extends AppCompatActivity implements BasicActivity {
+public class QuestionThreeActivity extends AppCompatActivity implements BasicActivity {
     private Spinner answerSpinner;
     private ArrayList<String> answerArray = new ArrayList<String>();
 
@@ -18,7 +18,7 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_one);
+        setContentView(R.layout.question_three);
 
 
         setUI();
@@ -43,13 +43,18 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
 
     private void createSpinnerData() {
 
-        answerArray.add("วันอาทิตย์");
-        answerArray.add("วันจันทร์");
-        answerArray.add("วันอังคาร");
-        answerArray.add("วันพุธ");
-        answerArray.add("วันพฤหัสบดี");
-        answerArray.add("วันศุกร์");
-        answerArray.add("วันเสาร์");
+        answerArray.add("มกราคม");
+        answerArray.add("กุมภาพันธ์ ");
+        answerArray.add("มีนาคม");
+        answerArray.add("เมษายน");
+        answerArray.add("พฤษภาคม");
+        answerArray.add("มิถุนายน");
+        answerArray.add("กรกฎาคม");
+        answerArray.add("สิงหาคม");
+        answerArray.add("กันยายน");
+        answerArray.add("ตุลาคม");
+        answerArray.add("พฤศจิกายน");
+        answerArray.add("ธันวาคม");
 
     }
 }

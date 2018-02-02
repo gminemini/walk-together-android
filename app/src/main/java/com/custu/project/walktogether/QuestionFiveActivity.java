@@ -10,35 +10,25 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity{
+public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity {
     private Spinner answerSpinner;
-    private ArrayList<Integer> answerArray = new ArrayList<Integer>();
+    private ArrayList<String> answerArray = new ArrayList<String>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_two);
+        setContentView(R.layout.question_five);
 
 
         setUI();
         createSpinnerData();
-        ArrayAdapter<Integer> adapterArray = new ArrayAdapter<Integer>(this,android.R.layout.simple_dropdown_item_1line, answerArray);
+        ArrayAdapter<String> adapterArray = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, answerArray);
         answerSpinner.setAdapter(adapterArray);
     }
 
-
-
-    private void createSpinnerData() {
-        for (int i =1 ; i<32 ;i++){
-            answerArray.add(i);
-        }
-    }
-
-    @Override
     public void setUI() {
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
-
     }
 
     @Override
@@ -48,6 +38,11 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
 
     @Override
     public void initProgressDialog() {
+
+    }
+
+    private void createSpinnerData() {
+        answerArray.add("");
 
     }
 }
