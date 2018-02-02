@@ -81,12 +81,13 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:src="@android:me"
-                android:layout_below="@+id/title"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_media_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/question_text"
-                android:layout_toRightOf="@+id/question_text" />
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
 
         <TextView
