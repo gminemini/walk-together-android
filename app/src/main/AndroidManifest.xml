@@ -27,16 +27,15 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionOneActivity"
             android:label="@string/topics_name" />
-        <activity
-            android:name="com.custu.project.walktogether.PageOneActivity"
-            android:label="@string/topics_name">
+       
+        <activity android:name="com.custu.project.walktogether.QuestionTwoActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.QuestionTwoActivity"></activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
