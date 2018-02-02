@@ -15,6 +15,11 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
     }
 
     @Override
+    public void initValue() {
+
+    }
+
+    @Override
     public void setUI() {
 
     }

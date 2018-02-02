@@ -2,98 +2,143 @@ package com.custu.project.walktogether;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.EmbossMaskFilter;
+import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.util.FingerPath;
 
-/**
- * Created by pannawatnokket on 2/2/2018 AD.
- */
+import java.util.ArrayList;
 
-class DrawingView extends View {
 
-    public int width;
-    public  int height;
+public class DrawImage extends View {
+
+    public static int BRUSH_SIZE = 20;
+    public static final int DEFAULT_COLOR = Color.BLACK;
+    public static final int DEFAULT_BG_COLOR = Color.WHITE;
+    private static final float TOUCH_TOLERANCE = 4;
+    private float mX, mY;
+    private Path mPath;
+    private Paint mPaint;
+    private ArrayList<FingerPath> paths = new ArrayList<>();
+    private int currentColor;
+    private int backgroundColor = DEFAULT_BG_COLOR;
+    private int strokeWidth;
+    private boolean emboss;
+    private boolean blur;
+    private MaskFilter mEmboss;
+    private MaskFilter mBlur;
     private Bitmap mBitmap;
     private Canvas mCanvas;
-    private Path mPath;
-    private Paint mBitmapPaint;
-    Context context;
-    private Paint circlePaint;
-    private Path circlePath;
-    private Paint mPaint;
-    private ImageView imageView;
+    private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
-    public DrawingView(Context c,Paint mPaint) {
-        super(c);
-        this. mPaint = mPaint;
-        context=c;
-        mPath = new Path();
-        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-        circlePaint = new Paint();
-        circlePath = new Path();
-        circlePaint.setAntiAlias(true);
-        circlePaint.setColor(Color.BLUE);
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeJoin(Paint.Join.MITER);
-        circlePaint.setStrokeWidth(4f);
+    public DrawImage(Context context) {
+        this(context, null);
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    public DrawImage(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(10);
 
-        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        mEmboss = new EmbossMaskFilter(new float[] {1, 1, 1}, 0.4f, 6, 3.5f);
+        mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
+    }
+
+    public void init(DisplayMetrics metrics) {
+        int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
+
+        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
+
+        currentColor = DEFAULT_COLOR;
+        strokeWidth = BRUSH_SIZE;
+    }
+
+    public void normal() {
+        emboss = false;
+        blur = false;
+    }
+
+    public void emboss() {
+        emboss = true;
+        blur = false;
+    }
+
+    public void blur() {
+        emboss = false;
+        blur = true;
+    }
+
+    public void clear() {
+        backgroundColor = DEFAULT_BG_COLOR;
+        paths.clear();
+        normal();
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        canvas.save();
+        mCanvas.drawColor(backgroundColor);
 
-        canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
-        canvas.drawPath( mPath,  mPaint);
-        canvas.drawPath( circlePath,  circlePaint);
+        for (FingerPath fp : paths) {
+            mPaint.setColor(fp.color);
+            mPaint.setStrokeWidth(fp.strokeWidth);
+            mPaint.setMaskFilter(null);
+
+            if (fp.emboss)
+                mPaint.setMaskFilter(mEmboss);
+            else if (fp.blur)
+                mPaint.setMaskFilter(mBlur);
+
+            mCanvas.drawPath(fp.path, mPaint);
+
+        }
+
+        canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
+        canvas.restore();
     }
 
-    private float mX, mY;
-    private static final float TOUCH_TOLERANCE = 4;
+    private void touchStart(float x, float y) {
+        mPath = new Path();
+        FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
+        paths.add(fp);
 
-    private void touch_start(float x, float y) {
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
     }
 
-    private void touch_move(float x, float y) {
+    private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
+
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
-
-            circlePath.reset();
-            circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }
     }
 
-    private void touch_up() {
+    private void touchUp() {
         mPath.lineTo(mX, mY);
-        circlePath.reset();
-        // commit the path to our offscreen
-        mCanvas.drawPath(mPath,  mPaint);
-        // kill this so we don't double draw
-        mPath.reset();
     }
 
     @Override
@@ -101,20 +146,21 @@ class DrawingView extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                touch_start(x, y);
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN :
+                touchStart(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_MOVE:
-                touch_move(x, y);
+            case MotionEvent.ACTION_MOVE :
+                touchMove(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP:
-                touch_up();
+            case MotionEvent.ACTION_UP :
+                touchUp();
                 invalidate();
                 break;
         }
+
         return true;
     }
 }

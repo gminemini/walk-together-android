@@ -31,6 +31,11 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         setAdapter();
     }
 
+    @Override
+    public void initValue() {
+
+    }
+
     public void setUI() {
         answerSpinnerOne = (Spinner) findViewById(R.id.answer_day_one);
         answerSpinnerTwo = (Spinner) findViewById(R.id.answer_day_two);
