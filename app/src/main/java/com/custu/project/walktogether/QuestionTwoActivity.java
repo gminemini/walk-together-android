@@ -1,8 +1,11 @@
 package com.custu.project.walktogether;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity{
     private Spinner answerSpinner;
     private ArrayList<Integer> answerArray = new ArrayList<Integer>();
-
+    private Button nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,13 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         createSpinnerData();
         ArrayAdapter<Integer> adapterArray = new ArrayAdapter<Integer>(this,android.R.layout.simple_dropdown_item_1line, answerArray);
         answerSpinner.setAdapter(adapterArray);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -43,6 +53,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void setUI() {
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
+        nextBtn = (Button) findViewById(R.id.next);
 
     }
 

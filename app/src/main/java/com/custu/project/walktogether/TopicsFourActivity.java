@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +10,17 @@ import android.widget.Button;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class QuestionThirteenActivity extends  AppCompatActivity implements BasicActivity {
+public class TopicsFourActivity extends Activity implements BasicActivity {
     private Button nextBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_thirteen);
+        setContentView(R.layout.topics_four);
         setUI();
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuestionThirteenActivity.this, QuestionFourteenActivity.class);
+                Intent intent = new Intent(TopicsFourActivity.this, QuestionNineActivity.class);
                 startActivity(intent);
             }
         });

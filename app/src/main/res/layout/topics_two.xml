@@ -14,7 +14,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="12dp"
-       android:layout_margin="8dp"
+        android:layout_margin="8dp"
         android:elevation="20dp"
         android:background="@drawable/shape_mainbox"
         android:paddingRight="12dp">
@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ส่วนที่ 1"
+            android:text="ส่วนที่ 2"
             android:textColor="@color/colorAllblack"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Orientation"
+            android:text="Registration"
             android:textColor="@color/colorAllblack"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="การรับรู้สิ่งต่างๆรอบตัว"
+            android:text="การจดจำสิ่งต่างๆที่เห็น/ได้ยิน"
             android:textColor="@color/colorAllblack"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="จำนวน 6 ข้อ"
+            android:text="จำนวน 1 ข้อ"
             android:textColor="@color/colorAllblack"
             android:textSize="18sp"
             android:textStyle="bold" />

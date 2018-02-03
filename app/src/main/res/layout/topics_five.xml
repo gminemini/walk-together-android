@@ -14,7 +14,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="12dp"
-       android:layout_margin="8dp"
+        android:layout_margin="8dp"
         android:elevation="20dp"
         android:background="@drawable/shape_mainbox"
         android:paddingRight="12dp">
@@ -22,33 +22,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ส่วนที่ 1"
+            android:text="ส่วนที่ 5"
             android:textColor="@color/colorAllblack"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_head_one"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Orientation"
+            android:text="LANGUAGE"
             android:textColor="@color/colorAllblack"
-            android:textSize="36sp"
+            android:textSize="@dimen/text_head_two"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="การรับรู้สิ่งต่างๆรอบตัว"
+            android:text="การใช้ภาษาทางกายภาพ"
             android:textColor="@color/colorAllblack"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_head_three"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="จำนวน 6 ข้อ"
+            android:text="จำนวน 7 ข้อ"
             android:textColor="@color/colorAllblack"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_head_four"
             android:textStyle="bold" />
     </LinearLayout>
 
