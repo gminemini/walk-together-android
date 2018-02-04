@@ -92,22 +92,24 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         float percentage;
 
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File file = new File(directory, "capture.jpg");
         File file2 = new File(directory, "capture_user_draw.jpg");
 
-        Bitmap fileA = BitmapFactory.decodeFile(file.getPath());
-        Bitmap fileB = BitmapFactory.decodeFile(file2.getPath());
+        Bitmap mainImage = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.capture);
+        Bitmap userDraw = BitmapFactory.decodeFile(file2.getPath());
 
-        for (int y = 0; y < fileA.getHeight(); ++y){
-            for (int x = 0; x < fileA.getWidth(); ++x){
-                if (fileA.getPixel(x, y) == fileB.getPixel(x, y)) {
+        userDraw = Bitmap.createScaledBitmap(userDraw, mainImage.getWidth(), mainImage.getHeight(), true);
+
+
+        for (int y = 0; y < mainImage.getHeight(); ++y){
+            for (int x = 0; x < mainImage.getWidth(); ++x){
+                if (mainImage.getPixel(x, y) == userDraw.getPixel(x, y)) {
                     count++;
                 }
             }
         }
-        percentage = (count * 100) / (fileA.getHeight() * fileA.getWidth());
+        percentage = (count * 100) / (mainImage.getHeight() * mainImage.getWidth());
         Log.d("onClick: ", "onClick: "+percentage);
-        return fileA.sameAs(fileB);
+        return mainImage.sameAs(userDraw);
     }
 
     @Override
