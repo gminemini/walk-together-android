@@ -1,10 +1,8 @@
 package com.custu.project.walktogether;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,20 +10,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.network.callback.OnDownloadSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
-
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-
+import com.custu.project.walktogether.util.ProgressDialogCustom;
 
 public class QuestionSevenActivity extends Activity implements BasicActivity, View.OnClickListener {
     private boolean isPlaying;
@@ -69,8 +55,8 @@ public class QuestionSevenActivity extends Activity implements BasicActivity, Vi
     }
 
     public void playSound() {
-
         if (!isPlaying) {
+            playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
             isPlaying = true;
             MediaPlayer player = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
             player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -97,6 +83,14 @@ public class QuestionSevenActivity extends Activity implements BasicActivity, Vi
             case R.id.play_sound:
                 playSound();
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (ProgressDialogCustom.getInstance(QuestionSevenActivity.this) != null && ProgressDialogCustom.getInstance(QuestionSevenActivity.this).isShowing()) {
+            ProgressDialogCustom.getInstance(QuestionSevenActivity.this).cancel();
         }
     }
 }
