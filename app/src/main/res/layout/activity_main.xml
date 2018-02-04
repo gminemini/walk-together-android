@@ -31,21 +31,27 @@
         android:paddingRight="48dp">
 
         <EditText
+            android:id="@+id/input_username"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/username"
+            android:maxLines="1"
+           android:inputType="text"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
 
         <EditText
+            android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />

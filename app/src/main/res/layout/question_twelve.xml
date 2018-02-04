@@ -115,6 +115,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/input_topicfive"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"

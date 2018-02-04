@@ -12,13 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="com.custu.project.walktogether.MainActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name="com.custu.project.walktogether.Main2Activity" />
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"
@@ -60,7 +55,13 @@
             android:label="@string/topics_name" />
         <activity
             android:name="com.custu.project.walktogether.QuestionSixActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.custu.project.walktogether.QuestionEightActivity"
             android:label="@string/topics_name" />
@@ -73,9 +74,15 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionThirteenActivity"
             android:label="@string/topics_name" />
-        <activity android:name="com.custu.project.walktogether.QuestionNineActivity"  android:label="@string/topics_name" />
-        <activity android:name="com.custu.project.walktogether.QuestionTenActivity"  android:label="@string/topics_name" />
-        <activity android:name="com.custu.project.walktogether.QuestionElevenActivity"   android:label="@string/topics_name"/>
+        <activity
+            android:name="com.custu.project.walktogether.QuestionNineActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionTenActivity"
+            android:label="@string/topics_name" />
+        <activity
+            android:name="com.custu.project.walktogether.QuestionElevenActivity"
+            android:label="@string/topics_name" />
         <activity
             android:name="com.custu.project.walktogether.ChooseuserActivity"
             android:label="เลือกประเภทผู้ใช้" />
@@ -85,7 +92,8 @@
         <activity android:name="com.custu.project.walktogether.TopicsThreeActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsFourActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsFiveActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsSixActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
+        <activity android:name="com.custu.project.walktogether.HomeActivity"></activity>
     </application>
 
 </manifest>
