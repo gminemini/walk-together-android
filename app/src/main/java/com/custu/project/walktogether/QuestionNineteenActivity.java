@@ -55,7 +55,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
+                Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                 startActivity(intent);
             }
 
