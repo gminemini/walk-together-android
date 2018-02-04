@@ -13,7 +13,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity{
+public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Spinner answerSpinner;
     private ArrayList<Integer> answerArray = new ArrayList<Integer>();
     private Button nextBtn;
@@ -25,22 +25,16 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
 
 
         setUI();
+        setListener();
         createSpinnerData();
-        ArrayAdapter<Integer> adapterArray = new ArrayAdapter<Integer>(this,android.R.layout.simple_dropdown_item_1line, answerArray);
+        ArrayAdapter<Integer> adapterArray = new ArrayAdapter<Integer>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         answerSpinner.setAdapter(adapterArray);
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
 
-
     private void createSpinnerData() {
-        for (int i =1 ; i<32 ;i++){
+        for (int i = 1; i < 32; i++) {
             answerArray.add(i);
         }
     }
@@ -65,5 +59,21 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void initProgressDialog() {
 
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }

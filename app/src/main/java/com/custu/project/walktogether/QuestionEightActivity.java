@@ -13,7 +13,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionEightActivity extends AppCompatActivity implements BasicActivity {
+public class QuestionEightActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener {
     private Spinner answerSpinnerOne;
     private Spinner answerSpinnerTwo;
     private Spinner answerSpinnerThree;
@@ -29,16 +29,11 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
 
 
         setUI();
+        setListener();
         createSpinnerData();
         adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         setAdapter();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionEightActivity.this, TopicsFourActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override
@@ -91,5 +86,18 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
 
 
     }
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
 
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionEightActivity.this, TopicsFourActivity.class);
+                startActivity(intent);
+            }
+
+        }
+    }
 }

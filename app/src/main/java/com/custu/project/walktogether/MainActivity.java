@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class MainActivity extends Activity  implements BasicActivity ,View.OnClickListener{
+public class MainActivity extends Activity implements BasicActivity ,View.OnClickListener{
     private Button registerBtn;
     private Button loginBtn;
     private EditText username;
@@ -58,10 +58,10 @@ public class MainActivity extends Activity  implements BasicActivity ,View.OnCli
     private boolean validate() {
 
         if (username.length() == 0)
-            username.setError("Please enter name");
+            username.setError("Please enter username");
 
         if (password.length() == 0)
-            username.setError("Please enter lastname");
+            password.setError("Please enter password");
 
         return username.length() != 0 &&  password.length() != 0 ;
 

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="ส่วนที่ 1"
             android:textColor="@color/colorAllblack"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_head_one"
             android:textStyle="bold" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Orientation"
             android:textColor="@color/colorAllblack"
-            android:textSize="36sp"
+            android:textSize="@dimen/text_head_two"
             android:textStyle="bold" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="การรับรู้สิ่งต่างๆรอบตัว"
             android:textColor="@color/colorAllblack"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_head_three"
             android:textStyle="bold" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="จำนวน 6 ข้อ"
             android:textColor="@color/colorAllblack"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_head_three"
             android:textStyle="bold" />
     </LinearLayout>
 

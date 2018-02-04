@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +23,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 
-public class QuestionSeventeenActivity extends Activity implements BasicActivity, View.OnClickListener {
+public class QuestionSeventeenActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener{
     private DrawImage drawImage;
     private Button nextBtn;
     @Override
@@ -119,6 +120,7 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         Log.d("onClick: ", "onClick: "+percentage);
         return fileA.sameAs(fileB);
     }
+
 
     @Override
     public void onClick(View view) {

@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class ChooseuserActivity extends Activity implements BasicActivity {
+public class ChooseuserActivity extends AppCompatActivity implements  BasicActivity,View.OnClickListener  {
     private boolean checked;
     private Button nextBtn;
     private String checktype = "";
@@ -21,23 +21,8 @@ public class ChooseuserActivity extends Activity implements BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chooseuser);
         setUI();
+        setListener();
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checktype == "1"){
-                    Intent intent = new Intent(ChooseuserActivity.this, TopicsOneActivity.class);
-                    startActivity(intent);
-                }
-                else if (checktype == "2"){
-                    Intent intent = new Intent(ChooseuserActivity.this, RegisterCaretakerActivity.class);
-                    startActivity(intent);
-                }else{
-
-                }
-
-            }
-        });
     }
 
 
@@ -77,5 +62,27 @@ public class ChooseuserActivity extends Activity implements BasicActivity {
     @Override
     public void initProgressDialog() {
 
+    }
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                if (checktype == "1"){
+                    Intent intent = new Intent(ChooseuserActivity.this, TopicsOneActivity.class);
+                    startActivity(intent);
+                }
+                else if (checktype == "2"){
+                    Intent intent = new Intent(ChooseuserActivity.this, RegisterCaretakerActivity.class);
+                    startActivity(intent);
+                }else{
+
+                }
+            }
+
+        }
     }
 }

@@ -37,8 +37,8 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/username"
-            android:maxLines="1"
-           android:inputType="text"
+            android:inputType="text"
+            android:singleLine="true"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
@@ -52,6 +52,7 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />

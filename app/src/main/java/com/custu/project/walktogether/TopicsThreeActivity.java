@@ -10,39 +10,51 @@ import android.widget.Button;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class TopicsThreeActivity extends Activity implements BasicActivity {
-    private Button nextBtn;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.topics_three);
-        setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TopicsThreeActivity.this, QuestionEightActivity.class);
-                startActivity(intent);
+public class TopicsThreeActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener{
+        private Button nextBtn;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.topics_three);
+            setUI();
+            setListener();
+
+        }
+
+        @Override
+        public void initValue() {
+
+        }
+
+        @Override
+        public void setUI() {
+            nextBtn = (Button) findViewById(R.id.next);
+        }
+
+        @Override
+        public void getData() {
+
+        }
+
+        @Override
+        public void initProgressDialog() {
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.next: {
+                    Intent intent = new Intent(TopicsThreeActivity.this, QuestionEightActivity.class);
+                    startActivity(intent);
+                }
+
             }
-        });
-    }
+        }
 
-    @Override
-    public void initValue() {
+        private void setListener() {
+            nextBtn.setOnClickListener(this);
 
-    }
+        }
 
-    @Override
-    public void setUI() {
-        nextBtn = (Button) findViewById(R.id.next);
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
-    public void initProgressDialog() {
-
-    }
 }

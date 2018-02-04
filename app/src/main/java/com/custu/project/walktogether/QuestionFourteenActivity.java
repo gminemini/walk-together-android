@@ -12,22 +12,18 @@ import android.widget.Button;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class QuestionFourteenActivity extends Activity implements BasicActivity{
+public class QuestionFourteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_question_fourteen);
-setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionFourteenActivity.this, QuestionFifteenActivity.class);
-                startActivity(intent);
-            }
-        });
+        setUI();
+        setListener();
+
     }
 
     @Override
@@ -48,5 +44,21 @@ setUI();
     @Override
     public void initProgressDialog() {
 
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionFourteenActivity.this, QuestionFifteenActivity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }

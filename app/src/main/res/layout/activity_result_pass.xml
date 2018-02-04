@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ส่วนที่ 2"
+            android:text="ผลการประเมิน"
             android:textColor="@color/colorAllblack"
             android:textSize="@dimen/text_head_one"
             android:textStyle="bold" />
@@ -30,26 +30,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registration"
-            android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/text_head_two"
-            android:textStyle="bold" />
+            android:text="คุณผ่านการประเมิน"
+            android:textColor="@color/colorBackground"
+            android:textSize="@dimen/text_head_one"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="การจดจำสิ่งต่างๆที่เห็น/ได้ยิน"
+            android:gravity="center"
+            android:text="สามารถทำการสมัครสมาชิกเพื่อเข้าใช้งานแอปพลิเคชัน ได้ค่ะ"
             android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/text_head_three"
-            android:textStyle="bold" />
+            android:textSize="@dimen/text_head_one"
+            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="จำนวน 1 ข้อ"
-            android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/text_head_three"
-            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/shapetopics"
-            android:text="เริ่มทำแบบประเมิน"
+            android:text="สมัครสมาชิก"
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
     </LinearLayout>

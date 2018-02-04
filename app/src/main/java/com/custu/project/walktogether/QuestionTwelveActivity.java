@@ -15,15 +15,17 @@ import android.widget.TextView;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class QuestionTwelveActivity extends  AppCompatActivity implements BasicActivity {
+public class QuestionTwelveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
     private EditText input_topicfive;
     private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_twelve);
-setUI();
+        setUI();
+        setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +34,7 @@ setUI();
             }
         });
     }
+
     private void showDialog(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog);
@@ -42,14 +45,14 @@ setUI();
         TextView titleTextView = dialog.findViewById(R.id.title);
 
 
-        titleTextView.setText(input_topicfive.getText() +" "+ titleTextView.getText() );
+        titleTextView.setText(input_topicfive.getText() + " " + titleTextView.getText());
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
+                intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
             }
@@ -64,6 +67,7 @@ setUI();
         });
         dialog.show();
     }
+
     @Override
     public void initValue() {
 
@@ -82,6 +86,16 @@ setUI();
 
     @Override
     public void initProgressDialog() {
+
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

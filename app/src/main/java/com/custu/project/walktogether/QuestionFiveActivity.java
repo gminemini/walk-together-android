@@ -13,7 +13,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity {
+public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Spinner answerSpinner;
     private ArrayList<String> answerArray = new ArrayList<String>();
     private Button nextBtn;
@@ -25,16 +25,11 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
 
 
         setUI();
+        setListener();
         createSpinnerData();
-        ArrayAdapter<String> adapterArray = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, answerArray);
+        ArrayAdapter<String> adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         answerSpinner.setAdapter(adapterArray);
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override
@@ -60,5 +55,21 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
     private void createSpinnerData() {
         answerArray.add("");
 
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }

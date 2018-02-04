@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,11 +15,12 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.io.IOException;
 
-public class QuestionSevenActivity extends Activity implements BasicActivity {
+public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private boolean isPlaying;
     private MediaPlayer mp;
     private String pathSound;
     private Button nextBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +29,7 @@ public class QuestionSevenActivity extends Activity implements BasicActivity {
         setContentView(R.layout.activity_question7);
 
         setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
-                startActivity(intent);
-            }
-        });
+        setListener();
 
     }
 
@@ -79,5 +75,21 @@ public class QuestionSevenActivity extends Activity implements BasicActivity {
     private void stopPlaying() {
         mp.release();
         mp = null;
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }

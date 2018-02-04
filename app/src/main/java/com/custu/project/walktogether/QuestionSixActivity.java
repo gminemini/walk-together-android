@@ -20,11 +20,12 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionSixActivity extends AppCompatActivity implements BasicActivity {
+public class QuestionSixActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Intent intent;
     private Button nextBtn;
     private ProgressDialog progressDialog;
     private EditText edittextBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
 
 
         setUI();
+        setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +43,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         });
 
     }
+
     private void showDialog(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog);
@@ -51,7 +54,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         TextView titleTextView = dialog.findViewById(R.id.title);
 
 
-        titleTextView.setText(edittextBtn.getText() +" "+ titleTextView.getText() );
+        titleTextView.setText(edittextBtn.getText() + " " + titleTextView.getText());
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
@@ -72,7 +75,6 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         });
         dialog.show();
     }
-
 
 
     @Override
@@ -96,5 +98,13 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
 
     }
 
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

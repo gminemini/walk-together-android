@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class RegisterCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+public class RegisterPatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Calendar calendar;
-    private Button nextBtn;
+private Button nextBtn;
     private EditText inputUsername;
     private EditText inputPassword;
     private EditText inputConfirmPass;
@@ -44,7 +44,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_caretaker);
+        setContentView(R.layout.register_patient);
 
         calendar = Calendar.getInstance();
 
@@ -86,7 +86,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.input_dob: {
-                DatePickerDialog datePickerIssue = new DatePickerDialog(RegisterCaretakerActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerIssue = new DatePickerDialog(RegisterPatientActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                         calendar.set(Calendar.YEAR, year);
@@ -100,9 +100,9 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             }
             case R.id.next: {
                 boolean r = validate();
-                Log.d("sd", "onClick: "+r);
+
                 if (validate()) {
-                    Intent intent = new Intent(RegisterCaretakerActivity.this, HomecaretakerActivity.class);
+                    Intent intent = new Intent(RegisterPatientActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }else {
 
