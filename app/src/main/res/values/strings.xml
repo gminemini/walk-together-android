@@ -5,4 +5,5 @@
     <string name="login">เข้าสู่ระบบ</string>
     <string name="topics_name">แบบทดสอบ</string>
     <string name="pleaseinput">กรุณาพิมพ์คำตอบลงในช่อง</string>
+    <string name="loading">กำลังเชื่อมต่อ</string>
 </resources>

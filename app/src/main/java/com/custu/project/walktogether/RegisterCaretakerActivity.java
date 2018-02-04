@@ -27,6 +27,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
+import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.ProgressDialogCustom;
 import com.google.gson.JsonObject;
 
@@ -267,9 +268,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             }
             case R.id.next: {
                 if (validate()) {
-                    register();/*
-                    Intent intent = new Intent(RegisterCaretakerActivity.this, HomecaretakerActivity.class);
-                    startActivity(intent);*/
+                    register();
                 }
             }
         }
@@ -363,7 +362,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     @Override
     public void initProgressDialog() {
         progressDialog = new ProgressDialog(RegisterCaretakerActivity.this);
-        progressDialog.setTitle("Loading...");
+        progressDialog.setTitle(getString(R.string.loading));
         progressDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -428,6 +427,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     }
 
     private void register() {
+        progressDialog.show();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
@@ -450,14 +450,18 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 if (object!=null) {
                     int status = object.get("status").getAsInt();
                     if (status == 201) {
-                        Log.d("onResponse: ", "onResponse: "+ object);
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomecaretakerActivity.class);
+                        startActivity(intent);
+                    } else {
+                        progressDialog.dismiss();
+                        ErrorDialog.getInstance().showDialog(RegisterCaretakerActivity.this, object.get("message").getAsString());
                     }
                 }
             }
 
             @Override
             public void onBodyError(ResponseBody responseBodyError) {
-
             }
 
             @Override
