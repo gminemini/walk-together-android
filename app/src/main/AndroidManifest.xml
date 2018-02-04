@@ -12,14 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:name="com.custu.project.walktogether.MainActivity" />
         <activity android:name="com.custu.project.walktogether.Main2Activity" />
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"
@@ -49,7 +42,6 @@
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity" />
-
         <activity android:name="com.custu.project.walktogether.DrawImageActivity" />
         <activity
             android:name="com.custu.project.walktogether.QuestionThreeActivity"
@@ -101,12 +93,19 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก "/>
-
+            android:label="สมัครสมาชิก " />
         <activity
             android:name="com.custu.project.walktogether.HomecaretakerActivity"
-            android:label="Home Care" />
-        <activity android:name="com.custu.project.walktogether.ResultPassActivity"></activity>
+            android:label="Home Care"/>
+
+        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
+        <activity android:name="com.custu.project.walktogether.ProfileActivity" android:label="บัญชีผู้ใช้" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

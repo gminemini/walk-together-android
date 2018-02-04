@@ -19,4 +19,5 @@
     <dimen name="text_head_two">40sp</dimen>
     <dimen name="text_head_three">20sp</dimen>
     <dimen name="text_head_four">20sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
