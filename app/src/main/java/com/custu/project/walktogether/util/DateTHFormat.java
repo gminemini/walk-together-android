@@ -27,6 +27,16 @@ public class DateTHFormat {
         return formatter.format(date);
     }
 
+    public String normalDateFormatPlus(Date date) {
+        Date newDate = new Date();
+        newDate.setDate(date.getDate());
+        newDate.setMonth(date.getMonth());
+        newDate.setYear(date.getYear()+543);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH"));
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(newDate);
+    }
+
     public String slashDateFormat(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", new Locale("th", "TH"));
         return formatter.format(date);

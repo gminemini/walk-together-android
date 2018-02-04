@@ -21,7 +21,6 @@ public class ProgressDialogCustom {
     }
 
     private ProgressDialogCustom(Context context) {
-
         progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Loading...");
         progressDialog.setCanceledOnTouchOutside(false);
