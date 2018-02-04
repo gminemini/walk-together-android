@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
@@ -92,6 +93,10 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
             case R.id.play_sound:
                 playSound();
                 break;
+            case R.id.next: {
+                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
+                startActivity(intent);
+            }
         }
     }
 
@@ -108,14 +113,5 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.next: {
-                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
-                startActivity(intent);
-            }
 
-        }
-    }
 }

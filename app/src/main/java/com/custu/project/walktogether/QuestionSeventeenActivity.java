@@ -123,7 +123,10 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
         return mainImage.sameAs(userDraw);
     }
 
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
 
+    }
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -136,7 +139,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
 //                takeScreenshot();
                 Intent intent = new Intent(QuestionSeventeenActivity.this, QuestionEighteenActivity.class);
                 startActivity(intent);
-                Log.d("onClick: ", "onClick: "+compareImage());
+
                 break;
         }
     }
