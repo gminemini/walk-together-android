@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorOffwhite"
+    android:orientation="vertical"
+    tools:context="com.custu.project.walktogether.TopicsOneActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="9"
+        android:background="@drawable/shape_mainbox"
+        android:elevation="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="กรุณาเลือกประเภทผู้ใช้"
+            android:textColor="@color/colorAllblack"
+            android:textSize="@dimen/TextSizeBold_20sp" />
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_patient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:onClick="onRadioButtonClicked"
+                android:text="ผู้ป่วย"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radio_care"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="ผู้ดูแล"
+                android:textSize="20sp" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0dp"
+        android:layout_weight="1.2"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shapetopics"
+            android:text="ถัดไป"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="@dimen/TextSize" />
+    </LinearLayout>
+</LinearLayout>

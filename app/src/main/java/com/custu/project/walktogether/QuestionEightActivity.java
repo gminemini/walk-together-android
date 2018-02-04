@@ -1,8 +1,11 @@
 package com.custu.project.walktogether;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
@@ -10,7 +13,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 import java.util.ArrayList;
 
-public class QuestionEightActivity extends AppCompatActivity implements BasicActivity {
+public class QuestionEightActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener {
     private Spinner answerSpinnerOne;
     private Spinner answerSpinnerTwo;
     private Spinner answerSpinnerThree;
@@ -18,7 +21,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     private Spinner answerSpinnerFive;
     private ArrayList<String> answerArray = new ArrayList<String>();
     private ArrayAdapter<String> adapterArray;
-
+    private Button nextBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +29,11 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
 
 
         setUI();
+        setListener();
         createSpinnerData();
         adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         setAdapter();
+
     }
 
     @Override
@@ -42,7 +47,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         answerSpinnerThree = (Spinner) findViewById(R.id.answer_day_three);
         answerSpinnerFour = (Spinner) findViewById(R.id.answer_day_four);
         answerSpinnerFive = (Spinner) findViewById(R.id.answer_day_five);
-
+        nextBtn = (Button) findViewById(R.id.next);
 
     }
 
@@ -81,5 +86,18 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
 
 
     }
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
 
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionEightActivity.this, TopicsFourActivity.class);
+                startActivity(intent);
+            }
+
+        }
+    }
 }

@@ -115,6 +115,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/input_six"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
@@ -137,6 +138,7 @@
         android:padding="8dp">
 
         <Button
+            android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shapetopics"

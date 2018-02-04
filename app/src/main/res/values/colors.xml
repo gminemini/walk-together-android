@@ -8,4 +8,8 @@
     <color name="colorOffwhite">#FFFFFF</color>
     <color name="colorAllblack">#000000</color>
     <color name="colorBgProgress">#E0E0E0</color>
+    <color name="colorGray">#ABABAB</color>
+    <color name="colorBrown">#61381C</color>
+    <color name="colorRed">#9f1019</color>
+
 </resources>

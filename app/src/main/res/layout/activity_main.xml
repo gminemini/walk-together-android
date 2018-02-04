@@ -31,26 +31,34 @@
         android:paddingRight="48dp">
 
         <EditText
+            android:id="@+id/input_username"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/username"
+            android:inputType="text"
+            android:singleLine="true"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
 
         <EditText
+            android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/colorOffwhite"
             android:textColorHint="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
 
         <Button
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
@@ -65,6 +73,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/forgetpass"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -81,6 +90,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/register"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"

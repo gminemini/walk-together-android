@@ -3,10 +3,12 @@ package com.custu.project.walktogether;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -21,9 +23,9 @@ import com.custu.project.walktogether.util.BasicActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 
-public class QuestionSeventeenActivity extends Activity implements BasicActivity, View.OnClickListener {
+public class QuestionSeventeenActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener{
     private DrawImage drawImage;
-
+    private Button nextBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,14 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_question_seventeen);
         setUI();
+
+//        nextBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(QuestionSeventeenActivity.this, QuestionEighteenActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -47,9 +57,10 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
 
         Button clearDrawLineButton = findViewById(R.id.delete_draw);
         clearDrawLineButton.setOnClickListener(this);
+        nextBtn = (Button) findViewById(R.id.next);
 
-        Button nextButton = findViewById(R.id.next_button);
-        nextButton.setOnClickListener(this);
+        nextBtn.setOnClickListener(this);
+
 
     }
 
@@ -112,6 +123,7 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
         return mainImage.sameAs(userDraw);
     }
 
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -120,8 +132,10 @@ public class QuestionSeventeenActivity extends Activity implements BasicActivity
             case R.id.delete_draw:
                 drawImage.clear();
                 break;
-            case R.id.next_button:
-                takeScreenshot();
+            case R.id.next:
+//                takeScreenshot();
+                Intent intent = new Intent(QuestionSeventeenActivity.this, QuestionEighteenActivity.class);
+                startActivity(intent);
                 Log.d("onClick: ", "onClick: "+compareImage());
                 break;
         }

@@ -1,9 +1,11 @@
 package com.custu.project.walktogether;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,10 +15,13 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ProgressDialogCustom;
 
-public class QuestionSevenActivity extends Activity implements BasicActivity, View.OnClickListener {
+import java.io.IOException;
+
+public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private boolean isPlaying;
     private MediaPlayer mp;
     private String pathSound;
+    private Button nextBtn;
 
     private ImageView playSoundImageView;
 
@@ -29,6 +34,9 @@ public class QuestionSevenActivity extends Activity implements BasicActivity, Vi
         initValue();
         setUI();
 
+        setUI();
+        setListener();
+
     }
 
     @Override
@@ -40,6 +48,7 @@ public class QuestionSevenActivity extends Activity implements BasicActivity, Vi
 
     @Override
     public void setUI() {
+        nextBtn = (Button) findViewById(R.id.next);
         playSoundImageView = findViewById(R.id.play_sound);
         playSoundImageView.setOnClickListener(this);
     }
@@ -91,6 +100,22 @@ public class QuestionSevenActivity extends Activity implements BasicActivity, Vi
         super.onDestroy();
         if (ProgressDialogCustom.getInstance(QuestionSevenActivity.this) != null && ProgressDialogCustom.getInstance(QuestionSevenActivity.this).isShowing()) {
             ProgressDialogCustom.getInstance(QuestionSevenActivity.this).cancel();
+        }
+    }
+
+    private void setListener() {
+        nextBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.next: {
+                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
+                startActivity(intent);
+            }
+
         }
     }
 }

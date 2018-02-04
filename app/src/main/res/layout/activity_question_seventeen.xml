@@ -134,7 +134,7 @@
         android:padding="8dp">
 
         <Button
-            android:id="@+id/next_button"
+            android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shapetopics"
