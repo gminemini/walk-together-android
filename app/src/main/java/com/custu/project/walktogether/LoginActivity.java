@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import com.google.gson.JsonObject;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class LoginActivity extends Activity implements BasicActivity ,View.OnClickListener{
+public class LoginActivity extends Activity implements BasicActivity, View.OnClickListener {
     private Button registerBtn;
     private Button loginBtn;
     private EditText username;
@@ -46,6 +47,7 @@ public class LoginActivity extends Activity implements BasicActivity ,View.OnCli
         loginBtn.setOnClickListener(this);
 
     }
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.register: {
@@ -56,12 +58,13 @@ public class LoginActivity extends Activity implements BasicActivity ,View.OnCli
 
             case R.id.login: {
                 if (validate()) {
-                   login();
+                    login();
                 }
             }
 
         }
     }
+
     private boolean validate() {
 
         if (username.length() == 0)
@@ -70,7 +73,7 @@ public class LoginActivity extends Activity implements BasicActivity ,View.OnCli
         if (password.length() == 0)
             password.setError("กรุณาใส่รหัสผ่าน");
 
-        return username.length() != 0 &&  password.length() != 0 ;
+        return username.length() != 0 && password.length() != 0;
 
     }
 
@@ -83,12 +86,18 @@ public class LoginActivity extends Activity implements BasicActivity ,View.OnCli
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                if (object!=null) {
+                if (object != null) {
                     int status = object.get("status").getAsInt();
                     if (status == 200) {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
+                        if (object.get("type").getAsString().equals("patient")) {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, HomeCaretakerActivity.class);
+                            startActivity(intent);
+                        }
+
                     } else {
                         progressDialog.dismiss();
                         ErrorDialog.getInstance().showDialog(LoginActivity.this, object.get("message").getAsString());
@@ -116,10 +125,10 @@ public class LoginActivity extends Activity implements BasicActivity ,View.OnCli
 
     @Override
     public void setUI() {
-        registerBtn = (Button)findViewById(R.id.register);
-        loginBtn = (Button)findViewById(R.id.login);
-        username = (EditText)findViewById(R.id.input_username);
-        password = (EditText)findViewById(R.id.input_password);
+        registerBtn = (Button) findViewById(R.id.register);
+        loginBtn = (Button) findViewById(R.id.login);
+        username = (EditText) findViewById(R.id.input_username);
+        password = (EditText) findViewById(R.id.input_password);
 
     }
 

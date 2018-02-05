@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +27,6 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
-import com.custu.project.walktogether.util.ProgressDialogCustom;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -451,7 +449,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                     int status = object.get("status").getAsInt();
                     if (status == 201) {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomecaretakerActivity.class);
+                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomeCaretakerActivity.class);
                         startActivity(intent);
                     } else {
                         progressDialog.dismiss();
