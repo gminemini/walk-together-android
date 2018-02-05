@@ -90,22 +90,26 @@
         <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
             android:name="com.custu.project.walktogether.HomeActivity"
-            android:label="Home" />
-        <activity
-            android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก " />
-        <activity
-            android:name="com.custu.project.walktogether.HomecaretakerActivity"
-            android:label="Home Care"/>
-
-        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.ProfileActivity" android:label="บัญชีผู้ใช้" >
+            android:label="Home" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.custu.project.walktogether.RegisterPatientActivity"
+            android:label="สมัครสมาชิก "/>
+
+        <activity
+            android:name="com.custu.project.walktogether.HomecaretakerActivity"
+            android:label="Home Care" />
+
+        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
+        <activity
+            android:name="com.custu.project.walktogether.ProfileActivity"
+            android:label="บัญชีผู้ใช้" />
+
     </application>
 
 </manifest>
