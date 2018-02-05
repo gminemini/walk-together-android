@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#3F51B5</color>
+    <color name="colorBackgroundDark">#293ca3</color>
+    <color name="colorBackgroundTran">#483F51B5</color>
     <color name="colorDelete">#DD676C</color>
     <color name="colorOffwhite">#FFFFFF</color>
     <color name="colorAllblack">#000000</color>

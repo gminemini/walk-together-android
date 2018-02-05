@@ -293,7 +293,8 @@
                     android:id="@+id/progress_district"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/progressdrawable" />
 
                 <LinearLayout
                     android:id="@+id/layout_district"
@@ -326,7 +327,8 @@
                     android:id="@+id/progress_subdistrict"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/progressdrawable" />
 
                 <LinearLayout
                     android:id="@+id/layout_subdistrict"
@@ -369,9 +371,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/shape_input_regis"
-                        android:focusable="false"
                         android:clickable="false"
                         android:editable="false"
+                        android:focusable="false"
                         android:inputType="phone"
                         android:maxLines="1"
                         android:singleLine="true"
