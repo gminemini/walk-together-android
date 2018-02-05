@@ -5,10 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.util.ConfigService;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,8 +50,30 @@ public class PatientAdapter extends BaseAdapter {
         if (view == null)
             view = mInflater.inflate(R.layout.list_patient_under_caretaker, parent, false);
 
+        ImageView imageView = view.findViewById(R.id.image);
+
+        if (patientArrayList.get(position).getImage() != null) {
+            Picasso.with(mContext).invalidate(ConfigService.BASE_URL_IMAGE + patientArrayList.get(position).getImage());
+            Picasso.with(mContext)
+                    .load(ConfigService.BASE_URL_IMAGE + patientArrayList.get(position).getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(imageView);
+        } else {
+            Picasso.with(mContext)
+                    .load(R.drawable.avatar)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(imageView);
+        }
+
+
         TextView name = view.findViewById(R.id.name);
-        name.setText(patientArrayList.get(position).getFirstName()+ " " + patientArrayList.get(position).getLastName());
+        name.setText(patientArrayList.get(position).getFirstName() + " " + patientArrayList.get(position).getLastName());
 
         TextView age = view.findViewById(R.id.age);
         age.setText(patientArrayList.get(position).getAge());

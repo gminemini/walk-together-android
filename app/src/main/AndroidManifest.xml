@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.LoginActivity" >
+        <activity android:name="com.custu.project.walktogether.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,7 +96,7 @@
         <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
             android:name="com.custu.project.walktogether.HomeActivity"
-            android:label="Home" >
+            android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -105,17 +105,18 @@
         </activity>
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก "/>
-
+            android:label="สมัครสมาชิก " />
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />
-
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
         <activity
             android:name="com.custu.project.walktogether.ProfileActivity"
             android:label="บัญชีผู้ใช้" />
-
+        <activity
+            android:name="com.custu.project.walktogether.ExampleActivity"
+            android:label="@string/title_activity_example"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
