@@ -117,7 +117,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        deletePatient(patientArrayList.get(index).getPatientNumber(), Long.parseLong("221"), index);
+                        deletePatient(patientArrayList.get(index).getPatientNumber(), Long.parseLong("221"), position);
                         break;
                 }
                 return false;
