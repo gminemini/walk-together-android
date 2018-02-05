@@ -13,6 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.custu.project.walktogether.MainActivity" />
+        <activity android:name="com.custu.project.walktogether.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.custu.project.walktogether.Main2Activity" />
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"

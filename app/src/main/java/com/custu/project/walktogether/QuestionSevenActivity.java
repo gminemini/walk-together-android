@@ -16,7 +16,6 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ProgressDialogCustom;
 
-import java.io.IOException;
 
 public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private boolean isPlaying;
@@ -110,7 +109,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
     private void setListener() {
         nextBtn.setOnClickListener(this);
-
     }
 
 
