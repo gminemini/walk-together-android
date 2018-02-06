@@ -71,7 +71,6 @@ public class PatientAdapter extends BaseAdapter {
                     .into(imageView);
         }
 
-
         TextView name = view.findViewById(R.id.name);
         name.setText(patientArrayList.get(position).getFirstName() + " " + patientArrayList.get(position).getLastName());
 

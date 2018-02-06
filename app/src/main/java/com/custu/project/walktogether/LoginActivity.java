@@ -3,19 +3,21 @@ package com.custu.project.walktogether;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
@@ -27,6 +29,8 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private EditText username;
     private EditText password;
     private ProgressDialog progressDialog;
+
+    private Caretaker caretaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,8 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                         } else {
+                            caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                            UserManager.getInstance(LoginActivity.this).storeCaretaker(caretaker);
                             Intent intent = new Intent(LoginActivity.this, HomeCaretakerActivity.class);
                             startActivity(intent);
                         }

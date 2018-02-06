@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +28,12 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrListener;
+import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -188,6 +194,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         getData();
         setUI();
         setListener();
+        Slidr.attach(this, SwipeBack.getInstance().confrig());
     }
 
     private void setSexSpinner() {
