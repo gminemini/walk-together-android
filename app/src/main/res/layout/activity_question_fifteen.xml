@@ -65,7 +65,7 @@
                 android:layout_margin="4dp"
                 android:text="ทำตามคำสั่ง"
                 android:textColor="@color/colorAllblack"
-                android:textSize="16sp" />
+                android:textSize="@dimen/TextSize" />
 
             <TextView
                 android:id="@+id/question_text"
@@ -76,7 +76,7 @@
                 android:layout_below="@+id/title"
                 android:text="แตะหน้าจอค้าง 3 วิ"
                 android:textColor="@color/colorAllblack"
-                android:textSize="18sp"
+                android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
 
 
@@ -84,6 +84,7 @@
 
         <ImageView
             android:src="@drawable/touch"
+            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

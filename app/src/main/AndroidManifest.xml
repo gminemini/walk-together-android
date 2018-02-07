@@ -12,15 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.MainActivity" />
-        <activity android:name="com.custu.project.walktogether.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="com.custu.project.walktogether.LoginActivity" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.custu.project.walktogether.Main2Activity" />
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"
             android:label="@string/topics_name" />
@@ -97,26 +90,26 @@
         <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
             android:name="com.custu.project.walktogether.HomeActivity"
-            android:label="Home" >
+            android:label="Home" />
+        <activity
+            android:name="com.custu.project.walktogether.RegisterPatientActivity"
+            android:label="สมัครสมาชิก " />
+        <activity
+            android:name="com.custu.project.walktogether.HomecaretakerActivity"
+            android:label="Home Care" />
+        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
+        <activity
+            android:name="com.custu.project.walktogether.ProfileActivity"
+            android:label="บัญชีผู้ใช้" />
+        <activity
+            android:name="com.custu.project.walktogether.ChoosemapActivity"
+            android:label="กรุณาเลือกแผนที่">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก "/>
-
-        <activity
-            android:name="com.custu.project.walktogether.HomecaretakerActivity"
-            android:label="Home Care" />
-
-        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
-        <activity
-            android:name="com.custu.project.walktogether.ProfileActivity"
-            android:label="บัญชีผู้ใช้" />
-
     </application>
 
 </manifest>
