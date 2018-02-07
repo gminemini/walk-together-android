@@ -85,7 +85,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                             // TODO Auto-generated method stub
                             login();
                         }
-                    }, 2000);
+                    }, 1500);
                 }
             }
 
@@ -135,7 +135,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             Intent intent = new Intent(LoginActivity.this, HomeCaretakerActivity.class);
                                             startActivity(intent);
                                         }
-                                    }, 1000);
+                                    }, 700);
                                 }
                             });
                         }
@@ -153,10 +153,16 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                     @Override
                                     public void run() {
                                         circularProgressButton.startAnimation();
-                                        circularProgressButton.revertAnimation();
-                                        circularProgressButton.setText("เข้าสู่ระบบ");
-                                        circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
-                                        circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                circularProgressButton.revertAnimation();
+                                                circularProgressButton.setText("เข้าสู่ระบบ");
+                                                circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
+                                            }
+                                        }, 1000);
+
                                     }
                                 }, 2000);
                             }
