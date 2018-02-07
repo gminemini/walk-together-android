@@ -65,7 +65,23 @@
             android:background="@drawable/shapebutton"
             android:text="@string/login"
             android:textColor="@color/colorBackground"
-            android:textSize="@dimen/TextSize" />
+            android:textSize="@dimen/TextSize"
+            android:visibility="gone" />
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:text="@string/login"
+            android:textColor="@color/colorBackground"
+            android:textSize="@dimen/TextSize"
+            app:finalCornerAngle="48dp"
+            app:spinning_bar_color="@color/colorBackgroundDark"
+            app:spinning_bar_padding="6dp"
+            app:spinning_bar_width="4dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
