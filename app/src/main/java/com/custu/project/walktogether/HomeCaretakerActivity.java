@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -43,6 +44,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
     private ProgressDialog progressDialog;
     private SwipeMenuCreator creator;
     private TextView logout;
+    private ImageView add;
 
     private ArrayList<Patient> patientArrayList;
     private Caretaker caretaker;
@@ -170,6 +172,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
         });
 
         logout.setOnClickListener(this);
+        add.setOnClickListener(this);
     }
 
     private void deletePatient(String patientNumber, Long caretakerId, final int index) {
@@ -217,6 +220,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
         PatientAdapter patientAdapter = new PatientAdapter(getApplicationContext(), patientArrayList);
         listView.setMenuCreator(creator);
         listView.setAdapter(patientAdapter);
+        add = findViewById(R.id.add);
     }
 
     public void setDataUser() {
@@ -271,11 +275,15 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
+        Intent intent;
         switch (id) {
             case R.id.logout:
                 UserManager.getInstance(HomeCaretakerActivity.this).removeCaretaker();
-                Intent intent = new Intent(HomeCaretakerActivity.this, LoginActivity.class);
+                intent = new Intent(HomeCaretakerActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.add:
+                intent = new Intent(HomeCaretakerActivity.this, AddPatientAcctivity.class);
                 startActivity(intent);
                 break;
         }

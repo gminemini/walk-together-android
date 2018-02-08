@@ -33,6 +33,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/add"
             android:layout_marginRight="@dimen/marginTop"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
