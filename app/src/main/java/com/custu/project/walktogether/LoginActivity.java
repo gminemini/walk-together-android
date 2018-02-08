@@ -39,7 +39,6 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private ProgressDialog progressDialog;
     private CircularProgressButton circularProgressButton;
 
-
     private Caretaker caretaker;
 
     @Override

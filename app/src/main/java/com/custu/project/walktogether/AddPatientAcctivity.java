@@ -186,14 +186,25 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
         }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_PATIENT, jsonObject);
     }
 
+    private boolean validate() {
+
+        if (inputNumber.getText().toString().length() == 0)
+            inputNumber.setError("กรุณาใส่หมายเลขผู้ป่วย");
+
+        return inputNumber.getText().toString().length() != 0;
+    }
+
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
 
         switch (id) {
             case R.id.search: {
-                pullRefreshLayout.setRefreshing(true);
-                getData();
+                if (validate()) {
+                    pullRefreshLayout.setRefreshing(true);
+                    getData();
+                }
                 break;
             }
             case R.id.add_user: {

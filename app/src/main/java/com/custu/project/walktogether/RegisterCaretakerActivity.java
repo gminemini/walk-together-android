@@ -1,9 +1,13 @@
 package com.custu.project.walktogether;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,17 +21,20 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.master.District;
 import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
 import com.custu.project.walktogether.data.master.SubDistrict;
 import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.MasterModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
 import com.r0adkll.slidr.Slidr;
@@ -38,6 +45,8 @@ import com.r0adkll.slidr.model.SlidrPosition;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -65,6 +74,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private ProgressBar subDistrictProgressBar;
     private LinearLayout districtLinearLayout;
     private LinearLayout subDistrictLinearLayout;
+    private CircularProgressButton circularProgressButton;
 
     private ArrayList<Sex> sexArrayList = new ArrayList<>();
     private ArrayList<Province> provinceArrayList = new ArrayList<>();
@@ -246,6 +256,9 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
         inputPostcode = findViewById(R.id.postcode);
 
+        circularProgressButton = findViewById(R.id.register_button);
+        circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+
         inputProvince.setSelected(false);
         inputProvince.setSelection(0, true);
 
@@ -276,12 +289,24 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                     register();
                 }
             }
+            case R.id.register_button: {
+                if (validate()) {
+                    circularProgressButton.startAnimation();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            register();
+                        }
+                    }, 1500);
+                }
+            }
         }
     }
 
     private void setListener() {
         inputDob.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
+        circularProgressButton.setOnClickListener(this);
 
         inputProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -379,40 +404,70 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
         if (inputUsername.length() == 0)
             inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
+        inputUsername.setFocusable(true);
 
         if (inputPassword.length() == 0)
             inputPassword.setError("กรุณาใส่รหัสผ่าน");
+        inputPassword.setFocusable(true);
 
-        if (inputConfirmPass.length() == 0)
+
+        if (inputConfirmPass.length() == 0) {
             inputConfirmPass.setError("กรุณาใส่ยืนยันรหัสผ่าน");
+            inputConfirmPass.setFocusable(true);
 
-        else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString())))
+        } else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString()))) {
             inputConfirmPass.setError("กรุณาใส่รหัสผ่านให้ตรงกัน");
+            inputConfirmPass.setFocusable(true);
+        }
 
 
-        if (inputTitlename.length() == 0)
+        if (inputTitlename.length() == 0) {
             inputTitlename.setError("กรุณาใส่คำนำหน้าชื่อ");
-        if (inputFirstname.length() == 0)
+            inputTitlename.setFocusable(true);
+        }
+
+        if (inputFirstname.length() == 0) {
             inputFirstname.setError("กรุณาใส่ชื่อจริง");
-        if (inputLastname.length() == 0)
+            inputFirstname.setFocusable(true);
+        }
+
+        if (inputLastname.length() == 0) {
             inputLastname.setError("กรุณาใส่นามสกุล");
+            inputLastname.setFocusable(true);
+        }
 
 
-        if (inputDob.length() == 0)
+        if (inputDob.length() == 0) {
             inputDob.setError("กรุณาใส่วันเกิด");
+            inputDob.setFocusable(true);
+        }
 
 
-        if (inputAddress.length() == 0)
+        if (inputAddress.length() == 0) {
             inputAddress.setError("กรุณาใส่ที่อยู่");
+            inputAddress.setFocusable(true);
+        }
 
-        if (inputTell.length() == 0)
+
+        if (inputTell.length() == 0) {
             inputTell.setError("กรุณาใส่เบอร์โทรศัพท์");
-        else if (inputTell.length() != 10)
+            inputTell.setFocusable(true);
+        } else if (inputTell.length() != 10) {
             inputTell.setError("เบอร์โทรศัพท์ไม่ถูกต้อง");
+            inputTell.setFocusable(true);
+        }
+
+        if (inputEmail.length() == 0) {
+            inputEmail.setError("กรุณาใส่อีเมลล์");
+            inputEmail.setFocusable(true);
+        }
+
 
         if (inputEmail.length() > 0)
-            if (!isEmailValid(inputEmail.getText().toString()))
+            if (!isEmailValid(inputEmail.getText().toString())) {
                 inputEmail.setError("อีเมลไม่ตถูกต้อง");
+                inputEmail.setFocusable(true);
+            }
 
 
         return inputUsername.length() != 0 &&
@@ -427,12 +482,12 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
-                (inputEmail.length() == 0 || isEmailValid(inputEmail.getText().toString()));
+                inputEmail.length() != 0 &&
+                isEmailValid(inputEmail.getText().toString());
 
     }
 
     private void register() {
-        progressDialog.show();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
@@ -451,16 +506,55 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
-            public void onResponse(JsonObject object, Retrofit retrofit) {
-                if (object!=null) {
+            public void onResponse(final JsonObject object, Retrofit retrofit) {
+                if (object != null) {
                     int status = object.get("status").getAsInt();
                     if (status == 201) {
-                        progressDialog.dismiss();
-                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomeCaretakerActivity.class);
-                        startActivity(intent);
+                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
+                            @SuppressLint("ResourceAsColor")
+                            @Override
+                            public void onAnimationEnd() {
+                                circularProgressButton.setText("สมัครสมาชิกสำเร็จ");
+                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Caretaker caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                                        UserManager.getInstance(RegisterCaretakerActivity.this).storeCaretaker(caretaker);
+                                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomeCaretakerActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }, 700);
+                            }
+                        });
                     } else {
-                        progressDialog.dismiss();
-                        ErrorDialog.getInstance().showDialog(RegisterCaretakerActivity.this, object.get("message").getAsString());
+                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.M)
+                            @SuppressLint("ResourceAsColor")
+                            @Override
+                            public void onAnimationEnd() {
+                                circularProgressButton.setText(object.get("message").getAsString());
+                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        circularProgressButton.startAnimation();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                circularProgressButton.revertAnimation();
+                                                circularProgressButton.setText("ตกลง");
+                                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                                            }
+                                        }, 1000);
+
+                                    }
+                                }, 2000);
+                            }
+                        });
                     }
                 }
             }
