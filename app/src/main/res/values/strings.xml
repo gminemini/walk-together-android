@@ -7,4 +7,5 @@
     <string name="pleaseinput">กรุณาพิมพ์คำตอบลงในช่อง</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="loading">กำลังเชื่อมต่อ</string>
+    <string name="title_activity_example">ExampleActivity</string>
 </resources>

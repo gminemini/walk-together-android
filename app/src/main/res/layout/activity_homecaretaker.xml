@@ -5,394 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.HomecaretakerActivity">
+    tools:context="com.custu.project.walktogether.HomeCaretakerActivity">
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorBackground">
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_marginLeft="18dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ยินดีต้อนรับ"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/add"
+            android:layout_marginRight="@dimen/marginTop"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/plus"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="@dimen/margin_6dp"
+        android:background="@drawable/shape_input_regis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_input_regis"
             android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:text="ยินดีต้อนรับ"
-                android:textColor="@color/colorBackground"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:text="คุณนภัสร์กัลยา โชติดิษยรัชฐากร"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="คุณ"
                 android:textColor="@color/colorAllblack"
                 android:textSize="18sp" />
 
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:id="@+id/image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/shape_circle"
             android:src="@drawable/imgtest" />
     </RelativeLayout>
 
-    <LinearLayout
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:refreshColor="@color/colorBackground"
+        app:refreshType="smartisan">
 
-        <ScrollView
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/list_patient"
             android:layout_width="match_parent"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/shape_mainbox"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_edittext_4dp"
+            tools:listitem="@layout/list_patient_under_caretaker" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    </com.baoyz.widget.PullRefreshLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_input_regis"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_circle"
-                        android:src="@drawable/imgtest" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="อายุ: 60 ปี"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เพศ: หญิง"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-
-
-    </LinearLayout>
 </LinearLayout>

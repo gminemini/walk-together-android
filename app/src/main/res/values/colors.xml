@@ -13,5 +13,6 @@
     <color name="colorGray">#ABABAB</color>
     <color name="colorBrown">#61381C</color>
     <color name="colorRed">#9f1019</color>
+    <color name="colorComplete">#37ab38</color>
 
 </resources>

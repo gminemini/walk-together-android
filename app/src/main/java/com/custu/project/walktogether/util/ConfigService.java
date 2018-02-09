@@ -7,6 +7,7 @@ package com.custu.project.walktogether.util;
 public class ConfigService {
     //public static final String BASE_URL = "http://10.0.2.2:8181/api/v1/";
     public static final String BASE_URL = "http://159.65.10.67:8181/api/v1/";
+    public static final String BASE_URL_IMAGE = "http://159.65.10.67:8181/";
 
     //Master
     public static final String SEX = "sex/";
@@ -29,9 +30,12 @@ public class ConfigService {
 
     //Caretaker
     public static final String CARETAKER = "caretaker/";
+    public static final String CARETAKER_BY_NUMBER = "caretaker/by-caretaker-number/";
+
 
     //Patient
     public static final String PATIENT = "patient/";
+    public static final String PATIENT_BY_NUMBER = "by-patient-number/";
     public static final String HISTORY_EVALUATION = "history-evaluation/";
 
     //Matching
