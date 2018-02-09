@@ -16,7 +16,7 @@
         android:layout_weight="9"
         android:background="@drawable/shape_mainbox"
         android:elevation="20dp"
-        android:gravity="center_horizontal"
+
         android:orientation="vertical"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -26,53 +26,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="กรุณาเลือกประเภทผู้ใช้"
-            android:textColor="@color/colorAllblack"
+            android:textColor="@color/colorBackground"
             android:textSize="30dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radio_patient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:onClick="onRadioButtonClicked"
-                android:text="ผู้ป่วย"
-                android:textStyle="bold"
-                android:textSize="24sp" />
-
-            <RadioButton
-                android:id="@+id/radio_care"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="ผู้ดูแล"
-                android:textStyle="bold"
-                android:textSize="24sp" />
-        </RadioGroup>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_0dp"
-        android:layout_weight="1.5"
-        android:padding="8dp">
-
-        <Button
-            android:id="@+id/next"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shapetopics"
-            android:text="ถัดไป"
-            android:textColor="@color/colorOffwhite"
-            android:textSize="@dimen/TextSize" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/patientbtn"
+                android:layout_width="220dp"
+                android:layout_height="100dp"
+                android:background="@drawable/shape_gradient"
+                android:gravity="center"
+                android:text="ผู้ป่วย"
+                android:textColor="@color/colorOffwhite"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/caretakerbtn"
+                android:layout_width="220dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/shape_gradient"
+                android:gravity="center"
+                android:text="ผู้ดูแล"
+                android:textColor="@color/colorOffwhite"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+
     </LinearLayout>
+
+
 </LinearLayout>
