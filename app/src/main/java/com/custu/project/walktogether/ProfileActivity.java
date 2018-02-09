@@ -9,9 +9,11 @@ import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
 
 public class ProfileActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private ImageView nextBtn;
+    private Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,21 @@ public class ProfileActivity extends AppCompatActivity implements BasicActivity,
             case R.id.next: {
                 Intent intent = new Intent(ProfileActivity.this, EditprofileActivity.class);
                 startActivity(intent);
+                break;
+            }
+
+            case R.id.logout: {
+                UserManager.getInstance(ProfileActivity.this).removePatient();
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
             }
 
         }
     }
     private void setListener() {
         nextBtn.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
     }
     @Override
@@ -44,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity implements BasicActivity,
     @Override
     public void setUI() {
         nextBtn = (ImageView) findViewById(R.id.next);
+        logout = (Button) findViewById(R.id.logout);
     }
 
     @Override

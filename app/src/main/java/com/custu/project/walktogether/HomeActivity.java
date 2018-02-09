@@ -1,7 +1,9 @@
 package com.custu.project.walktogether;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -21,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class HomeActivity extends Activity implements BasicActivity {
+public class HomeActivity extends Activity implements BasicActivity, View.OnClickListener {
     private TextView nameTextView;
     private TextView levelTextView;
     private CircleImageView circleImageView;
@@ -87,7 +89,12 @@ public class HomeActivity extends Activity implements BasicActivity {
 
     @Override
     public void initProgressDialog() {
+        circleImageView.setOnClickListener(this);
 
+    }
+
+    public void setListener() {
+        circleImageView.setOnClickListener(this);
     }
 
     private void setDataToUi() {
@@ -96,5 +103,19 @@ public class HomeActivity extends Activity implements BasicActivity {
         circleImageView = findViewById(R.id.image);
         nameTextView.setText("คุณ" + patient.getFirstName() + " " + patient.getLastName());
         PicassoUtil.getInstance().setImage(HomeActivity.this, patient.getImage(), circleImageView);
+        setListener();
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        switch (id) {
+            case R.id.image:{
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
     }
 }
