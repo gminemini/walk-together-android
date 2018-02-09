@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:text="กรุณาเลือกประเภทผู้ใช้"
             android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/TextSizeBold_20sp" />
+            android:textSize="30dp"
+            android:textStyle="bold"/>
 
 
         <RadioGroup
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                android:onClick="onRadioButtonClicked"
                 android:text="ผู้ป่วย"
-                android:textSize="20sp" />
+                android:textStyle="bold"
+                android:textSize="24sp" />
 
             <RadioButton
                 android:id="@+id/radio_care"
@@ -50,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="ผู้ดูแล"
-                android:textSize="20sp" />
+                android:textStyle="bold"
+                android:textSize="24sp" />
         </RadioGroup>
 
 
@@ -60,7 +63,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
-        android:layout_weight="1.2"
+        android:layout_weight="1.5"
         android:padding="8dp">
 
         <Button

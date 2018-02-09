@@ -34,33 +34,32 @@
             android:progressDrawable="@drawable/progressbar" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bgtime"
-            android:gravity="center"
-            android:padding="20dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_height="@dimen/height_0dp"
+                android:layout_weight="1"
+
+                android:layout_gravity="center"
+                android:background="@drawable/bgtime"
+                android:gravity="center"
                 android:text="เหลือเวลา 19 วินาที"
                 android:textColor="@color/colorOffwhite"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="2.5"
             android:background="@drawable/progressbar"
-            android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingLeft="12dp"
+            android:paddingBottom="12dp"
             android:paddingRight="12dp">
 
             <TextView
@@ -81,18 +80,18 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:layout_width="210dp"
-                android:layout_height="190dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:maxHeight="200dp"
-                android:maxWidth="180dp"
                 android:src="@drawable/nurse" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="1.2"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,31 +100,17 @@
                 android:text="คำตอบ"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSize" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="12dp"
-            android:paddingBottom="12dp">
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/input_six"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/input_six"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_edittext_40dp"
-                    android:layout_marginBottom="@dimen/margin_edittext_4dp"
-                    android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:background="@drawable/shape_edittext"
-                    android:hint="@string/pleaseinput" />
+                android:layout_height="@dimen/height_edittext_40dp"
+                android:layout_marginBottom="@dimen/margin_edittext_4dp"
+                android:layout_marginTop="@dimen/margin_edittext_4dp"
+                android:background="@drawable/shape_edittext"
+                android:hint="@string/pleaseinput" />
 
 
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
 
     </LinearLayout>

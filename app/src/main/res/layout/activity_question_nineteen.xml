@@ -66,7 +66,7 @@
                 android:layout_margin="4dp"
                 android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
-                android:textSize="16sp" />
+                android:textSize="@dimen/TextSize" />
 
             <TextView
                 android:id="@+id/question_text"
@@ -79,7 +79,7 @@
                 android:layout_toStartOf="@+id/imageView"
                 android:text="สิ่งของ 3 อย่างที่ให้จำเมื่อสักครู่มีอะไรบ้าง"
                 android:textColor="@color/colorAllblack"
-                android:textSize="18sp"
+                android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

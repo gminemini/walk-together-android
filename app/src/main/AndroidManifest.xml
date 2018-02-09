@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.LoginActivity"></activity>
-        <activity android:name="com.custu.project.walktogether.Main2Activity" />
+      
+        <activity android:name="com.custu.project.walktogether.LoginActivity" />
+
         <activity
             android:name="com.custu.project.walktogether.TopicsOneActivity"
             android:label="@string/topics_name" />
@@ -90,7 +91,8 @@
         <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
             android:name="com.custu.project.walktogether.HomeActivity"
-            android:label="Home"></activity>
+
+            android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
@@ -106,6 +108,8 @@
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+            android:name="com.custu.project.walktogether.ChoosemapActivity"
+            android:label="กรุณาเลือกแผนที่">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -113,6 +117,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity"></activity>
+
     </application>
 
 </manifest>

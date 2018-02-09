@@ -66,18 +66,19 @@
                 android:layout_margin="4dp"
                 android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
-                android:textSize="16sp" />
+                android:textSize="@dimen/TextSize"/>
 
             <TextView
                 android:id="@+id/question_text"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="60dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
                 android:text="จงวาดรูปให้เหมือนตัวอย่างมากที่สุด"
                 android:textColor="@color/colorAllblack"
-                android:textSize="18sp"
+                android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
 
             <ImageView
