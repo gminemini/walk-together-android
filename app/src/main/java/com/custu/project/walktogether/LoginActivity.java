@@ -17,8 +17,10 @@ import android.widget.EditText;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
+import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
@@ -40,6 +42,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private CircularProgressButton circularProgressButton;
 
     private Caretaker caretaker;
+    private Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +119,24 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                     if (status == 200) {
                         progressDialog.dismiss();
                         if (object.get("type").getAsString().equals("patient")) {
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(intent);
+                            circularProgressButton.revertAnimation(new OnAnimationEndListener() {
+                                @SuppressLint("ResourceAsColor")
+                                @Override
+                                public void onAnimationEnd() {
+                                    circularProgressButton.setText("เข้าสู่ระบบสำเร็จ");
+                                    circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                    circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            patient = PatientModel.getInstance().getPatient(object);
+                                            UserManager.getInstance(LoginActivity.this).storePatient(patient);
+                                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }, 700);
+                                }
+                            });
                         } else {
                             circularProgressButton.revertAnimation(new OnAnimationEndListener() {
                                 @SuppressLint("ResourceAsColor")
