@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.custu.project.project.walktogether">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -99,27 +103,30 @@
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
         <activity
             android:name="com.custu.project.walktogether.ProfileActivity"
-            android:label="บัญชีผู้ใช้">
-        </activity>
-
+            android:label="บัญชีผู้ใช้"></activity>
         <activity
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+
+        </activity>
+        <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
+        <activity
+            android:name="com.custu.project.walktogether.ChoosemapActivity"
+            android:label="กรุณาเลือกแผนที่" />
+        <activity
+            android:name="com.custu.project.walktogether.EditprofileActivity"
+            android:label="แก้ไขบัญชีผู้ใช้" />
+        <activity
+            android:name="com.custu.project.walktogether.ScanQRCodeActivity"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
-        <activity
-            android:name="com.custu.project.walktogether.ChoosemapActivity"
-            android:label="กรุณาเลือกแผนที่" />
-        <activity android:name="com.custu.project.walktogether.EditprofileActivity" android:label="แก้ไขบัญชีผู้ใช้"/>
-
-
     </application>
 
 </manifest>
