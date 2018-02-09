@@ -25,6 +25,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.MemoryPolicy;
@@ -227,26 +228,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
         TextView nameTextView = findViewById(R.id.name);
         CircleImageView circleImageView = findViewById(R.id.image);
         nameTextView.setText("คุณ" + caretaker.getFirstName() + " " + caretaker.getLastName());
-
-        if (caretaker.getImage() != null) {
-            Picasso.with(HomeCaretakerActivity.this).invalidate(ConfigService.BASE_URL_IMAGE + caretaker.getImage());
-            Picasso.with(HomeCaretakerActivity.this)
-                    .load(ConfigService.BASE_URL_IMAGE + caretaker.getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .into(circleImageView);
-        } else {
-            Picasso.with(HomeCaretakerActivity.this)
-                    .load(R.drawable.avatar)
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .into(circleImageView);
-        }
-
+        PicassoUtil.getInstance().setImage(HomeCaretakerActivity.this, caretaker.getImage(), circleImageView);
     }
 
     @Override
