@@ -23,10 +23,10 @@
 
         <TextView
             android:id="@+id/logout"
-            android:layout_marginLeft="18dp"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
             android:text="ยินดีต้อนรับ"
             android:textColor="@color/colorOffwhite"
             android:textSize="32sp"
@@ -34,21 +34,21 @@
 
         <ImageView
             android:id="@+id/add"
-            android:layout_marginRight="@dimen/marginTop"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/plus"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/marginTop"
+            android:src="@drawable/plus" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:padding="@dimen/margin_6dp"
-        android:background="@drawable/shape_input_regis"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_input_regis"
+        android:padding="@dimen/margin_6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,14 +57,14 @@
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="คุณ"
                 android:textColor="@color/colorAllblack"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -89,7 +89,6 @@
             android:id="@+id/list_patient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_edittext_4dp"
             tools:listitem="@layout/list_patient_under_caretaker" />
 
     </com.baoyz.widget.PullRefreshLayout>
