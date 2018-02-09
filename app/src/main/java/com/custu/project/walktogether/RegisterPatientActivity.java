@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,16 +11,30 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.master.District;
+import com.custu.project.walktogether.data.master.Province;
+import com.custu.project.walktogether.data.master.Sex;
+import com.custu.project.walktogether.data.master.SubDistrict;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.MasterModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
+import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 public class RegisterPatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Calendar calendar;
@@ -31,6 +46,7 @@ private Button nextBtn;
     private EditText inputFirstname;
     private EditText inputLastname;
     private EditText inputDob;
+    private EditText inputPostcode;
     private Spinner inputSex;
     private EditText inputAddress;
     private Spinner inputProvince;
@@ -39,7 +55,129 @@ private Button nextBtn;
     private EditText inputTell;
     private Spinner inputOccupation;
     private EditText inputEmail;
-    private ArrayList<String> sexArray = new ArrayList<String>();
+    private ProgressDialog progressDialog;
+    private ProgressBar districtProgressBar;
+    private ProgressBar subDistrictProgressBar;
+    private LinearLayout districtLinearLayout;
+    private LinearLayout subDistrictLinearLayout;
+
+    private ArrayList<Sex> sexArrayList = new ArrayList<>();
+    private ArrayList<Province> provinceArrayList = new ArrayList<>();
+    private ArrayList<District> districtArrayList = new ArrayList<>();
+    private ArrayList<SubDistrict> subDistrictArrayList = new ArrayList<>();
+
+    private Long idSex;
+    private Long idProvince;
+    private Long idDistrict;
+    private Long idSubDistrict;
+
+    private boolean iSSex = false;
+    private boolean iSProvince = false;
+    private boolean iSDistrict = false;
+    private boolean iSSubDistrict = false;
+
+    OnDataSuccessListener sexListener = new OnDataSuccessListener() {
+        @Override
+        public void onResponse(JsonObject object, Retrofit retrofit) {
+            if (object != null) {
+                sexArrayList = MasterModel.getInstance().getSex(object);
+                setSexSpinner();
+            }
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+    };
+    OnDataSuccessListener provinceListener = new OnDataSuccessListener() {
+        @Override
+        public void onResponse(JsonObject object, Retrofit retrofit) {
+            if (object != null) {
+                provinceArrayList = MasterModel.getInstance().getProvince(object);
+                setProvinceSpinner();
+            }
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+    };
+
+    OnDataSuccessListener districtListener = new OnDataSuccessListener() {
+        @Override
+        public void onResponse(JsonObject object, Retrofit retrofit) {
+            if (object != null) {
+                districtArrayList = MasterModel.getInstance().getDistrict(object);
+                setDistrictSpinner();
+            }
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+    };
+
+    OnDataSuccessListener subDistrictListener = new OnDataSuccessListener() {
+        @Override
+        public void onResponse(JsonObject object, Retrofit retrofit) {
+            if (object != null) {
+                subDistrictArrayList = MasterModel.getInstance().getSubDistrict(object);
+                setSubDistrictSpinner();
+            }
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +185,37 @@ private Button nextBtn;
         setContentView(R.layout.register_patient);
 
         calendar = Calendar.getInstance();
-
+        initProgressDialog();
+        getData();
         setUI();
         setListener();
-        createSpinnerData();
-        ArrayAdapter<String> adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, sexArray);
+    }
+
+    private void setSexSpinner() {
+        ArrayAdapter<Sex> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sexArrayList);
         inputSex.setAdapter(adapterArray);
     }
 
-    private void createSpinnerData() {
+    private void setProvinceSpinner() {
+        ArrayAdapter<Province> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
+        inputProvince.setAdapter(adapterArray);
+    }
 
-        sexArray.add("ชาย");
-        sexArray.add("หญิง");
-
+    private void setDistrictSpinner() {
+        ArrayAdapter<District> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, districtArrayList);
+        inputDistric.setAdapter(adapterArray);
+        districtProgressBar.setVisibility(View.GONE);
+        districtLinearLayout.setVisibility(View.VISIBLE);
 
     }
+
+    private void setSubDistrictSpinner() {
+        ArrayAdapter<SubDistrict> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, subDistrictArrayList);
+        inputSubdistric.setAdapter(adapterArray);
+        subDistrictProgressBar.setVisibility(View.GONE);
+        subDistrictLinearLayout.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public void setUI() {
@@ -81,6 +235,21 @@ private Button nextBtn;
         inputTell = (EditText) findViewById(R.id.input_tell);
         inputOccupation = (Spinner) findViewById(R.id.input_occupation);
         inputEmail = (EditText) findViewById(R.id.input_email);
+
+        districtProgressBar = findViewById(R.id.progress_district);
+        subDistrictProgressBar = findViewById(R.id.progress_subdistrict);
+        districtLinearLayout = findViewById(R.id.layout_district);
+        subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
+        inputPostcode = findViewById(R.id.postcode);
+
+        inputProvince.setSelected(false);
+        inputProvince.setSelection(0, true);
+
+        inputDistric.setSelected(false);
+        inputDistric.setSelection(0, true);
+
+        inputSubdistric.setSelected(false);
+        inputSubdistric.setSelection(0, true);
     }
 
     public void onClick(View view) {
@@ -130,11 +299,16 @@ private Button nextBtn;
 
     @Override
     public void getData() {
-
+        progressDialog.show();
+        ConnectServer.getInstance().get(provinceListener, ConfigService.PROVINCE);
+        ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
     }
 
     @Override
     public void initProgressDialog() {
+        progressDialog = new ProgressDialog(RegisterPatientActivity.this);
+        progressDialog.setTitle(getString(R.string.loading));
+        progressDialog.setCanceledOnTouchOutside(false);
 
     }
 
