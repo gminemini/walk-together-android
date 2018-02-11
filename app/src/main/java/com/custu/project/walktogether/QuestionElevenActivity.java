@@ -19,11 +19,14 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
     private Button nextBtn;
     private EditText input_topicfour;
     private Intent intent;
+    private String   ans;
+    private TextView question_eleven;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_eleven);
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +81,13 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         input_topicfour = (EditText) findViewById(R.id.input_topicfour);
+        question_eleven = (TextView) findViewById(R.id.question_eleven);
+        question_eleven.setText(ans + " - 7 = ? ");
     }
 
     @Override
     public void getData() {
-
+        ans = getIntent().getStringExtra("EXTRA_ANS");
     }
 
     @Override

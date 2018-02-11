@@ -107,18 +107,15 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/answer_day"
+                <EditText
+                    android:id="@+id/input_six"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@drawable/shape_edittext">
-
-                </Spinner>
-
-
+                    android:background="@drawable/shape_edittext"
+                    android:hint="@string/pleaseinput"
+                    android:inputType="number" />
             </LinearLayout>
         </ScrollView>
 

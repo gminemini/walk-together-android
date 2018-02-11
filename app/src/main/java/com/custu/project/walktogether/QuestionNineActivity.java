@@ -54,6 +54,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionNineActivity.this, QuestionTenActivity.class);
                 dialog.dismiss();
+                intent.putExtra("EXTRA_ANS", input_topicfour.getText().toString());
                 startActivity(intent);
             }
         });

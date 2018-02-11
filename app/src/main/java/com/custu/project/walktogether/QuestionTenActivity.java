@@ -15,15 +15,20 @@ import android.widget.TextView;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
+import org.w3c.dom.Text;
+
 public class QuestionTenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
     private EditText input_topicfour;
     private Intent intent;
+    private String   ans;
+    private TextView question_ten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_ten);
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,7 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionTenActivity.this, QuestionElevenActivity.class);
                 dialog.dismiss();
+                intent.putExtra("EXTRA_ANS", input_topicfour.getText().toString());
                 startActivity(intent);
             }
         });
@@ -77,11 +83,14 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         input_topicfour = (EditText) findViewById(R.id.input_topicfour);
+        question_ten = (TextView) findViewById(R.id.question_ten);
+        question_ten.setText(ans + " - 7 = ? ");
+
     }
 
     @Override
     public void getData() {
-
+         ans = getIntent().getStringExtra("EXTRA_ANS");
     }
 
     @Override

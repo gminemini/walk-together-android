@@ -72,6 +72,7 @@
                 android:textSize="@dimen/TextSize" />
 
             <TextView
+                android:id="@+id/question_eleven"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -105,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/input_topicfour"
                     android:layout_width="match_parent"
@@ -112,7 +114,8 @@
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
                     android:background="@drawable/shape_edittext"
-                    android:hint="@string/pleaseinput" />
+                    android:hint="@string/pleaseinput"
+                    android:inputType="number" />
 
 
             </LinearLayout>
