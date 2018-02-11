@@ -39,7 +39,9 @@
         <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
+
         <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
+
         <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity" />
         <activity android:name="com.custu.project.walktogether.DrawImageActivity" />
         <activity
@@ -59,7 +61,13 @@
             android:label="@string/topics_name" />
         <activity
             android:name="com.custu.project.walktogether.QuestionEighteenActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.custu.project.walktogether.QuestionTwelveActivity"
             android:label="@string/topics_name" />
@@ -69,6 +77,7 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionNineActivity"
             android:label="@string/topics_name" />
+
         <activity
             android:name="com.custu.project.walktogether.QuestionTenActivity"
             android:label="@string/topics_name" />
@@ -106,13 +115,8 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
             android:name="com.custu.project.walktogether.ChoosemapActivity"

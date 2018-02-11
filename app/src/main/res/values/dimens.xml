@@ -17,7 +17,7 @@
     <dimen name="TextSizeBold_20sp">20sp</dimen>
     <dimen name="TextSize_Spinner">30sp</dimen>
     <dimen name="text_head_one">24sp</dimen>
-    <dimen name="text_head_two">40sp</dimen>
+    <dimen name="text_head_two">30sp</dimen>
     <dimen name="text_head_three">20sp</dimen>
     <dimen name="text_head_four">20sp</dimen>
     <dimen name="fab_margin">16dp</dimen>

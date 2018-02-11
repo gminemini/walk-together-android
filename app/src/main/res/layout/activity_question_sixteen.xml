@@ -74,55 +74,86 @@
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
-                android:text="จงแตะภาพด้านขวา"
+                android:text="จงแตะภาพที่อยู่ทางด้าน บนขวา"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="12dp"
-            android:padding="12dp"
-            android:layout_marginTop="@dimen/marginTop">
+            android:layout_marginTop="@dimen/marginTop"
+            android:orientation="vertical"
+            android:padding="12dp">
 
-            <ImageView
-                android:id="@+id/up"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/up" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/left"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/left" />
+                <LinearLayout
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
-            <ImageView
-                android:id="@+id/right"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/up"
-                android:layout_centerVertical="true"
-                android:src="@drawable/right" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pic2" />
 
-            <ImageView
-                android:id="@+id/down"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/down" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pic1" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pic3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pic4" />
+
+                </LinearLayout>
+            </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
