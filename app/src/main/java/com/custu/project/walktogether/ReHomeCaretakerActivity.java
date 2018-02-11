@@ -40,6 +40,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     public void setUI() {
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        openFragment(profileFragment);
     }
 
     public void setListener() {
