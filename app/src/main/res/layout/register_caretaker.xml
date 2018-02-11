@@ -188,26 +188,59 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="วัน/เดิอน/ปี ที่เกิด"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                    <EditText
-                        android:focusable="false"
-                        android:id="@+id/input_dob"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="วัน/เดิอน/ปี ที่เกิด"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <EditText
+                            android:focusable="false"
+                            android:id="@+id/input_dob"
+                            android:layout_width="1dp"
+                            android:layout_height="1dp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/day"
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height_edittext_40dp"/>
+
+                        <Spinner
+                            android:id="@+id/month"
+                            android:layout_weight="5"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height_edittext_40dp"/>
+                        <Spinner
+                            android:id="@+id/year"
+                            android:layout_weight="5"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height_edittext_40dp"/>
+                    </LinearLayout>
+
+
+                    <View
                         android:background="@drawable/shape_input_regis"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -215,7 +248,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
-
                     android:orientation="vertical">
 
                     <TextView
@@ -232,7 +264,6 @@
                         android:background="@drawable/shape_input_regis"
                         android:maxLines="1"
                         android:singleLine="true"
-
                         android:spinnerMode="dropdown">
 
                     </Spinner>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.custu.project.project.walktogether">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -84,7 +83,9 @@
             android:label="เลือกประเภทผู้ใช้" />
         <activity
             android:name="com.custu.project.walktogether.RegisterCaretakerActivity"
-            android:label="สมัครสมาชิก ผู้ดูแล" />
+            android:label="สมัครสมาชิก ผู้ดูแล" >
+
+        </activity>
         <activity android:name="com.custu.project.walktogether.ResultActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsTwoActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsThreeActivity" />
@@ -96,7 +97,13 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก " />
+            android:label="สมัครสมาชิก " >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />
@@ -121,11 +128,6 @@
         <activity
             android:name="com.custu.project.walktogether.ScanQRCodeActivity"
             android:screenOrientation="fullSensor">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
