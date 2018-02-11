@@ -1,5 +1,8 @@
 package com.custu.project.walktogether.util;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +34,7 @@ public class DateTHFormat {
         Date newDate = new Date();
         newDate.setDate(date.getDate());
         newDate.setMonth(date.getMonth());
-        newDate.setYear(date.getYear()+543);
+        newDate.setYear(date.getYear() + 543);
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH"));
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         return formatter.format(newDate);
@@ -61,6 +64,21 @@ public class DateTHFormat {
             return formatter.parse(dateString);
         } catch (ParseException e) {
             return new Date();
+        }
+    }
+
+    public Boolean validDate(Date date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            String day = String.valueOf(date.getDate());
+            String month = String.valueOf(date.getMonth());
+            String year = String.valueOf(date.getYear());
+            String dateString = day+"-"+month+"-"+year;
+            Date newDate = formatter.parse(dateString);
+            Log.d("date", "validDate: "+newDate);
+            return true;
+        } catch (ParseException e) {
+            return false;
         }
     }
 }

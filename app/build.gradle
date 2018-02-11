@@ -59,7 +59,7 @@ dependencies {
     compile 'com.r0adkll:slidableactivity:2.0.6'
     compile 'br.com.simplepass:loading-button-android:1.7.2'
     compile 'com.android.support:design:26.0.2'
-
+    compile 'com.journeyapps:zxing-android-embedded:3.5.0'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
