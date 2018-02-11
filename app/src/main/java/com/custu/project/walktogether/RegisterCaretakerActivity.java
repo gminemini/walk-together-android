@@ -34,6 +34,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
@@ -42,8 +43,10 @@ import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrListener;
 import com.r0adkll.slidr.model.SlidrPosition;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -66,6 +69,9 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private Spinner inputProvince;
     private Spinner inputDistric;
     private Spinner inputSubdistric;
+    private Spinner inputDay;
+    private Spinner inputMonth;
+    private Spinner inputYear;
     private EditText inputTell;
     private EditText inputOccupation;
     private EditText inputEmail;
@@ -85,11 +91,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private Long idProvince;
     private Long idDistrict;
     private Long idSubDistrict;
-
-    private boolean iSSex = false;
-    private boolean iSProvince = false;
-    private boolean iSDistrict = false;
-    private boolean iSSubDistrict = false;
 
     OnDataSuccessListener sexListener = new OnDataSuccessListener() {
         @Override
@@ -207,6 +208,27 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         Slidr.attach(this, SwipeBack.getInstance().confrig());
     }
 
+    private void setDobSpinner() {
+        ArrayAdapter<String> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerDay());
+        inputDay.setAdapter(adapterArray);
+
+        adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerMonth());
+        inputMonth.setAdapter(adapterArray);
+
+        adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerYear());
+        inputYear.setAdapter(adapterArray);
+
+        inputDay.setSelected(false);
+        inputDay.setSelection(0, true);
+
+        inputMonth.setSelected(false);
+        inputMonth.setSelection(0, true);
+
+        inputYear.setSelected(false);
+        inputYear.setSelection(0, true);
+
+    }
+
     private void setSexSpinner() {
         ArrayAdapter<Sex> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sexArrayList);
         inputSex.setAdapter(adapterArray);
@@ -256,6 +278,10 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
         inputPostcode = findViewById(R.id.postcode);
 
+        inputDay = findViewById(R.id.day);
+        inputMonth = findViewById(R.id.month);
+        inputYear = findViewById(R.id.year);
+
         circularProgressButton = findViewById(R.id.register_button);
         circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
 
@@ -267,28 +293,11 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
         inputSubdistric.setSelected(false);
         inputSubdistric.setSelection(0, true);
+        setDobSpinner();
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.input_dob: {
-                DatePickerDialog datePickerIssue = new DatePickerDialog(RegisterCaretakerActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        updateLabel(inputDob);
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerIssue.show();
-                break;
-            }
-            case R.id.next: {
-                if (validate()) {
-                    register();
-                }
-            }
             case R.id.register_button: {
                 if (validate()) {
                     circularProgressButton.startAnimation();
@@ -315,9 +324,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 districtLinearLayout.setVisibility(View.GONE);
                 idProvince = provinceArrayList.get(i).getId();
                 ConnectServer.getInstance().get(districtListener, ConfigService.DISTRICT + idProvince);
-                iSProvince = true;
-                iSDistrict = false;
-                iSSubDistrict = false;
             }
 
             @Override
@@ -333,8 +339,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 subDistrictLinearLayout.setVisibility(View.GONE);
                 idDistrict = districtArrayList.get(i).getId();
                 ConnectServer.getInstance().get(subDistrictListener, ConfigService.SUB_DISTRICT + idDistrict);
-                iSDistrict = true;
-                iSSubDistrict = false;
             }
 
             @Override
@@ -347,7 +351,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 idSubDistrict = subDistrictArrayList.get(i).getId();
-                iSSubDistrict = true;
                 inputPostcode.setText(subDistrictArrayList.get(i).getZipCode());
             }
 
@@ -370,10 +373,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         });
 
         progressDialog.dismiss();
-    }
-
-    private void updateLabel(EditText editText) {
-        editText.setText(DateTHFormat.getInstance().normalDateFormatPlus(calendar.getTime()));
     }
 
     @Override
@@ -436,13 +435,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             inputLastname.setFocusable(true);
         }
 
-
-        if (inputDob.length() == 0) {
-            inputDob.setError("กรุณาใส่วันเกิด");
-            inputDob.setFocusable(true);
-        }
-
-
         if (inputAddress.length() == 0) {
             inputAddress.setError("กรุณาใส่ที่อยู่");
             inputAddress.setFocusable(true);
@@ -462,7 +454,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             inputEmail.setFocusable(true);
         }
 
-
         if (inputEmail.length() > 0)
             if (!isEmailValid(inputEmail.getText().toString())) {
                 inputEmail.setError("อีเมลไม่ตถูกต้อง");
@@ -477,14 +468,28 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputDob.length() != 0 &&
                 inputAddress.length() != 0 &&
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
                 isEmailValid(inputEmail.getText().toString());
+    }
 
+    private String getDob() {
+        String dobString;
+        dobString = inputDay.getSelectedItem().toString() + " "
+                + inputMonth.getSelectedItem().toString() + " "
+                + inputYear.getSelectedItem().toString();
+        return dobString;
+    }
+
+    private Date getDobDate() {
+        Date date = new Date();
+        date.setDate(inputDay.getSelectedItemPosition()+1);
+        date.setMonth(inputMonth.getSelectedItemPosition()+1);
+        date.setYear(Integer.parseInt(inputYear.getSelectedItem().toString())-543);
+        return date;
     }
 
     private void register() {
@@ -495,7 +500,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         jsonObject.addProperty("firstName", inputFirstname.getText().toString().trim());
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);
-        jsonObject.addProperty("dob", inputDob.getText().toString().trim());
+        jsonObject.addProperty("dob", getDob());
         jsonObject.addProperty("address", inputAddress.getText().toString().trim());
         jsonObject.addProperty("provinceId", idProvince);
         jsonObject.addProperty("districtId", idDistrict);

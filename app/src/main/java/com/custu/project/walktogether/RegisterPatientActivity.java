@@ -36,6 +36,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
@@ -77,6 +78,10 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private LinearLayout districtLinearLayout;
     private LinearLayout subDistrictLinearLayout;
     private CircularProgressButton circularProgressButton;
+
+    private Spinner inputDay;
+    private Spinner inputMonth;
+    private Spinner inputYear;
 
     private ArrayList<Sex> sexArrayList = new ArrayList<>();
     private ArrayList<Province> provinceArrayList = new ArrayList<>();
@@ -269,6 +274,32 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
         inputSubdistric.setSelected(false);
         inputSubdistric.setSelection(0, true);
+
+        inputDay = findViewById(R.id.day);
+        inputMonth = findViewById(R.id.month);
+        inputYear = findViewById(R.id.year);
+        setDobSpinner();
+    }
+
+    private void setDobSpinner() {
+        ArrayAdapter<String> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerDay());
+        inputDay.setAdapter(adapterArray);
+
+        adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerMonth());
+        inputMonth.setAdapter(adapterArray);
+
+        adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, InitSpinnerDob.getInstance().createSpinnerYear());
+        inputYear.setAdapter(adapterArray);
+
+        inputDay.setSelected(false);
+        inputDay.setSelection(0, true);
+
+        inputMonth.setSelected(false);
+        inputMonth.setSelection(0, true);
+
+        inputYear.setSelected(false);
+        inputYear.setSelection(0, true);
+
     }
 
     public void onClick(View view) {
@@ -479,14 +510,12 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputDob.length() != 0 &&
                 inputAddress.length() != 0 &&
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
                 isEmailValid(inputEmail.getText().toString());
-
     }
 
     private void register() {
