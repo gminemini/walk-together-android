@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -62,7 +63,7 @@
             android:label="@string/topics_name" />
         <activity
             android:name="com.custu.project.walktogether.QuestionEighteenActivity"
-            android:label="@string/topics_name"/>
+            android:label="@string/topics_name" />
 
         <activity
             android:name="com.custu.project.walktogether.QuestionTwelveActivity"
@@ -84,7 +85,7 @@
             android:label="เลือกประเภทผู้ใช้" />
         <activity
             android:name="com.custu.project.walktogether.RegisterCaretakerActivity"
-            android:label="สมัครสมาชิก ผู้ดูแล" >
+            android:label="สมัครสมาชิก ผู้ดูแล">
 
         </activity>
         <activity android:name="com.custu.project.walktogether.ResultActivity" />
@@ -98,12 +99,8 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก " >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="สมัครสมาชิก ">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
@@ -111,23 +108,17 @@
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
         <activity
             android:name="com.custu.project.walktogether.ProfileActivity"
-            android:label="บัญชีผู้ใช้"></activity>
+            android:label="บัญชีผู้ใช้" />
         <activity
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
-        <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
-        <activity
-            android:name="com.custu.project.walktogether.ChoosemapActivity"
-            android:label="กรุณาเลือกแผนที่" />
-        <activity
-            android:name="com.custu.project.walktogether.EditprofileActivity"
-            android:label="แก้ไขบัญชีผู้ใช้" />
-        <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity">
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
@@ -136,10 +127,11 @@
         <activity
             android:name="com.custu.project.walktogether.EditprofileActivity"
             android:label="แก้ไขบัญชีผู้ใช้" />
+        <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
+
         <activity
             android:name="com.custu.project.walktogether.ScanQRCodeActivity"
-            android:screenOrientation="fullSensor">
-        </activity>
+            android:screenOrientation="fullSensor"/>
     </application>
 
 </manifest>
