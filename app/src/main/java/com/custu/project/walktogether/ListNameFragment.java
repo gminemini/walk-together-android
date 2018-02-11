@@ -62,7 +62,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
             int status = object.get("status").getAsInt();
             if (status == 200) {
                 caretaker = CaretakerModel.getInstance().getCaretaker(object);
-                setDataUser();
             } else {
                 ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
             }
@@ -236,13 +235,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
         PatientAdapter patientAdapter = new PatientAdapter(context, patientArrayList);
         listView.setMenuCreator(creator);
         listView.setAdapter(patientAdapter);
-    }
-
-    public void setDataUser() {
-        TextView nameTextView = view.findViewById(R.id.name);
-        CircleImageView circleImageView = view.findViewById(R.id.image);
-        nameTextView.setText("คุณ" + caretaker.getFirstName() + " " + caretaker.getLastName());
-        PicassoUtil.getInstance().setImage(context, caretaker.getImage(), circleImageView);
     }
 
     @Override

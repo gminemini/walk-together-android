@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 Intent intent;
                 if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
-                    intent = new Intent(SplashScreenActivity.this, HomeCaretakerActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
                 } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
                     intent = new Intent(SplashScreenActivity.this, HomeActivity.class);

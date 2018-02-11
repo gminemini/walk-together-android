@@ -23,7 +23,10 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homecaretaker);
+        setUI();
+        setListener();
     }
 
     @Override
