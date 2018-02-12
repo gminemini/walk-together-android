@@ -24,7 +24,10 @@ public class ScanQRCodeActivity extends AppCompatActivity {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent();
+                intent.putExtra("patientNumber", result.getContents());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -42,9 +42,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener{
     private View view;
     private FragmentActivity context;
@@ -116,7 +113,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
     };
 
     public ListNameFragment() {
-        // Required empty public constructor
     }
 
     @Override

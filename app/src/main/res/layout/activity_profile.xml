@@ -401,6 +401,43 @@
                                 android:singleLine="true"
                                 android:textSize="@dimen/TextSizeBold_20sp" />
 
+                            <RelativeLayout
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/number_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="หมายเลขผู้ป่วย"
+                                    android:textColor="@color/colorBackground"
+                                    android:textSize="@dimen/TextSizeBold_20sp" />
+
+                                <TextView
+                                    android:layout_below="@+id/number_text"
+                                    android:id="@+id/number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/shape_input_regis"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:textSize="@dimen/TextSizeBold_20sp" />
+
+                                <Button
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
+                                    android:id="@+id/qrcode"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="24dp"
+                                    android:background="@drawable/shapebutton_blue"
+                                    android:text="QR CODE"
+                                    android:textColor="@color/colorOffwhite"
+                                    android:textSize="@dimen/TextSize" />
+
+                            </RelativeLayout>
+
                             <Button
                                 android:id="@+id/logout"
                                 android:layout_width="match_parent"

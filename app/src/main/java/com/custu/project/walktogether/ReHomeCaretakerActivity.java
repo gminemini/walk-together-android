@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -19,6 +21,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     private ListNameFragment listNameFragment = new ListNameFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private BottomNavigationView bottomNavigationView;
+    private ImageView addImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +46,13 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     public void setUI() {
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        addImageView = findViewById(R.id.add);
         openFragment(profileFragment);
     }
 
     public void setListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        addImageView.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +83,10 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
             case R.id.item_favorite:
                 bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 openFragment(listNameFragment);
+                return true;
+            case R.id.add:
+                Intent intent = new Intent(ReHomeCaretakerActivity.this, AddPatientAcctivity.class);
+                startActivity(intent);
                 return true;
         }
         return false;
