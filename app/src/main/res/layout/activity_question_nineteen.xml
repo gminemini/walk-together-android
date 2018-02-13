@@ -108,24 +108,28 @@
                     android:layout_height="0dp">
 
                     <RadioButton
+                        android:text="ต้นไม้ รถยนต์ มือ"
                         android:layout_weight="25"
                         android:id="@+id/radio1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="ต้นไม้ ปากกา มือ"
                         android:layout_weight="25"
                         android:id="@+id/radio2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="ต้นไม้ เก้าอี้ โต๊ะ"
                         android:layout_weight="25"
                         android:id="@+id/radio3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="รถยนต์ ต้นไม้ ท้องฟ้า"
                         android:layout_weight="25"
                         android:id="@+id/radio4"
                         android:layout_width="match_parent"

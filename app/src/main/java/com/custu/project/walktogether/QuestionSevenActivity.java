@@ -88,12 +88,14 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
             mediaPlayer.setOnCompletionListener(this);
 
         } else {
-            isPlaying = false;
             stopPlaying();
         }
     }
 
     private void stopPlaying() {
+        playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.speaker));
+        isPlaying = false;
+        progressDialog.dismiss();
         mediaPlayer.release();
     }
 
