@@ -31,6 +31,7 @@ public class Patient {
     private String age;
     private String level;
     private String frequency;
+    private String qrCode;
 
     public Long getId() {
         return id;
@@ -190,5 +191,13 @@ public class Patient {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 }

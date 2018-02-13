@@ -32,6 +32,7 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
     private EditText inputNumber;
     private Button addButton;
     private Button searchButton;
+    private Button scanQrCode;
     private PullRefreshLayout pullRefreshLayout;
     private LinearLayout resultLayout;
     private ImageView imageView;
@@ -83,7 +84,6 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
         setContentView(R.layout.activity_add_user);
         initValue();
         setUI();
-        setListener();
     }
 
     @Override
@@ -103,6 +103,8 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
         inputNumber = findViewById(R.id.number);
         searchButton = findViewById(R.id.search);
         notFoundTextView = findViewById(R.id.not_found);
+        scanQrCode = findViewById(R.id.scan_qr_code);
+        setListener();
     }
 
     private void setDataToUi() {
@@ -149,18 +151,20 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
     private void setListener() {
         addButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
+        scanQrCode.setOnClickListener(this);
     }
 
-    private void addUser() {
+    private void addUser(String patientNumber) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idCaretaker", caretaker.getId());
-        jsonObject.addProperty("patientNumber", inputNumber.getText().toString().trim());
+        jsonObject.addProperty("patientNumber", patientNumber);
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 int status = object.get("status").getAsInt();
                 if (status == 200) {
-                    Intent intent = new Intent(AddPatientAcctivity.this, HomeCaretakerActivity.class);
+                    Intent intent = new Intent(AddPatientAcctivity.this, ReHomeCaretakerActivity.class);
+                    intent.putExtra("page","list");
                     startActivity(intent);
                 } else {
                     notFoundTextView.setVisibility(View.VISIBLE);
@@ -208,10 +212,24 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
                 break;
             }
             case R.id.add_user: {
-                addUser();
+                addUser(inputNumber.getText().toString().trim());
+                break;
+            }
+            case R.id.scan_qr_code: {
+                Intent intent = new Intent(this, QrCodeActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             }
 
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                addUser(data.getStringExtra("patientNumber"));
+            }
         }
     }
 }

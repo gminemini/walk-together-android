@@ -150,7 +150,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                         public void run() {
                                             caretaker = CaretakerModel.getInstance().getCaretaker(object);
                                             UserManager.getInstance(LoginActivity.this).storeCaretaker(caretaker);
-                                            Intent intent = new Intent(LoginActivity.this, HomeCaretakerActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, ReHomeCaretakerActivity.class);
                                             startActivity(intent);
                                         }
                                     }, 700);

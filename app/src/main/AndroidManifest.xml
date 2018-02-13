@@ -64,7 +64,6 @@
         <activity
             android:name="com.custu.project.walktogether.QuestionEighteenActivity"
             android:label="@string/topics_name" />
-
         <activity
             android:name="com.custu.project.walktogether.QuestionTwelveActivity"
             android:label="@string/topics_name" />
@@ -85,9 +84,7 @@
             android:label="เลือกประเภทผู้ใช้" />
         <activity
             android:name="com.custu.project.walktogether.RegisterCaretakerActivity"
-            android:label="สมัครสมาชิก ผู้ดูแล">
-
-        </activity>
+            android:label="สมัครสมาชิก ผู้ดูแล"></activity>
         <activity android:name="com.custu.project.walktogether.ResultActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsTwoActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsThreeActivity" />
@@ -99,9 +96,7 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก ">
-
-        </activity>
+            android:label="สมัครสมาชิก "></activity>
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />
@@ -113,7 +108,7 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -128,10 +123,7 @@
             android:name="com.custu.project.walktogether.EditprofileActivity"
             android:label="แก้ไขบัญชีผู้ใช้" />
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
-
-        <activity
-            android:name="com.custu.project.walktogether.ScanQRCodeActivity"
-            android:screenOrientation="fullSensor"/>
+        <activity android:name="com.custu.project.walktogether.QrCodeActivity"></activity>
     </application>
 
 </manifest>

@@ -28,9 +28,6 @@ import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -228,7 +225,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
         TextView nameTextView = findViewById(R.id.name);
         CircleImageView circleImageView = findViewById(R.id.image);
         nameTextView.setText("คุณ" + caretaker.getFirstName() + " " + caretaker.getLastName());
-        PicassoUtil.getInstance().setImage(HomeCaretakerActivity.this, caretaker.getImage(), circleImageView);
+        PicassoUtil.getInstance().setImageProfile(HomeCaretakerActivity.this, caretaker.getImage(), circleImageView);
     }
 
     @Override

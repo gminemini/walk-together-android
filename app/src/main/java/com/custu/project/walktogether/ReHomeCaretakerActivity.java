@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -19,16 +21,15 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     private ListNameFragment listNameFragment = new ListNameFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private BottomNavigationView bottomNavigationView;
+    private ImageView addImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homecaretaker);
-    }
-
-    @Override
-    public void onClick(View v) {
-
+        setUI();
+        setListener();
     }
 
     @Override
@@ -40,10 +41,21 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     public void setUI() {
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        addImageView = findViewById(R.id.add);
+        if (getIntent().getStringExtra("page")!=null) {
+            String page = getIntent().getStringExtra("page");
+            if (page.equalsIgnoreCase("profile"))
+                openFragment(profileFragment);
+            if (page.equalsIgnoreCase("list"))
+                openFragment(listNameFragment);
+        } else {
+            openFragment(profileFragment);
+        }
     }
 
     public void setListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        addImageView.setOnClickListener(this);
     }
 
     @Override
@@ -77,5 +89,16 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.add:
+                Intent intent = new Intent(ReHomeCaretakerActivity.this, AddPatientAcctivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
