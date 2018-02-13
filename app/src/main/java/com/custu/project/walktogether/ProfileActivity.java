@@ -76,9 +76,7 @@ public class ProfileActivity extends AppCompatActivity implements BasicActivity,
         logout = findViewById(R.id.logout);
         qrCodeButton = findViewById(R.id.qrcode);
         patientNumber = findViewById(R.id.number);
-
         patientNumber.setText(patient.getPatientNumber());
-
     }
 
     @Override

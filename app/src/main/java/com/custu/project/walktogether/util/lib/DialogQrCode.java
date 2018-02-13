@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.PicassoUtil;
@@ -43,8 +42,7 @@ public class DialogQrCode {
                 dialog.dismiss();
             }
         });
-        LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
+        close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

@@ -102,7 +102,7 @@ public class HomeActivity extends Activity implements BasicActivity, View.OnClic
         nameTextView = findViewById(R.id.name);
         circleImageView = findViewById(R.id.image);
         nameTextView.setText("คุณ" + patient.getFirstName() + " " + patient.getLastName());
-        PicassoUtil.getInstance().setImage(HomeActivity.this, patient.getImage(), circleImageView);
+        PicassoUtil.getInstance().setImageProfile(HomeActivity.this, patient.getImage(), circleImageView);
         setListener();
     }
 

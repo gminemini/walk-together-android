@@ -84,7 +84,6 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
         setContentView(R.layout.activity_add_user);
         initValue();
         setUI();
-        setListener();
     }
 
     @Override
@@ -105,6 +104,7 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
         searchButton = findViewById(R.id.search);
         notFoundTextView = findViewById(R.id.not_found);
         scanQrCode = findViewById(R.id.scan_qr_code);
+        setListener();
     }
 
     private void setDataToUi() {
@@ -164,6 +164,7 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
                 int status = object.get("status").getAsInt();
                 if (status == 200) {
                     Intent intent = new Intent(AddPatientAcctivity.this, ReHomeCaretakerActivity.class);
+                    intent.putExtra("page","list");
                     startActivity(intent);
                 } else {
                     notFoundTextView.setVisibility(View.VISIBLE);
@@ -215,7 +216,7 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
                 break;
             }
             case R.id.scan_qr_code: {
-                Intent intent = new Intent(this, ScanQRCodeActivity.class);
+                Intent intent = new Intent(this, QrCodeActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             }

@@ -33,11 +33,6 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
     public void initValue() {
 
     }
@@ -47,7 +42,15 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         addImageView = findViewById(R.id.add);
-        openFragment(profileFragment);
+        if (getIntent().getStringExtra("page")!=null) {
+            String page = getIntent().getStringExtra("page");
+            if (page.equalsIgnoreCase("profile"))
+                openFragment(profileFragment);
+            if (page.equalsIgnoreCase("list"))
+                openFragment(listNameFragment);
+        } else {
+            openFragment(profileFragment);
+        }
     }
 
     public void setListener() {
@@ -84,11 +87,18 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 openFragment(listNameFragment);
                 return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
             case R.id.add:
                 Intent intent = new Intent(ReHomeCaretakerActivity.this, AddPatientAcctivity.class);
                 startActivity(intent);
-                return true;
+                break;
         }
-        return false;
     }
 }

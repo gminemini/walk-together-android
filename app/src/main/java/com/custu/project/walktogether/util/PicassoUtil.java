@@ -22,7 +22,7 @@ public class PicassoUtil {
         return instance;
     }
 
-    public void setImage(Context context, String path, ImageView imageView) {
+    public void setImageProfile(Context context, String path, ImageView imageView) {
         if (path != null) {
             Picasso.with(context).invalidate(ConfigService.BASE_URL_IMAGE + path);
             Picasso.with(context)
@@ -38,6 +38,29 @@ public class PicassoUtil {
                     .load(R.drawable.avatar)
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(imageView);
+        }
+
+    }
+
+    public void setImage(Context context, String path, ImageView imageView) {
+        if (path != null) {
+            Picasso.with(context).invalidate(ConfigService.BASE_URL_IMAGE + path);
+            Picasso.with(context)
+                    .load(ConfigService.BASE_URL_IMAGE + path)
+                    .placeholder(R.drawable.loading_gear)
+                    .error(R.drawable.image_not_found)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(imageView);
+
+        } else {
+            Picasso.with(context)
+                    .load(R.drawable.loading_gear)
+                    .placeholder(R.drawable.loading_gear)
+                    .error(R.drawable.image_not_found)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .into(imageView);
