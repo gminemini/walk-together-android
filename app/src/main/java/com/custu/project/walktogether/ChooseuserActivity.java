@@ -27,25 +27,6 @@ public class ChooseuserActivity extends AppCompatActivity implements  BasicActiv
 
     }
 
-
-//    public void onRadioButtonClicked(View view) {
-//        checked = ((RadioButton) view).isChecked();
-//        switch (view.getId()) {
-//            case R.id.radio_patient:
-//                if (checked) {
-//                        checktype = "1";
-//                }
-//
-//                break;
-//            case R.id.radio_care:
-//                if (checked) {
-//                    checktype = "2";
-//                }
-//
-//                break;
-//        }
-//    }
-
     @Override
     public void initValue() {
 
@@ -68,7 +49,6 @@ public class ChooseuserActivity extends AppCompatActivity implements  BasicActiv
 
     }
     private void setListener() {
-//        nextBtn.setOnClickListener(this);
         patientBtn.setOnClickListener(this);
         careBtn.setOnClickListener(this);
 
@@ -79,13 +59,13 @@ public class ChooseuserActivity extends AppCompatActivity implements  BasicActiv
             case  R.id.patientbtn:{
                 Intent intent = new Intent(ChooseuserActivity.this, TopicsOneActivity.class);
                 startActivity(intent);
+                break;
             }
             case  R.id.caretakerbtn:{
                 Intent intent = new Intent(ChooseuserActivity.this, RegisterCaretakerActivity.class);
                 startActivity(intent);
+                break;
             }
-
-
         }
     }
 }

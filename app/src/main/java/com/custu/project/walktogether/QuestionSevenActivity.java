@@ -1,6 +1,5 @@
 package com.custu.project.walktogether;
-
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -11,15 +10,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
-import com.custu.project.walktogether.util.ProgressDialogCustom;
 
 
-public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, MediaPlayer.OnCompletionListener {
+    private ProgressDialog progressDialog;
+
     private boolean isPlaying;
-    private MediaPlayer mp;
+    private MediaPlayer mediaPlayer;
     private String pathSound;
     private Button nextBtn;
 
@@ -32,17 +33,24 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_question7);
         initValue();
+        initProgress();
         setUI();
-
         setUI();
         setListener();
+
+    }
+
+    private void initProgress() {
+        progressDialog = new ProgressDialog(QuestionSevenActivity.this);
+        progressDialog.setTitle("รอสักครู่...");
+        progressDialog.setCanceledOnTouchOutside(false);
 
     }
 
     @Override
     public void initValue() {
         isPlaying = false;
-        mp = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
         pathSound = "http://159.65.10.67:8181/audio/question/recall/14/5/1517736789671.mp3";
     }
 
@@ -64,16 +72,21 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     }
 
     public void playSound() {
+        progressDialog.show();
+        playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
         if (!isPlaying) {
-            playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
             isPlaying = true;
-            MediaPlayer player = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
-            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            mediaPlayer = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    progressDialog.dismiss();
                     mp.start();
                 }
             });
+
+            mediaPlayer.setOnCompletionListener(this);
+
         } else {
             isPlaying = false;
             stopPlaying();
@@ -81,7 +94,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     }
 
     private void stopPlaying() {
-        mp.release();
+        mediaPlayer.release();
     }
 
     @Override
@@ -102,8 +115,8 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (ProgressDialogCustom.getInstance(QuestionSevenActivity.this) != null && ProgressDialogCustom.getInstance(QuestionSevenActivity.this).isShowing()) {
-            ProgressDialogCustom.getInstance(QuestionSevenActivity.this).cancel();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
         }
     }
 
@@ -111,5 +124,10 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         nextBtn.setOnClickListener(this);
     }
 
-
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.speaker));
+        isPlaying = false;
+        stopPlaying();
+    }
 }
