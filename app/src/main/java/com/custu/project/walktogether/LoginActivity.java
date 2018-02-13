@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,15 +24,18 @@ import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.PatientModel;
+import com.custu.project.walktogether.network.NetworkManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.fabric.sdk.android.services.network.NetworkUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -62,7 +68,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         registerBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
-
+        findViewById(R.id.logo).setOnClickListener(this);
     }
 
     public void onClick(View view) {
@@ -72,11 +78,14 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                 startActivity(intent);
                 break;
             }
-
             case R.id.login: {
-                if (validate()) {
-                    login();
-                }
+                if (NetworkUtil.isOnline(LoginActivity.this, loginBtn))
+                    if (validate())
+                        login();
+            }
+            case R.id.logo: {
+                startActivity(new Intent(LoginActivity.this, MapsActivity.class));
+                break;
             }
             case R.id.sign_in: {
                 if (validate()) {
@@ -193,17 +202,26 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
             @Override
             public void onBodyError(ResponseBody responseBodyError) {
-
+                Snackbar.make(registerBtn, "onBodyError", Snackbar.LENGTH_LONG).show();
             }
 
             @Override
             public void onBodyErrorIsNull() {
-
+                Snackbar.make(registerBtn, "onBodyErrorIsNull", Snackbar.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Throwable t) {
-
+            public void onFailure(Throwable t) {circularProgressButton.startAnimation();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        circularProgressButton.revertAnimation();
+                        circularProgressButton.setText("เข้าสู่ระบบ");
+                        circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                        circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
+                    }
+                }, 1000);
+                Snackbar.make(registerBtn, "กรุณาตรวจสอบการเชื่อมต่อเครือข่าย", Snackbar.LENGTH_LONG).show();
             }
         }, ConfigService.LOGIN, jsonObject);
 
