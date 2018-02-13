@@ -117,24 +117,28 @@
                     android:layout_height="0dp">
 
                     <RadioButton
+                        android:text="ยายพาหลานไปตลาด"
                         android:layout_weight="25"
                         android:id="@+id/radio1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="หลานพายายไปตลาด"
                         android:layout_weight="25"
                         android:id="@+id/radio2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="ลุงพายายไปตลาด"
                         android:layout_weight="25"
                         android:id="@+id/radio3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
+                        android:text="หลานพาลุงไปเที่ยว"
                         android:layout_weight="25"
                         android:id="@+id/radio4"
                         android:layout_width="match_parent"
