@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
 
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private FrameLayout content;
@@ -56,6 +57,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     public void setListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         addImageView.setOnClickListener(this);
+        findViewById(R.id.logout).setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +99,11 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         switch (id) {
             case R.id.add:
                 Intent intent = new Intent(ReHomeCaretakerActivity.this, AddPatientAcctivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                UserManager.getInstance(ReHomeCaretakerActivity.this).removeCaretaker();
+                intent = new Intent(ReHomeCaretakerActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -9,6 +9,12 @@ public class ConfigService {
     public static final String BASE_URL = "http://159.65.10.67:8181/api/v1/";
     public static final String BASE_URL_IMAGE = "http://159.65.10.67:8181/";
 
+    //Google MAp API Key
+    public static final String GOOGLE_API_KEY = "AIzaSyButAs0BAr5u7HX75zLiwr9rqWVSRTCFmc";
+
+    //Log
+    public static final String LOG_KEY = "4257bd93-053b-489e-aba5-19abb78fcc36";
+
     //Master
     public static final String SEX = "sex/";
     public static final String PROVINCE = "province/";

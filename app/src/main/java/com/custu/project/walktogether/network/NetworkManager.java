@@ -26,8 +26,8 @@ public class NetworkManager {
                 .create();
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(20000, TimeUnit.SECONDS)
-                .readTimeout(20000, TimeUnit.SECONDS).build();
+                .connectTimeout(10000, TimeUnit.SECONDS)
+                .readTimeout(10000, TimeUnit.SECONDS).build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(ConfigService.BASE_URL)
