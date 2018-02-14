@@ -103,6 +103,8 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 break;
             case R.id.logout:
                 UserManager.getInstance(ReHomeCaretakerActivity.this).removeCaretaker();
+                intent = new Intent(ReHomeCaretakerActivity.this, LoginActivity.class);
+                startActivity(intent);
                 break;
         }
     }

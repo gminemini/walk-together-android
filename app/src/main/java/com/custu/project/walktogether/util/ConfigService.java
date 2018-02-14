@@ -12,6 +12,9 @@ public class ConfigService {
     //Google MAp API Key
     public static final String GOOGLE_API_KEY = "AIzaSyButAs0BAr5u7HX75zLiwr9rqWVSRTCFmc";
 
+    //Log
+    public static final String LOG_KEY = "4257bd93-053b-489e-aba5-19abb78fcc36";
+
     //Master
     public static final String SEX = "sex/";
     public static final String PROVINCE = "province/";

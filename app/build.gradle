@@ -66,6 +66,7 @@ dependencies {
     compile 'com.akexorcist:googledirectionlibrary:1.1.1'
     compile 'com.google.android.gms:play-services-location:11.8.0'
     compile 'com.google.android.gms:play-services-base:11.8.0'
+    compile 'com.github.tony19:timber-loggly:1.0.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }
