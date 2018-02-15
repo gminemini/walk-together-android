@@ -30,6 +30,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -76,7 +77,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
         @Override
         public void onFailure(Throwable t) {
-
+            NetworkUtil.isOnline(context, listView);
+            pullRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -108,7 +110,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
         @Override
         public void onFailure(Throwable t) {
-
+            NetworkUtil.isOnline(context, listView);
+            pullRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -126,6 +129,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_listname, container, false);
+        listView = view.findViewById(R.id.list_patient);
         initValue();
         getDataUser();
         initProgressDialog();
@@ -214,7 +218,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
                             @Override
                             public void onFailure(Throwable t) {
-
+                                NetworkUtil.isOnline(context, listView);
+                                pullRefreshLayout.setRefreshing(false);
                             }
                         }, ConfigService.MATCHING
                                 + ConfigService.MATCHING_REMOVE_PATIENT

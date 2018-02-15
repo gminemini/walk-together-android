@@ -37,6 +37,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.InitSpinnerDob;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
@@ -323,15 +324,16 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 }
             }
             case R.id.register_button: {
-                if (validate()) {
-                    circularProgressButton.startAnimation();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            register();
-                        }
-                    }, 1500);
-                }
+                if (NetworkUtil.isOnline(RegisterPatientActivity.this, circularProgressButton))
+                    if (validate()) {
+                        circularProgressButton.startAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                register();
+                            }
+                        }, 1500);
+                    }
             }
         }
     }
@@ -601,7 +603,23 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
             @Override
             public void onFailure(Throwable t) {
+                NetworkUtil.isOnline(RegisterPatientActivity.this, circularProgressButton);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        circularProgressButton.startAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                circularProgressButton.revertAnimation();
+                                circularProgressButton.setText("ตกลง");
+                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                            }
+                        }, 1000);
 
+                    }
+                }, 2000);
             }
         }, ConfigService.PATIENT, jsonObject);
 

@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -72,7 +73,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     }
 
     public void playSound() {
-        progressDialog.show();
+        final AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
         if (!isPlaying) {
             isPlaying = true;
@@ -81,6 +82,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     progressDialog.dismiss();
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
                     mp.start();
                 }
             });
@@ -105,6 +107,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
         switch (id) {
             case R.id.play_sound:
+                progressDialog.show();
                 playSound();
                 break;
             case R.id.next: {

@@ -77,6 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private StepDetector simpleStepDetector;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
+    private SensorManager sensorManager;
+    private Sensor angle;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -101,43 +103,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initStepCounter() {
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        Sensor angle = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        angle = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
 
         numSteps = 0;
         sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    private void testPlay() {
-        new CountDownTimer(30000, 5000) {
-            public void onTick(long millisUntilFinished) {
-                if (i < wayPoints.size()) {
-                    double latitude = wayPoints.get(i).latitude;
-                    double longitude = wayPoints.get(i).longitude;
-                    LatLng latLng = new LatLng(latitude, longitude);
-                    Log.d("onTick: ", "onTick: " + latitude + " WORKS " + longitude + " " + i);
-
-                    PolylineOptions pOptions = new PolylineOptions()
-                            .width(20)
-                            .color(Color.GREEN)
-                            .geodesic(true);
-                    routePoints.add(latLng);
-
-                    for (int z = 0; z < routePoints.size(); z++) {
-                        LatLng point = routePoints.get(z);
-                        pOptions.add(point);
-                    }
-                    Polyline line = googleMap.addPolyline(pOptions);
-                    i++;
-                }
-            }
-
-            public void onFinish() {
-
-            }
-        }.start();
     }
 
     private void initLocation() {
@@ -257,6 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
+        sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     @Override
@@ -266,6 +239,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        sensorManager.unregisterListener(this);
 
     }
 
@@ -309,12 +283,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         PolylineOptions pOptions = new PolylineOptions()
-                .width(5)
+                .width(18)
                 .color(Color.GREEN)
                 .geodesic(true);
         routePoints.add(latLng);
-        Timber.tag("route");
-        Timber.i(routePoints.toString());
         Toast.makeText(this, TEXT_NUM_STEPS + numSteps + " " + currentLatitude + " Changed " + currentLongitude + " "+routePoints.size(), Toast.LENGTH_LONG).show();
 
         for (int z = 0; z < routePoints.size(); z++) {
