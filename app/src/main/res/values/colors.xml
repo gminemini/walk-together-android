@@ -18,4 +18,8 @@
     <color name="colorRed">#9f1019</color>
     <color name="colorComplete">#37ab38</color>
 
+    <color name="blackAlpha">#8C000000</color>
+    <color name="blackGradient">#8C000000</color>
+    <color name="blackCenterGradient">#0D000000</color>
+
 </resources>

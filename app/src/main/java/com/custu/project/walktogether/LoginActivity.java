@@ -84,7 +84,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                         login();
             }
             case R.id.logo: {
-                startActivity(new Intent(LoginActivity.this, MapsActivity.class));
+                startActivity(new Intent(LoginActivity.this, ChoosemapActivity.class));
                 break;
             }
             case R.id.sign_in: {
