@@ -154,14 +154,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             destination = new LatLng(13.724311, 100.588984);
         } else if (getIntent().getStringExtra("map").equalsIgnoreCase("lc2")) {
-            origin = new LatLng(14.073970, 100.605579);
+            origin = new LatLng(14.074194, 100.606260);
             wayPoints = Arrays.asList(
-                    new LatLng(14.074451, 100.605604),
-                    new LatLng(14.074446, 100.605944),
-                    new LatLng(14.073975, 100.605960)
+                    new LatLng(14.074850, 100.606260),
+                    new LatLng(14.074836, 100.605573),
+                    new LatLng(14.074831, 100.604801)
             );
 
-            destination = new LatLng(14.074846, 100.606250);
+            destination = new LatLng(14.074487, 100.604366 );
         } else if (getIntent().getStringExtra("map").equalsIgnoreCase("interPark")) {
             origin = new LatLng(14.065676, 100.605330);
             wayPoints = Arrays.asList(
@@ -278,7 +278,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mGoogleApiClient.disconnect();
         }
         sensorManager.unregisterListener(this);
-
     }
 
     @Override
