@@ -1,10 +1,13 @@
 package com.custu.project.walktogether;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -30,6 +34,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -42,7 +47,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener{
+public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener {
     private View view;
     private FragmentActivity context;
     private SwipeMenuListView listView;
@@ -76,7 +81,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
         @Override
         public void onFailure(Throwable t) {
-
+            NetworkUtil.isOnline(context, listView);
+            pullRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -108,7 +114,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
         @Override
         public void onFailure(Throwable t) {
-
+            NetworkUtil.isOnline(context, listView);
+            pullRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -126,6 +133,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_listname, container, false);
+        listView = view.findViewById(R.id.list_patient);
         initValue();
         getDataUser();
         initProgressDialog();
@@ -178,13 +186,50 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        deletePatient(patientArrayList.get(index).getPatientNumber(), caretaker.getId(), position);
+                        showDialog(context, patientArrayList.get(position).getPatientNumber(), caretaker.getId(), position);
                         break;
                 }
                 return false;
             }
         });
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showDialog(Context context, final String patientNumber, final Long caretakerId, final int position) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_delete_patient);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView titleTextView = dialog.findViewById(R.id.title);
+
+
+        titleTextView.setText(titleTextView.getText()
+                + " "
+                + patientArrayList.get(position).getFirstName()
+                + " "
+                + patientArrayList.get(position).getLastName());
+
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletePatient(patientNumber, caretakerId, position);
+                dialog.dismiss();
+            }
+        });
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
     }
 
     private void deletePatient(String patientNumber, Long caretakerId, final int index) {
@@ -214,7 +259,8 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
                             @Override
                             public void onFailure(Throwable t) {
-
+                                NetworkUtil.isOnline(context, listView);
+                                pullRefreshLayout.setRefreshing(false);
                             }
                         }, ConfigService.MATCHING
                                 + ConfigService.MATCHING_REMOVE_PATIENT

@@ -16,7 +16,6 @@ import com.github.tony19.timber.loggly.LogglyTree;
 import com.google.android.gms.location.LocationListener;
 
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -49,7 +48,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
@@ -65,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng destination;
     private List<LatLng> wayPoints;
     private static final int REQUEST_PERMISSION_LOCATION = 255;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
@@ -72,11 +72,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double currentLatitude;
     private double currentLongitude;
     private ArrayList<LatLng> routePoints;
-    private int i = 0;
 
     private StepDetector simpleStepDetector;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
+    private SensorManager sensorManager;
+    private Sensor angle;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -93,6 +94,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
         }
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, // Activity
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+        }
+
         initStepCounter();
         initPositionMission();
         initMap();
@@ -101,43 +112,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initStepCounter() {
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        Sensor angle = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        angle = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
 
         numSteps = 0;
         sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    private void testPlay() {
-        new CountDownTimer(30000, 5000) {
-            public void onTick(long millisUntilFinished) {
-                if (i < wayPoints.size()) {
-                    double latitude = wayPoints.get(i).latitude;
-                    double longitude = wayPoints.get(i).longitude;
-                    LatLng latLng = new LatLng(latitude, longitude);
-                    Log.d("onTick: ", "onTick: " + latitude + " WORKS " + longitude + " " + i);
-
-                    PolylineOptions pOptions = new PolylineOptions()
-                            .width(20)
-                            .color(Color.GREEN)
-                            .geodesic(true);
-                    routePoints.add(latLng);
-
-                    for (int z = 0; z < routePoints.size(); z++) {
-                        LatLng point = routePoints.get(z);
-                        pOptions.add(point);
-                    }
-                    Polyline line = googleMap.addPolyline(pOptions);
-                    i++;
-                }
-            }
-
-            public void onFinish() {
-
-            }
-        }.start();
     }
 
     private void initLocation() {
@@ -164,15 +145,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initPositionMission() {
-        origin = new LatLng(14.065676, 100.605330);
+        if (getIntent().getStringExtra("map").equalsIgnoreCase("ekkami")) {
+            origin = new LatLng(13.718757, 100.586516);
+            wayPoints = Arrays.asList(
+                    new LatLng(13.717756, 100.587782),
+                    new LatLng(13.718069, 100.588662)
+            );
 
-        wayPoints = Arrays.asList(
-                new LatLng(14.066160, 100.605536),
-                new LatLng(14.066105, 100.607095),
-                new LatLng(14.066131, 100.607875),
-                new LatLng(14.066129, 100.606083));
+            destination = new LatLng(13.724311, 100.588984);
+        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("lc2")) {
+            origin = new LatLng(14.074194, 100.606260);
+            wayPoints = Arrays.asList(
+                    new LatLng(14.074850, 100.606260),
+                    new LatLng(14.074836, 100.605573),
+                    new LatLng(14.074831, 100.604801)
+            );
 
-        destination = new LatLng(14.066129, 100.606655);
+            destination = new LatLng(14.074487, 100.604366 );
+        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("interPark")) {
+            origin = new LatLng(14.065676, 100.605330);
+            wayPoints = Arrays.asList(
+                    new LatLng(14.066160, 100.605536),
+                    new LatLng(14.066105, 100.607095),
+                    new LatLng(14.066131, 100.607875),
+                    new LatLng(14.066129, 100.606083));
+
+            destination = new LatLng(14.066129, 100.606655);
+
+        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("myHome")) {
+            origin = new LatLng(14.475281, 100.125060);
+            wayPoints = Arrays.asList(
+                    new LatLng(14.475429, 100.124610),
+                    new LatLng(14.475858, 100.124578),
+                    new LatLng(14.475960, 100.124897)
+            );
+            destination = new LatLng(14.476327, 100.124544);
+
+        }
     }
 
     @Override
@@ -211,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-        googleMap.getUiSettings().setAllGesturesEnabled(false);
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -220,7 +229,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -257,6 +267,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
+        sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     @Override
@@ -266,7 +277,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
-
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -309,13 +320,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         PolylineOptions pOptions = new PolylineOptions()
-                .width(5)
+                .width(18)
                 .color(Color.GREEN)
                 .geodesic(true);
         routePoints.add(latLng);
-        Timber.tag("route");
-        Timber.i(routePoints.toString());
-        Toast.makeText(this, TEXT_NUM_STEPS + numSteps + " " + currentLatitude + " Changed " + currentLongitude + " "+routePoints.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, TEXT_NUM_STEPS + numSteps + " " + currentLatitude + " Changed " + currentLongitude + " " + routePoints.size(), Toast.LENGTH_LONG).show();
 
         for (int z = 0; z < routePoints.size(); z++) {
             LatLng point = routePoints.get(z);
@@ -323,5 +332,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         googleMap.addPolyline(pOptions);
         routePoints.add(latLng);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+
+                } else {
+                    // permission was denied
+                }
+                return;
+            }
+        }
     }
 }

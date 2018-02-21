@@ -14,8 +14,10 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -42,7 +44,7 @@
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
-        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
@@ -127,14 +129,15 @@
             android:label="แก้ไขบัญชีผู้ใช้" />
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.QrCodeActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name="com.custu.project.walktogether.MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name="com.custu.project.walktogether.SelectMapActivity"></activity>
     </application>
 
 </manifest>

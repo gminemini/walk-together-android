@@ -19,6 +19,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.MemoryPolicy;
@@ -73,7 +74,8 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
 
         @Override
         public void onFailure(Throwable t) {
-
+            NetworkUtil.isOnline(AddPatientAcctivity.this, addButton);
+            pullRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -185,7 +187,7 @@ public class AddPatientAcctivity extends AppCompatActivity implements BasicActiv
 
             @Override
             public void onFailure(Throwable t) {
-
+                NetworkUtil.isOnline(AddPatientAcctivity.this, imageView);
             }
         }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_PATIENT, jsonObject);
     }

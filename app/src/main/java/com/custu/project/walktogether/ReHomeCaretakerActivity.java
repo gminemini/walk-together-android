@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -22,7 +22,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     private ListNameFragment listNameFragment = new ListNameFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private BottomNavigationView bottomNavigationView;
-    private ImageView addImageView;
+    private RelativeLayout addRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     public void setUI() {
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        addImageView = findViewById(R.id.add);
+        addRelativeLayout = findViewById(R.id.add);
         if (getIntent().getStringExtra("page")!=null) {
             String page = getIntent().getStringExtra("page");
             if (page.equalsIgnoreCase("profile"))
@@ -56,7 +56,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     public void setListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        addImageView.setOnClickListener(this);
+        addRelativeLayout.setOnClickListener(this);
         findViewById(R.id.logout).setOnClickListener(this);
     }
 
