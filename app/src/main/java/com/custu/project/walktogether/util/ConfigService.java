@@ -6,8 +6,8 @@ package com.custu.project.walktogether.util;
 
 public class ConfigService {
     //public static final String BASE_URL = "http://10.0.2.2:8181/api/v1/";
-    public static final String BASE_URL = "http://159.65.10.67:8181/api/v1/";
-    public static final String BASE_URL_IMAGE = "http://159.65.10.67:8181/";
+    public static final String BASE_URL = "http://159.65.128.189:8181/api/v1/";
+    public static final String BASE_URL_IMAGE = "http://159.65.128.189:8181/";
 
     //Google MAp API Key
     public static final String GOOGLE_API_KEY = "AIzaSyButAs0BAr5u7HX75zLiwr9rqWVSRTCFmc";

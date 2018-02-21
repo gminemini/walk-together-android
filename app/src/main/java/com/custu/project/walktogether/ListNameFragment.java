@@ -1,10 +1,13 @@
 package com.custu.project.walktogether;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -43,7 +47,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener{
+public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener {
     private View view;
     private FragmentActivity context;
     private SwipeMenuListView listView;
@@ -182,13 +186,50 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        deletePatient(patientArrayList.get(index).getPatientNumber(), caretaker.getId(), position);
+                        showDialog(context, patientArrayList.get(position).getPatientNumber(), caretaker.getId(), position);
                         break;
                 }
                 return false;
             }
         });
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showDialog(Context context, final String patientNumber, final Long caretakerId, final int position) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_delete_patient);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView titleTextView = dialog.findViewById(R.id.title);
+
+
+        titleTextView.setText(titleTextView.getText()
+                + " "
+                + patientArrayList.get(position).getFirstName()
+                + " "
+                + patientArrayList.get(position).getLastName());
+
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletePatient(patientNumber, caretakerId, position);
+                dialog.dismiss();
+            }
+        });
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
     }
 
     private void deletePatient(String patientNumber, Long caretakerId, final int index) {

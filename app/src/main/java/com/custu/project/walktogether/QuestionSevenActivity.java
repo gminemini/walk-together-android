@@ -38,7 +38,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         setUI();
         setUI();
         setListener();
-
     }
 
     private void initProgress() {
@@ -52,7 +51,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     public void initValue() {
         isPlaying = false;
         mediaPlayer = new MediaPlayer();
-        pathSound = "http://159.65.10.67:8181/audio/question/recall/14/5/1517736789671.mp3";
+        pathSound = "http://159.65.128.189:8181/audio/question/recall/14/243/1519233463541.mp3";
     }
 
     @Override
@@ -74,8 +73,8 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
     public void playSound() {
         final AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
         if (!isPlaying) {
+            progressDialog.show();
             isPlaying = true;
             mediaPlayer = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -107,7 +106,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
         switch (id) {
             case R.id.play_sound:
-                progressDialog.show();
+                playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                 playSound();
                 break;
             case R.id.next: {
