@@ -51,7 +51,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     public void initValue() {
         isPlaying = false;
         mediaPlayer = new MediaPlayer();
-        pathSound = "http://159.65.128.189:8181/audio/question/recall/14/243/1519233463541.mp3";
+        pathSound = "http://159.65.128.189:8181/audio/question/recall/14/243/1519236211535.mp3";
     }
 
     @Override
