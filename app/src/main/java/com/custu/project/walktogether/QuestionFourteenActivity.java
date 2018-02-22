@@ -1,6 +1,5 @@
 package com.custu.project.walktogether;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_question_fourteen);
+        setContentView(R.layout.question_fourteen);
         setUI();
         setListener();
 

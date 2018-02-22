@@ -75,7 +75,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     }
 
     private void createSpinnerData() {
-
+        answerArray.add("");
         answerArray.add("วันจันทร์");
         answerArray.add("วันอาทิตย์");
         answerArray.add("วันพุธ");
@@ -94,10 +94,13 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(QuestionEightActivity.this, TopicsFourActivity.class);
+                Intent intent = new Intent(QuestionEightActivity.this, QuestionNineActivity.class);
                 startActivity(intent);
             }
 
         }
     }
 }
+
+
+

@@ -11,7 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -32,7 +31,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_question7);
+        setContentView(R.layout.question_seven);
         initValue();
         initProgress();
         setUI();
@@ -110,7 +109,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 playSound();
                 break;
             case R.id.next: {
-                Intent intent = new Intent(QuestionSevenActivity.this, TopicsThreeActivity.class);
+                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
                 startActivity(intent);
             }
         }

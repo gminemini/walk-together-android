@@ -42,7 +42,7 @@
                 android:layout_height="100dp"
                 android:background="@drawable/shape_gradient"
                 android:gravity="center"
-                android:text="ผู้ป่วย"
+                android:text="ผู้สูงอายุ"
                 android:textColor="@color/colorOffwhite"
                 android:textSize="24sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/shape_gradient"
                 android:gravity="center"
-                android:text="ผู้ดูแล"
+                android:text="ผู้ดูแลหรือญาติ"
                 android:textColor="@color/colorOffwhite"
                 android:textSize="24sp" />
         </LinearLayout>

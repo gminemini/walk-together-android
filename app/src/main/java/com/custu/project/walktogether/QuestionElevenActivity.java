@@ -56,7 +56,7 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QuestionElevenActivity.this, TopicsFiveActivity.class);
+                Intent intent = new Intent(QuestionElevenActivity.this, QuestionTwelveActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
             }

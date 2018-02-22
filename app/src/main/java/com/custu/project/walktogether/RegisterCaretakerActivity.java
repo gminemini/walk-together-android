@@ -529,7 +529,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                                     public void run() {
                                         Caretaker caretaker = CaretakerModel.getInstance().getCaretaker(object);
                                         UserManager.getInstance(RegisterCaretakerActivity.this).storeCaretaker(caretaker);
-                                        Intent intent = new Intent(RegisterCaretakerActivity.this, HomeCaretakerActivity.class);
+                                        Intent intent = new Intent(RegisterCaretakerActivity.this, ReHomeCaretakerActivity.class);
                                         startActivity(intent);
                                     }
                                 }, 700);

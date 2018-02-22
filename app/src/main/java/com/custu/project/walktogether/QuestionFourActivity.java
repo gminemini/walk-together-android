@@ -61,7 +61,7 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
         answerArray.add("บ่าย");
         answerArray.add("เย็น");
         answerArray.add("หัวค่ำ");
-        answerArray.add("กลางคื");
+        answerArray.add("กลางคืน");
 
 
     }

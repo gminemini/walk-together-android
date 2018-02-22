@@ -57,7 +57,7 @@ public class ChooseuserActivity extends AppCompatActivity implements  BasicActiv
     public void onClick(View v) {
         switch (v.getId()) {
             case  R.id.patientbtn:{
-                Intent intent = new Intent(ChooseuserActivity.this, TopicsOneActivity.class);
+                Intent intent = new Intent(ChooseuserActivity.this, ConditionActivity.class);
                 startActivity(intent);
                 break;
             }
