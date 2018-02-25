@@ -1,12 +1,10 @@
 package com.custu.project.walktogether;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -31,7 +29,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_question_seventeen);
+        setContentView(R.layout.question_seventeen);
         setUI();
 
 //        nextBtn.setOnClickListener(new View.OnClickListener() {

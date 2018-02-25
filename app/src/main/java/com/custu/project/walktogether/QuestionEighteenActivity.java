@@ -49,7 +49,7 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QuestionEighteenActivity.this, TopicsSixActivity.class);
+                Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
             }

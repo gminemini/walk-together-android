@@ -1,6 +1,5 @@
 package com.custu.project.walktogether;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,7 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_question_sixteen);
+        setContentView(R.layout.question_sixteen);
         setUI();
         setListener();
 

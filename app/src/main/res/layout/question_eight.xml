@@ -28,30 +28,31 @@
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="@color/colorBgProgress"
             android:progress="50"
             android:progressBackgroundTint="@color/colorBackground"
             android:progressDrawable="@drawable/progressbar" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bgtime"
-            android:gravity="center"
-            android:padding="20dp">
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:background="@drawable/bgtime"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="20dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:text="เหลือเวลา 19 วินาที"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="12dp"-->
+                <!--android:text="เหลือเวลา 19 วินาที"-->
+                <!--android:textColor="@color/colorOffwhite"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textStyle="bold" />-->
+        <!--</LinearLayout>-->
 
 
         <LinearLayout
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="ให้บอกวันอาทิตย์-วันเสาร์แบบย้อนหลัง"
+                android:text="สัปดาห์หนึ่งมีเจ็ดวัน จงบอกชื่อวันแบบย้อนหลัง โดยเริ่มจากวันอาทิตย์จนถึงวันจันทร์ "
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
@@ -106,80 +107,85 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
-                    android:layout_marginBottom="@dimen/margin_edittext_4dp"
+
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:textSize="@dimen/TextSize"
+                    android:paddingLeft="@dimen/paddingLeft"
                     android:paddingTop="12dp"
-                  android:paddingLeft="@dimen/paddingLeft"
+                    android:text="1. วันอาทิตย์"
                     android:textColor="@color/colorAllblack"
-                    android:text="1. วันเสาร์"
-                    />
+                    android:textSize="@dimen/TextSize" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_edittext_40dp"
+
+                    android:layout_marginTop="@dimen/margin_edittext_4dp"
+                    android:paddingLeft="@dimen/paddingLeft"
+
+                    android:text="2. วันเสาร์"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSize" />
 
                 <Spinner
                     android:id="@+id/answer_day_one"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
-                    android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@drawable/shape_edittext">
+
+                    android:background="@drawable/shape_edittext"
+                    android:spinnerMode="dropdown">
 
                 </Spinner>
+
                 <Spinner
                     android:id="@+id/answer_day_two"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@drawable/shape_edittext">
+                    android:background="@drawable/shape_edittext"
+                    android:spinnerMode="dropdown">
 
                 </Spinner>
+
                 <Spinner
                     android:id="@+id/answer_day_three"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
+                    android:background="@drawable/shape_edittext"
 
-                    android:background="@drawable/shape_edittext">
+                    android:spinnerMode="dropdown">
 
                 </Spinner>
+
                 <Spinner
                     android:id="@+id/answer_day_four"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@drawable/shape_edittext">
+                    android:background="@drawable/shape_edittext"
+                    android:spinnerMode="dropdown">
 
                 </Spinner>
+
                 <Spinner
                     android:id="@+id/answer_day_five"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@drawable/shape_edittext">
+                    android:background="@drawable/shape_edittext"
+                    android:spinnerMode="dropdown">
 
                 </Spinner>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_edittext_40dp"
-                    android:layout_marginBottom="@dimen/margin_edittext_4dp"
-                    android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:textSize="@dimen/TextSize"
-                    android:paddingTop="12dp"
-                    android:paddingLeft="@dimen/paddingLeft"
-                    android:textColor="@color/colorAllblack"
-                    android:text="7. วันอาทิตย์"
-                    />
+
             </LinearLayout>
         </ScrollView>
 
