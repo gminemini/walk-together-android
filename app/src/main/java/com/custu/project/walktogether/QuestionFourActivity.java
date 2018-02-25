@@ -10,6 +10,8 @@ import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -22,8 +24,6 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_four);
-
-
         setUI();
         setListener();
         createSpinnerData();
@@ -53,7 +53,6 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
     }
 
     private void createSpinnerData() {
-
         answerArray.add("เช้ามืด");
         answerArray.add("เช้า ");
         answerArray.add("สาย");
@@ -62,8 +61,6 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
         answerArray.add("เย็น");
         answerArray.add("หัวค่ำ");
         answerArray.add("กลางคืน");
-
-
     }
 
     private void setListener() {

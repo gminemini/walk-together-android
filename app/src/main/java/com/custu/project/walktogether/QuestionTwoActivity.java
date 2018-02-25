@@ -16,29 +16,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
+import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
+import com.custu.project.walktogether.util.UserManager;
 
 import java.util.ArrayList;
 
 public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
-    private ProgressDialog progressDialog;
+    private TextView titleTextView;
     private EditText edittextBtn;
-    private Intent intent;
+    private NumberQuestion numberQuestion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_two);
+        getData();
         setUI();
         setListener();
-
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionTwoActivity.this);
-
-            }
-        });
     }
     private void showDialog(Context context) {
         final Dialog dialog = new Dialog(context);
@@ -57,7 +54,8 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
+                StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), edittextBtn.getText().toString());
+                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
             }
@@ -81,11 +79,13 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_two);
+        titleTextView =  findViewById(R.id.title);
+        titleTextView.setText(numberQuestion.getQuestion().getTitle());
     }
 
     @Override
     public void getData() {
-
+        numberQuestion = EvaluationModel.getInstance().getEvaluationByNumber("2", QuestionTwoActivity.this);
     }
 
     @Override
@@ -102,8 +102,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
-                startActivity(intent);
+                showDialog(QuestionTwoActivity.this);
             }
 
         }

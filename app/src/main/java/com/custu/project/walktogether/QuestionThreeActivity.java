@@ -7,9 +7,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.Question;
+import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -17,13 +22,14 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
     private Spinner answerSpinner;
     private ArrayList<String> answerArray = new ArrayList<String>();
     private Button nextBtn;
+    private TextView titleTextView;
+    private Question question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_three);
-
-
+        getData();
         setUI();
         setListener();
         createSpinnerData();
@@ -40,11 +46,13 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
     public void setUI() {
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
+        titleTextView = findViewById(R.id.title);
+        titleTextView.setText(question.getTitle());
     }
 
     @Override
     public void getData() {
-
+        question = EvaluationModel.getInstance().getEvaluationByNumber("3", QuestionThreeActivity.this).getQuestion();
     }
 
     @Override
@@ -53,7 +61,6 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
     }
 
     private void createSpinnerData() {
-
         answerArray.add("มกราคม");
         answerArray.add("กุมภาพันธ์ ");
         answerArray.add("มีนาคม");
@@ -66,7 +73,6 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
         answerArray.add("ตุลาคม");
         answerArray.add("พฤศจิกายน");
         answerArray.add("ธันวาคม");
-
     }
     private void setListener() {
         nextBtn.setOnClickListener(this);
@@ -76,6 +82,7 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                StoreAnswerTmse.getInstance().storeAnswer("no3", question.getId(), answerSpinner.getSelectedItem().toString());
                 Intent intent = new Intent(QuestionThreeActivity.this, QuestionFourActivity.class);
                 startActivity(intent);
             }

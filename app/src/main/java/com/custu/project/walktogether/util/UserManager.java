@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.Evaluation.Tmse;
 import com.custu.project.walktogether.data.Patient;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -34,6 +39,18 @@ public class UserManager {
 
     private SharedPreferences.Editor getPrefsEditor() {
         return sharedPreferences.edit();
+    }
+
+    public void storeTMSE(ArrayList<Tmse> tmseArrayList) {
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putString("tmse", new Gson().toJson(tmseArrayList));
+        editor.apply();
+    }
+
+    public ArrayList<Tmse> getTMSE() {
+        String json = getSharedPreferences().getString("tmse", "");
+        Type type = new TypeToken<ArrayList<Tmse>>() {}.getType();
+        return new Gson().fromJson(json, type);
     }
 
     public void storeCaretaker(Caretaker caretaker) {
