@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_six);
-
+        JsonObject jsonObject = StoreAnswerTmse.getInstance().getAllAnswer();
 
         setUI();
         setListener();

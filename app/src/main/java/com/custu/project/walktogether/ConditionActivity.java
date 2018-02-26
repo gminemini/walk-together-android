@@ -52,7 +52,7 @@ public class ConditionActivity extends AppCompatActivity implements BasicActivit
                         startActivity(intent);
                     }
                 } else {
-                    Snackbar.make(nextBtn, "กรุณายอมรับเงื่อนไข", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(pullRefreshLayout, "กรุณายอมรับเงื่อนไข", Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -103,7 +103,7 @@ public class ConditionActivity extends AppCompatActivity implements BasicActivit
             public void onFailure(Throwable t) {
                 pullRefreshLayout.setRefreshing(false);
                 pullRefreshLayout.setVisibility(View.GONE);
-                NetworkUtil.isOnline(ConditionActivity.this, nextBtn);
+                NetworkUtil.isOnline(ConditionActivity.this, pullRefreshLayout);
             }
         }, ConfigService.EVALUATION + ConfigService.EVALUATION_RANDOM);
     }
