@@ -47,9 +47,7 @@ import retrofit2.Retrofit;
 
 public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, GoogleApiClient.ConnectionCallbacks {
     private Spinner answerSpinner;
-    private ArrayList<String> answerArray = new ArrayList<String>();
     private Button nextBtn;
-    private TextView titleTextView;
 
     private ArrayList<Province> provinceArrayList = new ArrayList<>();
     private static final int REQUEST_PERMISSION_LOCATION = 255;
@@ -98,9 +96,10 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
     }
 
     public void setUI() {
-        titleTextView = (TextView) findViewById(R.id.title);
+        TextView titleTextView = (TextView) findViewById(R.id.title);
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
+        titleTextView.setText(question.getTitle());
         ArrayAdapter<Province> adapterArray = new ArrayAdapter<Province>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
         answerSpinner.setAdapter(adapterArray);
         setListener();
