@@ -98,7 +98,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         int id = view.getId();
         switch (id) {
             case R.id.add:
-                Intent intent = new Intent(ReHomeCaretakerActivity.this, AddPatientAcctivity.class);
+                Intent intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
                 startActivity(intent);
                 break;
             case R.id.logout:
