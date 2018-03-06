@@ -43,12 +43,16 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         content = (FrameLayout) findViewById(R.id.content);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         addRelativeLayout = findViewById(R.id.add);
-        if (getIntent().getStringExtra("page")!=null) {
+        if (getIntent().getStringExtra("page") != null) {
             String page = getIntent().getStringExtra("page");
-            if (page.equalsIgnoreCase("profile"))
+            if (page.equalsIgnoreCase("profile")) {
+                bottomNavigationView.getMenu().getItem(0).setChecked(true);
                 openFragment(profileFragment);
-            if (page.equalsIgnoreCase("list"))
+            }
+            if (page.equalsIgnoreCase("list")) {
+                bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 openFragment(listNameFragment);
+            }
         } else {
             openFragment(profileFragment);
         }

@@ -44,30 +44,6 @@ public class SplashScreenActivity extends Activity {
         ThreeBounce threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
 
-        ConnectServer.getInstance().get(new OnDataSuccessListener() {
-            @Override
-            public void onResponse(JsonObject object, Retrofit retrofit) {
-                ArrayList<HistoryMission> historyMissions = MissionModel.getInstance().getHistoryMissionArrayList(object);
-                Log.d("onResponse: ", "onResponse: "+historyMissions);
-            }
-
-            @Override
-            public void onBodyError(ResponseBody responseBodyError) {
-
-            }
-
-            @Override
-            public void onBodyErrorIsNull() {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        },"mission/history-by-id/400");
-
-
         int splashInterval = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
