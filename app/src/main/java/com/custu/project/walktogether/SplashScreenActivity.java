@@ -5,15 +5,27 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.mission.HistoryMission;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.MissionModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+
 import io.fabric.sdk.android.Fabric;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 public class SplashScreenActivity extends Activity {
     Handler handler;
@@ -31,6 +43,29 @@ public class SplashScreenActivity extends Activity {
         ProgressBar progressBar = findViewById(R.id.progress);
         ThreeBounce threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
+
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                ArrayList<HistoryMission> historyMissions = MissionModel.getInstance().getHistoryMissionArrayList(object);
+                Log.d("onResponse: ", "onResponse: "+historyMissions);
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        },"mission/history-by-id/400");
 
 
         int splashInterval = 2000;

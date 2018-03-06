@@ -1,7 +1,5 @@
 package com.custu.project.walktogether.model;
 
-import android.util.Log;
-
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.master.District;
 import com.custu.project.walktogether.data.master.Province;

@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,23 @@ import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.EvaluationCategory;
+import com.custu.project.walktogether.data.historyevaluation.EvaluationTest;
+import com.custu.project.walktogether.data.historyevaluation.EvaluationTestSingle;
+import com.custu.project.walktogether.data.historyevaluation.HistoryEvaluation;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.EvaluationModel;
+import com.custu.project.walktogether.model.HistoryEvaluationModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
+import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DateTHFormat;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -24,8 +38,12 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
-public class GraphActivity extends AppCompatActivity {
+import static com.custu.project.walktogether.data.Evaluation.EvaluationCategory.EVALUATION_CATEGORY;
+
+public class HistoryEvaluationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +58,11 @@ public class GraphActivity extends AppCompatActivity {
 
         private LineChartView chart;
         private LineChartData data;
+
+        private ArrayList<HistoryEvaluation> historyEvaluations = new ArrayList<>();
+        private ArrayList<EvaluationTestSingle> evaluationTestSingles = new ArrayList<>();
+        private float minScore = Float.MAX_VALUE;
+
         public PlaceholderFragment() {
         }
 
@@ -50,39 +73,69 @@ public class GraphActivity extends AppCompatActivity {
 
             chart = rootView.findViewById(R.id.chart);
             chart.setOnValueTouchListener(new ValueTouchListener());
-            generateData();
             chart.setViewportCalculationEnabled(false);
-            resetViewport();
-            chart.startDataAnimation();
+            getData();
             return rootView;
         }
 
+        private void getData() {
+            ConnectServer.getInstance().get(new OnDataSuccessListener() {
+                @Override
+                public void onResponse(JsonObject object, Retrofit retrofit) {
+                    if (object != null) {
+                        historyEvaluations = HistoryEvaluationModel.getInstance().getHistoryEvaluations(object);
+                        generateData();
+                    }
+
+                }
+
+                @Override
+                public void onBodyError(ResponseBody responseBodyError) {
+
+                }
+
+                @Override
+                public void onBodyErrorIsNull() {
+
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            }, ConfigService.PATIENT + ConfigService.HISTORY_EVALUATION + 400);
+        }
+
         private void resetViewport() {
-            // Reset viewport height range to (0,100)
             final Viewport v = new Viewport(chart.getMaximumViewport());
-            v.bottom = 0;
+            v.bottom = minScore - 10;
             v.top = 30;
             v.left = 0;
-            v.right = 15;
+            v.right = Float.parseFloat(historyEvaluations.get(historyEvaluations.size() - 1).getEvaluationTest().getFrequencyPatient());
             chart.setMaximumViewport(v);
             chart.setCurrentViewport(v);
             chart.setCurrentViewportWithAnimation(v);
+            chart.startDataAnimation();
         }
 
         private void generateData() {
             List<Line> lines = new ArrayList<>();
             List<PointValue> values = new ArrayList<>();
-            values.add(new PointValue(2, 20).setLabel("มกราคม ได้ "+20+"คะแนน"));
-            values.add(new PointValue(4, 23).setLabel("เมษายน ได้ "+23+"คะแนน"));
-            values.add(new PointValue(6, 22).setLabel("มิถุนายน ได้ "+22+"คะแนน"));
-            values.add(new PointValue(9, 19).setLabel("สิงหาคม ได้ "+19+"คะแนน"));
-            values.add(new PointValue(13, 26).setLabel("ธันวาคม ได้ "+26+"คะแนน"));
 
+            for (int i = 0; i < historyEvaluations.size(); i++) {
+                EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
+                String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
+                values.add(new PointValue(Float.parseFloat(evaluationTest.getFrequencyPatient()),
+                        Float.parseFloat(evaluationTest.getResultScore()))
+                        .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
+                if (minScore > Float.parseFloat(evaluationTest.getResultScore())) {
+                    minScore = Float.parseFloat(evaluationTest.getResultScore());
+                }
+            }
             Line line = new Line(values);
             line.setColor(getResources().getColor(R.color.colorBackgroundDark));
             line.setPointColor(getResources().getColor(R.color.colorComplete));
 
-            line.setCubic(true);
             line.setFilled(true);
             line.setHasLabels(true);
             line.setHasLabelsOnlyForSelected(true);
@@ -103,12 +156,20 @@ public class GraphActivity extends AppCompatActivity {
             chart.setValueSelectionEnabled(true);
             chart.setLineChartData(data);
             chart.setZoomType(ZoomType.HORIZONTAL);
+            resetViewport();
         }
 
         private class ValueTouchListener implements LineChartOnValueSelectListener {
             @Override
             public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
                 Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+                evaluationTestSingles = new ArrayList<>();
+                for (String evaluationCategory : EVALUATION_CATEGORY) {
+                    evaluationTestSingles.add(HistoryEvaluationModel.getInstance()
+                            .getEvaluationTestByCategory(evaluationCategory, historyEvaluations.get(pointIndex)
+                                    .getEvaluationTest()));
+                }
+                Log.d("onValueSelected", "onValueSelected: "+evaluationTestSingles);
             }
 
             @Override
