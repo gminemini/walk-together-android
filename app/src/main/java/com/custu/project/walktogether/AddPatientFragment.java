@@ -269,9 +269,4 @@ public class AddPatientFragment extends Fragment implements BasicActivity, View.
 
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(context, ReHomeCaretakerActivity.class));
-    }
 }

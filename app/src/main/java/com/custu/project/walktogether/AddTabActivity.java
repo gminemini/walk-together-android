@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toolbar;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.AddPatientPagerAdapter;

@@ -170,7 +170,7 @@ public class AddPatientQRCodeFragment extends Fragment implements ZXingScannerVi
             public void onFailure(Throwable t) {
                 NetworkUtil.isOnline(context, view);
             }
-        }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_PATIENT, jsonObject, view);
+        }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_PATIENT, jsonObject);
     }
 
 }
