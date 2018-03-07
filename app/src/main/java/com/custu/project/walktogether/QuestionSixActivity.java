@@ -16,22 +16,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.Question;
+import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
 public class QuestionSixActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Intent intent;
     private Button nextBtn;
-    private ProgressDialog progressDialog;
     private EditText edittextBtn;
+
+    private Question question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_six);
-
-
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -52,15 +56,13 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-
-
-        titleTextView.setText(edittextBtn.getText() + " " + titleTextView.getText());
-
+        titleTextView.setText(edittextBtn.getText().toString() + " " + titleTextView.getText());
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                StoreAnswerTmse.getInstance().storeAnswer("no6", question.getId(), edittextBtn.getText().toString());
                 intent = new Intent(QuestionSixActivity.this, QuestionSevenActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
@@ -86,11 +88,15 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_six);
+        TextView titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText(question.getTitle());
     }
 
     @Override
     public void getData() {
-
+        question = EvaluationModel.getInstance()
+                .getEvaluationByNumber("6", QuestionSixActivity.this)
+                .getQuestion();
     }
 
     @Override
