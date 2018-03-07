@@ -125,7 +125,6 @@
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
                     android:background="@drawable/shape_edittext"
                     android:hint="@string/pleaseinput"
-                    android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" />
 

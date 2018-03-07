@@ -30,6 +30,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_twelve);
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {

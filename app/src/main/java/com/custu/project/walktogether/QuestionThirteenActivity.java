@@ -29,7 +29,8 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_twelve);
+        setContentView(R.layout.question_thirteen);
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
