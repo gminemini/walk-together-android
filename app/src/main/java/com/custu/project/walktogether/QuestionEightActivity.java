@@ -11,14 +11,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.adapter.HintAdapter;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class QuestionEightActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+public class QuestionEightActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener {
     private Spinner answerSpinnerOne;
     private Spinner answerSpinnerTwo;
     private Spinner answerSpinnerThree;
@@ -26,7 +28,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     private Spinner answerSpinnerFive;
     private TextView title;
     private TextView description;
-    private ArrayList<String> answerArray = new ArrayList<String>();
+    private List<String> answerArray = new ArrayList<String>();
     private ArrayAdapter<String> adapterArray;
     private Button nextBtn;
     private Question question;
@@ -54,13 +56,6 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         answerSpinnerThree = (Spinner) findViewById(R.id.answer_day_three);
         answerSpinnerFour = (Spinner) findViewById(R.id.answer_day_four);
         answerSpinnerFive = (Spinner) findViewById(R.id.answer_day_five);
-
-        answerSpinnerOne.setSelected(false);
-        answerSpinnerTwo.setSelected(false);
-        answerSpinnerThree.setSelected(false);
-        answerSpinnerFour.setSelected(false);
-        answerSpinnerFive.setSelected(false);
-        
         nextBtn = (Button) findViewById(R.id.next);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
@@ -90,7 +85,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         if (!answerSpinnerFive.getSelectedItem().toString().equalsIgnoreCase(answerArray.get(0)))
             isCorrect = false;
 
-        Log.d("isCorrect: ", "isCorrect: " + isCorrect);
+        Log.d("isCorrect: ", "isCorrect: "+isCorrect);
         return isCorrect;
     }
 
@@ -100,12 +95,21 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     }
 
     public void setAdapter() {
-        adapterArray.setDropDownViewResource(R.layout.spinner_layout);
-        answerSpinnerOne.setAdapter(adapterArray);
-        answerSpinnerTwo.setAdapter(adapterArray);
-        answerSpinnerThree.setAdapter(adapterArray);
-        answerSpinnerFour.setAdapter(adapterArray);
-        answerSpinnerFive.setAdapter(adapterArray);
+        HintAdapter adapter = new HintAdapter(QuestionEightActivity.this, answerArray, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        answerSpinnerOne.setAdapter(adapter);
+        answerSpinnerTwo.setAdapter(adapter);
+        answerSpinnerThree.setAdapter(adapter);
+        answerSpinnerFour.setAdapter(adapter);
+        answerSpinnerFive.setAdapter(adapter);
+
+        answerSpinnerOne.setSelection(adapter.getCount());
+        answerSpinnerTwo.setSelection(adapter.getCount());
+        answerSpinnerThree.setSelection(adapter.getCount());
+        answerSpinnerFour.setSelection(adapter.getCount());
+        answerSpinnerFive.setSelection(adapter.getCount());
     }
 
     private void createSpinnerData() {
@@ -116,15 +120,12 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         answerArray.add("วันศุกร์");
         answerArray.add("วันพฤหัสบดี");
         answerArray.add("วันเสาร์");
-
-
+        answerArray.add("วัน...");
     }
-
     private void setListener() {
         nextBtn.setOnClickListener(this);
 
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
