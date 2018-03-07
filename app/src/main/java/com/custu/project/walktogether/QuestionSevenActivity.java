@@ -60,7 +60,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         progressDialog = new ProgressDialog(QuestionSevenActivity.this);
         progressDialog.setTitle("รอสักครู่...");
         progressDialog.setCanceledOnTouchOutside(false);
-
     }
 
     @Override
@@ -164,7 +163,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 playSound();
                 break;
             case R.id.next: {
-                StoreAnswerTmse.getInstance().storeAnswer("7", question.getId(), getAnswer());
+                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
                 Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
                 startActivity(intent);
             }

@@ -60,7 +60,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                 count++;
                 resultScore += getScore();
                 if (count == 3) {
-                    StoreAnswerTmse.getInstance().storeAnswer("9", question.getId(), String.valueOf(resultScore));
+                    StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
                     Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
                     dialog.dismiss();
                     startActivity(intent);

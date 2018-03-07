@@ -154,7 +154,7 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
                 playSound();
                 break;
             case R.id.next: {
-                StoreAnswerTmse.getInstance().storeAnswer("14", question.getId(), getAnswer());
+                StoreAnswerTmse.getInstance().storeAnswer("no14", question.getId(), getAnswer());
                 Intent intent = new Intent(QuestionFourteenActivity.this, QuestionFifteenActivity.class);
                 startActivity(intent);
             }

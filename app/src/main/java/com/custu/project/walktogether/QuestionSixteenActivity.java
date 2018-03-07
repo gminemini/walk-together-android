@@ -31,6 +31,7 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.question_sixteen);
+        getData();
         setUI();
         setListener();
 
@@ -76,22 +77,22 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.top_left: {
-                StoreAnswerTmse.getInstance().storeAnswer("16", question.getId(), "2");
+                StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "2");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
             }
             case R.id.bottom_left: {
-                StoreAnswerTmse.getInstance().storeAnswer("16", question.getId(), "4");
+                StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "4");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
             }
             case R.id.top_right: {
-                StoreAnswerTmse.getInstance().storeAnswer("16", question.getId(), "1");
+                StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "1");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
             }
             case R.id.bottom_right: {
-                StoreAnswerTmse.getInstance().storeAnswer("16", question.getId(), "3");
+                StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "3");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
             }

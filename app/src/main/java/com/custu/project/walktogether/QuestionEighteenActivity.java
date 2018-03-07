@@ -52,7 +52,7 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StoreAnswerTmse.getInstance().storeAnswer("18", question.getId(), inputEditText.getText().toString());
+                StoreAnswerTmse.getInstance().storeAnswer("no18", question.getId(), inputEditText.getText().toString());
                 Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
                 dialog.dismiss();
                 startActivity(intent);

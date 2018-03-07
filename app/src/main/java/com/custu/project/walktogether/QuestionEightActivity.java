@@ -126,7 +126,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                StoreAnswerTmse.getInstance().storeAnswer("8", question.getId(), String.valueOf(isCorrect()));
+                StoreAnswerTmse.getInstance().storeAnswer("no8", question.getId(), String.valueOf(isCorrect()));
                 Intent intent = new Intent(QuestionEightActivity.this, QuestionNineActivity.class);
                 startActivity(intent);
             }

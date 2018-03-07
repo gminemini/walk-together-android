@@ -47,13 +47,7 @@
         <activity android:name="com.custu.project.walktogether.QuestionSevenActivity">
 
         </activity>
-        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity"></activity>
         <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
@@ -122,7 +116,11 @@
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
