@@ -67,7 +67,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                inputTopicFive.setText("");
             }
         });
         dialog.show();

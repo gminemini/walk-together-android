@@ -67,7 +67,7 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                inputTopicFive.setText("");
             }
         });
         dialog.show();
