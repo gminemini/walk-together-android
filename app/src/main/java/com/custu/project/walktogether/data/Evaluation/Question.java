@@ -9,6 +9,7 @@ public class Question {
     private String title;
     private String description;
     private String image;
+    private String audio;
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class Question {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
     }
 }

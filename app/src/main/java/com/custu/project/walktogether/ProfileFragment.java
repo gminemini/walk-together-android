@@ -16,7 +16,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment implements BasicActivity {
+public class ProfileFragment extends Fragment  {
     private View view;
     private FragmentActivity context;
 
@@ -37,25 +37,5 @@ public class ProfileFragment extends Fragment implements BasicActivity {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         return view;
-    }
-
-    @Override
-    public void initValue() {
-
-    }
-
-    @Override
-    public void setUI() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
-    public void initProgressDialog() {
-
     }
 }

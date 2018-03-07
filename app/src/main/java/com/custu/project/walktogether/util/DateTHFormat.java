@@ -30,6 +30,12 @@ public class DateTHFormat {
         return formatter.format(date);
     }
 
+    public String getMonth(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy", new Locale("th", "TH"));
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(date);
+    }
+
     public String normalDateFormatPlus(Date date) {
         Date newDate = new Date();
         newDate.setDate(date.getDate());

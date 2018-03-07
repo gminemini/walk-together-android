@@ -55,5 +55,4 @@ public class ConfigService {
     public static final String MATCHING_REMOVE_CARETAKER = "add-patient/";
     public static final String MATCHING_CARETAKER_NUMBER = "?caretakerNumber=";
 
-
 }

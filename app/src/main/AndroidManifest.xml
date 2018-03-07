@@ -121,7 +121,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
             android:name="com.custu.project.walktogether.ChoosemapActivity"
@@ -139,11 +138,13 @@
         <activity
             android:name="com.custu.project.walktogether.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name="com.custu.project.walktogether.SelectMapActivity" />
         <activity
             android:name="com.custu.project.walktogether.ConditionActivity"
-            android:label="ข้อกำหนดการใช้งาน"/>
+            android:label="ข้อกำหนดการใช้งาน" />
+        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity">
 
+        </activity>
+        <activity android:name="com.custu.project.walktogether.AddTabActivity"></activity>
     </application>
 
 </manifest>
