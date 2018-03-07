@@ -26,10 +26,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     private Spinner answerSpinnerThree;
     private Spinner answerSpinnerFour;
     private Spinner answerSpinnerFive;
-    private TextView title;
-    private TextView description;
     private List<String> answerArray = new ArrayList<String>();
-    private ArrayAdapter<String> adapterArray;
     private Button nextBtn;
     private Question question;
 
@@ -41,7 +38,6 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         setUI();
         setListener();
         createSpinnerData();
-        adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         setAdapter();
     }
 
@@ -57,8 +53,8 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         answerSpinnerFour = (Spinner) findViewById(R.id.answer_day_four);
         answerSpinnerFive = (Spinner) findViewById(R.id.answer_day_five);
         nextBtn = (Button) findViewById(R.id.next);
-        title = findViewById(R.id.title);
-        description = findViewById(R.id.description);
+        TextView title = findViewById(R.id.title);
+        TextView description = findViewById(R.id.description);
         title.setText(question.getTitle());
         description.setText(question.getDescription());
     }

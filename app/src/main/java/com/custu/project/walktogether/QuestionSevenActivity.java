@@ -81,7 +81,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
     private void initAnswer() {
         String answer = numberQuestion.getAnswerArrayList().get(0).getAnswer();
-        answer += EvaluationModel.getInstance().getDummyChoice();
+        answer += EvaluationModel.getInstance().getDummyChoiceCheckBox();
         String[] answerArray = answer.split(",");
         ArrayList<String> list = new ArrayList<>();
         Collections.addAll(list, answerArray);

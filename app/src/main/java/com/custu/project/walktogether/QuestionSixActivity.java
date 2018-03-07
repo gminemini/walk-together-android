@@ -30,9 +30,6 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     private Intent intent;
     private Button nextBtn;
     private EditText edittextBtn;
-    private ImageView imageView;
-    private TextView textView;
-
     private Question question;
 
     @Override
@@ -93,7 +90,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_six);
-        imageView =  findViewById(R.id.image);
+        ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
         titleTextView.setText(question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionSixActivity.this, question.getImage(), imageView);

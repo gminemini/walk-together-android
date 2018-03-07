@@ -65,6 +65,7 @@
             android:paddingRight="12dp">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -72,14 +73,38 @@
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSize" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_margin="4dp"
-                android:text="100 - 7 = ?"
-                android:textColor="@color/colorAllblack"
-                android:textSize="@dimen/TextSizeBold_20sp"
-                android:textStyle="bold" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSizeBold_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSizeBold_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSizeBold_20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
