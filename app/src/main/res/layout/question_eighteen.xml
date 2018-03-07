@@ -73,11 +73,20 @@
                 android:textSize="@dimen/TextSize" />
 
             <TextView
-                android:id="@+id/question_eleven"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="กล้วยกับส้มเหมือนกันคือผลไม้ ส่วนแมวกับหมาเหมือนกันคือ ?"
+                android:text="กล้วยกับส้มเหมือนกันคือผลไม้"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSizeBold_20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="กล้วยกับส้มเหมือนกันคือผลไม้"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />

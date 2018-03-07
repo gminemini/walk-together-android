@@ -13,17 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.Question;
+import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
 
-public class QuestionEighteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+public class QuestionEighteenActivity extends AppCompatActivity implements BasicActivity {
     private Button nextBtn;
-    private EditText input_topicfive;
+    private EditText inputEditText;
+    private Question question;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_eighteen);
+        getData();
         setUI();
-        setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +37,7 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
             }
         });
     }
+
     private void showDialog(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog);
@@ -40,15 +46,13 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-
-
-        titleTextView.setText(input_topicfive.getText() + " " + titleTextView.getText());
-
+        titleTextView.setText(inputEditText.getText().toString());
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                StoreAnswerTmse.getInstance().storeAnswer("18", question.getId(), inputEditText.getText().toString());
                 Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
                 dialog.dismiss();
                 startActivity(intent);
@@ -59,11 +63,12 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                inputEditText.setText("");
             }
         });
         dialog.show();
     }
+
     @Override
     public void initValue() {
 
@@ -72,32 +77,20 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
     @Override
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
-        input_topicfive = (EditText) findViewById(R.id.input_topicfive);
+        inputEditText = (EditText) findViewById(R.id.input_topicfive);
+        TextView titleTextView = (TextView) findViewById(R.id.question_text);
+        titleTextView.setText(question.getTitle() + "เหมือนกันคือ");
     }
 
     @Override
     public void getData() {
-
+        question = EvaluationModel.getInstance()
+                .getEvaluationByNumber("18", QuestionEighteenActivity.this)
+                .getQuestion();
     }
 
     @Override
     public void initProgressDialog() {
 
-    }
-
-    private void setListener() {
-        nextBtn.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.next: {
-                Intent intent = new Intent(QuestionEighteenActivity.this, TopicsSixActivity.class);
-                startActivity(intent);
-            }
-
-        }
     }
 }

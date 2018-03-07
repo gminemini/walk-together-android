@@ -75,7 +75,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                inputTopicFour.setText("");
             }
         });
         dialog.show();

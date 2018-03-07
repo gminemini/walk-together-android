@@ -26,6 +26,14 @@ public class StoreAnswerTmse {
         StoreAnswerTmse.answer.add(no, jsonObject);
     }
 
+    public void storeAnswerNineteen(String no, Long id, Long idRef, String answer) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", id);
+        jsonObject.addProperty("idRef", idRef);
+        jsonObject.addProperty("answer", answer);
+        StoreAnswerTmse.answer.add(no, jsonObject);
+    }
+
     public JsonObject getAllAnswer() {
         return answer;
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.QuestionFoureteenActivity">
+    tools:context="com.custu.project.walktogether.QuestionSevenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,9 +126,7 @@
 
         </ScrollView>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

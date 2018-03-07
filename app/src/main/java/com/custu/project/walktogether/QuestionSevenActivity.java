@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
@@ -76,6 +77,8 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         playSoundImageView = findViewById(R.id.play_sound);
         radioGroup = findViewById(R.id.radio_group);
         playSoundImageView.setOnClickListener(this);
+        TextView titleTextView = findViewById(R.id.question_text);
+        titleTextView.setText(question.getTitle());
         initAnswer();
     }
 

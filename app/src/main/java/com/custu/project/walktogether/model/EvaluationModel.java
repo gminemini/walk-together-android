@@ -88,18 +88,11 @@ public class EvaluationModel {
         }
     }
 
-    public String getDummyChoiceRadioBox() {
-        Random random = new Random();
-        int ran = random.nextInt(3) + 1;
-        switch (ran) {
-            case 1:
-                return ",เตียงนอน,พัดลม,ปากกา";
-            case 2:
-                return ",หลอดไฟ,ดินสอ,ผ้าห่ม";
-            case 3:
-                return ",ยางลบ,ดอกไม้,ก้อนหิน";
-            default:
-                return ",ยางลบ,ดอกไม้,ก้อนหิน";
-        }
+    public String[] getDummyChoiceRadioBox() {
+        String[] strings = new String[3];
+        strings[0] = "ลุงพายายไปตลาด";
+        strings[1] = "ยายพาหลานไปตลาด";
+        strings[2] = "หลานพาลุงไปเที่ยว";
+        return strings;
     }
 }

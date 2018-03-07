@@ -76,8 +76,6 @@
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
-                android:layout_toLeftOf="@+id/imageView"
-                android:layout_toStartOf="@+id/imageView"
                 android:text="สิ่งของ 3 อย่างที่ให้จำเมื่อสักครู่มีอะไรบ้าง"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
@@ -99,47 +97,36 @@
                 android:textSize="16sp" />
 
             <ScrollView
+                android:fadeScrollbars="false"
+                android:padding="@dimen/margin_6dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_height="match_parent">
 
-                <RadioGroup
+                <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp">
+                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:text="ต้นไม้ รถยนต์ มือ"
-                        android:layout_weight="25"
-                        android:id="@+id/radio1"
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="คำตอบ"
+                        android:textColor="@color/colorAllblack"
+                        android:textSize="16sp" />
 
-                    <RadioButton
-                        android:text="ต้นไม้ ปากกา มือ"
-                        android:layout_weight="25"
-                        android:id="@+id/radio2"
+                    <RadioGroup
+                        android:id="@+id/radio_group"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:text="ต้นไม้ เก้าอี้ โต๊ะ"
-                        android:layout_weight="25"
-                        android:id="@+id/radio3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
-                    <RadioButton
-                        android:text="รถยนต์ ต้นไม้ ท้องฟ้า"
-                        android:layout_weight="25"
-                        android:id="@+id/radio4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    </RadioGroup>
 
-                </RadioGroup>
+
+                </LinearLayout>
 
             </ScrollView>
-
 
         </LinearLayout>
 
