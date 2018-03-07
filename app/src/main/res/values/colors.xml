@@ -17,6 +17,7 @@
     <color name="colorBrown">#61381C</color>
     <color name="colorRed">#9f1019</color>
     <color name="colorComplete">#37ab38</color>
+    <color name="colorHighlight">#37ab38</color>
 
     <color name="blackAlpha">#ca000000</color>
     <color name="blackGradient">#8C000000</color>

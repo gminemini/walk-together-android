@@ -15,7 +15,7 @@
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="height_edittext_40dp">50dp</dimen>
     <dimen name="TextSizeBold_20sp">20sp</dimen>
-    <dimen name="TextSize_Spinner">30sp</dimen>
+    <dimen name="TextSize_Spinner">20sp</dimen>
     <dimen name="text_head_one">24sp</dimen>
     <dimen name="text_head_two">30sp</dimen>
     <dimen name="text_head_three">20sp</dimen>

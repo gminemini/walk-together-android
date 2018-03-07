@@ -73,13 +73,21 @@
                 android:textSize="@dimen/TextSize" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="สัปดาห์หนึ่งมีเจ็ดวัน จงบอกชื่อวันแบบย้อนหลัง โดยเริ่มจากวันอาทิตย์จนถึงวันจันทร์ "
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSizeBold_20sp"/>
 
         </LinearLayout>
 
@@ -135,7 +143,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
-
                     android:background="@drawable/shape_edittext"
                     android:spinnerMode="dropdown">
 
