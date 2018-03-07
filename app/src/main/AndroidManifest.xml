@@ -101,7 +101,8 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก "></activity>
+            android:label="สมัครสมาชิก " >
+        </activity>
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />

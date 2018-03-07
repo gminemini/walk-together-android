@@ -1,9 +1,12 @@
 package com.custu.project.walktogether.model;
 
+import android.content.Context;
+
 import com.custu.project.walktogether.data.Evaluation.Answer;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.data.Evaluation.Tmse;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -57,4 +60,15 @@ public class EvaluationModel {
         return tmseArrayList;
     }
 
+    public NumberQuestion getEvaluationByNumber(String number, Context context) {
+        ArrayList<Tmse> tmseArrayList = UserManager.getInstance(context).getTMSE();
+        for (Tmse  tmse: tmseArrayList) {
+            for (NumberQuestion numberQuestion: tmse.getNumberQuestions()) {
+                if (numberQuestion.getNo().equalsIgnoreCase(number)) {
+                    return numberQuestion;
+                }
+            }
+        }
+        return null;
+    }
 }
