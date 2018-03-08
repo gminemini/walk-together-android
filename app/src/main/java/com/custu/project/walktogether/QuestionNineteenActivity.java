@@ -151,7 +151,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
                     if (isPass) {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
-                        intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
+                        intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsInt());
                         startActivity(intent);
                     } else {
                         int score = object.getAsJsonObject("data").get("score").getAsInt();
