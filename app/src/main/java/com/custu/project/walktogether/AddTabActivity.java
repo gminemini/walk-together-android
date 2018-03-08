@@ -75,6 +75,10 @@ public class AddTabActivity extends FragmentActivity {
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         int tabIconColor = ContextCompat.getColor(AddTabActivity.this, R.color.colorBackground);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
+        tab = tabLayout.getTabAt(1);
+        tabIconColor = ContextCompat.getColor(AddTabActivity.this, R.color.colorMiddleGray);
+        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
 

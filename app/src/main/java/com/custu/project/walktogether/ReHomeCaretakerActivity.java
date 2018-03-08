@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.AddPatientPagerAdapter;
@@ -31,6 +32,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     private TabLayout tabLayout;
     private TabItem pfTabItem;
     private TabItem plTabItem;
+    private TextView logout;
     private RelativeLayout tabAdd;
 
     @Override
@@ -50,6 +52,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     public void setUI() {
         tabAdd = findViewById(R.id.add);
+        logout = findViewById(R.id.logout);
         tabLayout = findViewById(R.id.tabs);
         pfTabItem = findViewById(R.id.tab_profile);
         plTabItem = findViewById(R.id.tab_patientlist);
@@ -94,6 +97,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     private void setListener() {
         tabAdd.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
     }
 
