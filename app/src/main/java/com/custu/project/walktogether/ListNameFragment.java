@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener {
+public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private View view;
     private FragmentActivity context;
     private SwipeMenuListView listView;
@@ -134,6 +135,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_listname, container, false);
         listView = view.findViewById(R.id.list_patient);
+        listView.setOnItemClickListener(this);
         initValue();
         getDataUser();
         initProgressDialog();
@@ -317,5 +319,14 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Patient patient = patientArrayList.get(i);
+        Intent intent = new Intent(context, PatientDetailActivity.class);
+        intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
+        intent.putExtra("idPatient", patient.getId());
+        startActivity(intent);
     }
 }
