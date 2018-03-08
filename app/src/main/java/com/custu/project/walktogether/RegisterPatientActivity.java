@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -242,7 +244,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     }
 
     private void setListener() {
-        inputDob.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
 
@@ -300,7 +301,20 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    private String getDob() {
+        String dobString;
+        dobString = inputDay.getSelectedItem().toString() + " "
+                + inputMonth.getSelectedItem().toString() + " "
+                + inputYear.getSelectedItem().toString();
+        return dobString;
+    }
+
     private boolean validate() {
+
+        if (!DateTHFormat.getInstance().isDateValid(getDob())) {
+            inputDob.setError("กรุณาใส่วันเกิดให้ถูกต้อง");
+            inputDob.requestFocus();
+        }
 
         if (inputUsername.length() == 0) {
             inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
@@ -338,12 +352,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
             inputLastname.requestFocus();
         }
 
-
-        if (inputDob.length() == 0) {
-            inputDob.setError("กรุณาใส่วันเกิด");
-            inputDob.requestFocus();
-        }
-
         if (inputTell.length() == 0) {
             inputTell.setError("กรุณาใส่เบอร์โทรศัพท์");
             inputTell.requestFocus();
@@ -376,10 +384,18 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
+                DateTHFormat.getInstance().isDateValid(getDob()) &&
                 isEmailValid(inputEmail.getText().toString());
     }
 
     private void register() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = this.getCurrentFocus();
+        if (imm != null) {
+            if (view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idPatient", idPatient);
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
@@ -388,7 +404,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         jsonObject.addProperty("firstName", inputFirstname.getText().toString().trim());
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);
-        jsonObject.addProperty("dob", inputDob.getText().toString().trim());
+        jsonObject.addProperty("dob", getDob());
         jsonObject.addProperty("educationId", idEducation);
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());

@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -10,7 +11,9 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,7 +59,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 public class RegisterCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
-    private Calendar calendar;
     private Button nextBtn;
     private EditText inputUsername;
     private EditText inputPassword;
@@ -138,7 +140,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_caretaker);
-        calendar = Calendar.getInstance();
         initProgressDialog();
         getData();
         setUI();
@@ -222,7 +223,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     }
 
     private void setListener() {
-        inputDob.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
 
@@ -230,6 +230,18 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 idSex = sexArrayList.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        inputEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                idEducation = educationArrayList.get(i).getId();
             }
 
             @Override
@@ -250,7 +262,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     @Override
     public void getData() {
         progressDialog.show();
-        ConnectServer.getInstance().get(educationListener, ConfigService.PROVINCE);
+        ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
     }
 
@@ -266,6 +278,11 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     }
 
     private boolean validate() {
+
+        if (!DateTHFormat.getInstance().isDateValid(getDob())) {
+            inputDob.setError("กรุณาใส่วันเกิดให้ถูกต้อง");
+            inputDob.requestFocus();
+        }
 
         if (inputUsername.length() == 0) {
             inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
@@ -334,6 +351,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
+                DateTHFormat.getInstance().isDateValid(getDob()) &&
                 isEmailValid(inputEmail.getText().toString());
     }
 
@@ -354,6 +372,13 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     }
 
     private void register() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = this.getCurrentFocus();
+        if (imm != null) {
+            if (view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
