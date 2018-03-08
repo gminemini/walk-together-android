@@ -30,9 +30,8 @@ import com.custu.project.walktogether.util.UserManager;
 
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private TabLayout tabLayout;
-    private TabItem pfTabItem;
-    private TabItem plTabItem;
-    private TextView logout;
+    private TextView titleTextView;
+
     private RelativeLayout tabAdd;
 
     @Override
@@ -51,22 +50,20 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
 
     public void setUI() {
+        titleTextView = findViewById(R.id.title);
         tabAdd = findViewById(R.id.add);
-        logout = findViewById(R.id.logout);
         tabLayout = findViewById(R.id.tabs);
-        pfTabItem = findViewById(R.id.tab_profile);
-        plTabItem = findViewById(R.id.tab_patientlist);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
 
         HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
-        ViewPager mViewPager = findViewById(R.id.container);
-        mViewPager.setAdapter(adapter);
+        ViewPager viewPager = findViewById(R.id.container);
+        viewPager.setAdapter(adapter);
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         int tabIconColor = ContextCompat.getColor(ReHomeCaretakerActivity.this, R.color.colorBackground);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tabLayout.setOnTabSelectedListener(
-                new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
 
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
@@ -89,16 +86,34 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 }
         );
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        mViewPager.setCurrentItem(0);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.setCurrentItem(0);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position==0) {
+                    titleTextView.setText("โปรไฟล์");
+                } else {
+                    titleTextView.setText("รายชื่อผู้สูงอายุ");
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
     private void setListener() {
         tabAdd.setOnClickListener(this);
-        logout.setOnClickListener(this);
-
     }
 
     @Override
@@ -120,7 +135,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 Intent intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.logout:
+            case R.id.title:
                 UserManager.getInstance(ReHomeCaretakerActivity.this).removeCaretaker();
                 intent = new Intent(ReHomeCaretakerActivity.this, LoginActivity.class);
                 startActivity(intent);
