@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.data.master.District;
+import com.custu.project.walktogether.data.master.Education;
 import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
 import com.custu.project.walktogether.data.master.SubDistrict;
@@ -64,20 +67,12 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private EditText inputFirstname;
     private EditText inputLastname;
     private EditText inputDob;
-    private EditText inputPostcode;
     private Spinner inputSex;
-    private EditText inputAddress;
-    private Spinner inputProvince;
-    private Spinner inputDistric;
-    private Spinner inputSubdistric;
+    private Spinner inputEducation;
     private EditText inputTell;
     private EditText inputOccupation;
     private EditText inputEmail;
     private ProgressDialog progressDialog;
-    private ProgressBar districtProgressBar;
-    private ProgressBar subDistrictProgressBar;
-    private LinearLayout districtLinearLayout;
-    private LinearLayout subDistrictLinearLayout;
     private CircularProgressButton circularProgressButton;
 
     private Spinner inputDay;
@@ -85,19 +80,11 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private Spinner inputYear;
 
     private ArrayList<Sex> sexArrayList = new ArrayList<>();
-    private ArrayList<Province> provinceArrayList = new ArrayList<>();
-    private ArrayList<District> districtArrayList = new ArrayList<>();
-    private ArrayList<SubDistrict> subDistrictArrayList = new ArrayList<>();
+    private ArrayList<Education> educationArrayList = new ArrayList<>();
 
     private Long idSex;
-    private Long idProvince;
-    private Long idDistrict;
-    private Long idSubDistrict;
-
-    private boolean iSSex = false;
-    private boolean iSProvince = false;
-    private boolean iSDistrict = false;
-    private boolean iSSubDistrict = false;
+    private Long idEducation;
+    private Long idPatient;
 
     OnDataSuccessListener sexListener = new OnDataSuccessListener() {
         @Override
@@ -125,65 +112,14 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         }
     };
 
-    OnDataSuccessListener provinceListener = new OnDataSuccessListener() {
+    OnDataSuccessListener educationListener = new OnDataSuccessListener() {
         @Override
         public void onResponse(JsonObject object, Retrofit retrofit) {
             if (object != null) {
-                provinceArrayList = MasterModel.getInstance().getProvince(object);
-                setProvinceSpinner();
+                educationArrayList = MasterModel.getInstance().getEducations(object);
+                setEducation();
             }
 
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
-    OnDataSuccessListener districtListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                districtArrayList = MasterModel.getInstance().getDistrict(object);
-                setDistrictSpinner();
-            }
-
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
-    OnDataSuccessListener subDistrictListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                subDistrictArrayList = MasterModel.getInstance().getSubDistrict(object);
-                setSubDistrictSpinner();
-            }
         }
 
         @Override
@@ -218,26 +154,13 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private void setSexSpinner() {
         ArrayAdapter<Sex> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sexArrayList);
         inputSex.setAdapter(adapterArray);
+        inputSex.setSelection(0);
     }
 
-    private void setProvinceSpinner() {
-        ArrayAdapter<Province> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
-        inputProvince.setAdapter(adapterArray);
-    }
-
-    private void setDistrictSpinner() {
-        ArrayAdapter<District> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, districtArrayList);
-        inputDistric.setAdapter(adapterArray);
-        districtProgressBar.setVisibility(View.GONE);
-        districtLinearLayout.setVisibility(View.VISIBLE);
-
-    }
-
-    private void setSubDistrictSpinner() {
-        ArrayAdapter<SubDistrict> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, subDistrictArrayList);
-        inputSubdistric.setAdapter(adapterArray);
-        subDistrictProgressBar.setVisibility(View.GONE);
-        subDistrictLinearLayout.setVisibility(View.VISIBLE);
+    private void setEducation() {
+        ArrayAdapter<Education> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, educationArrayList);
+        inputSex.setAdapter(adapterArray);
+        inputSex.setSelection(0);
     }
 
     @Override
@@ -251,30 +174,12 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         inputLastname = findViewById(R.id.input_lastname);
         inputDob = findViewById(R.id.input_dob);
         inputSex = findViewById(R.id.input_sex);
-        inputAddress = findViewById(R.id.input_address);
-        inputProvince = findViewById(R.id.input_province);
-        inputDistric = findViewById(R.id.input_distric);
-        inputSubdistric = findViewById(R.id.input_subdistric);
         inputTell = findViewById(R.id.input_tell);
         inputOccupation = findViewById(R.id.input_occupation);
         inputEmail = findViewById(R.id.input_email);
-        districtProgressBar = findViewById(R.id.progress_district);
-        subDistrictProgressBar = findViewById(R.id.progress_subdistrict);
-        districtLinearLayout = findViewById(R.id.layout_district);
-        subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
-        inputPostcode = findViewById(R.id.postcode);
-
+        inputEducation = findViewById(R.id.input_education);
         circularProgressButton = findViewById(R.id.register_button);
         circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-
-        inputProvince.setSelected(false);
-        inputProvince.setSelection(0, true);
-
-        inputDistric.setSelected(false);
-        inputDistric.setSelection(0, true);
-
-        inputSubdistric.setSelected(false);
-        inputSubdistric.setSelection(0, true);
 
         inputDay = findViewById(R.id.day);
         inputMonth = findViewById(R.id.month);
@@ -339,58 +244,8 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     }
 
     private void setListener() {
-        inputDob.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
-
-        inputProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                districtProgressBar.setVisibility(View.VISIBLE);
-                districtLinearLayout.setVisibility(View.GONE);
-                idProvince = provinceArrayList.get(i).getId();
-                ConnectServer.getInstance().get(districtListener, ConfigService.DISTRICT + idProvince);
-                iSProvince = true;
-                iSDistrict = false;
-                iSSubDistrict = false;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputDistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subDistrictProgressBar.setVisibility(View.VISIBLE);
-                subDistrictLinearLayout.setVisibility(View.GONE);
-                idDistrict = districtArrayList.get(i).getId();
-                ConnectServer.getInstance().get(subDistrictListener, ConfigService.SUB_DISTRICT + idDistrict);
-                iSDistrict = true;
-                iSSubDistrict = false;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputSubdistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                idSubDistrict = subDistrictArrayList.get(i).getId();
-                iSSubDistrict = true;
-                inputPostcode.setText(subDistrictArrayList.get(i).getZipCode());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         inputSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -404,7 +259,18 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
             }
         });
 
-        progressDialog.dismiss();
+        inputEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                idEducation = educationArrayList.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     private void updateLabel(EditText editText) {
@@ -419,9 +285,9 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void getData() {
-        progressDialog.show();
-        ConnectServer.getInstance().get(provinceListener, ConfigService.PROVINCE);
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
+        ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
+        idPatient = getIntent().getLongExtra("idPatient", 0);
     }
 
     @Override
@@ -435,73 +301,75 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    private String getDob() {
+        String dobString;
+        dobString = inputDay.getSelectedItem().toString() + " "
+                + inputMonth.getSelectedItem().toString() + " "
+                + inputYear.getSelectedItem().toString();
+        return dobString;
+    }
+
     private boolean validate() {
 
-        if (inputUsername.length() == 0)
-            inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
-        inputUsername.setFocusable(true);
+        if (!DateTHFormat.getInstance().isDateValid(getDob())) {
+            inputDob.setError("กรุณาใส่วันเกิดให้ถูกต้อง");
+            inputDob.requestFocus();
+        }
 
-        if (inputPassword.length() == 0)
+        if (inputUsername.length() == 0) {
+            inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
+            inputUsername.requestFocus();
+        }
+
+        if (inputPassword.length() == 0) {
             inputPassword.setError("กรุณาใส่รหัสผ่าน");
-        inputPassword.setFocusable(true);
+            inputPassword.requestFocus();
+        }
 
 
         if (inputConfirmPass.length() == 0) {
             inputConfirmPass.setError("กรุณาใส่ยืนยันรหัสผ่าน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
 
         } else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString()))) {
             inputConfirmPass.setError("กรุณาใส่รหัสผ่านให้ตรงกัน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
         }
 
 
         if (inputTitlename.length() == 0) {
             inputTitlename.setError("กรุณาใส่คำนำหน้าชื่อ");
-            inputTitlename.setFocusable(true);
+            inputTitlename.requestFocus();
         }
 
         if (inputFirstname.length() == 0) {
             inputFirstname.setError("กรุณาใส่ชื่อจริง");
-            inputFirstname.setFocusable(true);
+            inputFirstname.requestFocus();
         }
 
         if (inputLastname.length() == 0) {
             inputLastname.setError("กรุณาใส่นามสกุล");
-            inputLastname.setFocusable(true);
+            inputLastname.requestFocus();
         }
-
-
-        if (inputDob.length() == 0) {
-            inputDob.setError("กรุณาใส่วันเกิด");
-            inputDob.setFocusable(true);
-        }
-
-
-        if (inputAddress.length() == 0) {
-            inputAddress.setError("กรุณาใส่ที่อยู่");
-            inputAddress.setFocusable(true);
-        }
-
 
         if (inputTell.length() == 0) {
             inputTell.setError("กรุณาใส่เบอร์โทรศัพท์");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         } else if (inputTell.length() != 10) {
             inputTell.setError("เบอร์โทรศัพท์ไม่ถูกต้อง");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         }
 
         if (inputEmail.length() == 0) {
             inputEmail.setError("กรุณาใส่อีเมลล์");
-            inputEmail.setFocusable(true);
+            inputEmail.requestFocus();
         }
 
 
         if (inputEmail.length() > 0)
             if (!isEmailValid(inputEmail.getText().toString())) {
                 inputEmail.setError("อีเมลไม่ตถูกต้อง");
-                inputEmail.setFocusable(true);
+                inputEmail.requestFocus();
             }
 
 
@@ -512,27 +380,32 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputAddress.length() != 0 &&
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
+                DateTHFormat.getInstance().isDateValid(getDob()) &&
                 isEmailValid(inputEmail.getText().toString());
     }
 
     private void register() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = this.getCurrentFocus();
+        if (imm != null) {
+            if (view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("idPatient", idPatient);
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
         jsonObject.addProperty("titleName", inputTitlename.getText().toString().trim());
         jsonObject.addProperty("firstName", inputFirstname.getText().toString().trim());
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);
-        jsonObject.addProperty("dob", inputDob.getText().toString().trim());
-        jsonObject.addProperty("address", inputAddress.getText().toString().trim());
-        jsonObject.addProperty("provinceId", idProvince);
-        jsonObject.addProperty("districtId", idDistrict);
-        jsonObject.addProperty("subDistrictId", idSubDistrict);
+        jsonObject.addProperty("dob", getDob());
+        jsonObject.addProperty("educationId", idEducation);
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());

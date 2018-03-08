@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -22,6 +23,22 @@ public class DateTHFormat {
             instance = new DateTHFormat();
         }
         return instance;
+    }
+
+    public boolean isDateValid(String dateToValidate){
+        if(dateToValidate == null){
+            return false;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH"));
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        formatter.setLenient(false);
+        try {
+            Date date = formatter.parse(dateToValidate);
+            System.out.println(date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public String normalDateFormat(Date date) {
@@ -70,21 +87,6 @@ public class DateTHFormat {
             return formatter.parse(dateString);
         } catch (ParseException e) {
             return new Date();
-        }
-    }
-
-    public Boolean validDate(Date date) {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            String day = String.valueOf(date.getDate());
-            String month = String.valueOf(date.getMonth());
-            String year = String.valueOf(date.getYear());
-            String dateString = day+"-"+month+"-"+year;
-            Date newDate = formatter.parse(dateString);
-            Log.d("date", "validDate: "+newDate);
-            return true;
-        } catch (ParseException e) {
-            return false;
         }
     }
 }
