@@ -30,9 +30,9 @@ import com.custu.project.walktogether.util.UserManager;
 
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private TabLayout tabLayout;
+    private RelativeLayout editProfileRelativeLayout;
+    private RelativeLayout addProfileRelativeLayout;
     private TextView titleTextView;
-
-    private RelativeLayout tabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,8 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     public void setUI() {
         titleTextView = findViewById(R.id.title);
-        tabAdd = findViewById(R.id.add);
+        addProfileRelativeLayout = findViewById(R.id.add);
+        editProfileRelativeLayout = findViewById(R.id.edit_profile);
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
 
@@ -92,7 +93,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position==0) {
+                if (position == 0) {
                     titleTextView.setText("โปรไฟล์");
                 } else {
                     titleTextView.setText("รายชื่อผู้สูงอายุ");
@@ -113,7 +114,8 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
 
     private void setListener() {
-        tabAdd.setOnClickListener(this);
+        addProfileRelativeLayout.setOnClickListener(this);
+        editProfileRelativeLayout.setOnClickListener(this);
     }
 
     @Override
@@ -130,9 +132,14 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        Intent intent;
         switch (id) {
             case R.id.add:
-                Intent intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
+                intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.edit_profile:
+                intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
                 startActivity(intent);
                 break;
             case R.id.title:
