@@ -54,7 +54,6 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 listNameFragment.showDialog(mContext, patientArrayList.get(position).getPatientNumber(), position);
             }
         });

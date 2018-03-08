@@ -209,11 +209,13 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
     }
 
     private void deletePatient(String patientNumber, Long caretakerId, final int index) {
+        pullRefreshLayout.setRefreshing(true);
         ConnectServer
                 .getInstance()
                 .delete(new OnDataSuccessListener() {
                             @Override
                             public void onResponse(JsonObject object, Retrofit retrofit) {
+                                pullRefreshLayout.setRefreshing(false);
                                 int status = object.get("status").getAsInt();
                                 if (status == 200) {
                                     patientArrayList.remove(index);
