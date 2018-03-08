@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.google.gson.JsonObject;
 
@@ -28,7 +30,6 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     private Intent intent;
     private Button nextBtn;
     private EditText edittextBtn;
-
     private Question question;
 
     @Override
@@ -56,7 +57,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-        titleTextView.setText(edittextBtn.getText().toString() + " " + titleTextView.getText());
+        titleTextView.setText(edittextBtn.getText().toString());
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +73,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                edittextBtn.setText("");
                 dialog.dismiss();
 
             }
@@ -88,8 +90,10 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_six);
+        ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
         titleTextView.setText(question.getTitle());
+        PicassoUtil.getInstance().setImage(QuestionSixActivity.this, question.getImage(), imageView);
     }
 
     @Override

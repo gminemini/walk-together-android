@@ -114,7 +114,7 @@
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
-                    android:spinnerMode="dropdown"
+                    android:spinnerMode="dialog"
                     android:background="@drawable/shape_edittext">
 
                 </Spinner>

@@ -73,7 +73,6 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
         answerArray.add("วันพฤหัสบดี");
         answerArray.add("วันศุกร์");
         answerArray.add("วันเสาร์");
-
     }
 
     private void setListener() {

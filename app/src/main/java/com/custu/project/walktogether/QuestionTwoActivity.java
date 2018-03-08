@@ -65,7 +65,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                edittextBtn.setText("");
             }
         });
         dialog.show();

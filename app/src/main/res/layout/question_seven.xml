@@ -114,38 +114,9 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:text="รถยนต์"
-                        android:id="@+id/checkbox1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <CheckBox
-                        android:text="ต้นไม้"
-                        android:id="@+id/checkbox2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <CheckBox
-                        android:text="ปากกา"
-                        android:id="@+id/checkbox3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <CheckBox
-                        android:text="เก้าอี้"
-                        android:id="@+id/checkbox4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <CheckBox
-                        android:text="มือ"
-                        android:id="@+id/checkbox5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
 
                 </RadioGroup>
@@ -155,9 +126,7 @@
 
         </ScrollView>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

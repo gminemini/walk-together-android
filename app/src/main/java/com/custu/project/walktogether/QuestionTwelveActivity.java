@@ -9,21 +9,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Evaluation.Question;
+import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.PicassoUtil;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 public class QuestionTwelveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
-    private EditText input_topicfive;
+    private EditText inputTopicFive;
     private Intent intent;
+    private Question question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_twelve);
+        getData();
         setUI();
         setListener();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -43,16 +50,14 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-
-
-        titleTextView.setText(input_topicfive.getText() + " " + titleTextView.getText());
-
+        titleTextView.setText(inputTopicFive.getText() + " " + titleTextView.getText());
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
+                StoreAnswerTmse.getInstance().storeAnswer("no12", question.getId(), inputTopicFive.getText().toString());
                 dialog.dismiss();
                 startActivity(intent);
             }
@@ -62,7 +67,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
+                inputTopicFive.setText("");
             }
         });
         dialog.show();
@@ -76,12 +81,18 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
     @Override
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
-        input_topicfive = (EditText) findViewById(R.id.input_topicfive);
+        inputTopicFive = (EditText) findViewById(R.id.input_topicfive);
+        ImageView imageView = findViewById(R.id.image);
+        TextView titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText(question.getTitle());
+        PicassoUtil.getInstance().setImage(QuestionTwelveActivity.this, question.getImage(), imageView);
     }
 
     @Override
     public void getData() {
-
+        question = EvaluationModel.getInstance()
+                .getEvaluationByNumber("12", QuestionTwelveActivity.this)
+                .getQuestion();
     }
 
     @Override
