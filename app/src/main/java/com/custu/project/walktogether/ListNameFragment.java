@@ -11,12 +11,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -25,6 +28,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.adapter.ListViewAdapter;
 import com.custu.project.walktogether.adapter.PatientAdapter;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
@@ -38,6 +42,7 @@ import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -51,13 +56,16 @@ import retrofit2.Retrofit;
 public class ListNameFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private View view;
     private FragmentActivity context;
-    private SwipeMenuListView listView;
+    private ListView listView;
     private PullRefreshLayout pullRefreshLayout;
     private ProgressDialog progressDialog;
     private SwipeMenuCreator creator;
 
     private ArrayList<Patient> patientArrayList;
     private Caretaker caretaker;
+
+    private ListViewAdapter mAdapter;
+
 
     OnDataSuccessListener caretakerListener = new OnDataSuccessListener() {
         @Override
@@ -139,7 +147,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
         initValue();
         getDataUser();
         initProgressDialog();
-        SwipeMenuCreator();
         getData();
         return view;
     }
@@ -155,27 +162,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                 +caretaker.getId());
     }
 
-    private void SwipeMenuCreator() {
-        creator = new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        context);
-                deleteItem.setTitle("ลบ");
-                deleteItem.setTitleSize(16);
-                deleteItem.setTitleColor(Color.WHITE);
-                deleteItem.setBackground(R.color.colorDelete);
-                deleteItem.setWidth((int) dp2px());
-                menu.addMenuItem(deleteItem);
-            }
-        };
-    }
-
-    private float dp2px() {
-        float scale = getResources().getDisplayMetrics().density;
-        return 80 * scale + 0.5f;
-    }
-
     private void setListener() {
         pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -183,22 +169,10 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                 getData();
             }
         });
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        showDialog(context, patientArrayList.get(position).getPatientNumber(), caretaker.getId(), position);
-                        break;
-                }
-                return false;
-            }
-        });
-
     }
 
     @SuppressLint("SetTextI18n")
-    private void showDialog(Context context, final String patientNumber, final Long caretakerId, final int position) {
+    public void showDialog(Context context, final String patientNumber, final int position) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_delete_patient);
         dialog.setCancelable(false);
@@ -219,7 +193,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deletePatient(patientNumber, caretakerId, position);
+                deletePatient(patientNumber, caretaker.getId(), position);
                 dialog.dismiss();
             }
         });
@@ -275,10 +249,21 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
 
     @Override
     public void setUI() {
+        mAdapter = new ListViewAdapter(context, patientArrayList, ListNameFragment.this);
         listView = view.findViewById(R.id.list_patient);
-        PatientAdapter patientAdapter = new PatientAdapter(context, patientArrayList);
-        listView.setMenuCreator(creator);
-        listView.setAdapter(patientAdapter);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                //((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
+                Patient patient = patientArrayList.get(position);
+                Intent intent = new Intent(context, PatientDetailActivity.class);
+                intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
+                intent.putExtra("idPatient", patient.getId());
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override

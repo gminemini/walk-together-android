@@ -13,7 +13,7 @@
         app:refreshColor="@color/colorBackground"
         app:refreshType="smartisan">
 
-        <com.baoyz.swipemenulistview.SwipeMenuListView
+        <ListView
             android:id="@+id/list_patient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

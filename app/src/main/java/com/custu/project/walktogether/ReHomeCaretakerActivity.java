@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
@@ -49,6 +51,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     public void setUI() {
         titleTextView = findViewById(R.id.title);
         addProfileRelativeLayout = findViewById(R.id.add);
@@ -165,4 +168,5 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
             }
         }
     }
+
 }
