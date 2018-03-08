@@ -95,8 +95,12 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
                     titleTextView.setText("โปรไฟล์");
+                    editProfileRelativeLayout.setVisibility(View.VISIBLE);
+                    addProfileRelativeLayout.setVisibility(View.GONE);
                 } else {
                     titleTextView.setText("รายชื่อผู้สูงอายุ");
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }
             }
 

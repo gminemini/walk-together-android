@@ -44,10 +44,8 @@
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
-        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity">
-
-        </activity>
-        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
@@ -103,8 +101,7 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก "></activity>
-
+            android:label="สมัครสมาชิก " />
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />
@@ -116,16 +113,13 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
             android:name="com.custu.project.walktogether.ChoosemapActivity"
@@ -146,9 +140,9 @@
         <activity
             android:name="com.custu.project.walktogether.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
-        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity">
-        </activity>
-        <activity android:name="com.custu.project.walktogether.AddTabActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.AddTabActivity" />
+        <activity android:name="com.custu.project.walktogether.PatientDetailActivity"></activity>
     </application>
 
 </manifest>

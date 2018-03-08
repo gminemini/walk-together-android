@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.HomeCaretakerActivity">
+    tools:context="com.custu.project.walktogether.PatientDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,42 +33,6 @@
             android:textColor="@color/colorOffwhite"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/add"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/plus" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/edit_profile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/plus" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -98,14 +62,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/profile"
-                    android:text="โปรไฟล์" />
+                    android:text="ประวัติแบบทดสอบ" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tab_patientlist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/list"
-                    android:text="รายชื่อผู้สูงอายุ" />
+                    android:text="ประวัติภารกิจ" />
 
 
             </android.support.design.widget.TabLayout>
