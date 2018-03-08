@@ -203,42 +203,43 @@
                             android:textSize="@dimen/TextSizeBold_20sp" />
 
                         <EditText
-                            android:focusable="false"
                             android:id="@+id/input_dob"
                             android:layout_width="1dp"
-                            android:layout_height="1dp" />
+                            android:layout_height="1dp"
+                            android:focusable="false" />
 
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <Spinner
                             android:id="@+id/day"
-                            android:layout_weight="3"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/height_edittext_40dp"/>
+                            android:layout_height="@dimen/height_edittext_40dp"
+                            android:layout_weight="3" />
 
                         <Spinner
                             android:id="@+id/month"
-                            android:layout_weight="5"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/height_edittext_40dp"/>
+                            android:layout_height="@dimen/height_edittext_40dp"
+                            android:layout_weight="5" />
+
                         <Spinner
                             android:id="@+id/year"
-                            android:layout_weight="5"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/height_edittext_40dp"/>
+                            android:layout_height="@dimen/height_edittext_40dp"
+                            android:layout_weight="5" />
                     </LinearLayout>
 
 
                     <View
-                        android:background="@drawable/shape_input_regis"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
+                        android:layout_height="1dp"
+                        android:background="@drawable/shape_input_regis" />
 
 
                 </LinearLayout>
@@ -264,7 +265,7 @@
                         android:background="@drawable/shape_input_regis"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:spinnerMode="dropdown">
+                        android:spinnerMode="dialog">
 
                     </Spinner>
                 </LinearLayout>
@@ -274,144 +275,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
-
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ที่อยู่"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                    <EditText
-                        android:id="@+id/input_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/shape_input_regis"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="จังหวัด"
+                        android:text="ระดับการศึกษา"
                         android:textColor="@color/colorBackground"
                         android:textSize="@dimen/TextSizeBold_20sp" />
 
                     <Spinner
-                        android:id="@+id/input_province"
+                        android:id="@+id/input_education"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_edittext_40dp"
                         android:background="@drawable/shape_input_regis"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:spinnerMode="dropdown">
+                        android:spinnerMode="dialog">
 
                     </Spinner>
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progress_district"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:indeterminateDrawable="@drawable/progressdrawable" />
-
-                <LinearLayout
-                    android:id="@+id/layout_district"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="อำเภอ"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                    <Spinner
-                        android:id="@+id/input_distric"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_edittext_40dp"
-                        android:background="@drawable/shape_input_regis"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:spinnerMode="dropdown"></Spinner>
-
-                </LinearLayout>
-
-                <ProgressBar
-                    android:id="@+id/progress_subdistrict"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:indeterminateDrawable="@drawable/progressdrawable" />
-
-                <LinearLayout
-                    android:id="@+id/layout_subdistrict"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ตำบล"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                    <Spinner
-                        android:id="@+id/input_subdistric"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_edittext_40dp"
-                        android:background="@drawable/shape_input_regis"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:spinnerMode="dropdown">
-
-                    </Spinner>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="รหัสไปรษณีย์"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                    <EditText
-                        android:id="@+id/postcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/shape_input_regis"
-                        android:clickable="false"
-                        android:editable="false"
-                        android:focusable="false"
-                        android:inputType="phone"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -497,29 +381,29 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
         android:layout_weight="1.5"
+        android:orientation="vertical"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
         <Button
-            android:visibility="gone"
             android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/shapetopics"
             android:text="ตกลง"
             android:textColor="@color/colorOffwhite"
-            android:textSize="@dimen/TextSize" />
+            android:textSize="@dimen/TextSize"
+            android:visibility="gone" />
 
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="ตกลง"
             android:layout_gravity="center_horizontal"
+            android:text="ตกลง"
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize"
             app:finalCornerAngle="48dp"

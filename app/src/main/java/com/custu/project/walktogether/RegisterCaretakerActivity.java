@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.master.District;
+import com.custu.project.walktogether.data.master.Education;
 import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
 import com.custu.project.walktogether.data.master.SubDistrict;
@@ -64,12 +65,8 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private EditText inputFirstname;
     private EditText inputLastname;
     private EditText inputDob;
-    private EditText inputPostcode;
     private Spinner inputSex;
-    private EditText inputAddress;
-    private Spinner inputProvince;
-    private Spinner inputDistric;
-    private Spinner inputSubdistric;
+    private Spinner inputEducation;
     private Spinner inputDay;
     private Spinner inputMonth;
     private Spinner inputYear;
@@ -77,21 +74,13 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private EditText inputOccupation;
     private EditText inputEmail;
     private ProgressDialog progressDialog;
-    private ProgressBar districtProgressBar;
-    private ProgressBar subDistrictProgressBar;
-    private LinearLayout districtLinearLayout;
-    private LinearLayout subDistrictLinearLayout;
     private CircularProgressButton circularProgressButton;
 
     private ArrayList<Sex> sexArrayList = new ArrayList<>();
-    private ArrayList<Province> provinceArrayList = new ArrayList<>();
-    private ArrayList<District> districtArrayList = new ArrayList<>();
-    private ArrayList<SubDistrict> subDistrictArrayList = new ArrayList<>();
+    private ArrayList<Education> educationArrayList = new ArrayList<>();
 
     private Long idSex;
-    private Long idProvince;
-    private Long idDistrict;
-    private Long idSubDistrict;
+    private Long idEducation;
 
     OnDataSuccessListener sexListener = new OnDataSuccessListener() {
         @Override
@@ -119,12 +108,12 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         }
     };
 
-    OnDataSuccessListener provinceListener = new OnDataSuccessListener() {
+    OnDataSuccessListener educationListener = new OnDataSuccessListener() {
         @Override
         public void onResponse(JsonObject object, Retrofit retrofit) {
             if (object != null) {
-                provinceArrayList = MasterModel.getInstance().getProvince(object);
-                setProvinceSpinner();
+                educationArrayList = MasterModel.getInstance().getEducations(object);
+                setEducationSpinner();
             }
 
         }
@@ -144,58 +133,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
         }
     };
-
-    OnDataSuccessListener districtListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                districtArrayList = MasterModel.getInstance().getDistrict(object);
-                setDistrictSpinner();
-            }
-
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
-    OnDataSuccessListener subDistrictListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                subDistrictArrayList = MasterModel.getInstance().getSubDistrict(object);
-                setSubDistrictSpinner();
-            }
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,25 +172,11 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         inputSex.setAdapter(adapterArray);
     }
 
-    private void setProvinceSpinner() {
-        ArrayAdapter<Province> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
-        inputProvince.setAdapter(adapterArray);
+    private void setEducationSpinner() {
+        ArrayAdapter<Education> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, educationArrayList);
+        inputEducation.setAdapter(adapterArray);
     }
 
-    private void setDistrictSpinner() {
-        ArrayAdapter<District> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, districtArrayList);
-        inputDistric.setAdapter(adapterArray);
-        districtProgressBar.setVisibility(View.GONE);
-        districtLinearLayout.setVisibility(View.VISIBLE);
-
-    }
-
-    private void setSubDistrictSpinner() {
-        ArrayAdapter<SubDistrict> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, subDistrictArrayList);
-        inputSubdistric.setAdapter(adapterArray);
-        subDistrictProgressBar.setVisibility(View.GONE);
-        subDistrictLinearLayout.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public void setUI() {
@@ -266,18 +189,11 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         inputLastname = findViewById(R.id.input_lastname);
         inputDob = findViewById(R.id.input_dob);
         inputSex = findViewById(R.id.input_sex);
-        inputAddress = findViewById(R.id.input_address);
-        inputProvince = findViewById(R.id.input_province);
-        inputDistric = findViewById(R.id.input_distric);
-        inputSubdistric = findViewById(R.id.input_subdistric);
+        inputEducation = findViewById(R.id.input_education);
+
         inputTell = findViewById(R.id.input_tell);
         inputOccupation = findViewById(R.id.input_occupation);
         inputEmail = findViewById(R.id.input_email);
-        districtProgressBar = findViewById(R.id.progress_district);
-        subDistrictProgressBar = findViewById(R.id.progress_subdistrict);
-        districtLinearLayout = findViewById(R.id.layout_district);
-        subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
-        inputPostcode = findViewById(R.id.postcode);
 
         inputDay = findViewById(R.id.day);
         inputMonth = findViewById(R.id.month);
@@ -285,15 +201,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
         circularProgressButton = findViewById(R.id.register_button);
         circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-
-        inputProvince.setSelected(false);
-        inputProvince.setSelection(0, true);
-
-        inputDistric.setSelected(false);
-        inputDistric.setSelection(0, true);
-
-        inputSubdistric.setSelected(false);
-        inputSubdistric.setSelection(0, true);
         setDobSpinner();
     }
 
@@ -319,49 +226,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         nextBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
 
-        inputProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                districtProgressBar.setVisibility(View.VISIBLE);
-                districtLinearLayout.setVisibility(View.GONE);
-                idProvince = provinceArrayList.get(i).getId();
-                ConnectServer.getInstance().get(districtListener, ConfigService.DISTRICT + idProvince);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputDistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subDistrictProgressBar.setVisibility(View.VISIBLE);
-                subDistrictLinearLayout.setVisibility(View.GONE);
-                idDistrict = districtArrayList.get(i).getId();
-                ConnectServer.getInstance().get(subDistrictListener, ConfigService.SUB_DISTRICT + idDistrict);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputSubdistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                idSubDistrict = subDistrictArrayList.get(i).getId();
-                inputPostcode.setText(subDistrictArrayList.get(i).getZipCode());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         inputSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -386,7 +250,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     @Override
     public void getData() {
         progressDialog.show();
-        ConnectServer.getInstance().get(provinceListener, ConfigService.PROVINCE);
+        ConnectServer.getInstance().get(educationListener, ConfigService.PROVINCE);
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
     }
 
@@ -403,63 +267,59 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
 
     private boolean validate() {
 
-        if (inputUsername.length() == 0)
+        if (inputUsername.length() == 0) {
             inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
-        inputUsername.setFocusable(true);
+            inputUsername.requestFocus();
+        }
 
-        if (inputPassword.length() == 0)
+        if (inputPassword.length() == 0) {
             inputPassword.setError("กรุณาใส่รหัสผ่าน");
-        inputPassword.setFocusable(true);
+            inputPassword.requestFocus();
+        }
 
 
         if (inputConfirmPass.length() == 0) {
             inputConfirmPass.setError("กรุณาใส่ยืนยันรหัสผ่าน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
 
         } else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString()))) {
             inputConfirmPass.setError("กรุณาใส่รหัสผ่านให้ตรงกัน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
         }
 
 
         if (inputTitlename.length() == 0) {
             inputTitlename.setError("กรุณาใส่คำนำหน้าชื่อ");
-            inputTitlename.setFocusable(true);
+            inputTitlename.requestFocus();
         }
 
         if (inputFirstname.length() == 0) {
             inputFirstname.setError("กรุณาใส่ชื่อจริง");
-            inputFirstname.setFocusable(true);
+            inputFirstname.requestFocus();
         }
 
         if (inputLastname.length() == 0) {
             inputLastname.setError("กรุณาใส่นามสกุล");
-            inputLastname.setFocusable(true);
+            inputLastname.requestFocus();
         }
-
-        if (inputAddress.length() == 0) {
-            inputAddress.setError("กรุณาใส่ที่อยู่");
-            inputAddress.setFocusable(true);
-        }
-
 
         if (inputTell.length() == 0) {
             inputTell.setError("กรุณาใส่เบอร์โทรศัพท์");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         } else if (inputTell.length() != 10) {
             inputTell.setError("เบอร์โทรศัพท์ไม่ถูกต้อง");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         }
 
         if (inputEmail.length() == 0) {
             inputEmail.setError("กรุณาใส่อีเมลล์");
-            inputEmail.setFocusable(true);
+            inputEmail.requestFocus();
         }
 
         if (inputEmail.length() > 0)
             if (!isEmailValid(inputEmail.getText().toString())) {
                 inputEmail.setError("อีเมลไม่ตถูกต้อง");
-                inputEmail.setFocusable(true);
+                inputEmail.requestFocus();
             }
 
 
@@ -470,7 +330,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputAddress.length() != 0 &&
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
@@ -503,10 +362,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);
         jsonObject.addProperty("dob", getDob());
-        jsonObject.addProperty("address", inputAddress.getText().toString().trim());
-        jsonObject.addProperty("provinceId", idProvince);
-        jsonObject.addProperty("districtId", idDistrict);
-        jsonObject.addProperty("subDistrictId", idSubDistrict);
+        jsonObject.addProperty("educationId", idEducation);
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());

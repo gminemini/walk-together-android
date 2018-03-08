@@ -67,7 +67,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private EditText inputDob;
     private Spinner inputSex;
     private Spinner inputEducation;
-    private EditText inputAddress;
     private EditText inputTell;
     private EditText inputOccupation;
     private EditText inputEmail;
@@ -173,7 +172,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         inputLastname = findViewById(R.id.input_lastname);
         inputDob = findViewById(R.id.input_dob);
         inputSex = findViewById(R.id.input_sex);
-        inputAddress = findViewById(R.id.input_address);
         inputTell = findViewById(R.id.input_tell);
         inputOccupation = findViewById(R.id.input_occupation);
         inputEmail = findViewById(R.id.input_email);
@@ -288,7 +286,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     public void getData() {
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
         ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
-        idPatient = getIntent().getLongExtra("idPatient",0);
+        idPatient = getIntent().getLongExtra("idPatient", 0);
     }
 
     @Override
@@ -304,33 +302,35 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
     private boolean validate() {
 
-        if (inputUsername.length() == 0)
+        if (inputUsername.length() == 0) {
             inputUsername.setError("กรุณาใส่ชื่อผู้ใช้");
-        inputUsername.setFocusable(true);
+            inputUsername.requestFocus();
+        }
 
-        if (inputPassword.length() == 0)
+        if (inputPassword.length() == 0) {
             inputPassword.setError("กรุณาใส่รหัสผ่าน");
-        inputPassword.setFocusable(true);
+            inputPassword.requestFocus();
+        }
 
 
         if (inputConfirmPass.length() == 0) {
             inputConfirmPass.setError("กรุณาใส่ยืนยันรหัสผ่าน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
 
         } else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString()))) {
             inputConfirmPass.setError("กรุณาใส่รหัสผ่านให้ตรงกัน");
-            inputConfirmPass.setFocusable(true);
+            inputConfirmPass.requestFocus();
         }
 
 
         if (inputTitlename.length() == 0) {
             inputTitlename.setError("กรุณาใส่คำนำหน้าชื่อ");
-            inputTitlename.setFocusable(true);
+            inputTitlename.requestFocus();
         }
 
         if (inputFirstname.length() == 0) {
             inputFirstname.setError("กรุณาใส่ชื่อจริง");
-            inputFirstname.setFocusable(true);
+            inputFirstname.requestFocus();
         }
 
         if (inputLastname.length() == 0) {
@@ -341,34 +341,27 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
         if (inputDob.length() == 0) {
             inputDob.setError("กรุณาใส่วันเกิด");
-            inputDob.setFocusable(true);
+            inputDob.requestFocus();
         }
-
-
-        if (inputAddress.length() == 0) {
-            inputAddress.setError("กรุณาใส่ที่อยู่");
-            inputAddress.setFocusable(true);
-        }
-
 
         if (inputTell.length() == 0) {
             inputTell.setError("กรุณาใส่เบอร์โทรศัพท์");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         } else if (inputTell.length() != 10) {
             inputTell.setError("เบอร์โทรศัพท์ไม่ถูกต้อง");
-            inputTell.setFocusable(true);
+            inputTell.requestFocus();
         }
 
         if (inputEmail.length() == 0) {
             inputEmail.setError("กรุณาใส่อีเมลล์");
-            inputEmail.setFocusable(true);
+            inputEmail.requestFocus();
         }
 
 
         if (inputEmail.length() > 0)
             if (!isEmailValid(inputEmail.getText().toString())) {
                 inputEmail.setError("อีเมลไม่ตถูกต้อง");
-                inputEmail.setFocusable(true);
+                inputEmail.requestFocus();
             }
 
 
@@ -379,7 +372,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputAddress.length() != 0 &&
                 inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
@@ -398,7 +390,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         jsonObject.addProperty("sexId", idSex);
         jsonObject.addProperty("dob", inputDob.getText().toString().trim());
         jsonObject.addProperty("educationId", idEducation);
-        jsonObject.addProperty("address", inputAddress.getText().toString().trim());
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());
