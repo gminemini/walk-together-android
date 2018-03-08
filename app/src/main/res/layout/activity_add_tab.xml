@@ -51,18 +51,20 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBackground"
-                app:tabIndicatorColor="@color/colorOffwhite"
-                app:tabSelectedTextColor="@color/colorOffwhite"
-                app:tabTextColor="@color/colorOffwhite">
+                android:background="@color/colorOffwhite"
+                app:tabIndicatorColor="@color/colorBackground"
+                app:tabSelectedTextColor="@color/colorBackground"
+                app:tabTextColor="@color/colorBackground">
 
                 <android.support.design.widget.TabItem
-                    android:id="@+id/tab_numbefr"
+                    android:icon="@drawable/search"
+                    android:id="@+id/tab_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="เพิ่มหมายเลข" />
 
                 <android.support.design.widget.TabItem
+                    android:icon="@drawable/qrcode"
                     android:id="@+id/tab_qr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

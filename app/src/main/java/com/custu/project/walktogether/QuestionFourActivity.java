@@ -47,7 +47,7 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
         titleTextView = findViewById(R.id.title);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(4) "+question.getTitle());
     }
 
     @Override

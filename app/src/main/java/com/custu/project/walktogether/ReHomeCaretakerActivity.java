@@ -1,28 +1,37 @@
 package com.custu.project.walktogether;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.adapter.AddPatientPagerAdapter;
+import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
-public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
-    private FrameLayout content;
-    private ListNameFragment listNameFragment = new ListNameFragment();
-    private ProfileFragment profileFragment = new ProfileFragment();
-    private BottomNavigationView bottomNavigationView;
-    private RelativeLayout addRelativeLayout;
+public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+    private TabLayout tabLayout;
+    private TabItem pfTabItem;
+    private TabItem plTabItem;
+    private RelativeLayout tabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +47,54 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     }
 
-    @Override
+
     public void setUI() {
-        content = (FrameLayout) findViewById(R.id.content);
-        bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        addRelativeLayout = findViewById(R.id.add);
-        if (getIntent().getStringExtra("page") != null) {
-            String page = getIntent().getStringExtra("page");
-            if (page.equalsIgnoreCase("profile")) {
-                bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                openFragment(profileFragment);
-            }
-            if (page.equalsIgnoreCase("list")) {
-                bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                openFragment(listNameFragment);
-            }
-        } else {
-            openFragment(profileFragment);
-        }
+        tabAdd = findViewById(R.id.add);
+        tabLayout = findViewById(R.id.tabs);
+        pfTabItem = findViewById(R.id.tab_profile);
+        plTabItem = findViewById(R.id.tab_patientlist);
+        tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
+
+        HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
+        ViewPager mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(adapter);
+
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        int tabIconColor = ContextCompat.getColor(ReHomeCaretakerActivity.this, R.color.colorBackground);
+        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+        tabLayout.setOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        int tabIconColor = ContextCompat.getColor(ReHomeCaretakerActivity.this, R.color.colorBackground);
+                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                        int tabIconColor = ContextCompat.getColor(ReHomeCaretakerActivity.this, R.color.colorMiddleGray);
+                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
+                    }
+                }
+        );
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mViewPager.setCurrentItem(0);
     }
 
-    public void setListener() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        addRelativeLayout.setOnClickListener(this);
-        findViewById(R.id.logout).setOnClickListener(this);
+
+    private void setListener() {
+        tabAdd.setOnClickListener(this);
+
     }
 
     @Override
@@ -74,28 +107,6 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     }
 
-    public void openFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_recent:
-                bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                openFragment(profileFragment);
-                return true;
-            case R.id.item_favorite:
-                bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                openFragment(listNameFragment);
-                return true;
-        }
-        return false;
-    }
 
     @Override
     public void onClick(View view) {
@@ -110,6 +121,18 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 intent = new Intent(ReHomeCaretakerActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = this.getCurrentFocus();
+        if (imm != null) {
+            if (view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_two);
         titleTextView =  findViewById(R.id.title);
-        titleTextView.setText(numberQuestion.getQuestion().getTitle());
+        titleTextView.setText("(2) "+numberQuestion.getQuestion().getTitle());
     }
 
     @Override

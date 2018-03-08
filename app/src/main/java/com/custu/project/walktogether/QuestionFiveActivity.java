@@ -99,7 +99,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
         TextView titleTextView = (TextView) findViewById(R.id.title);
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(5) "+question.getTitle());
         ArrayAdapter<Province> adapterArray = new ArrayAdapter<Province>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
         answerSpinner.setAdapter(adapterArray);
         setListener();

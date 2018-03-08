@@ -24,9 +24,11 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     private EditText inputTopicFour;
     private Question question;
     private int count = 0;
+    private int numberQ = 9;
     private int resultScore = 0;
-    private TextView title;
+//    private TextView title;
     private TextView questionTextView;
+    private TextView numberQTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                     dialog.dismiss();
                     startActivity(intent);
                 } else {
+                    numberQ++;
                     dialog.dismiss();
                     nextQuestion(inputTopicFour.getText().toString());
                 }
@@ -83,6 +86,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
 
     private void nextQuestion(String input) {
         questionTextView.setText(input);
+        numberQTextView.setText("("+numberQ+") ");
         inputTopicFour.setText("");
     }
 
@@ -95,10 +99,12 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         inputTopicFour = (EditText) findViewById(R.id.input_topicfour);
-        title = findViewById(R.id.title);
+        numberQTextView = (TextView) findViewById(R.id.numberQ);
+        numberQTextView.setText("("+numberQ+") ");
+//        title = findViewById(R.id.title);
         questionTextView = findViewById(R.id.question);
         TextView description = findViewById(R.id.description);
-        title.setText(question.getTitle());
+//        title.setText("9. "+question.getTitle());
         description.setText(question.getDescription());
     }
 

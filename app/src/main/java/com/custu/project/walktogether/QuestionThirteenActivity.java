@@ -84,7 +84,7 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
         inputTopicFive = (EditText) findViewById(R.id.input_topicfive);
         ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(13) "+question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionThirteenActivity.this, question.getImage(), imageView);
     }
 

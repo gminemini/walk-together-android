@@ -51,7 +51,7 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
         nextBtn = (Button) findViewById(R.id.next);
         titleTextView = findViewById(R.id.title);
 
-        titleTextView.setText(numberQuestion.getQuestion().getTitle());
+        titleTextView.setText("(1) " + numberQuestion.getQuestion().getTitle());
     }
 
     @Override
