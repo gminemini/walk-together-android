@@ -64,7 +64,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         nextBtn = (Button) findViewById(R.id.next);
         radioGroup = findViewById(R.id.radio_group);
         TextView titleTextView = (TextView) findViewById(R.id.question_text);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(19) "+question.getTitle());
         initProgress();
         initAnswer();
     }
@@ -151,7 +151,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
                     if (isPass) {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
-                        intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsInt());
+                        intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
                         startActivity(intent);
                     } else {
                         int score = object.getAsJsonObject("data").get("score").getAsInt();

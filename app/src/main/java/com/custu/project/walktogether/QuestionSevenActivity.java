@@ -77,7 +77,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         radioGroup = findViewById(R.id.radio_group);
         playSoundImageView.setOnClickListener(this);
         TextView titleTextView = findViewById(R.id.question_text);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(7) "+question.getTitle());
         initAnswer();
     }
 

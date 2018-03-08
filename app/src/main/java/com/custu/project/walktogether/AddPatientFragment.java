@@ -96,6 +96,7 @@ public class AddPatientFragment extends Fragment implements BasicActivity, View.
         // Required empty public constructor
     }
 
+
     public static AddPatientFragment newInstance(String param1, String param2) {
         AddPatientFragment fragment = new AddPatientFragment();
         Bundle args = new Bundle();
@@ -269,4 +270,5 @@ public class AddPatientFragment extends Fragment implements BasicActivity, View.
 
         }
     }
+
 }

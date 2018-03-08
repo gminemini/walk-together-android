@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="กล้วยกับส้มเหมือนกันคือผลไม้"
+                android:text="(18) กล้วยกับส้มเหมือนกันคือผลไม้"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />

@@ -92,7 +92,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         edittextBtn = (EditText) findViewById(R.id.input_six);
         ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(6) "+question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionSixActivity.this, question.getImage(), imageView);
     }
 

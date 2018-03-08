@@ -47,7 +47,7 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
         titleTextView = findViewById(R.id.title);
-        titleTextView.setText(question.getTitle());
+        titleTextView.setText("(3) "+question.getTitle());
     }
 
     @Override
