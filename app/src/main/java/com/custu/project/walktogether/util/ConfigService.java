@@ -17,6 +17,7 @@ public class ConfigService {
 
     //Master
     public static final String SEX = "sex/";
+    public static final String EDUCATION = "education/";
     public static final String PROVINCE = "province/";
     public static final String DISTRICT = "district/by-id-province/";
     public static final String SUB_DISTRICT = "sub-district/by-id-district/";

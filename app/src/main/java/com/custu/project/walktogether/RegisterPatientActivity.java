@@ -24,6 +24,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.data.master.District;
+import com.custu.project.walktogether.data.master.Education;
 import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
 import com.custu.project.walktogether.data.master.SubDistrict;
@@ -64,20 +65,13 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private EditText inputFirstname;
     private EditText inputLastname;
     private EditText inputDob;
-    private EditText inputPostcode;
     private Spinner inputSex;
+    private Spinner inputEducation;
     private EditText inputAddress;
-    private Spinner inputProvince;
-    private Spinner inputDistric;
-    private Spinner inputSubdistric;
     private EditText inputTell;
     private EditText inputOccupation;
     private EditText inputEmail;
     private ProgressDialog progressDialog;
-    private ProgressBar districtProgressBar;
-    private ProgressBar subDistrictProgressBar;
-    private LinearLayout districtLinearLayout;
-    private LinearLayout subDistrictLinearLayout;
     private CircularProgressButton circularProgressButton;
 
     private Spinner inputDay;
@@ -85,19 +79,11 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private Spinner inputYear;
 
     private ArrayList<Sex> sexArrayList = new ArrayList<>();
-    private ArrayList<Province> provinceArrayList = new ArrayList<>();
-    private ArrayList<District> districtArrayList = new ArrayList<>();
-    private ArrayList<SubDistrict> subDistrictArrayList = new ArrayList<>();
+    private ArrayList<Education> educationArrayList = new ArrayList<>();
 
     private Long idSex;
-    private Long idProvince;
-    private Long idDistrict;
-    private Long idSubDistrict;
-
-    private boolean iSSex = false;
-    private boolean iSProvince = false;
-    private boolean iSDistrict = false;
-    private boolean iSSubDistrict = false;
+    private Long idEducation;
+    private Long idPatient;
 
     OnDataSuccessListener sexListener = new OnDataSuccessListener() {
         @Override
@@ -125,65 +111,14 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         }
     };
 
-    OnDataSuccessListener provinceListener = new OnDataSuccessListener() {
+    OnDataSuccessListener educationListener = new OnDataSuccessListener() {
         @Override
         public void onResponse(JsonObject object, Retrofit retrofit) {
             if (object != null) {
-                provinceArrayList = MasterModel.getInstance().getProvince(object);
-                setProvinceSpinner();
+                educationArrayList = MasterModel.getInstance().getEducations(object);
+                setEducation();
             }
 
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
-    OnDataSuccessListener districtListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                districtArrayList = MasterModel.getInstance().getDistrict(object);
-                setDistrictSpinner();
-            }
-
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBodyError) {
-
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-
-        }
-    };
-
-    OnDataSuccessListener subDistrictListener = new OnDataSuccessListener() {
-        @Override
-        public void onResponse(JsonObject object, Retrofit retrofit) {
-            if (object != null) {
-                subDistrictArrayList = MasterModel.getInstance().getSubDistrict(object);
-                setSubDistrictSpinner();
-            }
         }
 
         @Override
@@ -218,26 +153,13 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     private void setSexSpinner() {
         ArrayAdapter<Sex> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sexArrayList);
         inputSex.setAdapter(adapterArray);
+        inputSex.setSelection(0);
     }
 
-    private void setProvinceSpinner() {
-        ArrayAdapter<Province> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
-        inputProvince.setAdapter(adapterArray);
-    }
-
-    private void setDistrictSpinner() {
-        ArrayAdapter<District> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, districtArrayList);
-        inputDistric.setAdapter(adapterArray);
-        districtProgressBar.setVisibility(View.GONE);
-        districtLinearLayout.setVisibility(View.VISIBLE);
-
-    }
-
-    private void setSubDistrictSpinner() {
-        ArrayAdapter<SubDistrict> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, subDistrictArrayList);
-        inputSubdistric.setAdapter(adapterArray);
-        subDistrictProgressBar.setVisibility(View.GONE);
-        subDistrictLinearLayout.setVisibility(View.VISIBLE);
+    private void setEducation() {
+        ArrayAdapter<Education> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, educationArrayList);
+        inputSex.setAdapter(adapterArray);
+        inputSex.setSelection(0);
     }
 
     @Override
@@ -252,29 +174,12 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         inputDob = findViewById(R.id.input_dob);
         inputSex = findViewById(R.id.input_sex);
         inputAddress = findViewById(R.id.input_address);
-        inputProvince = findViewById(R.id.input_province);
-        inputDistric = findViewById(R.id.input_distric);
-        inputSubdistric = findViewById(R.id.input_subdistric);
         inputTell = findViewById(R.id.input_tell);
         inputOccupation = findViewById(R.id.input_occupation);
         inputEmail = findViewById(R.id.input_email);
-        districtProgressBar = findViewById(R.id.progress_district);
-        subDistrictProgressBar = findViewById(R.id.progress_subdistrict);
-        districtLinearLayout = findViewById(R.id.layout_district);
-        subDistrictLinearLayout = findViewById(R.id.layout_subdistrict);
-        inputPostcode = findViewById(R.id.postcode);
-
+        inputEducation = findViewById(R.id.input_education);
         circularProgressButton = findViewById(R.id.register_button);
         circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-
-        inputProvince.setSelected(false);
-        inputProvince.setSelection(0, true);
-
-        inputDistric.setSelected(false);
-        inputDistric.setSelection(0, true);
-
-        inputSubdistric.setSelected(false);
-        inputSubdistric.setSelection(0, true);
 
         inputDay = findViewById(R.id.day);
         inputMonth = findViewById(R.id.month);
@@ -343,55 +248,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         nextBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
 
-        inputProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                districtProgressBar.setVisibility(View.VISIBLE);
-                districtLinearLayout.setVisibility(View.GONE);
-                idProvince = provinceArrayList.get(i).getId();
-                ConnectServer.getInstance().get(districtListener, ConfigService.DISTRICT + idProvince);
-                iSProvince = true;
-                iSDistrict = false;
-                iSSubDistrict = false;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputDistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subDistrictProgressBar.setVisibility(View.VISIBLE);
-                subDistrictLinearLayout.setVisibility(View.GONE);
-                idDistrict = districtArrayList.get(i).getId();
-                ConnectServer.getInstance().get(subDistrictListener, ConfigService.SUB_DISTRICT + idDistrict);
-                iSDistrict = true;
-                iSSubDistrict = false;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        inputSubdistric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                idSubDistrict = subDistrictArrayList.get(i).getId();
-                iSSubDistrict = true;
-                inputPostcode.setText(subDistrictArrayList.get(i).getZipCode());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         inputSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -404,7 +260,18 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
             }
         });
 
-        progressDialog.dismiss();
+        inputEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                idEducation = educationArrayList.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     private void updateLabel(EditText editText) {
@@ -419,9 +286,9 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void getData() {
-        progressDialog.show();
-        ConnectServer.getInstance().get(provinceListener, ConfigService.PROVINCE);
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
+        ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
+        idPatient = getIntent().getLongExtra("idPatient",0);
     }
 
     @Override
@@ -468,7 +335,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
         if (inputLastname.length() == 0) {
             inputLastname.setError("กรุณาใส่นามสกุล");
-            inputLastname.setFocusable(true);
+            inputLastname.requestFocus();
         }
 
 
@@ -522,6 +389,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
     private void register() {
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("idPatient", idPatient);
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
         jsonObject.addProperty("titleName", inputTitlename.getText().toString().trim());
@@ -529,10 +397,8 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);
         jsonObject.addProperty("dob", inputDob.getText().toString().trim());
+        jsonObject.addProperty("educationId", idEducation);
         jsonObject.addProperty("address", inputAddress.getText().toString().trim());
-        jsonObject.addProperty("provinceId", idProvince);
-        jsonObject.addProperty("districtId", idDistrict);
-        jsonObject.addProperty("subDistrictId", idSubDistrict);
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());
