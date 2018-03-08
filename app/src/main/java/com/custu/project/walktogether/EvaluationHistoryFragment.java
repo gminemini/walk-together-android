@@ -67,7 +67,9 @@ public class EvaluationHistoryFragment extends Fragment {
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 if (object != null) {
                     historyEvaluations = HistoryEvaluationModel.getInstance().getHistoryEvaluations(object);
-                    generateData();
+                    if (historyEvaluations.size() > 0) {
+                        generateData();
+                    }
                 }
 
             }
