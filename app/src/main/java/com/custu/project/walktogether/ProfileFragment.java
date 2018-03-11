@@ -14,21 +14,21 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.CaretakerModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.google.gson.JsonObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment {
     private View view;
-    private CircleImageView imageView;
-    private TextView name;
-    private TextView sex;
-    private TextView age;
-    private TextView tell;
-    private TextView occupation;
-    private Button logout;
 
     private FragmentActivity context;
     private Caretaker caretaker;
@@ -48,19 +48,19 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         getData();
-        setUI();
         return view;
     }
 
     @SuppressLint("SetTextI18n")
     private void setUI() {
-        imageView = view.findViewById(R.id.image_profile);
-        name = view.findViewById(R.id.name);
-        sex = view.findViewById(R.id.sex);
-        age = view.findViewById(R.id.age);
-        tell = view.findViewById(R.id.tell);
-        occupation = view.findViewById(R.id.occupation);
-        logout = view.findViewById(R.id.logout);
+        CircleImageView imageView = view.findViewById(R.id.image_profile);
+        TextView name = view.findViewById(R.id.name);
+        TextView sex = view.findViewById(R.id.sex);
+        TextView age = view.findViewById(R.id.age);
+        TextView tell = view.findViewById(R.id.tell);
+        TextView occupation = view.findViewById(R.id.occupation);
+        Button logout = view.findViewById(R.id.logout);
+        TextView email = view.findViewById(R.id.email);
 
         PicassoUtil.getInstance().setImageProfile(context, caretaker.getImage(), imageView);
         name.setText(caretaker.getTitleName()
@@ -71,6 +71,7 @@ public class ProfileFragment extends Fragment {
         sex.setText(caretaker.getSex().getName());
         age.setText(caretaker.getAge());
         tell.setText(caretaker.getTell());
+        email.setText(caretaker.getEmail());
         occupation.setText(caretaker.getOccupation());
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +84,30 @@ public class ProfileFragment extends Fragment {
 
     public void getData() {
         caretaker = UserManager.getInstance(context).getCaretaker();
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                if (object!=null) {
+                    caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                    UserManager.getInstance(context).storeCaretaker(caretaker);
+                    setUI();
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.CARETAKER+caretaker.getId());
     }
 }

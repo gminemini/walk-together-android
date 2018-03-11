@@ -2,191 +2,340 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15pt"
-    android:background="@drawable/shape_mainbox"
-    android:elevation="2dp"
+
     android:orientation="vertical"
     tools:context="com.custu.project.walktogether.EditCaretakerProfileActivity">
 
-    <ScrollView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorBackground"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:text="แก้ไข"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/save"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/marginTop"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/save" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_margin="10pt"
+        android:background="@drawable/shape_mainbox"
+        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_profile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15pt"
-                    android:src="@drawable/avatar" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:scaleType="centerCrop"
-                    android:id="@+id/change_image_profile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15pt"
-                    android:src="@drawable/edit_image_profile" />
-
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginTop"
-                android:text="นายปัณวรรธน์ นกเกตุ"
-                android:textColor="@color/colorDetailProfile"
-                android:textSize="@dimen/TextSize_Spinner"
-                android:textStyle="bold" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12pt">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:layout_marginTop="@dimen/marginTop"
-                    android:text="เพศ:"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="@dimen/TextSize_Spinner"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginTop"
-                    android:text="หญิง"
-                    android:textColor="@color/colorDetailProfile"
-                    android:textSize="@dimen/TextSize_Spinner" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12pt"
-                android:layout_marginTop="@dimen/marginTopProfile">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="อายุ:"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="@dimen/TextSize_Spinner"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/marginTop"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="21"
-                    android:textColor="@color/colorDetailProfile"
-                    android:textSize="@dimen/TextSize_Spinner" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ปี"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="@dimen/TextSize_Spinner"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12pt"
-                android:layout_marginTop="@dimen/marginTopProfile">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="เบอร์โทรศัพท์:"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="@dimen/TextSize_Spinner"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/marginTop"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="1232123"
-                    android:textColor="@color/colorDetailProfile"
-                    android:textSize="@dimen/TextSize_Spinner" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12pt"
-                android:layout_marginTop="@dimen/marginTopProfile">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="อาชีพ:"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="@dimen/TextSize_Spinner"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/occupation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/marginTop"
-                    android:layout_marginRight="@dimen/marginTop"
-                    android:text="1232123"
-                    android:textColor="@color/colorDetailProfile"
-                    android:textSize="@dimen/TextSize_Spinner" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12pt">
-
-                <Button
-                    android:id="@+id/logout"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_button"
-                    android:text="ออกจากระบบ"
-                    android:textColor="@color/colorDelete"
-                    android:textSize="@dimen/TextSize" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image_profile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15pt"
+                        android:src="@drawable/avatar" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/change_image_profile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15pt"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/edit_image_profile" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_marginHorizontal="6pt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_marginRight="2pt"
+                        android:layout_weight="4"
+                        android:id="@+id/title_name"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10pt"
+                        android:layout_marginTop="10pt"
+                        android:background="@drawable/shape_edittext"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="นาย"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:layout_marginRight="3pt"
+                        android:layout_weight="8"
+                        android:id="@+id/firstname"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10pt"
+                        android:layout_marginTop="10pt"
+                        android:background="@drawable/shape_edittext"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="ปัณวรรธน์"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:layout_weight="8"
+                        android:id="@+id/lastname"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10pt"
+                        android:layout_marginTop="10pt"
+                        android:background="@drawable/shape_edittext"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="นกเกตุ"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10pt"
+                    android:layout_marginRight="@dimen/marginTop"
+                    android:text="วันเดือนปีเกิด:"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="@dimen/TextSize_Spinner"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/marginTop"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/day"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_weight="3"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/month"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_weight="5"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/year"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height_edittext_40dp"
+                        android:layout_weight="5"
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10pt"
+                    android:layout_marginTop="@dimen/marginTopProfile">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/marginTop"
+                        android:text="อายุ:"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/marginTop"
+                        android:layout_marginRight="@dimen/marginTop"
+                        android:text="21"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ปี"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10pt"
+                    android:layout_marginTop="@dimen/marginTopProfile">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3pt"
+                        android:text="เบอร์โทรศัพท์:"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_edittext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="0982709858"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10pt"
+                    android:layout_marginTop="@dimen/marginTopProfile">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/marginTop"
+                        android:text="อาชีพ:"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/occupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_edittext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="นักศึกษา"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10pt"
+                    android:layout_marginTop="@dimen/marginTopProfile">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/marginTop"
+                        android:text="อีเมลล์:"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize_Spinner"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_edittext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="นักศึกษา"
+                        android:textColor="@color/colorDetailProfile"
+                        android:textSize="@dimen/TextSize_Spinner" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12pt">
+
+                    <Button
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_button"
+                        android:text="เปลี่ยนรหัสผ่าน"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/TextSize" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
+        </ScrollView>
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

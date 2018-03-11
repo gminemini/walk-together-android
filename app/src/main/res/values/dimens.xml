@@ -4,7 +4,7 @@
     <dimen name="paddingRight">40px</dimen>
     <dimen name="paddingTop">20dp</dimen>
     <dimen name="marginTop">20dp</dimen>
-    <dimen name="marginTopProfile">7pt</dimen>
+    <dimen name="marginTopProfile">8pt</dimen>
     <dimen name="marginTopButtin">24dp</dimen>
     <dimen name="marginLeftRight_Edittext">20dp</dimen>
     <dimen name="TextSize">18sp</dimen>
