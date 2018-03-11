@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.util;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;

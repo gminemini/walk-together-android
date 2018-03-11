@@ -82,9 +82,11 @@ public class DateTHFormat {
     }
 
     private Date stringToDate(String dateString) {
+        String newDate = dateString.split(" ")[0] +" "+ dateString.split(" ")[1]  +" "+  (Integer.parseInt(dateString.split(" ")[2])-543);
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH"));
+        Log.d("stringToDate: ", "stringToDate: "+newDate);
         try {
-            return formatter.parse(dateString);
+            return formatter.parse(newDate);
         } catch (ParseException e) {
             return new Date();
         }

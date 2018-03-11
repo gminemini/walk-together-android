@@ -23,7 +23,7 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15pt"
-                android:src="@drawable/image_not_found" />
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/name"

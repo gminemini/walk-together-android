@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
     tools:context="com.custu.project.walktogether.EditCaretakerProfileActivity">
 
@@ -23,7 +22,6 @@
 
 
         <TextView
-            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -53,11 +51,11 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="10pt"
         android:background="@drawable/shape_mainbox"
-        android:elevation="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:elevation="2dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -94,20 +92,20 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_marginHorizontal="6pt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6pt"
                     android:orientation="horizontal">
 
                     <EditText
-                        android:layout_marginRight="2pt"
-                        android:layout_weight="4"
-                        android:id="@+id/title_name"
+                        android:id="@+id/title"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_edittext_40dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10pt"
+                        android:layout_marginRight="2pt"
                         android:layout_marginTop="10pt"
+                        android:layout_weight="4"
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
@@ -117,14 +115,14 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:layout_marginRight="3pt"
-                        android:layout_weight="8"
                         android:id="@+id/firstname"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_edittext_40dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10pt"
+                        android:layout_marginRight="3pt"
                         android:layout_marginTop="10pt"
+                        android:layout_weight="8"
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
@@ -134,13 +132,13 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:layout_weight="8"
                         android:id="@+id/lastname"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_edittext_40dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10pt"
                         android:layout_marginTop="10pt"
+                        android:layout_weight="8"
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
@@ -151,20 +149,34 @@
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/marginTop"
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10pt"
-                    android:layout_marginRight="@dimen/marginTop"
                     android:text="วันเดือนปีเกิด:"
                     android:textColor="@color/colorBackground"
                     android:textSize="@dimen/TextSize_Spinner"
                     android:textStyle="bold" />
 
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/input_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false" />
+
+            </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/marginTop"
+                    android:layout_marginHorizontal="@dimen/marginTop"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -172,7 +184,7 @@
                         android:id="@+id/day"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_edittext_40dp"
-                        android:layout_weight="3"
+                        android:layout_weight="2"
                         android:spinnerMode="dialog" />
 
                     <Spinner
@@ -186,7 +198,7 @@
                         android:id="@+id/year"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_edittext_40dp"
-                        android:layout_weight="5"
+                        android:layout_weight="4"
                         android:spinnerMode="dialog" />
                 </LinearLayout>
 
@@ -244,7 +256,7 @@
                     <EditText
                         android:id="@+id/tell"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="18pt"
                         android:layout_gravity="center"
                         android:background="@drawable/shape_edittext"
                         android:inputType="number"
@@ -274,10 +286,9 @@
                     <EditText
                         android:id="@+id/occupation"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="18pt"
                         android:layout_gravity="center"
                         android:background="@drawable/shape_edittext"
-                        android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text="นักศึกษา"
@@ -304,10 +315,9 @@
                     <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="18pt"
                         android:layout_gravity="center"
                         android:background="@drawable/shape_edittext"
-                        android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text="นักศึกษา"
