@@ -44,7 +44,7 @@
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
-        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
         <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
@@ -140,9 +140,10 @@
         <activity
             android:name="com.custu.project.walktogether.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
-        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity" />
         <activity android:name="com.custu.project.walktogether.AddTabActivity" />
-        <activity android:name="com.custu.project.walktogether.PatientDetailActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
+        <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity"></activity>
     </application>
 
 </manifest>
