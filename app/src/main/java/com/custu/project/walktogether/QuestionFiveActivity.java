@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +66,42 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
         requestPermission();
         initLocation();
         getData();
+        countDownTime();
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), "" );
+                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -99,7 +137,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
         TextView titleTextView = (TextView) findViewById(R.id.title);
         answerSpinner = (Spinner) findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
-        titleTextView.setText("(5) "+question.getTitle());
+        titleTextView.setText("(5) " + question.getTitle());
         ArrayAdapter<Province> adapterArray = new ArrayAdapter<Province>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
         answerSpinner.setAdapter(adapterArray);
         setListener();
@@ -148,6 +186,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), String.valueOf(answerSpinner.getSelectedItem().toString().equalsIgnoreCase(province)));
                 Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
                 startActivity(intent);

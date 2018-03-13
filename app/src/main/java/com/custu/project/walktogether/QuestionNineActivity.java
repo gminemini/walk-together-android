@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -26,7 +28,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     private int count = 0;
     private int numberQ = 9;
     private int resultScore = 0;
-//    private TextView title;
+    private int questionNext = 0;
     private TextView questionTextView;
     private TextView numberQTextView;
 
@@ -43,6 +45,42 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
 
             }
         });
+        countDownTime();
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), "");
+                Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 
     private void showDialog(Context context) {
@@ -62,6 +100,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                 count++;
                 resultScore += getScore();
                 if (count == 3) {
+                    countDownTimer.cancel();
                     StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
                     Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
                     dialog.dismiss();
@@ -69,7 +108,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                 } else {
                     numberQ++;
                     dialog.dismiss();
-                    nextQuestion(inputTopicFour.getText().toString());
+                    nextQuestion(String.valueOf(questionNext));
                 }
             }
         });
@@ -86,7 +125,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
 
     private void nextQuestion(String input) {
         questionTextView.setText(input);
-        numberQTextView.setText("("+numberQ+") ");
+        numberQTextView.setText("(" + numberQ + ") ");
         inputTopicFour.setText("");
     }
 
@@ -100,18 +139,23 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         nextBtn = (Button) findViewById(R.id.next);
         inputTopicFour = (EditText) findViewById(R.id.input_topicfour);
         numberQTextView = (TextView) findViewById(R.id.numberQ);
-        numberQTextView.setText("("+numberQ+") ");
-//        title = findViewById(R.id.title);
+        numberQTextView.setText("(" + numberQ + ") ");
         questionTextView = findViewById(R.id.question);
         TextView description = findViewById(R.id.description);
-//        title.setText("9. "+question.getTitle());
         description.setText(question.getDescription());
     }
 
     private int getScore() {
+        int answer;
         int minus = Integer.parseInt(question.getDescription());
         int question = Integer.parseInt(questionTextView.getText().toString());
-        int answer = Integer.parseInt(inputTopicFour.getText().toString());
+        if (inputTopicFour.getText().toString().length() == 0) {
+            answer = Integer.parseInt("0");
+            questionNext = question - minus;
+        } else {
+            answer = Integer.parseInt(inputTopicFour.getText().toString());
+            questionNext = answer;
+        }
         return ((question - minus) == answer) ? 1 : 0;
     }
 

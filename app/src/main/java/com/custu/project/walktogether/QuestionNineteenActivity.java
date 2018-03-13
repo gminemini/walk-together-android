@@ -2,6 +2,7 @@ package com.custu.project.walktogether;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -51,8 +53,43 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         getData();
         setUI();
         setListener();
-
+        countDownTime();
     }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswerNineteen("no19", question.getId(), questionRef.getId(), "");
+                sendEvaluation();
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
+
 
     @Override
     public void initValue() {
@@ -125,6 +162,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
 
     @Override
     public void onClick(View v) {
+        countDownTimer.cancel();
         switch (v.getId()) {
             case R.id.next: {
                 if (NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup)) {

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -40,6 +42,43 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
 
             }
         });
+
+        countDownTime();
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                intent = new Intent(QuestionThirteenActivity.this, QuestionFourteenActivity.class);
+                StoreAnswerTmse.getInstance().storeAnswer("no13", question.getId(), "");
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 
     private void showDialog(Context context) {
@@ -56,6 +95,7 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                countDownTimer.cancel();
                 intent = new Intent(QuestionThirteenActivity.this, QuestionFourteenActivity.class);
                 StoreAnswerTmse.getInstance().storeAnswer("no13", question.getId(), inputTopicFive.getText().toString());
                 dialog.dismiss();
@@ -84,7 +124,7 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
         inputTopicFive = (EditText) findViewById(R.id.input_topicfive);
         ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText("(13) "+question.getTitle());
+        titleTextView.setText("(13) " + question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionThirteenActivity.this, question.getImage(), imageView);
     }
 

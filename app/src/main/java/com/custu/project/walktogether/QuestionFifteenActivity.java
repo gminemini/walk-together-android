@@ -2,6 +2,7 @@ package com.custu.project.walktogether;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -33,6 +35,42 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
         getData();
         setUI();
         setListener();
+        countDownTime();
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), "");
+                Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 
     @Override
@@ -43,7 +81,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     @Override
     public void setUI() {
         TextView titleTextView = findViewById(R.id.question_text);
-        titleTextView.setText("(15) "+question.getTitle());
+        titleTextView.setText("(15) " + question.getTitle());
         imageView = findViewById(R.id.touch);
     }
 
@@ -66,6 +104,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     Runnable mLongPressed = new Runnable() {
         public void run() {
             goneFlag = true;
+            countDownTimer.cancel();
             StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), String.valueOf(true));
             Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
             startActivity(intent);
