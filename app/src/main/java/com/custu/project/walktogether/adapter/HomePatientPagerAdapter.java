@@ -25,9 +25,16 @@ public class HomePatientPagerAdapter extends FragmentPagerAdapter {
                 return new ProfileFragment();
             case 1:
                 return new ListNameFragment();
+            case 2:
+                return new ListNameFragment();
+            case 3:
+                return new ListNameFragment();
+            case 4:
+                return new ListNameFragment();
             default:
                 return null;
         }
+
     }
     @Override
     public int getCount() {

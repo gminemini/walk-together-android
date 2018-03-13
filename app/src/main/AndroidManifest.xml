@@ -115,13 +115,7 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
             android:name="com.custu.project.walktogether.ChoosemapActivity"
@@ -146,8 +140,17 @@
         <activity android:name="com.custu.project.walktogether.AddTabActivity" />
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.ReHomepatientActivity"></activity>
-        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.ReHomepatientActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity" />
+        <activity android:name="com.custu.project.walktogether.AddtabhomepatientActivity" />
+        <activity android:name="com.custu.project.walktogether.FragmentProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.FragmentProfilePatientActivity"></activity>
     </application>
 
 </manifest>
