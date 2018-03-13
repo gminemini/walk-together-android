@@ -54,7 +54,7 @@ public class SplashScreenActivity extends Activity {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
                 } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
-                    intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, ReHomepatientActivity.class);
                     startActivity(intent);
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);

@@ -47,14 +47,14 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.container);
-       // viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
 
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         int tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorBackground);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
-        tab = tabLayout.getTabAt(1);
+     /*   tab = tabLayout.getTabAt(1);
         tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tab = tabLayout.getTabAt(2);
@@ -66,7 +66,7 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         tab = tabLayout.getTabAt(4);
         tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-
+*/
 
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
@@ -102,8 +102,23 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
                     titleTextView.setText("โปรไฟล์");
 //                    editProfileRelativeLayout.setVisibility(View.VISIBLE);
 //                    addProfileRelativeLayout.setVisibility(View.GONE);
-                } else {
-                    titleTextView.setText("รายชื่อผู้สูงอายุ");
+                } else if (position == 1){
+                    titleTextView.setText("รายชื่อ");
+//                    editProfileRelativeLayout.setVisibility(View.GONE);
+//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
+                }
+                else if (position == 2){
+                    titleTextView.setText("ภารกิจ");
+//                    editProfileRelativeLayout.setVisibility(View.GONE);
+//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
+                }
+                else if (position == 3){
+                    titleTextView.setText("ประวัติ");
+//                    editProfileRelativeLayout.setVisibility(View.GONE);
+//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
+                }
+                else {
+                    titleTextView.setText("ประวัติ");
 //                    editProfileRelativeLayout.setVisibility(View.GONE);
 //                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }

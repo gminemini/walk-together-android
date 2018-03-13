@@ -140,7 +140,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                         public void run() {
                                             patient = PatientModel.getInstance().getPatient(object);
                                             UserManager.getInstance(LoginActivity.this).storePatient(patient);
-                                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, ReHomepatientActivity.class);
                                             startActivity(intent);
                                         }
                                     }, 700);

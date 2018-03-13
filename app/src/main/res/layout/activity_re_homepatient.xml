@@ -104,25 +104,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/list"
-                    android:text="รายชื่อผู้สูงอายุ" />
+                    android:text="รายชื่อ" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/run"
-                    android:text="รายชื่อผู้สูงอายุ" />
+                    android:text="ภารกิจ" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/graph"
-                    android:text="รายชื่อผู้สูงอายุ" />
+                    android:text="ประวัติ" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/list"
-                    android:text="รายชื่อผู้สูงอายุ" />
+                    android:text="ประวัติ" />
 
 
 
