@@ -2,12 +2,14 @@ package com.custu.project.walktogether;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -34,8 +36,44 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
         getData();
         setUI();
         setListener();
-
+        countDownTime();
     }
+
+    private CountDownTimer countDownTimer;
+
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "");
+                Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
+
 
     @Override
     public void initValue() {
