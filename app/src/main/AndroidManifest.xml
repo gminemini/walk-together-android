@@ -115,7 +115,7 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,8 +146,11 @@
         <activity android:name="com.custu.project.walktogether.AddTabActivity" />
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.ReHomepatientActivity"></activity>
-        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.ReHomepatientActivity"/>
+
+        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity" />
+
+
     </application>
 
 </manifest>

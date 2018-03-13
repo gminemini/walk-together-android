@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.ReHomepatientActivity">
+    tools:context="com.custu.project.walktogether.AddtabhomepatientActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,53 +23,15 @@
 
         </android.support.v7.widget.Toolbar>
 
-
         <TextView
-            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/marginTop"
-            android:text="รายชื่อ"
+            android:text="เพิ่มผู้สูงอายุ"
             android:textColor="@color/colorOffwhite"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/add"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/plus" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/edit_profile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/editprofileicon" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -94,36 +57,18 @@
                 app:tabTextColor="@color/colorBackground">
 
                 <android.support.design.widget.TabItem
-                    android:id="@+id/tab_profile"
+                    android:icon="@drawable/search"
+                    android:id="@+id/tab_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/profile"
-                    android:text="โปรไฟล์" />
+                    android:text="เพิ่มหมายเลข" />
 
                 <android.support.design.widget.TabItem
+                    android:icon="@drawable/qrcode"
+                    android:id="@+id/tab_qr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/list"
-                    android:text="รายชื่อ" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/run"
-                    android:text="ภารกิจ" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/graph"
-                    android:text="ประวัติ" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/list"
-                    android:text="ประวัติ" />
-
+                    android:text="QR CODE" />
 
 
             </android.support.design.widget.TabLayout>
@@ -138,6 +83,5 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

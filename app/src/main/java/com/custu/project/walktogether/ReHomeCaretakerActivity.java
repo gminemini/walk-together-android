@@ -5,28 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.adapter.AddPatientPagerAdapter;
-import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
+import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
@@ -59,7 +49,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
 
-        HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
+        HomeCaretakerPagerAdapter adapter = new HomeCaretakerPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
