@@ -76,7 +76,6 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         initProgressDialog();
         setUI();
         getData();
-        setListener();
     }
 
     private void setListener() {
@@ -194,6 +193,9 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
             public void onFailure(Throwable t) {
                 caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
                 NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+                setDobSpinner();
+                initValue();
+                setListener();
             }
         }, ConfigService.CARETAKER + caretaker.getId());
     }
