@@ -201,6 +201,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 playSound();
                 break;
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
                 Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
                 startActivity(intent);

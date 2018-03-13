@@ -95,6 +95,7 @@ public class QuestionThirteenActivity extends AppCompatActivity implements Basic
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                countDownTimer.cancel();
                 intent = new Intent(QuestionThirteenActivity.this, QuestionFourteenActivity.class);
                 StoreAnswerTmse.getInstance().storeAnswer("no13", question.getId(), inputTopicFive.getText().toString());
                 dialog.dismiss();

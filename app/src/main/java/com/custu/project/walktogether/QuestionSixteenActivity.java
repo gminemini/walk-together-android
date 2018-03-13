@@ -113,6 +113,7 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void onClick(View v) {
+        countDownTimer.cancel();
         switch (v.getId()) {
             case R.id.top_left: {
                 StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "2");

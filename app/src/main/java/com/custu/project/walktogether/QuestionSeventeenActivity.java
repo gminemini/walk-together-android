@@ -110,6 +110,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
                 drawImage.clear();
                 break;
             case R.id.next:
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no17", question.getId(), String.valueOf(true));
                 Intent intent = new Intent(QuestionSeventeenActivity.this, QuestionEighteenActivity.class);
                 startActivity(intent);

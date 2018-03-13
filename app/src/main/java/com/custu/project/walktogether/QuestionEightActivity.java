@@ -164,6 +164,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no8", question.getId(), String.valueOf(isCorrect()));
                 Intent intent = new Intent(QuestionEightActivity.this, QuestionNineActivity.class);
                 startActivity(intent);

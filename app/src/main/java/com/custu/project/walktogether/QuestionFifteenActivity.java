@@ -104,6 +104,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     Runnable mLongPressed = new Runnable() {
         public void run() {
             goneFlag = true;
+            countDownTimer.cancel();
             StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), String.valueOf(true));
             Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
             startActivity(intent);

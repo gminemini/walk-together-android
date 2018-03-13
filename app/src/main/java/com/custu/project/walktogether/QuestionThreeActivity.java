@@ -120,6 +120,7 @@ public class QuestionThreeActivity extends AppCompatActivity implements BasicAct
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no3", question.getId(), answerSpinner.getSelectedItem().toString());
                 Intent intent = new Intent(QuestionThreeActivity.this, QuestionFourActivity.class);
                 startActivity(intent);

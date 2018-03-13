@@ -162,6 +162,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
 
     @Override
     public void onClick(View v) {
+        countDownTimer.cancel();
         switch (v.getId()) {
             case R.id.next: {
                 if (NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup)) {

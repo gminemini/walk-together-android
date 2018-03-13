@@ -28,6 +28,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     private int count = 0;
     private int numberQ = 9;
     private int resultScore = 0;
+    private int questionNext = 0;
     private TextView questionTextView;
     private TextView numberQTextView;
 
@@ -99,6 +100,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                 count++;
                 resultScore += getScore();
                 if (count == 3) {
+                    countDownTimer.cancel();
                     StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
                     Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
                     dialog.dismiss();
@@ -106,7 +108,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
                 } else {
                     numberQ++;
                     dialog.dismiss();
-                    nextQuestion(inputTopicFour.getText().toString());
+                    nextQuestion(String.valueOf(questionNext));
                 }
             }
         });
@@ -138,17 +140,22 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         inputTopicFour = (EditText) findViewById(R.id.input_topicfour);
         numberQTextView = (TextView) findViewById(R.id.numberQ);
         numberQTextView.setText("(" + numberQ + ") ");
-//        title = findViewById(R.id.title);
         questionTextView = findViewById(R.id.question);
         TextView description = findViewById(R.id.description);
-//        title.setText("9. "+question.getTitle());
         description.setText(question.getDescription());
     }
 
     private int getScore() {
+        int answer;
         int minus = Integer.parseInt(question.getDescription());
         int question = Integer.parseInt(questionTextView.getText().toString());
-        int answer = Integer.parseInt(inputTopicFour.getText().toString());
+        if (inputTopicFour.getText().toString().length() == 0) {
+            answer = Integer.parseInt("0");
+            questionNext = question - minus;
+        } else {
+            answer = Integer.parseInt(inputTopicFour.getText().toString());
+            questionNext = answer;
+        }
         return ((question - minus) == answer) ? 1 : 0;
     }
 

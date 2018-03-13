@@ -92,6 +92,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), edittextBtn.getText().toString());
                 Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
                 dialog.dismiss();

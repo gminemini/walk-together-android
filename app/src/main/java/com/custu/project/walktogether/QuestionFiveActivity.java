@@ -186,6 +186,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), String.valueOf(answerSpinner.getSelectedItem().toString().equalsIgnoreCase(province)));
                 Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
                 startActivity(intent);
