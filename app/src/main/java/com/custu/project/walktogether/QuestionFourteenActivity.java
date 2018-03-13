@@ -42,7 +42,7 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
     private ImageView playSoundImageView;
     private NumberQuestion numberQuestion;
     private Question question;
-    private String answer;
+    private String answer = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
