@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.TopicsOneActivity">
+    tools:context="com.custu.project.walktogether.QuestionFourActivity">
 
 
     <LinearLayout
