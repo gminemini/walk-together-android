@@ -1,21 +1,23 @@
 package com.custu.project.walktogether;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -39,11 +41,40 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
         createSpinnerData();
         ArrayAdapter<String> adapterArray = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray);
         answerSpinner.setAdapter(adapterArray);
+        initCountDownTime();
+        countDownTime();
     }
 
     @Override
     public void initValue() {
 
+    }
+
+    private void initCountDownTime() {
+
+    }
+
+    private CountDownTimer countDownTimer;
+    private void countDownTime() {
+        long timeInterval = 21000;
+        final int[] time = {21};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
+
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no1", numberQuestion.getQuestion().getId(), "");
+                Intent intent = new Intent(QuestionOneActivity.this, QuestionTwoActivity.class);
+                startActivity(intent);
+            }
+        }.start();
     }
 
     public void setUI() {
@@ -84,11 +115,23 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
+                countDownTimer.cancel();
                 StoreAnswerTmse.getInstance().storeAnswer("no1", numberQuestion.getQuestion().getId(), answerSpinner.getSelectedItem().toString());
                 Intent intent = new Intent(QuestionOneActivity.this, QuestionTwoActivity.class);
                 startActivity(intent);
             }
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 }
