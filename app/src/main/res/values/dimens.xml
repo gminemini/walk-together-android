@@ -4,6 +4,7 @@
     <dimen name="paddingRight">40px</dimen>
     <dimen name="paddingTop">20dp</dimen>
     <dimen name="marginTop">20dp</dimen>
+    <dimen name="marginTopProfile">8pt</dimen>
     <dimen name="marginTopButtin">24dp</dimen>
     <dimen name="marginLeftRight_Edittext">20dp</dimen>
     <dimen name="TextSize">18sp</dimen>
@@ -14,11 +15,14 @@
     <dimen name="margin_edittext_4dp">4dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="height_edittext_40dp">50dp</dimen>
+    <dimen name="height_edittext_30dp">30dp</dimen>
     <dimen name="TextSizeBold_20sp">20sp</dimen>
-    <dimen name="TextSize_Spinner">20sp</dimen>
+    <dimen name="TextSize_Spinner">16sp</dimen>
     <dimen name="text_head_one">24sp</dimen>
     <dimen name="text_head_two">30sp</dimen>
     <dimen name="text_head_three">20sp</dimen>
     <dimen name="text_head_four">20sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_edit_text">5pt</dimen>
+    <dimen name="height_edit_text_18pt">18pt</dimen>
 </resources>

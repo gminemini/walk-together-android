@@ -49,4 +49,34 @@ public class InitSpinnerDob {
         return list;
     }
 
+    public int getIndexDay(String input) {
+        ArrayList<String> list = createSpinnerDay();
+        String day = input.split(" ")[0];
+        for (int i = 0; i < list.size(); i++) {
+            if (day.equalsIgnoreCase(list.get(i)))
+                return i;
+        }
+        return 0;
+    }
+
+    public int getIndexMonth(String input) {
+        ArrayList<String> list = createSpinnerMonth();
+        String month = input.split(" ")[1];
+        for (int i = 0; i < list.size(); i++) {
+            if (month.equalsIgnoreCase(list.get(i)))
+                return i;
+        }
+        return 0;
+    }
+
+    public int getIndexYear(String input) {
+        ArrayList<String> list = createSpinnerYear();
+        String year = input.split(" ")[2];
+        for (int i = 0; i < list.size(); i++) {
+            if (year.equalsIgnoreCase(list.get(i)))
+                return i;
+        }
+        return 0;
+    }
+
 }

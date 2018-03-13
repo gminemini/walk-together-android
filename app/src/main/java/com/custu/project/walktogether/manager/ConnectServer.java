@@ -1,5 +1,9 @@
 package com.custu.project.walktogether.manager;
 
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.RequiresApi;
+
 import com.custu.project.walktogether.network.NetworkManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.service.HttpMethodService;

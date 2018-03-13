@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/delete"
+        android:layout_width="80dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/trash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorDelete"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:src="@drawable/trash" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/shape_mainbox">
+
+        <RelativeLayout
+            android:id="@+id/swipe_layout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/next" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imgtest" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="12dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="บุษฑิตา วงศ์ธีระวิทย์"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="อายุ: "
+                        android:textColor="@color/colorBackground"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" ปี"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="เพศ: "
+                        android:textColor="@color/colorBackground"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="หญิง"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.daimajia.swipe.SwipeLayout>

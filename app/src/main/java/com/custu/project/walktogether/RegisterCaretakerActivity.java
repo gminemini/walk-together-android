@@ -363,14 +363,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         return dobString;
     }
 
-    private Date getDobDate() {
-        Date date = new Date();
-        date.setDate(inputDay.getSelectedItemPosition() + 1);
-        date.setMonth(inputMonth.getSelectedItemPosition() + 1);
-        date.setYear(Integer.parseInt(inputYear.getSelectedItem().toString()) - 543);
-        return date;
-    }
-
     private void register() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
