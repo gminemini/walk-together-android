@@ -78,9 +78,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
         initProgressDialog();
         setUI();
         getData();
-//        setListener();
-
-
     }
 
     private void setListener() {
@@ -198,6 +195,9 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
             public void onFailure(Throwable t) {
                 patient = UserManager.getInstance(EditPatientProfileActivity.this).getPatient();
                 NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
+                setDobSpinner();
+                initValue();
+                setListener();
             }
         }, ConfigService.PATIENT + patient.getId());
     }
@@ -393,6 +393,7 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                 NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.PATIENT + patient.getId(), jsonObject);
+
     }
 
     private String getDob() {
