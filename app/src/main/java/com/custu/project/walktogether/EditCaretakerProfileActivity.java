@@ -74,9 +74,6 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         initProgressDialog();
         setUI();
         getData();
-        setDobSpinner();
-        initValue();
-        setListener();
     }
 
     private void setListener() {
@@ -164,9 +161,36 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         saveImageView = findViewById(R.id.save);
     }
 
-    @Override
     public void getData() {
         caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                if (object != null) {
+                    caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                    UserManager.getInstance(EditCaretakerProfileActivity.this).storeCaretaker(caretaker);
+                    setDobSpinner();
+                    initValue();
+                    setListener();
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
+                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+            }
+        }, ConfigService.CARETAKER + caretaker.getId());
     }
 
     private void setDobSpinner() {
@@ -293,7 +317,8 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
             @Override
             public void onFailure(Throwable t) {
-
+                progressDialog.dismiss();
+                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.UPLOAD_IMAGE + ConfigService.CARETAKER, picturePath, caretaker.getId().toString());
     }
@@ -352,6 +377,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
                 NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.CARETAKER + caretaker.getId(), jsonObject);

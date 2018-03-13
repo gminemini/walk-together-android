@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.manager.ConnectServer;
@@ -19,6 +20,7 @@ import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -29,6 +31,15 @@ import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment {
     private View view;
+    private CircleImageView imageView;
+    private TextView name;
+    private TextView sex;
+    private TextView age;
+    private TextView tell;
+    private TextView occupation;
+    private Button logout;
+    private TextView email;
+    private PullRefreshLayout pullRefreshLayout;
 
     private FragmentActivity context;
     private Caretaker caretaker;
@@ -47,21 +58,25 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        setUI();
         getData();
         return view;
     }
 
     @SuppressLint("SetTextI18n")
     private void setUI() {
-        CircleImageView imageView = view.findViewById(R.id.image_profile);
-        TextView name = view.findViewById(R.id.name);
-        TextView sex = view.findViewById(R.id.sex);
-        TextView age = view.findViewById(R.id.age);
-        TextView tell = view.findViewById(R.id.tell);
-        TextView occupation = view.findViewById(R.id.occupation);
-        Button logout = view.findViewById(R.id.logout);
-        TextView email = view.findViewById(R.id.email);
+         imageView = view.findViewById(R.id.image_profile);
+         name = view.findViewById(R.id.name);
+         sex = view.findViewById(R.id.sex);
+         age = view.findViewById(R.id.age);
+         tell = view.findViewById(R.id.tell);
+         occupation = view.findViewById(R.id.occupation);
+         logout = view.findViewById(R.id.logout);
+         email = view.findViewById(R.id.email);
+         pullRefreshLayout  = view.findViewById(R.id.pull_refresh);
+    }
 
+    private void initValue() {
         PicassoUtil.getInstance().setImageProfile(context, caretaker.getImage(), imageView);
         name.setText(caretaker.getTitleName()
                 + ""
@@ -80,6 +95,15 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(context, LoginActivity.class));
             }
         });
+
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pullRefreshLayout.setRefreshing(true);
+                getData();
+            }
+        });
+
     }
 
     public void getData() {
@@ -87,10 +111,11 @@ public class ProfileFragment extends Fragment {
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                if (object!=null) {
+                pullRefreshLayout.setRefreshing(false);
+                if (object != null) {
                     caretaker = CaretakerModel.getInstance().getCaretaker(object);
                     UserManager.getInstance(context).storeCaretaker(caretaker);
-                    setUI();
+                    initValue();
                 }
             }
 
@@ -106,8 +131,10 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-
+                pullRefreshLayout.setRefreshing(false);
+                caretaker = UserManager.getInstance(context).getCaretaker();
+                NetworkUtil.isOnline(context, imageView);
             }
-        }, ConfigService.CARETAKER+caretaker.getId());
+        }, ConfigService.CARETAKER + caretaker.getId());
     }
 }
