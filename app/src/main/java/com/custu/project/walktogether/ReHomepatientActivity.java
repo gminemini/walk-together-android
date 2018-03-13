@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
@@ -10,30 +11,53 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
 
 public class ReHomepatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
-    private TextView titleTextView;
+   
     private TabLayout tabLayout;
+    private RelativeLayout editProfileRelativeLayout;
+    private RelativeLayout addProfileRelativeLayout;
+    private TextView titleTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homepatient);
         setUI();
         setListener();
     }
-
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View view) {
+        int id = view.getId();
+        Intent intent;
+        switch (id) {
+//            case R.id.add:
+//                intent = new Intent(ReHomepatientActivity.this, AddTabActivity.class);
+//                startActivity(intent);
+//                break;
+            case R.id.edit_profile:
+                intent = new Intent(ReHomepatientActivity.this, EditPatientProfileActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.title:
+                UserManager.getInstance(ReHomepatientActivity.this).removePatient();
+                intent = new Intent(ReHomepatientActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
     private void setListener() {
-
+        titleTextView.setOnClickListener(this);
+        addProfileRelativeLayout.setOnClickListener(this);
+        editProfileRelativeLayout.setOnClickListener(this);
     }
     @Override
     public void initValue() {
@@ -44,6 +68,8 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
     public void setUI() {
         titleTextView = findViewById(R.id.title);
         tabLayout = findViewById(R.id.tabs);
+        addProfileRelativeLayout = findViewById(R.id.add);
+        editProfileRelativeLayout = findViewById(R.id.edit_profile);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.container);
@@ -54,7 +80,7 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         int tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorBackground);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
-     /*   tab = tabLayout.getTabAt(1);
+        tab = tabLayout.getTabAt(1);
         tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tab = tabLayout.getTabAt(2);
@@ -66,7 +92,7 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         tab = tabLayout.getTabAt(4);
         tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-*/
+
 
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
@@ -100,8 +126,8 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
                     titleTextView.setText("โปรไฟล์");
-//                    editProfileRelativeLayout.setVisibility(View.VISIBLE);
-//                    addProfileRelativeLayout.setVisibility(View.GONE);
+                    editProfileRelativeLayout.setVisibility(View.VISIBLE);
+                    addProfileRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1){
                     titleTextView.setText("รายชื่อ");
 //                    editProfileRelativeLayout.setVisibility(View.GONE);
@@ -113,12 +139,12 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
 //                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }
                 else if (position == 3){
-                    titleTextView.setText("ประวัติ");
+                    titleTextView.setText("แบบทดสอบ");
 //                    editProfileRelativeLayout.setVisibility(View.GONE);
 //                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }
                 else {
-                    titleTextView.setText("ประวัติ");
+                    titleTextView.setText("สะสม");
 //                    editProfileRelativeLayout.setVisibility(View.GONE);
 //                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }

@@ -138,10 +138,10 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            patient = PatientModel.getInstance().getPatient(object);
                                             UserManager.getInstance(LoginActivity.this).storePatient(patient);
                                             if(!object.get("isTestEvaluation").getAsBoolean()) {
-                                                patient = PatientModel.getInstance().getPatient(object);
-                                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                                Intent intent = new Intent(LoginActivity.this, ReHomepatientActivity.class);
                                                 startActivity(intent);
                                             }  else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);

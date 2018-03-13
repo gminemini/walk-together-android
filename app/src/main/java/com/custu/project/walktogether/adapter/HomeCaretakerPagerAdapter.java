@@ -20,15 +20,15 @@ public class HomeCaretakerPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        switch (position) {
-//            case 0:
-//                return new ProfileFragment();
-//            case 1:
-//                return new ListNameFragment();
-//            default:
-//                return null;
-//        }
-        return null;
+        switch (position) {
+            case 0:
+                return new ProfileFragment();
+            case 1:
+                return new ListNameFragment();
+            default:
+                return null;
+        }
+
     }
     @Override
     public int getCount() {

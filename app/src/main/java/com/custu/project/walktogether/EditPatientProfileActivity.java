@@ -24,8 +24,10 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
+import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
@@ -39,7 +41,7 @@ import com.google.gson.JsonObject;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class EditCaretakerProfileActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+public class EditPatientProfileActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private final int RESULT_LOAD_IMAGE = 1;
 
     private EditText titleNamEditText;
@@ -58,7 +60,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     private RelativeLayout saveImageView;
     private Button changePassword;
 
-    private Caretaker caretaker;
+    private Patient patient;
     private ProgressDialog progressDialog;
     private String picturePath;
     private String title;
@@ -72,11 +74,13 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_edit_caretaker_profile);
+        setContentView(R.layout.activity_edit_patient_profile);
         initProgressDialog();
         setUI();
         getData();
-        setListener();
+//        setListener();
+
+
     }
 
     private void setListener() {
@@ -127,16 +131,16 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
     @Override
     public void initValue() {
-        titleNamEditText.setText(caretaker.getTitleName());
-        firstNameEditText.setText(caretaker.getFirstName());
-        lastNameEditText.setText(caretaker.getLastName());
-        tellEditText.setText(caretaker.getTell());
-        occupationEditText.setText(caretaker.getOccupation());
-        emailEditText.setText(caretaker.getEmail());
-        ageTextView.setText(caretaker.getAge());
+        titleNamEditText.setText(patient.getTitleName());
+        firstNameEditText.setText(patient.getFirstName());
+        lastNameEditText.setText(patient.getLastName());
+        tellEditText.setText(patient.getTell());
+        occupationEditText.setText(patient.getOccupation());
+        emailEditText.setText(patient.getEmail());
+        ageTextView.setText(patient.getAge());
         PicassoUtil.getInstance()
-                .setImageProfile(EditCaretakerProfileActivity.this
-                        , caretaker.getImage()
+                .setImageProfile(EditPatientProfileActivity.this
+                        , patient.getImage()
                         , profileImageView);
 
         title = titleNamEditText.getText().toString().trim();
@@ -167,13 +171,13 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     }
 
     public void getData() {
-        caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
+        patient = UserManager.getInstance(EditPatientProfileActivity.this).getPatient();
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 if (object != null) {
-                    caretaker = CaretakerModel.getInstance().getCaretaker(object);
-                    UserManager.getInstance(EditCaretakerProfileActivity.this).storeCaretaker(caretaker);
+                    patient = PatientModel.getInstance().getPatient(object);
+                    UserManager.getInstance(EditPatientProfileActivity.this).storePatient(patient);
                     setDobSpinner();
                     initValue();
                     setListener();
@@ -192,10 +196,10 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
             @Override
             public void onFailure(Throwable t) {
-                caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
-                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+                patient = UserManager.getInstance(EditPatientProfileActivity.this).getPatient();
+                NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
             }
-        }, ConfigService.CARETAKER + caretaker.getId());
+        }, ConfigService.PATIENT + patient.getId());
     }
 
     private void setDobSpinner() {
@@ -209,19 +213,19 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         inputYear.setAdapter(adapterArray);
 
         inputDay.setSelected(false);
-        inputDay.setSelection(InitSpinnerDob.getInstance().getIndexDay(caretaker.getDob()), true);
+        inputDay.setSelection(InitSpinnerDob.getInstance().getIndexDay(patient.getDob()), true);
 
         inputMonth.setSelected(false);
-        inputMonth.setSelection(InitSpinnerDob.getInstance().getIndexMonth(caretaker.getDob()), true);
+        inputMonth.setSelection(InitSpinnerDob.getInstance().getIndexMonth(patient.getDob()), true);
 
         inputYear.setSelected(false);
-        inputYear.setSelection(InitSpinnerDob.getInstance().getIndexYear(caretaker.getDob()), true);
+        inputYear.setSelection(InitSpinnerDob.getInstance().getIndexYear(patient.getDob()), true);
 
     }
 
     @Override
     public void initProgressDialog() {
-        progressDialog = new ProgressDialog(EditCaretakerProfileActivity.this);
+        progressDialog = new ProgressDialog(EditPatientProfileActivity.this);
         progressDialog.setTitle(getString(R.string.loading));
         progressDialog.setCanceledOnTouchOutside(false);
     }
@@ -242,7 +246,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                 browseImage();
                 break;
             case R.id.change_password:
-                startActivity(new Intent(EditCaretakerProfileActivity.this, ChangePasswordCaretakerActivity.class));
+                startActivity(new Intent(EditPatientProfileActivity.this, ChangePasswordPatientActivity.class));
                 break;
         }
     }
@@ -278,7 +282,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
 
     public void browseImage() {
-        ActivityCompat.requestPermissions(EditCaretakerProfileActivity.this,
+        ActivityCompat.requestPermissions(EditPatientProfileActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -326,9 +330,9 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
             @Override
             public void onFailure(Throwable t) {
                 progressDialog.dismiss();
-                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+                NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
             }
-        }, ConfigService.UPLOAD_IMAGE + ConfigService.CARETAKER, picturePath, caretaker.getId().toString());
+        }, ConfigService.UPLOAD_IMAGE + ConfigService.PATIENT, picturePath, patient.getId().toString());
     }
 
     public void editProfile() {
@@ -360,11 +364,11 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                 progressDialog.dismiss();
                 if (object != null) {
                     if (object.get("status").getAsInt() == 201) {
-                        caretaker = CaretakerModel.getInstance().getCaretaker(object);
-                        UserManager.getInstance(EditCaretakerProfileActivity.this).storeCaretaker(caretaker);
-                        startActivity(new Intent(EditCaretakerProfileActivity.this, ReHomeCaretakerActivity.class));
+                        patient = PatientModel.getInstance().getPatient(object);
+                        UserManager.getInstance(EditPatientProfileActivity.this).storePatient(patient);
+                        startActivity(new Intent(EditPatientProfileActivity.this, ReHomepatientActivity.class));
                     } else {
-                        NetworkUtil.showMessageResponse(EditCaretakerProfileActivity.this,
+                        NetworkUtil.showMessageResponse(EditPatientProfileActivity.this,
                                 firstNameEditText,
                                 object.get("message").getAsString());
 
@@ -386,9 +390,9 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
             @Override
             public void onFailure(Throwable t) {
                 progressDialog.dismiss();
-                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+                NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
             }
-        }, ConfigService.CARETAKER + caretaker.getId(), jsonObject);
+        }, ConfigService.PATIENT + patient.getId(), jsonObject);
     }
 
     private String getDob() {
@@ -406,7 +410,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
             case 1: {
                 if (grantResults.length <= 0
                         || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(EditCaretakerProfileActivity.this,
+                    ActivityCompat.requestPermissions(EditPatientProfileActivity.this,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             1);
                 }
