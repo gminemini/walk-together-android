@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.ReHomepatientActivity">
+    tools:context="com.custu.project.walktogether.ReHomePatientActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

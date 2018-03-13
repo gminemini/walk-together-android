@@ -9,10 +9,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -87,7 +85,7 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
                     if (object.get("status").getAsInt() == 201) {
                         patient = PatientModel.getInstance().getPatient(object);
                         UserManager.getInstance(ChangePasswordPatientActivity.this).storePatient(patient);
-                        startActivity(new Intent(ChangePasswordPatientActivity.this, ReHomepatientActivity.class));
+                        startActivity(new Intent(ChangePasswordPatientActivity.this, ReHomePatientActivity.class));
                     } else {
                         NetworkUtil.showMessageResponse(ChangePasswordPatientActivity.this,
                                 oldPasswordEditText,

@@ -124,9 +124,6 @@
         </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
         <activity
-            android:name="com.custu.project.walktogether.ChoosemapActivity"
-            android:label="กรุณาเลือกแผนที่" />
-        <activity
             android:name="com.custu.project.walktogether.EditprofileActivity"
             android:label="แก้ไขบัญชีผู้ใช้" />
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
@@ -146,7 +143,7 @@
         <activity android:name="com.custu.project.walktogether.AddTabActivity" />
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.ReHomepatientActivity" />
+        <activity android:name="com.custu.project.walktogether.ReHomePatientActivity" />
         <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.EditPatientProfileActivity" />
         <activity android:name="com.custu.project.walktogether.ChangePasswordPatientActivity"></activity>

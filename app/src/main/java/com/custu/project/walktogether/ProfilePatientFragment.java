@@ -75,7 +75,7 @@ public class ProfilePatientFragment extends Fragment {
         occupation = view.findViewById(R.id.occupation);
         logout = view.findViewById(R.id.logout);
         email = view.findViewById(R.id.email);
-        pullRefreshLayout  = view.findViewById(R.id.pull_refresh);
+        pullRefreshLayout = view.findViewById(R.id.pull_refresh);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,12 +118,12 @@ public class ProfilePatientFragment extends Fragment {
 
     public void getData() {
         patient = UserManager.getInstance(context).getPatient();
+        pullRefreshLayout.setRefreshing(false);
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                pullRefreshLayout.setRefreshing(false);
-                if(object!=null) {
-                    patient = PatientModel.getInstance().getPatient(object.getAsJsonObject("data"));
+                if (object != null) {
+                    patient = PatientModel.getInstance().getPatient(object);
                     UserManager.getInstance(context).storePatient(patient);
                     patient = UserManager.getInstance(context).getPatient();
                     initValue();
@@ -142,11 +142,10 @@ public class ProfilePatientFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                pullRefreshLayout.setRefreshing(false);
                 patient = UserManager.getInstance(context).getPatient();
-                NetworkUtil.isOnline(context, imageView);
                 initValue();
+                NetworkUtil.isOnline(context, imageView);
             }
-        }, ConfigService.PATIENT+patient.getId());
+        }, ConfigService.PATIENT + patient.getId());
     }
 }

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -23,7 +22,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
@@ -175,8 +173,9 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                 if (object != null) {
                     patient = PatientModel.getInstance().getPatient(object);
                     UserManager.getInstance(EditPatientProfileActivity.this).storePatient(patient);
-                    setDobSpinner();
+                    patient = UserManager.getInstance(EditPatientProfileActivity.this).getPatient();
                     initValue();
+                    setDobSpinner();
                     setListener();
                 }
             }
@@ -194,10 +193,10 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
             @Override
             public void onFailure(Throwable t) {
                 patient = UserManager.getInstance(EditPatientProfileActivity.this).getPatient();
-                NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
-                setDobSpinner();
                 initValue();
+                setDobSpinner();
                 setListener();
+                NetworkUtil.isOnline(EditPatientProfileActivity.this, titleNamEditText);
             }
         }, ConfigService.PATIENT + patient.getId());
     }
@@ -366,7 +365,7 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                     if (object.get("status").getAsInt() == 201) {
                         patient = PatientModel.getInstance().getPatient(object);
                         UserManager.getInstance(EditPatientProfileActivity.this).storePatient(patient);
-                        startActivity(new Intent(EditPatientProfileActivity.this, ReHomepatientActivity.class));
+                        startActivity(new Intent(EditPatientProfileActivity.this, ReHomePatientActivity.class));
                     } else {
                         NetworkUtil.showMessageResponse(EditPatientProfileActivity.this,
                                 firstNameEditText,

@@ -15,17 +15,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
-public class ReHomepatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
-   
+public class ReHomePatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
+
     private TabLayout tabLayout;
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
     private TextView titleTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,31 +34,29 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         setUI();
         setListener();
     }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
         Intent intent;
         switch (id) {
 //            case R.id.add:
-//                intent = new Intent(ReHomepatientActivity.this, AddTabActivity.class);
+//                intent = new Intent(ReHomePatientActivity.this, AddTabActivity.class);
 //                startActivity(intent);
 //                break;
             case R.id.edit_profile:
-                intent = new Intent(ReHomepatientActivity.this, EditPatientProfileActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.title:
-                UserManager.getInstance(ReHomepatientActivity.this).removePatient();
-                intent = new Intent(ReHomepatientActivity.this, LoginActivity.class);
+                intent = new Intent(ReHomePatientActivity.this, EditPatientProfileActivity.class);
                 startActivity(intent);
                 break;
         }
     }
+
     private void setListener() {
         titleTextView.setOnClickListener(this);
         addProfileRelativeLayout.setOnClickListener(this);
         editProfileRelativeLayout.setOnClickListener(this);
     }
+
     @Override
     public void initValue() {
 
@@ -71,26 +69,26 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
         addProfileRelativeLayout = findViewById(R.id.add);
         editProfileRelativeLayout = findViewById(R.id.edit_profile);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
-        HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager());
+        HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager(), UserManager.getInstance(ReHomePatientActivity.this).getPatient());
         ViewPager viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
-        int tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorBackground);
+        int tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorBackground);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
         tab = tabLayout.getTabAt(1);
-        tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
+        tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tab = tabLayout.getTabAt(2);
-        tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
+        tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tab = tabLayout.getTabAt(3);
-        tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
+        tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tab = tabLayout.getTabAt(4);
-        tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
+        tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorMiddleGray);
         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
 
@@ -100,14 +98,14 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         super.onTabSelected(tab);
-                        int tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorBackground);
+                        int tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorBackground);
                         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                     }
 
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
                         super.onTabUnselected(tab);
-                        int tabIconColor = ContextCompat.getColor(ReHomepatientActivity.this, R.color.colorMiddleGray);
+                        int tabIconColor = ContextCompat.getColor(ReHomePatientActivity.this, R.color.colorMiddleGray);
                         tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                     }
 
@@ -128,25 +126,14 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
                     titleTextView.setText("โปรไฟล์");
                     editProfileRelativeLayout.setVisibility(View.VISIBLE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
-                } else if (position == 1){
+                } else if (position == 1) {
                     titleTextView.setText("รายชื่อ");
-//                    editProfileRelativeLayout.setVisibility(View.GONE);
-//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
-                }
-                else if (position == 2){
+                } else if (position == 2) {
                     titleTextView.setText("ภารกิจ");
-//                    editProfileRelativeLayout.setVisibility(View.GONE);
-//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
-                }
-                else if (position == 3){
+                } else if (position == 3) {
                     titleTextView.setText("แบบทดสอบ");
-//                    editProfileRelativeLayout.setVisibility(View.GONE);
-//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     titleTextView.setText("สะสม");
-//                    editProfileRelativeLayout.setVisibility(View.GONE);
-//                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -171,6 +158,7 @@ public class ReHomepatientActivity extends AppCompatActivity implements BasicAct
     public void initProgressDialog() {
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -3,29 +3,17 @@ package com.custu.project.walktogether;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.mission.HistoryMission;
-import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.MissionModel;
-import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
-import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
-import com.google.gson.JsonObject;
-
-import java.util.ArrayList;
 
 import io.fabric.sdk.android.Fabric;
-import okhttp3.ResponseBody;
-import retrofit2.Retrofit;
 
 public class SplashScreenActivity extends Activity {
     Handler handler;
@@ -54,7 +42,7 @@ public class SplashScreenActivity extends Activity {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
                 } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
-                    intent = new Intent(SplashScreenActivity.this, ReHomepatientActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
                     startActivity(intent);
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
