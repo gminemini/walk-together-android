@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,18 +20,15 @@ import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.PatientModel;
-import com.custu.project.walktogether.network.NetworkManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import io.fabric.sdk.android.services.network.NetworkUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -82,10 +75,6 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                 if (NetworkUtil.isOnline(LoginActivity.this, loginBtn))
                     if (validate())
                         login();
-            }
-            case R.id.logo: {
-                startActivity(new Intent(LoginActivity.this, ChoosemapActivity.class));
-                break;
             }
             case R.id.sign_in: {
                 if (validate()) {
@@ -138,12 +127,12 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            patient = PatientModel.getInstance().getPatient(object);
                                             UserManager.getInstance(LoginActivity.this).storePatient(patient);
-                                            if(!object.get("isTestEvaluation").getAsBoolean()) {
-                                                patient = PatientModel.getInstance().getPatient(object);
-                                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                            if (!object.get("isTestEvaluation").getAsBoolean()) {
+                                                Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
                                                 startActivity(intent);
-                                            }  else {
+                                            } else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
                                                 startActivity(intent);
                                             }
@@ -216,7 +205,8 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
             }
 
             @Override
-            public void onFailure(Throwable t) {circularProgressButton.startAnimation();
+            public void onFailure(Throwable t) {
+                circularProgressButton.startAnimation();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

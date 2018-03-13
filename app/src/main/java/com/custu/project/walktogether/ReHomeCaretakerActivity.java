@@ -111,6 +111,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
 
     private void setListener() {
+        titleTextView.setOnClickListener(this);
         addProfileRelativeLayout.setOnClickListener(this);
         editProfileRelativeLayout.setOnClickListener(this);
     }
