@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -55,6 +56,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     private ImageView editImageView;
     private ImageView profileImageView;
     private RelativeLayout saveImageView;
+    private Button changePassword;
 
     private Caretaker caretaker;
     private ProgressDialog progressDialog;
@@ -79,6 +81,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     private void setListener() {
         editImageView.setOnClickListener(this);
         saveImageView.setOnClickListener(this);
+        changePassword.setOnClickListener(this);
         ageTextView.setText(DateTHFormat.getInstance().birthDayToAge(getDob()));
 
         inputDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -159,6 +162,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         editImageView = findViewById(R.id.change_image_profile);
         profileImageView = findViewById(R.id.image_profile);
         saveImageView = findViewById(R.id.save);
+        changePassword = findViewById(R.id.change_password);
     }
 
     public void getData() {
@@ -235,6 +239,9 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                 break;
             case R.id.change_image_profile:
                 browseImage();
+                break;
+            case R.id.change_password:
+                startActivity(new Intent(EditCaretakerProfileActivity.this, ChangePasswordCaretakerActivity.class));
                 break;
         }
     }
@@ -403,6 +410,14 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                             1);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
         }
     }
 }

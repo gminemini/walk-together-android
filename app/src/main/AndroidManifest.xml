@@ -11,7 +11,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -146,7 +145,8 @@
         <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity" />
         <activity android:name="com.custu.project.walktogether.AddTabActivity" />
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
-        <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity"></activity>
     </application>
 
 </manifest>
