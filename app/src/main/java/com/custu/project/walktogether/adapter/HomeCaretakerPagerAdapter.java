@@ -7,30 +7,31 @@ import com.custu.project.walktogether.AddPatientFragment;
 import com.custu.project.walktogether.AddPatientQRCodeFragment;
 import com.custu.project.walktogether.ListNameFragment;
 import com.custu.project.walktogether.ProfileFragment;
-import com.custu.project.walktogether.ProfilePatientFragment;
 
 /**
  * Created by pannawatnokket on 6/3/2018 AD.
  */
 
-public class HomePatientPagerAdapter extends FragmentPagerAdapter {
+public class HomeCaretakerPagerAdapter extends FragmentPagerAdapter {
 
-    public HomePatientPagerAdapter(FragmentManager fm) {
+    public HomeCaretakerPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new ProfilePatientFragment();
-            default:
-                return null;
-        }
-
+//        switch (position) {
+//            case 0:
+//                return new ProfileFragment();
+//            case 1:
+//                return new ListNameFragment();
+//            default:
+//                return null;
+//        }
+        return null;
     }
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 }
