@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context="com.custu.project.walktogether.EditCaretakerProfileActivity">
 
     <RelativeLayout
@@ -332,7 +333,7 @@
                     android:layout_margin="12pt">
 
                     <Button
-                        android:id="@+id/logout"
+                        android:id="@+id/change_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_button"

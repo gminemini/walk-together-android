@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -55,6 +56,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
     private ImageView editImageView;
     private ImageView profileImageView;
     private RelativeLayout saveImageView;
+    private Button changePassword;
 
     private Caretaker caretaker;
     private ProgressDialog progressDialog;
@@ -74,14 +76,12 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         initProgressDialog();
         setUI();
         getData();
-        setDobSpinner();
-        initValue();
-        setListener();
     }
 
     private void setListener() {
         editImageView.setOnClickListener(this);
         saveImageView.setOnClickListener(this);
+        changePassword.setOnClickListener(this);
         ageTextView.setText(DateTHFormat.getInstance().birthDayToAge(getDob()));
 
         inputDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -162,11 +162,39 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         editImageView = findViewById(R.id.change_image_profile);
         profileImageView = findViewById(R.id.image_profile);
         saveImageView = findViewById(R.id.save);
+        changePassword = findViewById(R.id.change_password);
     }
 
-    @Override
     public void getData() {
         caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                if (object != null) {
+                    caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                    UserManager.getInstance(EditCaretakerProfileActivity.this).storeCaretaker(caretaker);
+                    setDobSpinner();
+                    initValue();
+                    setListener();
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                caretaker = UserManager.getInstance(EditCaretakerProfileActivity.this).getCaretaker();
+                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
+            }
+        }, ConfigService.CARETAKER + caretaker.getId());
     }
 
     private void setDobSpinner() {
@@ -211,6 +239,9 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                 break;
             case R.id.change_image_profile:
                 browseImage();
+                break;
+            case R.id.change_password:
+                startActivity(new Intent(EditCaretakerProfileActivity.this, ChangePasswordCaretakerActivity.class));
                 break;
         }
     }
@@ -293,7 +324,8 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
             @Override
             public void onFailure(Throwable t) {
-
+                progressDialog.dismiss();
+                NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.UPLOAD_IMAGE + ConfigService.CARETAKER, picturePath, caretaker.getId().toString());
     }
@@ -352,6 +384,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
 
             @Override
             public void onFailure(Throwable t) {
+                progressDialog.dismiss();
                 NetworkUtil.isOnline(EditCaretakerProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.CARETAKER + caretaker.getId(), jsonObject);
@@ -377,6 +410,14 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
                             1);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
         }
     }
 }
