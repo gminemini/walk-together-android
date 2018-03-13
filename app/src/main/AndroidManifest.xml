@@ -147,6 +147,7 @@
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
         <activity android:name="com.custu.project.walktogether.ReHomepatientActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity"></activity>
     </application>
 
 </manifest>

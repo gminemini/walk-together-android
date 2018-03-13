@@ -59,7 +59,6 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
     private ListView listView;
     private PullRefreshLayout pullRefreshLayout;
     private ProgressDialog progressDialog;
-    private SwipeMenuCreator creator;
 
     private ArrayList<Patient> patientArrayList;
     private Caretaker caretaker;
