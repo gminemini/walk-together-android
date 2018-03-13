@@ -40,7 +40,7 @@
                 android:textSize="@dimen/text_head_one" />
 
             <TextView
-                android:id="@+id/score"
+                android:id="@+id/result_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorDelete"

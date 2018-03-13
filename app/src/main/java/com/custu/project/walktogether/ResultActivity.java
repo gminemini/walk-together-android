@@ -44,8 +44,8 @@ public class ResultActivity extends AppCompatActivity implements BasicActivity, 
 
     @Override
     public void setUI() {
-        TextView scoreTextView = findViewById(R.id.score);
-        scoreTextView.setText(getIntent().getIntExtra("score", 0));
+        TextView scoreTextView = findViewById(R.id.result_score);
+        scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
         nextBtn = (Button) findViewById(R.id.next);
     }
 
