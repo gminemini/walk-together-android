@@ -2,34 +2,20 @@ package com.custu.project.walktogether;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.adapter.ListViewAdapter;
-import com.custu.project.walktogether.adapter.PatientAdapter;
+import com.custu.project.walktogether.adapter.ListViewCaretakerAdapter;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
@@ -40,15 +26,12 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.NetworkUtil;
-import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
-import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -60,17 +43,17 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
     private PullRefreshLayout pullRefreshLayout;
     private ProgressDialog progressDialog;
 
-    private ArrayList<Patient> caretakerArrayList;
+    private ArrayList<Caretaker> caretakerArrayList;
     private Patient patient;
 
-    private ListViewAdapter mAdapter;
+    private ListViewCaretakerAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_name_patient, container, false);
-        setUI();
-        setListener();
+        listView = view.findViewById(R.id.list_patient);
+
         initValue();
         getDataUser();
         initProgressDialog();
@@ -83,11 +66,40 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
 
     private void setListener() {
-        listView.setOnItemClickListener(this);
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
     }
+    @SuppressLint("SetTextI18n")
+    public void showDialog(Context context, final String caretakerNumber, final int position) {
 
+    }
     private void getDataUser() {
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                patient = PatientModel.getInstance().getPatient(object);
+            }
 
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                NetworkUtil.isOnline(context, listView);
+                pullRefreshLayout.setRefreshing(false);
+            }
+        },ConfigService.PATIENT+patient.getId());
     }
 
     @Override
@@ -107,16 +119,75 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
     @Override
     public void setUI() {
+
+        mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListNamePatientFragment.this);
         listView = view.findViewById(R.id.list_patient);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+
+            }
+        });
     }
+
 
     @Override
     public void getData() {
+        pullRefreshLayout = view.findViewById(R.id.refresh_layout);
+        pullRefreshLayout.setRefreshing(true);
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
 
+//                if (object != null){
+                    if (object.get("status").getAsInt() == 200){
+                        pullRefreshLayout.setRefreshing(false);
+                        caretakerArrayList = CaretakerModel.getInstance().getListCaretaker(object);
+                        Collections.reverse(caretakerArrayList);
+                        setUI();
+                        setListener();
+
+                    }
+                    else {
+                        pullRefreshLayout.setRefreshing(false);
+                        ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                    }
+//                }else {
+//                    pullRefreshLayout.setRefreshing(false);
+//                    ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+//                }
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                NetworkUtil.isOnline(context, listView);
+                pullRefreshLayout.setRefreshing(false);
+            }
+        },ConfigService.MATCHING+ConfigService.MATCHING_CARETAKER_UNDER_PATIENT+patient.getId());
     }
 
     @Override
     public void initProgressDialog() {
-
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(getString(R.string.loading));
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+    @Override
+    public void onAttach(Context context) {
+        this.context = (FragmentActivity) context;
+        super.onAttach(context);
     }
 }
