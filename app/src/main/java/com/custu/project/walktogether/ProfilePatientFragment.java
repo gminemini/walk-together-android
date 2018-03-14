@@ -99,7 +99,7 @@ public class ProfilePatientFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserManager.getInstance(context).removeCaretaker();
+                UserManager.getInstance(context).removePatient();
                 startActivity(new Intent(context, LoginActivity.class));
             }
         });
