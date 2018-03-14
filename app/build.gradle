@@ -72,6 +72,7 @@ dependencies {
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    compile 'com.squareup.retrofit2:converter-simplexml:2.3.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }

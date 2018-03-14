@@ -11,6 +11,7 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import rx.schedulers.Schedulers;
 
 /**
@@ -25,13 +26,9 @@ public class NetworkWithHeaderManager {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         OkHttpClient client = httpClient.build();
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ConfigService.SMS_API_BASE)
                 .addCallAdapterFactory(rxAdapter)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(SimpleXmlConverterFactory.create())
                 .client(client)
                 .build();
 

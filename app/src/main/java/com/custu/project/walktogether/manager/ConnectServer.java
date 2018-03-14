@@ -1,9 +1,5 @@
 package com.custu.project.walktogether.manager;
 
-import android.os.Build;
-import android.os.Environment;
-import android.support.annotation.RequiresApi;
-
 import com.custu.project.walktogether.network.NetworkManager;
 import com.custu.project.walktogether.network.NetworkWithHeaderManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
@@ -104,27 +100,22 @@ public class ConnectServer extends NetworkManager {
 
     public void sendSMS (final OnDataSuccessListener listener, String url) {
         httpMethodService = NetworkWithHeaderManager.createService(HttpMethodService.class);
-        Call<JsonObject> call = httpMethodService.get(url);
-        call.enqueue(new Callback<JsonObject>() {
+        Call<ResponseBody> call = httpMethodService.getXML(url);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject object = response.body();
-                if (object == null) {
-                    //404 or the response cannot be converted to User.
-                    ResponseBody responseBody = response.errorBody();
-                    if (responseBody != null) {
-                        listener.onBodyError(responseBody);
-                    } else {
-                        listener.onBodyErrorIsNull();
-                    }
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JsonObject jsonObject = new JsonObject();
+                if (response.code() ==200) {
+                    jsonObject.addProperty("status",response.code());
+                    listener.onResponse(jsonObject, retrofit);
                 } else {
-                    //200
-                    listener.onResponse(object, retrofit);
+                    jsonObject.addProperty("status",response.code());
+                    listener.onResponse(jsonObject, retrofit);
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onFailure(t);
             }
         });
