@@ -25,6 +25,7 @@ import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.custu.project.walktogether.util.UserManager;
 
@@ -105,7 +106,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         isPlaying = false;
         mediaPlayer = new MediaPlayer();
         //pathSound = "http://159.65.128.189:8181/audio/question/recall/14/243/1519236211535.mp3";
-        pathSound = question.getAudio();
+        pathSound = ConfigService.BASE_URL_IMAGE + question.getAudio();
     }
 
     @Override
@@ -115,7 +116,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         radioGroup = findViewById(R.id.radio_group);
         playSoundImageView.setOnClickListener(this);
         TextView titleTextView = findViewById(R.id.question_text);
-        titleTextView.setText("(7) "+question.getTitle());
+        titleTextView.setText("(7) " + question.getTitle());
         initAnswer();
     }
 

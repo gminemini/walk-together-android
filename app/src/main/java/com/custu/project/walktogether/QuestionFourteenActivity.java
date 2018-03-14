@@ -25,12 +25,13 @@ import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class QuestionFourteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, MediaPlayer.OnCompletionListener{
+public class QuestionFourteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, MediaPlayer.OnCompletionListener {
     private ProgressDialog progressDialog;
 
     private boolean isPlaying;
@@ -105,7 +106,7 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
         isPlaying = false;
         mediaPlayer = new MediaPlayer();
         //pathSound = "http://159.65.128.189:8181/audio/question/recall/14/243/1519236211535.mp3";
-        pathSound = question.getAudio();
+        pathSound = ConfigService.BASE_URL_IMAGE + question.getAudio();
     }
 
     @Override
@@ -114,7 +115,7 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
         playSoundImageView = findViewById(R.id.play_sound);
         radioGroup = findViewById(R.id.radio_group);
         TextView titleTextView = findViewById(R.id.question_text);
-        titleTextView.setText("(14) "+question.getTitle());
+        titleTextView.setText("(14) " + question.getTitle());
         playSoundImageView.setOnClickListener(this);
         initAnswer();
     }
