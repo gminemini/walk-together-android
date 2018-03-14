@@ -159,8 +159,8 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
     private void setEducation() {
         ArrayAdapter<Education> adapterArray = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, educationArrayList);
-        inputSex.setAdapter(adapterArray);
-        inputSex.setSelection(0);
+        inputEducation.setAdapter(adapterArray);
+        inputEducation.setSelection(0);
     }
 
     @Override
@@ -380,7 +380,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
@@ -428,7 +427,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                                     public void run() {
                                         Patient patient = PatientModel.getInstance().getPatient(object);
                                         UserManager.getInstance(RegisterPatientActivity.this).storePatient(patient);
-                                        Intent intent = new Intent(RegisterPatientActivity.this, HomeActivity.class);
+                                        Intent intent = new Intent(RegisterPatientActivity.this, ReHomeCaretakerActivity.class);
                                         startActivity(intent);
                                     }
                                 }, 700);

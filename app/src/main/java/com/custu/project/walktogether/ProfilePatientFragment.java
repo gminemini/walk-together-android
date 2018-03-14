@@ -78,15 +78,9 @@ public class ProfilePatientFragment extends Fragment {
         occupation = view.findViewById(R.id.occupation);
         logout = view.findViewById(R.id.logout);
         email = view.findViewById(R.id.email);
+        number = view.findViewById(R.id.number);
+        qrCode = view.findViewById(R.id.qrcode);
         pullRefreshLayout = view.findViewById(R.id.pull_refresh);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserManager.getInstance(context).removePatient();
-                startActivity(new Intent(context, LoginActivity.class));
-            }
-        });
-
     }
 
     private void initValue() {
