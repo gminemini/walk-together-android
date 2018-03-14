@@ -35,6 +35,7 @@ import retrofit2.Retrofit;
 public class LoginActivity extends Activity implements BasicActivity, View.OnClickListener {
     private Button registerBtn;
     private Button loginBtn;
+    private Button forgetBtn;
     private EditText username;
     private EditText password;
     private ProgressDialog progressDialog;
@@ -58,6 +59,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     }
 
     private void setListener() {
+        forgetBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
@@ -68,6 +70,11 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         switch (view.getId()) {
             case R.id.register: {
                 Intent intent = new Intent(LoginActivity.this, ChooseuserActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.forgetpass: {
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -224,6 +231,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void setUI() {
+        forgetBtn = findViewById(R.id.forgetpass);
         registerBtn = (Button) findViewById(R.id.register);
         loginBtn = (Button) findViewById(R.id.login);
         username = (EditText) findViewById(R.id.input_username);
