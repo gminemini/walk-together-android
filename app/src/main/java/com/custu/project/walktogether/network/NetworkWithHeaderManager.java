@@ -29,7 +29,7 @@ public class NetworkWithHeaderManager {
                 .setLenient()
                 .create();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://rest.nexmo.com/sms/json")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ConfigService.SMS_API_BASE)
                 .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)

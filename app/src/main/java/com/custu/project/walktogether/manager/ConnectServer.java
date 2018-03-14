@@ -102,10 +102,9 @@ public class ConnectServer extends NetworkManager {
         });
     }
 
-    public void postSMS (final OnDataSuccessListener listener, String url, JsonObject bodyJson) {
+    public void sendSMS (final OnDataSuccessListener listener, String url) {
         httpMethodService = NetworkWithHeaderManager.createService(HttpMethodService.class);
-        body = RequestBody.create(JSON, bodyJson.toString());
-        Call<JsonObject> call = httpMethodService.post(url, body);
+        Call<JsonObject> call = httpMethodService.get(url);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

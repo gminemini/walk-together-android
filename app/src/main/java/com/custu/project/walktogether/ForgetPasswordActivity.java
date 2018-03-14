@@ -1,13 +1,8 @@
 package com.custu.project.walktogether;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -90,31 +85,30 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
             }
         }, ConfigService.FORGET_PASSWORD, jsonObject);
     }
-    private int PERMISSIONS_REQUEST_RECEIVE_SMS = 130;
 
-    @SuppressLint("WrongConstant")
     private void sendSMS() {
+        ConnectServer.getInstance().sendSMS(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
 
-        int hasSendSMSPermission = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            hasSendSMSPermission = checkSelfPermission(Manifest.permission.SEND_SMS);
-            if (hasSendSMSPermission != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS},
-                        PERMISSIONS_REQUEST_RECEIVE_SMS);
             }
-        }
 
-        SmsManager sms = SmsManager.getDefault();
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
 
-        StringBuilder builder = new StringBuilder(tell);
-        builder.setCharAt(0, '6');
+            }
 
+            @Override
+            public void onBodyErrorIsNull() {
 
-//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + "6" + builder));
-//        intent.putExtra("sms_body", "รหัสผ่านของคุณคือ1 " + password);
-//        startActivity(intent);
+            }
 
-        sms.sendTextMessage("6" + builder, null, "รหัสผ่านของคุณคือ " + password, null, null);
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.SMS_API + ConfigService.SMS_API_BASE + tell + ConfigService.SMS_MESSAGE + "รหัสผ่านของคุณคือ " + password);
+
     }
 
     @Override

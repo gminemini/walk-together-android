@@ -61,5 +61,9 @@ public class ConfigService {
 
     public static final String FORGET_PASSWORD = "forget-password/";
 
+    public static final String SMS_API_BASE = "http://www.thsms.com/api/";
+    public static final String SMS_API = "rest?method=send&username=punnoket&password=e6eb8f&from=0000&to=";
+    public static final String SMS_MESSAGE = "&message=";
+
 
 }
