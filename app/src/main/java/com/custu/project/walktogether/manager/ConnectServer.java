@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.annotation.RequiresApi;
 
 import com.custu.project.walktogether.network.NetworkManager;
+import com.custu.project.walktogether.network.NetworkWithHeaderManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.service.HttpMethodService;
 import com.google.gson.JsonObject;
@@ -74,6 +75,35 @@ public class ConnectServer extends NetworkManager {
 
     public void post(final OnDataSuccessListener listener, String url, JsonObject bodyJson) {
         httpMethodService = retrofit.create(HttpMethodService.class);
+        body = RequestBody.create(JSON, bodyJson.toString());
+        Call<JsonObject> call = httpMethodService.post(url, body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject object = response.body();
+                if (object == null) {
+                    //404 or the response cannot be converted to User.
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(object, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+    public void postSMS (final OnDataSuccessListener listener, String url, JsonObject bodyJson) {
+        httpMethodService = NetworkWithHeaderManager.createService(HttpMethodService.class);
         body = RequestBody.create(JSON, bodyJson.toString());
         Call<JsonObject> call = httpMethodService.post(url, body);
         call.enqueue(new Callback<JsonObject>() {

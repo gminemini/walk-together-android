@@ -19,27 +19,17 @@ import rx.schedulers.Schedulers;
 
 public class NetworkWithHeaderManager {
 
-    public static <S> S createServiceUploadImage(Class<S> serviceClass, final String token) {
+    public static <S> S createService(Class<S> serviceClass) {
         RxJavaCallAdapterFactory rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                final Request request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + token)
-                        .build();
 
-                return chain.proceed(request);
-            }
-        };
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(interceptor);
         OkHttpClient client = httpClient.build();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ConfigService.BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://rest.nexmo.com/sms/json")
                 .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)

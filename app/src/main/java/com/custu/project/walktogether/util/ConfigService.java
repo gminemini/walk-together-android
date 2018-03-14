@@ -59,4 +59,7 @@ public class ConfigService {
     //Upload Image
     public static final String UPLOAD_IMAGE = "upload-image/";
 
+    public static final String FORGET_PASSWORD = "forget-password/";
+
+
 }
