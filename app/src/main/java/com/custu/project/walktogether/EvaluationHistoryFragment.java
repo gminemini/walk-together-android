@@ -97,6 +97,8 @@ public class EvaluationHistoryFragment extends Fragment {
         v.top = 30;
         v.left = 0;
         v.right = Float.parseFloat(historyEvaluations.get(historyEvaluations.size() - 1).getEvaluationTest().getFrequencyPatient());
+        if (v.right == 0.0)
+            v.right = 30;
         chart.setMaximumViewport(v);
         chart.setCurrentViewport(v);
         chart.setCurrentViewportWithAnimation(v);
