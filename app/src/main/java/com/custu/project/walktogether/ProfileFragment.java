@@ -23,6 +23,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.custu.project.walktogether.util.lib.DialogQrCode;
 import com.google.gson.JsonObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,7 +38,9 @@ public class ProfileFragment extends Fragment {
     private TextView age;
     private TextView tell;
     private TextView occupation;
+    private TextView number;
     private Button logout;
+    private Button qrCode;
     private TextView email;
     private PullRefreshLayout pullRefreshLayout;
 
@@ -65,15 +68,17 @@ public class ProfileFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void setUI() {
-         imageView = view.findViewById(R.id.image_profile);
-         name = view.findViewById(R.id.name);
-         sex = view.findViewById(R.id.sex);
-         age = view.findViewById(R.id.age);
-         tell = view.findViewById(R.id.tell);
-         occupation = view.findViewById(R.id.occupation);
-         logout = view.findViewById(R.id.logout);
-         email = view.findViewById(R.id.email);
-         pullRefreshLayout  = view.findViewById(R.id.pull_refresh);
+        imageView = view.findViewById(R.id.image_profile);
+        name = view.findViewById(R.id.name);
+        sex = view.findViewById(R.id.sex);
+        age = view.findViewById(R.id.age);
+        tell = view.findViewById(R.id.tell);
+        occupation = view.findViewById(R.id.occupation);
+        logout = view.findViewById(R.id.logout);
+        email = view.findViewById(R.id.email);
+        number = view.findViewById(R.id.number);
+        qrCode = view.findViewById(R.id.qrcode);
+        pullRefreshLayout = view.findViewById(R.id.pull_refresh);
     }
 
     private void initValue() {
@@ -87,12 +92,20 @@ public class ProfileFragment extends Fragment {
         age.setText(caretaker.getAge());
         tell.setText(caretaker.getTell());
         email.setText(caretaker.getEmail());
+        number.setText(caretaker.getCaretakerNumber());
         occupation.setText(caretaker.getOccupation());
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserManager.getInstance(context).removeCaretaker();
                 startActivity(new Intent(context, LoginActivity.class));
+            }
+        });
+
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogQrCode.getInstance().showDialog(context, caretaker.getQrCode());
             }
         });
 
