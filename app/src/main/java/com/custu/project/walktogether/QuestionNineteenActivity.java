@@ -186,13 +186,14 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object != null) {
+                    int score = object.getAsJsonObject("data").get("score").getAsInt();
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
                     if (isPass) {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
+                        intent.putExtra("score", score);
                         startActivity(intent);
                     } else {
-                        int score = object.getAsJsonObject("data").get("score").getAsInt();
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
                         intent.putExtra("score", score);
                         startActivity(intent);

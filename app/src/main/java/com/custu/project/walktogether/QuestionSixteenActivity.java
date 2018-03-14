@@ -119,23 +119,26 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
                 StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "2");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
+                break;
             }
             case R.id.bottom_left: {
                 StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "4");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
+                break;
             }
             case R.id.top_right: {
                 StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "1");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
+                break;
             }
             case R.id.bottom_right: {
                 StoreAnswerTmse.getInstance().storeAnswer("no16", question.getId(), "3");
                 Intent intent = new Intent(QuestionSixteenActivity.this, QuestionSeventeenActivity.class);
                 startActivity(intent);
+                break;
             }
-
         }
     }
 }
