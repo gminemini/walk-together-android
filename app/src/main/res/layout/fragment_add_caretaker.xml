@@ -1,0 +1,187 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.custu.project.walktogether.AddCaretakerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@drawable/shape_mainbox"
+        android:elevation="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="กรอกรหัสประจำตัว"
+            android:textColor="@color/colorBackground"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.chaos.view.PinView
+            android:id="@+id/pinView"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15pt"
+            android:cursorVisible="true"
+            android:inputType="text"
+            android:textColor="@color/colorBackgroundDark"
+            android:textSize="18sp"
+            app:cursorColor="@color/colorBackgroundDark"
+            app:cursorWidth="2dp"
+            app:itemCount="7"
+            app:itemHeight="45dp"
+            app:itemRadius="10dp"
+            app:itemWidth="38dp"
+            app:lineColor="@color/colorBackground"
+            app:lineWidth="3dp"
+            app:viewType="rectangle" />
+
+        <Button
+            android:id="@+id/scan_qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="@dimen/marginTopButtin"
+            android:layout_marginHorizontal="@dimen/marginTopButtin"
+            android:background="@drawable/shapebutton_complete"
+            android:text="สแกน QR CODE"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="@dimen/TextSize"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopButtin"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/shape_circle"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/imgtest" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="บุษฑิตา วงศ์ธีระวิทย์"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="อายุ: "
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" ปี"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="เพศ: "
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="หญิง"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_user"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="@dimen/marginTopButtin"
+                android:background="@drawable/shapebutton_complete"
+                android:text="เพิ่มผู้ป่วย"
+                android:textColor="@color/colorOffwhite"
+                android:textSize="@dimen/TextSize" />
+
+        </LinearLayout>
+
+
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/not_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorBackground"
+                android:textSize="@dimen/TextSizeBold_20sp"
+                android:visibility="gone" />
+
+        </com.baoyz.widget.PullRefreshLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

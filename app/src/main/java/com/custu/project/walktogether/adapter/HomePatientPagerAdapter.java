@@ -8,6 +8,7 @@ import com.custu.project.walktogether.AddPatientFragment;
 import com.custu.project.walktogether.AddPatientQRCodeFragment;
 import com.custu.project.walktogether.EvaluationHistoryFragment;
 import com.custu.project.walktogether.ListNameFragment;
+import com.custu.project.walktogether.ListNamePatientFragment;
 import com.custu.project.walktogether.ProfileFragment;
 import com.custu.project.walktogether.ProfilePatientFragment;
 import com.custu.project.walktogether.SelectMissionFragment;
@@ -31,7 +32,7 @@ public class HomePatientPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new ProfilePatientFragment();
             case 1:
-                return new ProfilePatientFragment();
+                return new ListNamePatientFragment();
             case 2:
                 return new SelectMissionFragment();
             case 3:
@@ -41,8 +42,6 @@ public class HomePatientPagerAdapter extends FragmentPagerAdapter {
                 historyEvaluationFragment.setArguments(bundle);
                 return historyEvaluationFragment;
             case 4:
-                return new ProfilePatientFragment();
-            case 5:
                 return new ProfilePatientFragment();
             default:
                 return null;
