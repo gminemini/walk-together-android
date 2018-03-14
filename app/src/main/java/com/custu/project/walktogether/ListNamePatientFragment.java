@@ -66,11 +66,11 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
     private ListViewAdapter mAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_name_patient, container, false);
-       setUI();
-       setListener();
+        setUI();
+        setListener();
         initValue();
         getDataUser();
         initProgressDialog();
@@ -85,6 +85,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
     private void setListener() {
         listView.setOnItemClickListener(this);
     }
+
     private void getDataUser() {
 
     }
@@ -101,7 +102,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
     @Override
     public void initValue() {
-                patient = UserManager.getInstance(context).getPatient();
+        patient = UserManager.getInstance(context).getPatient();
     }
 
     @Override
