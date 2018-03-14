@@ -25,6 +25,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.custu.project.walktogether.util.lib.DialogQrCode;
 import com.google.gson.JsonObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,7 +40,9 @@ public class ProfilePatientFragment extends Fragment {
     private TextView age;
     private TextView tell;
     private TextView occupation;
+    private TextView number;
     private Button logout;
+    private Button qrCode;
     private TextView email;
     private PullRefreshLayout pullRefreshLayout;
 
@@ -97,12 +100,20 @@ public class ProfilePatientFragment extends Fragment {
         age.setText(patient.getAge());
         tell.setText(patient.getTell());
         email.setText(patient.getEmail());
+        number.setText(patient.getPatientNumber());
         occupation.setText(patient.getOccupation());
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserManager.getInstance(context).removePatient();
+                UserManager.getInstance(context).removeCaretaker();
                 startActivity(new Intent(context, LoginActivity.class));
+            }
+        });
+
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogQrCode.getInstance().showDialog(context, patient.getQrCode());
             }
         });
 
