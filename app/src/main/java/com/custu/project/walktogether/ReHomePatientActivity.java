@@ -40,10 +40,10 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         int id = view.getId();
         Intent intent;
         switch (id) {
-//            case R.id.add:
-//                intent = new Intent(ReHomePatientActivity.this, AddTabActivity.class);
-//                startActivity(intent);
-//                break;
+            case R.id.add:
+                intent = new Intent(ReHomePatientActivity.this, AddTabPatientActivity.class);
+                startActivity(intent);
+                break;
             case R.id.edit_profile:
                 intent = new Intent(ReHomePatientActivity.this, EditPatientProfileActivity.class);
                 startActivity(intent);
@@ -128,12 +128,20 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     addProfileRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1) {
                     titleTextView.setText("รายชื่อ");
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    addProfileRelativeLayout.setVisibility(View.VISIBLE);
                 } else if (position == 2) {
                     titleTextView.setText("ภารกิจ");
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    addProfileRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 3) {
                     titleTextView.setText("แบบทดสอบ");
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    addProfileRelativeLayout.setVisibility(View.GONE);
                 } else {
                     titleTextView.setText("สะสม");
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    addProfileRelativeLayout.setVisibility(View.GONE);
                 }
             }
 

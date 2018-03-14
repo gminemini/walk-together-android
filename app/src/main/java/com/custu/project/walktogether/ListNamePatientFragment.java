@@ -54,16 +54,23 @@ import retrofit2.Retrofit;
 
 
 public class ListNamePatientFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
-
     private View view;
+    private FragmentActivity context;
     private ListView listView;
+    private PullRefreshLayout pullRefreshLayout;
+    private ProgressDialog progressDialog;
+
+    private ArrayList<Patient> caretakerArrayList;
     private Patient patient;
+
+    private ListViewAdapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_name_patient, container, false);
-        listView = view.findViewById(R.id.list_patient);
-        listView.setOnItemClickListener(this);
+       setUI();
+       setListener();
         initValue();
         getDataUser();
         initProgressDialog();
@@ -76,7 +83,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
 
     private void setListener() {
-
+        listView.setOnItemClickListener(this);
     }
     private void getDataUser() {
 
@@ -94,12 +101,12 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
     @Override
     public void initValue() {
-
+                patient = UserManager.getInstance(context).getPatient();
     }
 
     @Override
     public void setUI() {
-
+        listView = view.findViewById(R.id.list_patient);
     }
 
     @Override
