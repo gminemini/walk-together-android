@@ -65,5 +65,6 @@ public class ConfigService {
     public static final String SMS_API = "rest?method=send&username=punnoket&password=e6eb8f&from=0000&to=";
     public static final String SMS_MESSAGE = "&message=";
 
+    public static final long TIME_INTERVAL = 31000;
 
 }

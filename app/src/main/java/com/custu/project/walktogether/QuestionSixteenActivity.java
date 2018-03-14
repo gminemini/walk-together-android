@@ -16,6 +16,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 public class QuestionSixteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
@@ -42,7 +43,7 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -88,7 +89,7 @@ public class QuestionSixteenActivity extends AppCompatActivity implements BasicA
         topRight = findViewById(R.id.top_right);
         bottomRight = findViewById(R.id.bottom_right);
         TextView titleTextView = (TextView) findViewById(R.id.question_text);
-        titleTextView.setText("(16) "+question.getTitle());
+        titleTextView.setText("(16) " + question.getTitle());
     }
 
     @Override

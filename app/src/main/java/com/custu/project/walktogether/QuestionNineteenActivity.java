@@ -59,7 +59,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -101,7 +101,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         nextBtn = (Button) findViewById(R.id.next);
         radioGroup = findViewById(R.id.radio_group);
         TextView titleTextView = (TextView) findViewById(R.id.question_text);
-        titleTextView.setText("(19) "+question.getTitle());
+        titleTextView.setText("(19) " + question.getTitle());
         initProgress();
         initAnswer();
     }

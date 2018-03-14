@@ -22,6 +22,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.google.gson.JsonObject;
@@ -55,7 +56,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -131,7 +132,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         edittextBtn = (EditText) findViewById(R.id.input_six);
         ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText("(6) "+question.getTitle());
+        titleTextView.setText("(6) " + question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionSixActivity.this, question.getImage(), imageView);
     }
 

@@ -21,6 +21,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.custu.project.walktogether.util.UserManager;
 
@@ -31,6 +32,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     private TextView titleTextView;
     private EditText edittextBtn;
     private NumberQuestion numberQuestion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,9 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     }
 
     private CountDownTimer countDownTimer;
+
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -109,6 +112,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         });
         dialog.show();
     }
+
     @Override
     public void initValue() {
 
@@ -118,8 +122,8 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
         edittextBtn = (EditText) findViewById(R.id.input_two);
-        titleTextView =  findViewById(R.id.title);
-        titleTextView.setText("(2) "+numberQuestion.getQuestion().getTitle());
+        titleTextView = findViewById(R.id.title);
+        titleTextView.setText("(2) " + numberQuestion.getQuestion().getTitle());
     }
 
     @Override
