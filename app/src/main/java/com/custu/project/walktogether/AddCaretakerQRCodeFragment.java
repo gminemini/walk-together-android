@@ -94,10 +94,6 @@ public class AddCaretakerQRCodeFragment extends Fragment implements ZXingScanner
         super.onDetach();
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_REQUEST_CODE) {
@@ -170,7 +166,7 @@ public class AddCaretakerQRCodeFragment extends Fragment implements ZXingScanner
             public void onFailure(Throwable t) {
                 NetworkUtil.isOnline(context, view);
             }
-        }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_PATIENT, jsonObject);
+        }, ConfigService.MATCHING + ConfigService.MATCHING_ADD_CARETAKER, jsonObject);
     }
 
 }
