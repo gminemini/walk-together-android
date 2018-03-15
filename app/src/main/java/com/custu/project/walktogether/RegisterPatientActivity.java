@@ -427,7 +427,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                                     public void run() {
                                         Patient patient = PatientModel.getInstance().getPatient(object);
                                         UserManager.getInstance(RegisterPatientActivity.this).storePatient(patient);
-                                        Intent intent = new Intent(RegisterPatientActivity.this, ReHomeCaretakerActivity.class);
+                                        Intent intent = new Intent(RegisterPatientActivity.this, ReHomePatientActivity.class);
                                         startActivity(intent);
                                     }
                                 }, 700);
