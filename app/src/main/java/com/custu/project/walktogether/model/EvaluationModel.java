@@ -1,14 +1,18 @@
 package com.custu.project.walktogether.model;
 
+import android.content.Context;
+
 import com.custu.project.walktogether.data.Evaluation.Answer;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.data.Evaluation.Tmse;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by pannawatnokket on 1/2/2018 AD.
@@ -57,4 +61,38 @@ public class EvaluationModel {
         return tmseArrayList;
     }
 
+    public NumberQuestion getEvaluationByNumber(String number, Context context) {
+        ArrayList<Tmse> tmseArrayList = UserManager.getInstance(context).getTMSE();
+        for (Tmse tmse : tmseArrayList) {
+            for (NumberQuestion numberQuestion : tmse.getNumberQuestions()) {
+                if (numberQuestion.getNo().equalsIgnoreCase(number)) {
+                    return numberQuestion;
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getDummyChoiceCheckBox() {
+        Random random = new Random();
+        int ran = random.nextInt(3) + 1;
+        switch (ran) {
+            case 1:
+                return ",เตียงนอน,พัดลม,ปากกา";
+            case 2:
+                return ",หลอดไฟ,ดินสอ,ผ้าห่ม";
+            case 3:
+                return ",ยางลบ,ดอกไม้,ก้อนหิน";
+            default:
+                return ",ยางลบ,ดอกไม้,ก้อนหิน";
+        }
+    }
+
+    public String[] getDummyChoiceRadioBox() {
+        String[] strings = new String[3];
+        strings[0] = "ลุงพายายไปตลาด";
+        strings[1] = "ยายพาหลานไปตลาด";
+        strings[2] = "หลานพาลุงไปเที่ยว";
+        return strings;
+    }
 }

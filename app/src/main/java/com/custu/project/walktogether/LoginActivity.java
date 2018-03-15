@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,24 +20,22 @@ import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.PatientModel;
-import com.custu.project.walktogether.network.NetworkManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import io.fabric.sdk.android.services.network.NetworkUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 public class LoginActivity extends Activity implements BasicActivity, View.OnClickListener {
     private Button registerBtn;
     private Button loginBtn;
+    private Button forgetBtn;
     private EditText username;
     private EditText password;
     private ProgressDialog progressDialog;
@@ -65,6 +59,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     }
 
     private void setListener() {
+        forgetBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
@@ -78,14 +73,15 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                 startActivity(intent);
                 break;
             }
+            case R.id.forgetpass: {
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
+                break;
+            }
             case R.id.login: {
                 if (NetworkUtil.isOnline(LoginActivity.this, loginBtn))
                     if (validate())
                         login();
-            }
-            case R.id.logo: {
-                startActivity(new Intent(LoginActivity.this, ChoosemapActivity.class));
-                break;
             }
             case R.id.sign_in: {
                 if (validate()) {
@@ -140,8 +136,13 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                         public void run() {
                                             patient = PatientModel.getInstance().getPatient(object);
                                             UserManager.getInstance(LoginActivity.this).storePatient(patient);
-                                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                            startActivity(intent);
+                                            if (!object.get("isTestEvaluation").getAsBoolean()) {
+                                                Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }, 700);
                                 }
@@ -211,7 +212,8 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
             }
 
             @Override
-            public void onFailure(Throwable t) {circularProgressButton.startAnimation();
+            public void onFailure(Throwable t) {
+                circularProgressButton.startAnimation();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -229,6 +231,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void setUI() {
+        forgetBtn = findViewById(R.id.forgetpass);
         registerBtn = (Button) findViewById(R.id.register);
         loginBtn = (Button) findViewById(R.id.login);
         username = (EditText) findViewById(R.id.input_username);

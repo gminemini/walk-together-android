@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.TopicsOneActivity">
+    tools:context="com.custu.project.walktogether.QuestionEighteenActivity">
 
 
     <LinearLayout
@@ -25,35 +25,9 @@
             android:id="@+id/progress"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/colorBgProgress"
-            android:progress="50"
-            android:progressBackgroundTint="@color/colorBackground"
-            android:progressDrawable="@drawable/progressbar" />
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:background="@drawable/bgtime"-->
-            <!--android:gravity="center"-->
-            <!--android:padding="20dp">-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="12dp"-->
-                <!--android:text="เหลือเวลา 19 วินาที"-->
-                <!--android:textColor="@color/colorOffwhite"-->
-                <!--android:textSize="18sp"-->
-                <!--android:textStyle="bold" />-->
-        <!--</LinearLayout>-->
-
+            android:layout_height="wrap_content"
+            android:layout_margin="10pt"
+            android:progressDrawable="@drawable/shape_progress" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,11 +47,20 @@
                 android:textSize="@dimen/TextSize" />
 
             <TextView
-                android:id="@+id/question_eleven"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="กล้วยกับส้มเหมือนกันคือผลไม้ ส่วนแมวกับหมาเหมือนกันคือ ?"
+                android:text="(18) กล้วยกับส้มเหมือนกันคือผลไม้"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSizeBold_20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="กล้วยกับส้มเหมือนกันคือผลไม้"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
@@ -116,17 +99,14 @@
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
                     android:background="@drawable/shape_edittext"
                     android:hint="@string/pleaseinput"
-                    android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" />
 
-
             </LinearLayout>
+
         </ScrollView>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

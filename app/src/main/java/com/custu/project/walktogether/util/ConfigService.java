@@ -17,6 +17,7 @@ public class ConfigService {
 
     //Master
     public static final String SEX = "sex/";
+    public static final String EDUCATION = "education/";
     public static final String PROVINCE = "province/";
     public static final String DISTRICT = "district/by-id-province/";
     public static final String SUB_DISTRICT = "sub-district/by-id-district/";
@@ -52,8 +53,18 @@ public class ConfigService {
     public static final String MATCHING_ADD_PATIENT = "add-patient/";
     public static final String MATCHING_REMOVE_PATIENT = "remove-patient/";
     public static final String MATCHING_PATIENT_NUMBER = "?patientNumber=";
-    public static final String MATCHING_REMOVE_CARETAKER = "add-patient/";
+    public static final String MATCHING_REMOVE_CARETAKER = "remove-caretaker/";
     public static final String MATCHING_CARETAKER_NUMBER = "?caretakerNumber=";
 
+    //Upload Image
+    public static final String UPLOAD_IMAGE = "upload-image/";
+
+    public static final String FORGET_PASSWORD = "forget-password/";
+
+    public static final String SMS_API_BASE = "http://www.thsms.com/api/";
+    public static final String SMS_API = "rest?method=send&username=punnoket&password=e6eb8f&from=0000&to=";
+    public static final String SMS_MESSAGE = "&message=";
+
+    public static final long TIME_INTERVAL = 31000;
 
 }

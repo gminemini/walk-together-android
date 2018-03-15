@@ -9,8 +9,11 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.custu.project.walktogether.LoginActivity" />
@@ -101,13 +104,7 @@
             android:label="Home" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
-            android:label="สมัครสมาชิก " >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="สมัครสมาชิก " />
         <activity
             android:name="com.custu.project.walktogether.HomeCaretakerActivity"
             android:label="Home Care" />
@@ -119,12 +116,14 @@
             android:name="com.custu.project.walktogether.ExampleActivity"
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
-        <activity
-            android:name="com.custu.project.walktogether.ChoosemapActivity"
-            android:label="กรุณาเลือกแผนที่" />
         <activity
             android:name="com.custu.project.walktogether.EditprofileActivity"
             android:label="แก้ไขบัญชีผู้ใช้" />
@@ -138,11 +137,19 @@
         <activity
             android:name="com.custu.project.walktogether.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name="com.custu.project.walktogether.SelectMapActivity" />
         <activity
             android:name="com.custu.project.walktogether.ConditionActivity"
-            android:label="ข้อกำหนดการใช้งาน"/>
-
+            android:label="ข้อกำหนดการใช้งาน" />
+        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity" />
+        <activity android:name="com.custu.project.walktogether.AddTabActivity" />
+        <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
+        <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.ReHomePatientActivity" />
+        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity" />
+        <activity android:name="com.custu.project.walktogether.EditPatientProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.ChangePasswordPatientActivity" />
+        <activity android:name="com.custu.project.walktogether.ForgetPasswordActivity" />
+        <activity android:name="com.custu.project.walktogether.AddTabPatientActivity"></activity>
     </application>
 
 </manifest>

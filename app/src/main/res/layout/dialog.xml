@@ -15,15 +15,15 @@
             android:id="@id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="คือคำตอบของคุณ"
-            android:textColor="@color/colorBackground"
+            android:text=""
+            android:textColor="@color/colorComplete"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="กรุณายืนยันคำตอบ"
+            android:text="คือคำตอบของคุณ กรุณายืนยันคำตอบ"
             android:textColor="@color/colorBackground"
             android:textSize="22sp" />
     </LinearLayout>

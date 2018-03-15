@@ -5,6 +5,7 @@ import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.data.Evaluation.Tmse;
 import com.custu.project.walktogether.data.master.District;
+import com.custu.project.walktogether.data.master.Education;
 import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
 import com.custu.project.walktogether.data.master.SubDistrict;
@@ -63,4 +64,12 @@ public class MasterModel {
         return subDistrictArrayList;
     }
 
+    public ArrayList<Education> getEducations(JsonObject data) {
+        ArrayList<Education> educationsArrayList = new ArrayList<>();
+        JsonArray jsonArray = data.getAsJsonArray("data");
+        for (int i = 0; i < jsonArray.size(); i++) {
+            educationsArrayList.add(new Gson().fromJson(jsonArray.get(i).getAsJsonObject(), Education.class));
+        }
+        return educationsArrayList;
+    }
 }

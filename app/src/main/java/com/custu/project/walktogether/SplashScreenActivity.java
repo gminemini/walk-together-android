@@ -3,7 +3,6 @@ package com.custu.project.walktogether;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,6 +12,7 @@ import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
+
 import io.fabric.sdk.android.Fabric;
 
 public class SplashScreenActivity extends Activity {
@@ -32,7 +32,6 @@ public class SplashScreenActivity extends Activity {
         ThreeBounce threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
 
-
         int splashInterval = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -43,7 +42,7 @@ public class SplashScreenActivity extends Activity {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
                 } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
-                    intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
                     startActivity(intent);
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);

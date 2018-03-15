@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.manager;
 
 import com.custu.project.walktogether.network.NetworkManager;
+import com.custu.project.walktogether.network.NetworkWithHeaderManager;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.service.HttpMethodService;
 import com.google.gson.JsonObject;
@@ -92,6 +93,29 @@ public class ConnectServer extends NetworkManager {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+    public void sendSMS (final OnDataSuccessListener listener, String url) {
+        httpMethodService = NetworkWithHeaderManager.createService(HttpMethodService.class);
+        Call<ResponseBody> call = httpMethodService.getXML(url);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JsonObject jsonObject = new JsonObject();
+                if (response.code() ==200) {
+                    jsonObject.addProperty("status",response.code());
+                    listener.onResponse(jsonObject, retrofit);
+                } else {
+                    jsonObject.addProperty("status",response.code());
+                    listener.onResponse(jsonObject, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onFailure(t);
             }
         });
