@@ -39,7 +39,6 @@ public class ConfigService {
     public static final String CARETAKER = "caretaker/";
     public static final String CARETAKER_BY_NUMBER = "caretaker/by-caretaker-number/";
 
-
     //Patient
     public static final String PATIENT = "patient/";
     public static final String PATIENT_BY_NUMBER = "by-patient-number/";
