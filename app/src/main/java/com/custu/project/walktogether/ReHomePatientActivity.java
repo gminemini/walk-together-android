@@ -19,6 +19,8 @@ import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ReHomePatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
     private TabLayout tabLayout;
@@ -177,5 +179,10 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

@@ -167,16 +167,18 @@ public class AddCaretakerFragment extends Fragment implements BasicActivity, Vie
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 pullRefreshLayout.setRefreshing(false);
-                if (object != null) {
-                    if (object.getAsJsonObject("data") != null) {
-                        caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                int status = object.get("status").getAsInt();
+                if (status == 200) {
+                    if (!object.get("data").isJsonNull()) {
+                        patient = PatientModel.getInstance().getPatient(object);
                         setDataToUi();
-
                     } else {
                         notFoundTextView.setVisibility(View.VISIBLE);
                         notFoundTextView.setText(object.get("message").getAsString());
                     }
-
+                } else {
+                    notFoundTextView.setVisibility(View.VISIBLE);
+                    notFoundTextView.setText(object.get("message").getAsString());
                 }
             }
 

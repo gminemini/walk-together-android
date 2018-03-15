@@ -20,6 +20,8 @@ import com.custu.project.walktogether.adapter.AddPatientPagerAdapter;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class AddTabActivity extends FragmentActivity {
 
     private TabLayout tabLayout;
@@ -142,5 +144,10 @@ public class AddTabActivity extends FragmentActivity {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

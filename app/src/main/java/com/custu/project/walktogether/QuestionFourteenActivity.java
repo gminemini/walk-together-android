@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -30,6 +31,8 @@ import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionFourteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, MediaPlayer.OnCompletionListener {
     private ProgressDialog progressDialog;
@@ -218,5 +221,10 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
         playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.speaker));
         isPlaying = false;
         stopPlaying();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

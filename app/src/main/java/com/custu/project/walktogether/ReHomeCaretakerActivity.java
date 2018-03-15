@@ -20,6 +20,8 @@ import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private TabLayout tabLayout;
     private RelativeLayout editProfileRelativeLayout;
@@ -158,6 +160,11 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
 }

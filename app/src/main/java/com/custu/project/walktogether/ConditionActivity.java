@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ConditionActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
@@ -111,5 +113,10 @@ public class ConditionActivity extends AppCompatActivity implements BasicActivit
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

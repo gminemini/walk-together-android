@@ -29,6 +29,8 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class QuestionSixActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Intent intent;
     private Button nextBtn;
@@ -157,5 +159,10 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }
