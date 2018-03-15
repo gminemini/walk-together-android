@@ -2,8 +2,11 @@ package com.custu.project.walktogether;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
@@ -26,6 +31,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.ErrorDialog;
 import com.custu.project.walktogether.util.NetworkUtil;
+import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
@@ -73,10 +79,65 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
             }
         });
     }
+
     @SuppressLint("SetTextI18n")
-    public void showDialog(Context context, final String caretakerNumber, final int position) {
+    public void showDialog(Context context2, final String caretakerNumber, final int position) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_delete_patient);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        TextView titleTextView = dialog.findViewById(R.id.title);
+        titleTextView.setText(titleTextView.getText().toString() + " " + caretakerArrayList.get(position).getFirstName() + " " + caretakerArrayList.get(position).getLastName());
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                ConnectServer.getInstance().delete(new OnDataSuccessListener() {
+                    @Override
+                    public void onResponse(JsonObject object, Retrofit retrofit) {
+                        if (object.get("status").getAsInt() == 200) {
+                            caretakerArrayList.remove(position);
+                            setUI();
+
+                        } else {
+                            ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                        }
+
+                    }
+
+                    @Override
+                    public void onBodyError(ResponseBody responseBodyError) {
+
+                    }
+
+                    @Override
+                    public void onBodyErrorIsNull() {
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                }, ConfigService.MATCHING + ConfigService.MATCHING_REMOVE_CARETAKER + patient.getId() + ConfigService.MATCHING_CARETAKER_NUMBER + caretakerNumber);
+            }
+
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+
+        });
+        dialog.show();
 
     }
+
+
     private void getDataUser() {
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
             @Override
@@ -99,7 +160,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
                 NetworkUtil.isOnline(context, listView);
                 pullRefreshLayout.setRefreshing(false);
             }
-        },ConfigService.PATIENT+patient.getId());
+        }, ConfigService.PATIENT + patient.getId());
     }
 
     @Override
@@ -141,23 +202,22 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
 
-//                if (object != null){
-                    if (object.get("status").getAsInt() == 200){
+                if (object != null) {
+                    if (object.get("status").getAsInt() == 200) {
                         pullRefreshLayout.setRefreshing(false);
                         caretakerArrayList = CaretakerModel.getInstance().getListCaretaker(object);
                         Collections.reverse(caretakerArrayList);
                         setUI();
                         setListener();
 
-                    }
-                    else {
+                    } else {
                         pullRefreshLayout.setRefreshing(false);
                         ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
                     }
-//                }else {
-//                    pullRefreshLayout.setRefreshing(false);
-//                    ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
-//                }
+                } else {
+                    pullRefreshLayout.setRefreshing(false);
+                    ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                }
 
             }
 
@@ -176,7 +236,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
                 NetworkUtil.isOnline(context, listView);
                 pullRefreshLayout.setRefreshing(false);
             }
-        },ConfigService.MATCHING+ConfigService.MATCHING_CARETAKER_UNDER_PATIENT+patient.getId());
+        }, ConfigService.MATCHING + ConfigService.MATCHING_CARETAKER_UNDER_PATIENT + patient.getId());
     }
 
     @Override
@@ -185,6 +245,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
         progressDialog.setTitle(getString(R.string.loading));
         progressDialog.setCanceledOnTouchOutside(false);
     }
+
     @Override
     public void onAttach(Context context) {
         this.context = (FragmentActivity) context;
