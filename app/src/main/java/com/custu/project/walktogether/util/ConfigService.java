@@ -53,7 +53,7 @@ public class ConfigService {
     public static final String MATCHING_ADD_PATIENT = "add-patient/";
     public static final String MATCHING_REMOVE_PATIENT = "remove-patient/";
     public static final String MATCHING_PATIENT_NUMBER = "?patientNumber=";
-    public static final String MATCHING_REMOVE_CARETAKER = "add-patient/";
+    public static final String MATCHING_REMOVE_CARETAKER = "remove-caretaker/";
     public static final String MATCHING_CARETAKER_NUMBER = "?caretakerNumber=";
 
     //Upload Image
