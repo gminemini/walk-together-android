@@ -63,8 +63,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
-        final int[] time = {21};
+long timeInterval = ConfigService.TIME_INTERVAL;        final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);

@@ -17,12 +17,13 @@ import com.custu.project.walktogether.adapter.HintAdapter;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionEightActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener {
+public class QuestionEightActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Spinner answerSpinnerOne;
     private Spinner answerSpinnerTwo;
     private Spinner answerSpinnerThree;
@@ -47,7 +48,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -93,7 +94,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         nextBtn = (Button) findViewById(R.id.next);
         TextView title = findViewById(R.id.title);
         TextView description = findViewById(R.id.description);
-        title.setText("(8) "+question.getTitle());
+        title.setText("(8) " + question.getTitle());
         description.setText(question.getDescription());
     }
 
@@ -119,7 +120,7 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         if (!answerSpinnerFive.getSelectedItem().toString().equalsIgnoreCase(answerArray.get(0)))
             isCorrect = false;
 
-        Log.d("isCorrect: ", "isCorrect: "+isCorrect);
+        Log.d("isCorrect: ", "isCorrect: " + isCorrect);
         return isCorrect;
     }
 
@@ -156,10 +157,12 @@ public class QuestionEightActivity extends AppCompatActivity implements BasicAct
         answerArray.add("วันเสาร์");
         answerArray.add("วัน...");
     }
+
     private void setListener() {
         nextBtn.setOnClickListener(this);
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

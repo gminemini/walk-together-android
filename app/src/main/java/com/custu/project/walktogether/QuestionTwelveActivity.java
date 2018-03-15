@@ -19,6 +19,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
@@ -49,7 +50,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -124,7 +125,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
         inputTopicFive = (EditText) findViewById(R.id.input_topicfive);
         ImageView imageView = findViewById(R.id.image);
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText("(12) "+question.getTitle());
+        titleTextView.setText("(12) " + question.getTitle());
         PicassoUtil.getInstance().setImage(QuestionTwelveActivity.this, question.getImage(), imageView);
     }
 

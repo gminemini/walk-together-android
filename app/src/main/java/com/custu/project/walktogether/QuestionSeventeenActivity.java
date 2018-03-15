@@ -17,9 +17,10 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
-public class QuestionSeventeenActivity extends AppCompatActivity implements BasicActivity,View.OnClickListener{
+public class QuestionSeventeenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private DrawImage drawImage;
     private Button nextBtn;
     private Question question;
@@ -38,7 +39,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -86,7 +87,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
         nextBtn = (Button) findViewById(R.id.next);
         nextBtn.setOnClickListener(this);
         TextView titleTextView = (TextView) findViewById(R.id.question_text);
-        titleTextView.setText("(17) "+question.getTitle());
+        titleTextView.setText("(17) " + question.getTitle());
     }
 
     @Override

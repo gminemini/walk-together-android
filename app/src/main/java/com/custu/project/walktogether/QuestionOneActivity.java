@@ -15,6 +15,7 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.google.gson.JsonObject;
 
@@ -48,8 +49,9 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
     }
 
     private CountDownTimer countDownTimer;
+
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);

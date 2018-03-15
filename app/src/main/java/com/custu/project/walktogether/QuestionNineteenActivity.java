@@ -59,7 +59,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private CountDownTimer countDownTimer;
 
     private void countDownTime() {
-        long timeInterval = 21000;
+        long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {21};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
@@ -101,7 +101,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         nextBtn = (Button) findViewById(R.id.next);
         radioGroup = findViewById(R.id.radio_group);
         TextView titleTextView = (TextView) findViewById(R.id.question_text);
-        titleTextView.setText("(19) "+question.getTitle());
+        titleTextView.setText("(19) " + question.getTitle());
         initProgress();
         initAnswer();
     }
@@ -186,13 +186,14 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object != null) {
+                    int score = object.getAsJsonObject("data").get("score").getAsInt();
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
                     if (isPass) {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
+                        intent.putExtra("score", score);
                         startActivity(intent);
                     } else {
-                        int score = object.getAsJsonObject("data").get("score").getAsInt();
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
                         intent.putExtra("score", score);
                         startActivity(intent);
