@@ -24,7 +24,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -55,7 +55,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
                 caretaker = CaretakerModel.getInstance().getCaretaker(object);
                 setDataUser();
             } else {
-                ErrorDialog.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
             }
         }
 
@@ -87,7 +87,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
                 setListener();
             } else {
                 pullRefreshLayout.setRefreshing(false);
-                ErrorDialog.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
             }
         }
 
@@ -184,7 +184,7 @@ public class HomeCaretakerActivity extends Activity implements BasicActivity, Vi
                                     patientArrayList.remove(index);
                                     setUI();
                                 } else {
-                                    ErrorDialog.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
+                                    DialogUtil.getInstance().showDialog(HomeCaretakerActivity.this, object.get("message").getAsString());
                                 }
                             }
 

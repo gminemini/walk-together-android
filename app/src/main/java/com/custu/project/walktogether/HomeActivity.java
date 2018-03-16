@@ -14,7 +14,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -39,7 +39,7 @@ public class HomeActivity extends Activity implements BasicActivity, View.OnClic
                 patient = PatientModel.getInstance().getPatient(object);
                 setUI();
             } else {
-                ErrorDialog.getInstance().showDialog(HomeActivity.this, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialog(HomeActivity.this, object.get("message").getAsString());
             }
         }
 

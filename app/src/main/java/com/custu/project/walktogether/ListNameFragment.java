@@ -6,30 +6,21 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.ListViewAdapter;
-import com.custu.project.walktogether.adapter.PatientAdapter;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
@@ -38,17 +29,14 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
-import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
-import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -73,7 +61,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
             if (status == 200) {
                 caretaker = CaretakerModel.getInstance().getCaretaker(object);
             } else {
-                ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
             }
         }
 
@@ -106,7 +94,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                 setListener();
             } else {
                 pullRefreshLayout.setRefreshing(false);
-                ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
             }
         }
 
@@ -220,7 +208,7 @@ public class ListNameFragment extends Fragment implements BasicActivity, View.On
                                     patientArrayList.remove(index);
                                     setUI();
                                 } else {
-                                    ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                                    DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
                                 }
                             }
 

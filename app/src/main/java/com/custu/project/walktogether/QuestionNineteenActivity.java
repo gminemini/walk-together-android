@@ -21,6 +21,7 @@ import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.EvaluationModel;
+import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
@@ -186,7 +187,6 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                progressDialog.dismiss();
                 if (object != null) {
                     int score = object.getAsJsonObject("data").get("score").getAsInt();
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
@@ -194,7 +194,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
                         intent.putExtra("score", score);
-                        startActivity(intent);
+                        storePatient(intent, object.getAsJsonObject("data").get("idPatient").getAsLong());
                     } else {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
                         intent.putExtra("score", score);
@@ -220,6 +220,37 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                 NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup);
             }
         }, ConfigService.EVALUATION + ConfigService.EVALUATION_CHECK + id, jsonObject);
+    }
+
+    private void storePatient(final Intent intent, Long id) {
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (object != null) {
+                    UserManager.getInstance(QuestionNineteenActivity.this).storePatient(PatientModel.getInstance().getPatient(object));
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+                NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup);
+            }
+        }, ConfigService.PATIENT + id);
+
+
     }
 
     private void initProgress() {
