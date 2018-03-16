@@ -135,7 +135,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         Intent intent;
         switch (id) {
             case R.id.add:
-                intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
+                intent = new Intent(ReHomeCaretakerActivity.this, AddTabCaretakerActivity.class);
                 startActivity(intent);
                 break;
             case R.id.edit_profile:

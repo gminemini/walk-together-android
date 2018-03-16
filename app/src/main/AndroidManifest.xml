@@ -101,22 +101,12 @@
         <activity android:name="com.custu.project.walktogether.TopicsFiveActivity" />
         <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
-            android:name="com.custu.project.walktogether.HomeActivity"
-            android:label="Home" />
-        <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
-        <activity
-            android:name="com.custu.project.walktogether.HomeCaretakerActivity"
-            android:label="Home Care" />
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
         <activity
             android:name="com.custu.project.walktogether.ProfileActivity"
             android:label="บัญชีผู้ใช้" />
-        <activity
-            android:name="com.custu.project.walktogether.ExampleActivity"
-            android:label="@string/title_activity_example"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -124,10 +114,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.AddPatientAcctivity" />
-        <activity
-            android:name="com.custu.project.walktogether.EditprofileActivity"
-            android:label="แก้ไขบัญชีผู้ใช้" />
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.QrCodeActivity" />
 
@@ -142,7 +128,7 @@
             android:name="com.custu.project.walktogether.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
         <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity" />
-        <activity android:name="com.custu.project.walktogether.AddTabActivity" />
+        <activity android:name="com.custu.project.walktogether.AddTabCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
         <activity android:name="com.custu.project.walktogether.ReHomePatientActivity" />

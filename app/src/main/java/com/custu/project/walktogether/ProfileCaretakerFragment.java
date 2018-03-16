@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class ProfileFragment extends Fragment {
+public class ProfileCaretakerFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
@@ -47,7 +47,7 @@ public class ProfileFragment extends Fragment {
     private FragmentActivity context;
     private Caretaker caretaker;
 
-    public ProfileFragment() {
+    public ProfileCaretakerFragment() {
         // Required empty public constructor
     }
 

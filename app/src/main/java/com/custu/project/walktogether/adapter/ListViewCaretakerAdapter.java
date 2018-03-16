@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.ListNamePatientFragment;
+import com.custu.project.walktogether.ListCaretakerFragment;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.daimajia.swipe.SwipeLayout;
@@ -22,14 +22,14 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import java.util.ArrayList;
 
 public class ListViewCaretakerAdapter extends BaseSwipeAdapter {
-    private final ListNamePatientFragment listNamePatientFragment;
+    private final ListCaretakerFragment listCaretakerFragment;
     private ArrayList<Caretaker> caretakerArrayList;
     private Context mContext;
 
-    public ListViewCaretakerAdapter(Context mContext, ArrayList<Caretaker> caretakerArrayList, ListNamePatientFragment listNamePatientFragment) {
+    public ListViewCaretakerAdapter(Context mContext, ArrayList<Caretaker> caretakerArrayList, ListCaretakerFragment listCaretakerFragment) {
         this.mContext = mContext;
         this.caretakerArrayList = caretakerArrayList;
-        this.listNamePatientFragment = listNamePatientFragment;
+        this.listCaretakerFragment = listCaretakerFragment;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ListViewCaretakerAdapter extends BaseSwipeAdapter {
         view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listNamePatientFragment.showDialog(mContext, caretakerArrayList.get(position).getCaretakerNumber(), position);
+                listCaretakerFragment.showDialog(mContext, caretakerArrayList.get(position).getCaretakerNumber(), position);
             }
         });
 

@@ -1,11 +1,9 @@
 package com.custu.project.walktogether.util;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.HomeActivity;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;

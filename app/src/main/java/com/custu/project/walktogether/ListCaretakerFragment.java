@@ -40,7 +40,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListNamePatientFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
+public class ListCaretakerFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private View view;
     private FragmentActivity context;
     private ListView listView;
@@ -65,7 +65,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
         return view;
     }
 
-    public ListNamePatientFragment() {
+    public ListCaretakerFragment() {
     }
 
 
@@ -179,7 +179,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
     @Override
     public void setUI() {
 
-        mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListNamePatientFragment.this);
+        mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListCaretakerFragment.this);
         listView = view.findViewById(R.id.list_patient);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
