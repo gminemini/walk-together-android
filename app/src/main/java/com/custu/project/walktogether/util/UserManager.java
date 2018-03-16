@@ -49,8 +49,15 @@ public class UserManager {
 
     public ArrayList<Tmse> getTMSE() {
         String json = getSharedPreferences().getString("tmse", "");
-        Type type = new TypeToken<ArrayList<Tmse>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Tmse>>() {
+        }.getType();
         return new Gson().fromJson(json, type);
+    }
+
+    public void setInstall() {
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putBoolean("isInstall", true);
+        editor.apply();
     }
 
     public void storeCaretaker(Caretaker caretaker) {
@@ -68,6 +75,10 @@ public class UserManager {
     public Caretaker getCaretaker() {
         String json = getSharedPreferences().getString("caretaker", "");
         return new Gson().fromJson(json, Caretaker.class);
+    }
+
+    public boolean isFirstInstall() {
+        return getSharedPreferences().getBoolean("isInstall", false);
     }
 
     public Patient getPatient() {
