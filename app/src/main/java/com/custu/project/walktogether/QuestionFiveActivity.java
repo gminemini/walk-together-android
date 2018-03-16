@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -46,6 +47,7 @@ import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, GoogleApiClient.ConnectionCallbacks {
     private Spinner answerSpinner;
@@ -235,5 +237,10 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
                 return;
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

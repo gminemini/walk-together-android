@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -31,6 +32,8 @@ import com.custu.project.walktogether.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class QuestionSevenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, MediaPlayer.OnCompletionListener {
@@ -226,5 +229,10 @@ long timeInterval = ConfigService.TIME_INTERVAL;        final int[] time = {21};
         playSoundImageView.setImageDrawable(getResources().getDrawable(R.drawable.speaker));
         isPlaying = false;
         stopPlaying();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

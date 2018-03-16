@@ -21,6 +21,8 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class QuestionEighteenActivity extends AppCompatActivity implements BasicActivity {
     private Button nextBtn;
     private EditText inputEditText;
@@ -132,5 +134,10 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

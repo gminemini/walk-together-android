@@ -2,6 +2,7 @@ package com.custu.project.walktogether;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -38,6 +39,7 @@ import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class EditPatientProfileActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private final int RESULT_LOAD_IMAGE = 1;
@@ -424,5 +426,10 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

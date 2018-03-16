@@ -27,6 +27,8 @@ import com.custu.project.walktogether.util.UserManager;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
     private TextView titleTextView;
@@ -149,5 +151,10 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
             }
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -21,6 +22,8 @@ import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionFifteenActivity extends AppCompatActivity implements BasicActivity, View.OnTouchListener {
     private Question question;
@@ -133,5 +136,10 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

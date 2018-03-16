@@ -21,4 +21,8 @@
         <item name="colorControlActivated">@color/color_button_default</item>
     </style>
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@fonts/SukhumvitSet</item>
+    </style>
+
 </resources>

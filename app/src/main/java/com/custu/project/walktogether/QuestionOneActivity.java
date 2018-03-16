@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionOneActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Spinner answerSpinner;
@@ -128,5 +131,10 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
             }
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

@@ -23,6 +23,8 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class QuestionTwelveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
     private EditText inputTopicFive;
@@ -149,5 +151,10 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }
