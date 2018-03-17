@@ -24,6 +24,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DeviceToken;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -117,6 +118,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", username.getText().toString().trim());
         jsonObject.addProperty("password", password.getText().toString().trim());
+        jsonObject.addProperty("deviceToken", DeviceToken.getInstance().getToken(LoginActivity.this));
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override

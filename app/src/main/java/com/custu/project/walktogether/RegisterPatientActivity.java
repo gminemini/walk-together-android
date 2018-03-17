@@ -31,6 +31,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
+import com.custu.project.walktogether.util.DeviceToken;
 import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -397,6 +398,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());
+        jsonObject.addProperty("deviceToken", DeviceToken.getInstance().getToken(RegisterPatientActivity.this));
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
