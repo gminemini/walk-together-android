@@ -289,7 +289,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
                 startActivity(intent);
                 break;
             case R.id.add:
-                intent = new Intent(context, AddPatientAcctivity.class);
+                intent = new Intent(context, AddTabPatientActivity.class);
                 startActivity(intent);
                 break;
         }

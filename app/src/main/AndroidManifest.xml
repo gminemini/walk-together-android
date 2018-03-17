@@ -26,13 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.custu.project.walktogether.LoginActivity" />
-        <activity
-            android:name="com.custu.project.walktogether.TopicsOneActivity"
-            android:label="@string/topics_name" />
-        <activity
-            android:name="com.custu.project.walktogether.PageOneActivity"
-            android:label="@string/topics_name" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
@@ -95,18 +88,10 @@
             android:name="com.custu.project.walktogether.RegisterCaretakerActivity"
             android:label="สมัครสมาชิก ผู้ดูแล" />
         <activity android:name="com.custu.project.walktogether.ResultActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsTwoActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsThreeActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsFourActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsFiveActivity" />
-        <activity android:name="com.custu.project.walktogether.TopicsSixActivity" />
         <activity
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
-        <activity
-            android:name="com.custu.project.walktogether.ProfileActivity"
-            android:label="บัญชีผู้ใช้" />
         <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -115,7 +100,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
-        <activity android:name="com.custu.project.walktogether.QrCodeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
