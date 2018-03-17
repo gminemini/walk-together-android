@@ -20,6 +20,7 @@ import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
@@ -27,24 +28,26 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
     private TextView titleTextView;
+    private String page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homecaretaker);
+        initValue();
         setUI();
         setListener();
     }
 
     @Override
     public void initValue() {
-
+        page = getIntent().getStringExtra("page") == null ? "" : getIntent().getStringExtra("page");
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     public void setUI() {
+        ShortcutBadger.removeCount(this);
         titleTextView = findViewById(R.id.title);
         addProfileRelativeLayout = findViewById(R.id.add);
         editProfileRelativeLayout = findViewById(R.id.edit_profile);
@@ -109,6 +112,9 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
             }
         });
+
+        if (page.equalsIgnoreCase("list"))
+            viewPager.setCurrentItem(1);
     }
 
 

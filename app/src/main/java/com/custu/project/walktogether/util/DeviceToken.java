@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.provider.Settings;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 /**
  * Created by pannawatnokket on 18/3/2018 AD.
  */
@@ -19,9 +21,12 @@ public class DeviceToken {
         return instance;
     }
 
-    @SuppressLint("HardwareIds")
     public String getToken(Context context) {
-        return Settings.Secure.getString(context.getApplicationContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        try {
+            String token = FirebaseInstanceId.getInstance().getToken();
+            return token;
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

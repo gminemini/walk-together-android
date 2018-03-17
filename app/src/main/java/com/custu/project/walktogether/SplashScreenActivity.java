@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.util.DeviceToken;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
