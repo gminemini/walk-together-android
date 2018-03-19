@@ -10,9 +10,9 @@
 
     <ImageView
         android:src="@drawable/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
-x
+        android:layout_width="wrap_content"
+        android:layout_height="250dp" />
+
     <ProgressBar
         android:id="@+id/progress"
         android:layout_marginTop="10dp"
