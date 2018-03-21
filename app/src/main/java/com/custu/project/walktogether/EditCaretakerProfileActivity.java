@@ -30,6 +30,7 @@ import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.NetworkUtil;
@@ -132,7 +133,7 @@ public class EditCaretakerProfileActivity extends AppCompatActivity implements B
         firstNameEditText.setText(caretaker.getFirstName());
         lastNameEditText.setText(caretaker.getLastName());
         tellEditText.setText(caretaker.getTell());
-        occupationEditText.setText(caretaker.getOccupation());
+        occupationEditText.setText(DataFormat.getInstance().validateData(caretaker.getOccupation()));
         emailEditText.setText(caretaker.getEmail());
         ageTextView.setText(caretaker.getAge());
         PicassoUtil.getInstance()

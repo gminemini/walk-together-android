@@ -30,6 +30,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.NetworkUtil;
@@ -132,7 +133,7 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
         firstNameEditText.setText(patient.getFirstName());
         lastNameEditText.setText(patient.getLastName());
         tellEditText.setText(patient.getTell());
-        occupationEditText.setText(patient.getOccupation());
+        occupationEditText.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
         emailEditText.setText(patient.getEmail());
         ageTextView.setText(patient.getAge());
         PicassoUtil.getInstance()

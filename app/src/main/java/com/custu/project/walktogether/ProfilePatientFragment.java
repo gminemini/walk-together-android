@@ -22,6 +22,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -95,7 +96,7 @@ public class ProfilePatientFragment extends Fragment {
         tell.setText(patient.getTell());
         email.setText(patient.getEmail());
         number.setText(patient.getPatientNumber());
-        occupation.setText(patient.getOccupation());
+        occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
