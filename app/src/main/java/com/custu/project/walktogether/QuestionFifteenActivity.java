@@ -119,20 +119,11 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (goneFlag) {
-                    goneFlag = false;
-                    handler.postDelayed(mLongPressed, 2000);
-                }
-                break;
             case MotionEvent.ACTION_UP:
                 handler.removeCallbacks(mLongPressed);
                 return false;
             case MotionEvent.ACTION_MOVE:
-                if (goneFlag) {
-                    goneFlag = false;
-                    handler.postDelayed(mLongPressed, 2000);
-                }
+                handler.postDelayed(mLongPressed, 1700);
                 break;
         }
         return true;
