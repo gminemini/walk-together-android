@@ -98,18 +98,18 @@ public class ConnectServer extends NetworkManager {
         });
     }
 
-    public void sendSMS (final OnDataSuccessListener listener, String url) {
+    public void sendSMS(final OnDataSuccessListener listener, String url) {
         httpMethodService = NetworkWithHeaderManager.createService(HttpMethodService.class);
         Call<ResponseBody> call = httpMethodService.getXML(url);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 JsonObject jsonObject = new JsonObject();
-                if (response.code() ==200) {
-                    jsonObject.addProperty("status",response.code());
+                if (response.code() == 200) {
+                    jsonObject.addProperty("status", response.code());
                     listener.onResponse(jsonObject, retrofit);
                 } else {
-                    jsonObject.addProperty("status",response.code());
+                    jsonObject.addProperty("status", response.code());
                     listener.onResponse(jsonObject, retrofit);
                 }
             }

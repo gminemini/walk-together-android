@@ -161,7 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     new LatLng(14.074831, 100.604801)
             );
 
-            destination = new LatLng(14.074487, 100.604366 );
+            destination = new LatLng(14.074487, 100.604366);
         } else if (getIntent().getStringExtra("map").equalsIgnoreCase("interPark")) {
             origin = new LatLng(14.065676, 100.605330);
             wayPoints = Arrays.asList(

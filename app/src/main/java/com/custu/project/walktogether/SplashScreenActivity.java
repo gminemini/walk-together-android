@@ -31,7 +31,7 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
         handler = new Handler();
         ProgressBar progressBar = findViewById(R.id.progress);
@@ -47,9 +47,9 @@ public class SplashScreenActivity extends Activity {
                 if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
-                } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
+                } else if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null) {
                     Patient patient = UserManager.getInstance(SplashScreenActivity.this).getPatient();
-                    if (patient.getUserName()!= null) {
+                    if (patient.getUserName() != null) {
                         intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
                         startActivity(intent);
                     } else {

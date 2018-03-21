@@ -29,6 +29,7 @@ public class HomeCaretakerPagerAdapter extends FragmentPagerAdapter {
         }
 
     }
+
     @Override
     public int getCount() {
         return 2;

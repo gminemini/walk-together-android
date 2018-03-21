@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+
 import java.util.Map;
 
 import com.custu.project.project.walktogether.R;
@@ -38,19 +39,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // message, here is where that should be initiated. See sendNotification method below.
         Map<String, String> data = remoteMessage.getData();
         //sendNotificationTest(data);
-        if (UserManager.getInstance(this).getCaretaker()!=null || UserManager.getInstance(this).getPatient()!=null)
+        if (UserManager.getInstance(this).getCaretaker() != null || UserManager.getInstance(this).getPatient() != null)
             sendNotification(data);
     }
 
     private void sendNotification(Map<String, String> data) {
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         Intent intent;
-        if (UserManager.getInstance(this).getCaretaker()!=null)
+        if (UserManager.getInstance(this).getCaretaker() != null)
             intent = new Intent(this, ReHomeCaretakerActivity.class);
         else
             intent = new Intent(this, ReHomePatientActivity.class);
 
-        intent.putExtra("page","list");
+        intent.putExtra("page", "list");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         ShortcutBadger.applyCount(this, 1);
@@ -64,7 +65,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setLargeIcon(icon)
                 .setColor(Color.RED)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setSmallIcon(R.mipmap.ic_launcher_foreground);
+                .setSmallIcon(R.drawable.ic_launcher);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

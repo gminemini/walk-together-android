@@ -45,6 +45,7 @@ public class HomePatientPagerAdapter extends FragmentPagerAdapter {
         }
 
     }
+
     @Override
     public int getCount() {
         return 5;

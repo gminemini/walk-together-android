@@ -22,7 +22,7 @@ public class SwipeBack {
     }
 
 
-    public SlidrConfig confrig(){
+    public SlidrConfig confrig() {
         SlidrConfig config = new SlidrConfig.Builder()
                 .position(SlidrPosition.LEFT)
                 .sensitivity(1f)
@@ -31,9 +31,9 @@ public class SwipeBack {
                 .scrimEndAlpha(0f)
                 .velocityThreshold(2400)
                 .distanceThreshold(0.25f)
-                .edge(true|false)
+                .edge(true | false)
                 .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
-                .listener(new SlidrListener(){
+                .listener(new SlidrListener() {
                     @Override
                     public void onSlideStateChanged(int state) {
 
@@ -52,7 +52,8 @@ public class SwipeBack {
                     @Override
                     public void onSlideClosed() {
 
-                    }}).build();
+                    }
+                }).build();
 
         return config;
     }

@@ -36,6 +36,7 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
         scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
         nextBtn = (Button) findViewById(R.id.next);
     }
+
     @Override
     public void getData() {
 

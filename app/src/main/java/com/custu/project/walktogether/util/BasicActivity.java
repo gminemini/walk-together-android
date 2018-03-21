@@ -7,7 +7,10 @@ package com.custu.project.walktogether.util;
 public interface BasicActivity {
 
     void initValue();
-    void setUI() ;
+
+    void setUI();
+
     void getData();
+
     void initProgressDialog();
 }

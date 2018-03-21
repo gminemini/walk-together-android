@@ -46,7 +46,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -59,7 +59,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
             public void onFinish() {
                 progress.setProgress(0);
                 countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), "");
+                StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), "0");
                 Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
                 startActivity(intent);
             }

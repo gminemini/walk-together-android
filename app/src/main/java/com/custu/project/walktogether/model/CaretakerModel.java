@@ -44,7 +44,7 @@ public class CaretakerModel {
         ArrayList<Caretaker> caretakerArrayList = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.size(); i++) {
-           JsonObject jsonObject =  jsonArray.get(i).getAsJsonObject();
+            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
             Sex sex = new Gson().fromJson(jsonObject.getAsJsonObject("sex"), Sex.class);
             Province province = new Gson().fromJson(jsonObject.getAsJsonObject("province"), Province.class);
             District district = new Gson().fromJson(jsonObject.getAsJsonObject("district"), District.class);

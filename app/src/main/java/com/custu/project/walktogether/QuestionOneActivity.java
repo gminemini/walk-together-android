@@ -55,7 +55,7 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
