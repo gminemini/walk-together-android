@@ -190,7 +190,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             public void run() {
                                                 circularProgressButton.revertAnimation();
                                                 circularProgressButton.setText("เข้าสู่ระบบ");
-                                                circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                                                circularProgressButton.setTextColor(Color.parseColor("#389A1E"));
                                                 circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
                                             }
                                         }, 1000);
