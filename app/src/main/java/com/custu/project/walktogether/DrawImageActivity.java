@@ -21,7 +21,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 
 public class DrawImageActivity extends Activity {
 
-    DrawingView dv ;
+    DrawingView dv;
     private Paint mPaint;
 
     @Override
@@ -42,11 +42,11 @@ public class DrawImageActivity extends Activity {
     public class DrawingView extends View {
 
         public int width;
-        public  int height;
+        public int height;
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
-        private Paint   mBitmapPaint;
+        private Paint mBitmapPaint;
         Context context;
         private Paint circlePaint;
         private Path circlePath;
@@ -54,7 +54,7 @@ public class DrawImageActivity extends Activity {
 
         public DrawingView(Context c) {
             super(c);
-            context=c;
+            context = c;
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
             circlePaint = new Paint();
@@ -78,9 +78,9 @@ public class DrawImageActivity extends Activity {
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
 
-            canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
-            canvas.drawPath( mPath,  mPaint);
-            canvas.drawPath( circlePath,  circlePaint);
+            canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
+            canvas.drawPath(mPath, mPaint);
+            canvas.drawPath(circlePath, circlePaint);
         }
 
         private float mX, mY;
@@ -97,7 +97,7 @@ public class DrawImageActivity extends Activity {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
             if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-                mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
                 mX = x;
                 mY = y;
 
@@ -110,7 +110,7 @@ public class DrawImageActivity extends Activity {
             mPath.lineTo(mX, mY);
             circlePath.reset();
             // commit the path to our offscreen
-            mCanvas.drawPath(mPath,  mPaint);
+            mCanvas.drawPath(mPath, mPaint);
             // kill this so we don't double draw
             mPath.reset();
         }

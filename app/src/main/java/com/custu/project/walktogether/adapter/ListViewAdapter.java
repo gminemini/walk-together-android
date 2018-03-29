@@ -5,17 +5,15 @@ package com.custu.project.walktogether.adapter;
  */
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.ListNameFragment;
+import com.custu.project.walktogether.ListPatientFragment;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.daimajia.swipe.SwipeLayout;
@@ -24,14 +22,14 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import java.util.ArrayList;
 
 public class ListViewAdapter extends BaseSwipeAdapter {
-    private final ListNameFragment listNameFragment;
+    private final ListPatientFragment listPatientFragment;
     private ArrayList<Patient> patientArrayList;
     private Context mContext;
 
-    public ListViewAdapter(Context mContext, ArrayList<Patient> patientArrayList, ListNameFragment listNameFragment) {
+    public ListViewAdapter(Context mContext, ArrayList<Patient> patientArrayList, ListPatientFragment listPatientFragment) {
         this.mContext = mContext;
         this.patientArrayList = patientArrayList;
-        this.listNameFragment = listNameFragment;
+        this.listPatientFragment = listPatientFragment;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listNameFragment.showDialog(mContext, patientArrayList.get(position).getPatientNumber(), position);
+                listPatientFragment.showDialog(mContext, patientArrayList.get(position).getPatientNumber(), position);
             }
         });
 

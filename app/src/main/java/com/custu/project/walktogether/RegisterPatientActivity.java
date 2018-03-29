@@ -18,36 +18,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
-import com.custu.project.walktogether.data.master.District;
 import com.custu.project.walktogether.data.master.Education;
-import com.custu.project.walktogether.data.master.Province;
 import com.custu.project.walktogether.data.master.Sex;
-import com.custu.project.walktogether.data.master.SubDistrict;
 import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.MasterModel;
 import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
-import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.DeviceToken;
 import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.SwipeBack;
 import com.google.gson.JsonObject;
 import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrListener;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -368,7 +358,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
 
         if (inputEmail.length() > 0)
             if (!isEmailValid(inputEmail.getText().toString())) {
-                inputEmail.setError("อีเมลไม่ตถูกต้อง");
+                inputEmail.setError("อีเมลไม่ถูกต้อง");
                 inputEmail.requestFocus();
             }
 
@@ -408,6 +398,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         jsonObject.addProperty("tell", inputTell.getText().toString().trim());
         jsonObject.addProperty("occupation", inputOccupation.getText().toString().trim());
         jsonObject.addProperty("email", inputEmail.getText().toString().trim());
+        jsonObject.addProperty("deviceToken", DeviceToken.getInstance().getToken(RegisterPatientActivity.this));
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override

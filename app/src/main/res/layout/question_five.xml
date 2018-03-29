@@ -83,16 +83,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <Spinner
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/answer_day"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edittext_40dp"
                     android:layout_marginBottom="@dimen/margin_edittext_4dp"
                     android:layout_marginTop="@dimen/margin_edittext_4dp"
                     android:spinnerMode="dialog"
-                    android:background="@drawable/shape_edittext">
-
-                </Spinner>
+                    android:background="@drawable/shape_edittext"/>
 
             </LinearLayout>
         </ScrollView>

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.custu.project.walktogether.util.DialogUtil;
+
 import com.custu.project.project.walktogether.R;
 
 import com.custu.project.walktogether.data.Evaluation.Question;
@@ -43,7 +45,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -66,12 +68,7 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     @Override

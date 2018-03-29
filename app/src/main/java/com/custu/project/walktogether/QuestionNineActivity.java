@@ -7,7 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +57,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -68,7 +70,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
             public void onFinish() {
                 progress.setProgress(0);
                 countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), "");
+                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
                 Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
                 startActivity(intent);
             }
@@ -78,12 +80,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {

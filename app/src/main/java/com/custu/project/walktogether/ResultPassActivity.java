@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -36,6 +37,7 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
         scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
         nextBtn = (Button) findViewById(R.id.next);
     }
+
     @Override
     public void getData() {
 
@@ -55,9 +57,15 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(ResultPassActivity.this, RegisterPatientActivity.class);
-                intent.putExtra("idPatient", getIntent().getLongExtra("idPatient", 0));
-                startActivity(intent);
+                if (UserManager.getInstance(ResultPassActivity.this).getPatient() != null) {
+                    Intent intent = new Intent(ResultPassActivity.this, ReHomePatientActivity.class);
+                    intent.putExtra("page", "historyEvaluation");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ResultPassActivity.this, RegisterPatientActivity.class);
+                    intent.putExtra("idPatient", getIntent().getLongExtra("idPatient", 0));
+                    startActivity(intent);
+                }
             }
 
         }

@@ -9,6 +9,7 @@
     tools:context="com.custu.project.walktogether.LoginActivity">
 
     <LinearLayout
+        android:layout_marginTop="10pt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
         android:layout_weight="4"

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,9 +28,8 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.ErrorDialog;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
-import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
@@ -42,7 +40,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListNamePatientFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
+public class ListCaretakerFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private View view;
     private FragmentActivity context;
     private ListView listView;
@@ -67,7 +65,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
         return view;
     }
 
-    public ListNamePatientFragment() {
+    public ListCaretakerFragment() {
     }
 
 
@@ -103,7 +101,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
                             setUI();
 
                         } else {
-                            ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                            DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                         }
 
                     }
@@ -181,7 +179,7 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
     @Override
     public void setUI() {
 
-        mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListNamePatientFragment.this);
+        mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListCaretakerFragment.this);
         listView = view.findViewById(R.id.list_patient);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -212,11 +210,11 @@ public class ListNamePatientFragment extends Fragment implements BasicActivity, 
 
                     } else {
                         pullRefreshLayout.setRefreshing(false);
-                        ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                        DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                     }
                 } else {
                     pullRefreshLayout.setRefreshing(false);
-                    ErrorDialog.getInstance().showDialog(context, object.get("message").getAsString());
+                    DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                 }
 
             }

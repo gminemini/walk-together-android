@@ -24,6 +24,6 @@ public class NetworkUtil {
     }
 
     public static void showMessageResponse(Context context, View view, String message) {
-            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 }

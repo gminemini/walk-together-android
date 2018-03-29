@@ -19,6 +19,7 @@ import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ReHomePatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
@@ -27,12 +28,14 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
     private TextView titleTextView;
+    private String page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homepatient);
+        initValue();
         setUI();
         setListener();
     }
@@ -61,11 +64,12 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
 
     @Override
     public void initValue() {
-
+        page = getIntent().getStringExtra("page") == null ? "" : getIntent().getStringExtra("page");
     }
 
     @Override
     public void setUI() {
+        ShortcutBadger.removeCount(this);
         titleTextView = findViewById(R.id.title);
         tabLayout = findViewById(R.id.tabs);
         addProfileRelativeLayout = findViewById(R.id.add);
@@ -157,6 +161,11 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
 
             }
         });
+
+        if (page.equalsIgnoreCase("list"))
+            viewPager.setCurrentItem(1);
+        if (page.equalsIgnoreCase("historyEvaluation"))
+            viewPager.setCurrentItem(3);
     }
 
     @Override

@@ -7,7 +7,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -28,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class QuestionFifteenActivity extends AppCompatActivity implements BasicActivity, View.OnTouchListener {
     private Question question;
     private ImageView imageView;
-    private boolean goneFlag = true;
+    private boolean      goneFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -59,7 +61,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
             public void onFinish() {
                 progress.setProgress(0);
                 countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), "");
+                StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), "0");
                 Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
                 startActivity(intent);
             }
@@ -69,12 +71,7 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     @Override
@@ -107,7 +104,8 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     final Handler handler = new Handler();
     Runnable mLongPressed = new Runnable() {
         public void run() {
-            goneFlag = true;
+            handler.removeCallbacks(mLongPressed);
+            goneFlag = false;
             countDownTimer.cancel();
             StoreAnswerTmse.getInstance().storeAnswer("no15", question.getId(), String.valueOf(true));
             Intent intent = new Intent(QuestionFifteenActivity.this, QuestionSixteenActivity.class);
@@ -119,19 +117,13 @@ public class QuestionFifteenActivity extends AppCompatActivity implements BasicA
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (goneFlag) {
-                    goneFlag = false;
-                    handler.postDelayed(mLongPressed, 2000);
-                }
-                break;
             case MotionEvent.ACTION_UP:
                 handler.removeCallbacks(mLongPressed);
+                goneFlag = true;
                 return false;
             case MotionEvent.ACTION_MOVE:
                 if (goneFlag) {
-                    goneFlag = false;
-                    handler.postDelayed(mLongPressed, 2000);
+                    handler.postDelayed(mLongPressed, 1700);
                 }
                 break;
         }

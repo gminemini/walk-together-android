@@ -18,7 +18,7 @@ import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
-import com.google.gson.JsonObject;
+import com.custu.project.walktogether.util.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -71,12 +71,7 @@ public class QuestionFourActivity extends AppCompatActivity implements BasicActi
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     @Override

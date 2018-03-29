@@ -16,6 +16,6 @@ public class DataFormat {
     }
 
     public String validateData(String string) {
-        return string == null ? "-" : string;
+        return string == null ? " " : string;
     }
 }

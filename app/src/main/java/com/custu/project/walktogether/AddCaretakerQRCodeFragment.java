@@ -147,7 +147,7 @@ public class AddCaretakerQRCodeFragment extends Fragment implements ZXingScanner
                     intent.putExtra("page", "list");
                     startActivity(intent);
                 } else {
-                    NetworkUtil.showMessageResponse(context, mScannerView,  object.get("message").getAsString());
+                    NetworkUtil.showMessageResponse(context, mScannerView, object.get("message").getAsString());
                 }
 
             }

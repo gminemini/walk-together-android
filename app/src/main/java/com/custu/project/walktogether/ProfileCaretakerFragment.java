@@ -20,6 +20,7 @@ import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -30,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class ProfileFragment extends Fragment {
+public class ProfileCaretakerFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
@@ -47,7 +48,7 @@ public class ProfileFragment extends Fragment {
     private FragmentActivity context;
     private Caretaker caretaker;
 
-    public ProfileFragment() {
+    public ProfileCaretakerFragment() {
         // Required empty public constructor
     }
 
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
         tell.setText(caretaker.getTell());
         email.setText(caretaker.getEmail());
         number.setText(caretaker.getCaretakerNumber());
-        occupation.setText(caretaker.getOccupation());
+        occupation.setText(DataFormat.getInstance().validateData(caretaker.getOccupation()));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -38,7 +38,7 @@ public class NetworkManager {
                     public Response intercept(Interceptor.Chain chain) throws IOException {
                         Request original = chain.request();
                         Request request = original.newBuilder()
-                                .header("User-Agent", "ANDROID "+currentVersion())
+                                .header("User-Agent", "ANDROID " + currentVersion())
                                 .method(original.method(), original.body())
                                 .build();
 
@@ -57,15 +57,15 @@ public class NetworkManager {
                 .build();
     }
 
-    public static String currentVersion(){
-        double release=Double.parseDouble(Build.VERSION.RELEASE.replaceAll("(\\d+[.]\\d+)(.*)","$1"));
-        String codeName="Unsupported";//below Jelly bean OR above Oreo
-        if(release>=4.1 && release<4.4)codeName="Jelly Bean";
-        else if(release<5)codeName="Kit Kat";
-        else if(release<6)codeName="Lollipop";
-        else if(release<7)codeName="Marshmallow";
-        else if(release<8)codeName="Nougat";
-        else if(release<9)codeName="Oreo";
-        return codeName+" v"+release+", API Level: "+Build.VERSION.SDK_INT;
+    public static String currentVersion() {
+        double release = Double.parseDouble(Build.VERSION.RELEASE.replaceAll("(\\d+[.]\\d+)(.*)", "$1"));
+        String codeName = "Unsupported";//below Jelly bean OR above Oreo
+        if (release >= 4.1 && release < 4.4) codeName = "Jelly Bean";
+        else if (release < 5) codeName = "Kit Kat";
+        else if (release < 6) codeName = "Lollipop";
+        else if (release < 7) codeName = "Marshmallow";
+        else if (release < 8) codeName = "Nougat";
+        else if (release < 9) codeName = "Oreo";
+        return codeName + " v" + release + ", API Level: " + Build.VERSION.SDK_INT;
     }
 }

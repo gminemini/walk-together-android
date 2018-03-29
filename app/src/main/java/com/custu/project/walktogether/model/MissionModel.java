@@ -23,7 +23,8 @@ public class MissionModel {
     }
 
     public ArrayList<HistoryMission> getHistoryMissionArrayList(JsonObject jsonObject) {
-        Type type = new TypeToken<ArrayList<HistoryMission>>() {}.getType();
+        Type type = new TypeToken<ArrayList<HistoryMission>>() {
+        }.getType();
         return new Gson().fromJson(jsonObject.get("data").getAsJsonArray(), type);
     }
 

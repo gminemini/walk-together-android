@@ -24,6 +24,8 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DeviceToken;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -117,6 +119,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", username.getText().toString().trim());
         jsonObject.addProperty("password", password.getText().toString().trim());
+        jsonObject.addProperty("deviceToken", DeviceToken.getInstance().getToken(LoginActivity.this));
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
@@ -143,7 +146,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                                 startActivity(intent);
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
-                                                startActivity(intent);
+                                                DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
                                             }
                                         }
                                     }, 700);
@@ -188,7 +191,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             public void run() {
                                                 circularProgressButton.revertAnimation();
                                                 circularProgressButton.setText("เข้าสู่ระบบ");
-                                                circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                                                circularProgressButton.setTextColor(Color.parseColor("#389A1E"));
                                                 circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
                                             }
                                         }, 1000);
