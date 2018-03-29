@@ -19,6 +19,7 @@ import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -71,12 +72,7 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {

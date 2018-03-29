@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -13,11 +11,9 @@ import android.widget.ProgressBar;
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Patient;
-import com.custu.project.walktogether.util.DeviceToken;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -55,7 +51,7 @@ public class SplashScreenActivity extends Activity {
                     } else {
                         intent = new Intent(SplashScreenActivity.this, RegisterPatientActivity.class);
                         intent.putExtra("idPatient", patient.getId());
-                        DialogUtil.getInstance().showDialog(SplashScreenActivity.this, "ดำเนินการสมัครให้เสร็จสิ้น", intent);
+                        DialogUtil.getInstance().showDialogStartIntent(SplashScreenActivity.this, "ดำเนินการสมัครให้เสร็จสิ้น", intent);
                     }
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);

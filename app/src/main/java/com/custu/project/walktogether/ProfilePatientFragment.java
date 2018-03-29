@@ -23,6 +23,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DataFormat;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -133,6 +134,10 @@ public class ProfilePatientFragment extends Fragment {
                     UserManager.getInstance(context).storePatient(patient);
                     patient = UserManager.getInstance(context).getPatient();
                     initValue();
+                    if (object.get("isTestEvaluation").getAsBoolean()) {
+                        Intent intent = new Intent(context, ConditionActivity.class);
+                        DialogUtil.getInstance().showDialogStartIntent(context, getString(R.string.evaluation_dialog), intent);
+                    }
                 }
             }
 

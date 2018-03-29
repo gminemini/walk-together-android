@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -90,12 +92,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void initProgress() {

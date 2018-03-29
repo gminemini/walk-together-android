@@ -101,7 +101,7 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
                             setUI();
 
                         } else {
-                            DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                            DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                         }
 
                     }
@@ -210,11 +210,11 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
 
                     } else {
                         pullRefreshLayout.setRefreshing(false);
-                        DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                        DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                     }
                 } else {
                     pullRefreshLayout.setRefreshing(false);
-                    DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                    DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                 }
 
             }

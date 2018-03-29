@@ -25,6 +25,7 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DeviceToken;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -145,7 +146,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                                 startActivity(intent);
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
-                                                startActivity(intent);
+                                                DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
                                             }
                                         }
                                     }, 700);

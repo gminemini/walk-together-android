@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -25,9 +27,6 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
-import com.google.gson.JsonObject;
-
-import java.util.ArrayList;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -82,12 +81,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {

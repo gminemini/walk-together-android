@@ -164,6 +164,8 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
 
         if (page.equalsIgnoreCase("list"))
             viewPager.setCurrentItem(1);
+        if (page.equalsIgnoreCase("historyEvaluation"))
+            viewPager.setCurrentItem(3);
     }
 
     @Override

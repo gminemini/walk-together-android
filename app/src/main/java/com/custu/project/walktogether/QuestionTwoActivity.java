@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -72,12 +74,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {

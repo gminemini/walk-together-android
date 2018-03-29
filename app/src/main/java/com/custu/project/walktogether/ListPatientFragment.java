@@ -61,7 +61,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
             if (status == 200) {
                 caretaker = CaretakerModel.getInstance().getCaretaker(object);
             } else {
-                DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
             }
         }
 
@@ -94,7 +94,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
                 setListener();
             } else {
                 pullRefreshLayout.setRefreshing(false);
-                DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
             }
         }
 
@@ -208,7 +208,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
                                     patientArrayList.remove(index);
                                     setUI();
                                 } else {
-                                    DialogUtil.getInstance().showDialog(context, object.get("message").getAsString());
+                                    DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                                 }
                             }
 

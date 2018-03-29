@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.util;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +25,7 @@ public class DialogUtil {
         return instance;
     }
 
-    public void showDialog(Context context, String message) {
+    public void showDialogStartIntent(Context context, String message) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.error_dialog);
         dialog.setCancelable(false);
@@ -44,7 +45,30 @@ public class DialogUtil {
         dialog.show();
     }
 
-    public void showDialog(final Context context, String message, final Intent intent) {
+    public void showDialogExitEvaluation(final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_exit);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+                System.exit(0);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void showDialogStartIntent(final Context context, String message, final Intent intent) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.error_dialog);
         dialog.setCancelable(false);
