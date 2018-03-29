@@ -53,6 +53,7 @@ public class DialogUtil {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         LinearLayout done = dialog.findViewById(R.id.submit);
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +63,13 @@ public class DialogUtil {
                 context.startActivity(intent);
                 ((Activity) context).finish();
                 System.exit(0);
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });

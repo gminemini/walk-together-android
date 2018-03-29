@@ -53,55 +53,56 @@
 
         <activity
             android:name="com.custu.project.walktogether.QuestionOneActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionTwoActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
-        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity" />
-        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" />
-        <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" />
-        <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" />
-        <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" />
-        <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity" />
+        <activity android:name="com.custu.project.walktogether.QuestionSevenActivity" android:noHistory="true"/>
+        <activity android:name="com.custu.project.walktogether.QuestionFourteenActivity" android:noHistory="true"/>
+        <activity android:name="com.custu.project.walktogether.QuestionFifteenActivity" android:noHistory="true"/>
+        <activity android:name="com.custu.project.walktogether.QuestionSixteenActivity" android:noHistory="true"/>
+        <activity android:name="com.custu.project.walktogether.QuestionNineteenActivity" android:noHistory="true"/>
+        <activity android:name="com.custu.project.walktogether.QuestionSeventeenActivity" android:noHistory="true"/>
         <activity android:name="com.custu.project.walktogether.DrawImageActivity" />
         <activity
             android:name="com.custu.project.walktogether.QuestionThreeActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name"
+            android:noHistory="true" />
         <activity
             android:name="com.custu.project.walktogether.QuestionFourActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionFiveActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionSixActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionEightActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionEighteenActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionTwelveActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionThirteenActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionNineActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionTenActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.QuestionElevenActivity"
-            android:label="@string/topics_name" />
+            android:label="@string/topics_name" android:noHistory="true"/>
         <activity
             android:name="com.custu.project.walktogether.ChooseuserActivity"
             android:label="เลือกประเภทผู้ใช้" />

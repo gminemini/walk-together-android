@@ -38,7 +38,6 @@ public class SplashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 Intent intent;
                 if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
@@ -51,7 +50,8 @@ public class SplashScreenActivity extends Activity {
                     } else {
                         intent = new Intent(SplashScreenActivity.this, RegisterPatientActivity.class);
                         intent.putExtra("idPatient", patient.getId());
-                        DialogUtil.getInstance().showDialogStartIntent(SplashScreenActivity.this, "ดำเนินการสมัครให้เสร็จสิ้น", intent);
+                        intent.putExtra("isContinue", true);
+                        startActivity(intent);
                     }
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);

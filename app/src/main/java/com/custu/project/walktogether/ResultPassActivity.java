@@ -57,14 +57,17 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                if (UserManager.getInstance(ResultPassActivity.this).getPatient() != null) {
+                if (getIntent().getBooleanExtra("isRegister", false)) {
                     Intent intent = new Intent(ResultPassActivity.this, ReHomePatientActivity.class);
                     intent.putExtra("page", "historyEvaluation");
+                    nextBtn.setText("ถัดไป");
                     startActivity(intent);
+                    break;
                 } else {
                     Intent intent = new Intent(ResultPassActivity.this, RegisterPatientActivity.class);
                     intent.putExtra("idPatient", getIntent().getLongExtra("idPatient", 0));
                     startActivity(intent);
+                    break;
                 }
             }
 

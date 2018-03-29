@@ -37,9 +37,11 @@ public class ResultActivity extends AppCompatActivity implements BasicActivity, 
                     Intent intent = new Intent(ResultActivity.this, ReHomePatientActivity.class);
                     intent.putExtra("page", "historyEvaluation");
                     startActivity(intent);
+                    break;
                 } else {
                     Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    break;
                 }
             }
 

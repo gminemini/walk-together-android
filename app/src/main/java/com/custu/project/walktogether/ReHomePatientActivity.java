@@ -181,6 +181,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
         if (imm != null) {

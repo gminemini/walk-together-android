@@ -45,7 +45,6 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private Question questionRef;
     private NumberQuestion numberQuestion;
     private RadioGroup radioGroup;
-    private Long id;
     private ProgressDialog progressDialog;
 
     @Override
@@ -175,11 +174,15 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private void sendEvaluation() {
         JsonObject jsonObject = StoreAnswerTmse.getInstance().getAllAnswer();
         progressDialog.show();
+        boolean isRegister = false;
+        Long id;
         if (UserManager.getInstance(QuestionNineteenActivity.this).getPatient() != null) {
             id = UserManager.getInstance(QuestionNineteenActivity.this).getPatient().getId();
         } else {
             id = 0L;
+            isRegister = true;
         }
+        final boolean finalIsRegister = isRegister;
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
@@ -190,6 +193,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
                         intent.putExtra("score", score);
+                        intent.putExtra("isRegister", finalIsRegister);
                         storePatient(intent, object.getAsJsonObject("data").get("idPatient").getAsLong());
                     } else {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);

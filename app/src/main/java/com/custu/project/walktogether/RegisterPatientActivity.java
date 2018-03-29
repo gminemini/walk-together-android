@@ -32,6 +32,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.DeviceToken;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.InitSpinnerDob;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -278,6 +279,8 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
         ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
         idPatient = getIntent().getLongExtra("idPatient", 0);
+        if (getIntent().getBooleanExtra("isContinue", false))
+            DialogUtil.getInstance().showDialogStartIntent(RegisterPatientActivity.this, "ดำเนินการสมัครให้เสร็จสิ้น");
     }
 
     @Override
