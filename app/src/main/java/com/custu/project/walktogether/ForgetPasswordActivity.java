@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,18 +47,21 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.submit: {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                View view = this.getCurrentFocus();
-                if (imm != null) {
-                    if (view != null) {
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                if (username.getText().length() != 0) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    View view = this.getCurrentFocus();
+                    if (imm != null) {
+                        if (view != null) {
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
                     }
+                    sendUsername();
+                    break;
+                } else {
+                    username.setError("กรุณาใส่เบอร์โทรศัพท์");
+                    username.requestFocus();
                 }
-                sendUsername();
-                break;
             }
-
-
         }
     }
 
@@ -69,13 +73,13 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                progressDialog.dismiss();
                 if (object.get("status").getAsInt() == 200) {
                     JsonObject data = object.getAsJsonObject("data");
                     password = data.get("password").getAsString();
                     tell = data.get("tell").getAsString();
                     sendSMS();
                 } else if (object.get("status").getAsInt() == 404) {
+                    username.setText("");
                     NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, object.get("message").getAsString());
                 }
 
@@ -107,7 +111,16 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
                 progressDialog.dismiss();
                 if (object.get("status").getAsInt() == 200) {
                     NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, "รหัสผ่านส่งไปยังเบอร์โทรศัพท์ของท่าน");
+                    int splashInterval = 1000;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    }, splashInterval);
                 } else {
+                    username.setText("");
                     NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, "เกิดข้อผิดพลาด");
                 }
             }
