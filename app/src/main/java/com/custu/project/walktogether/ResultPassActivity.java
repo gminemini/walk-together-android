@@ -36,6 +36,9 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
         TextView scoreTextView = findViewById(R.id.result_score);
         scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
         nextBtn = (Button) findViewById(R.id.next);
+        if (!getIntent().getBooleanExtra("isRegister", false)) {
+            nextBtn.setText("ถัดไป");
+        }
     }
 
     @Override
@@ -57,10 +60,9 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                if (getIntent().getBooleanExtra("isRegister", false)) {
+                if (!getIntent().getBooleanExtra("isRegister", false)) {
                     Intent intent = new Intent(ResultPassActivity.this, ReHomePatientActivity.class);
                     intent.putExtra("page", "historyEvaluation");
-                    nextBtn.setText("ถัดไป");
                     startActivity(intent);
                     break;
                 } else {
