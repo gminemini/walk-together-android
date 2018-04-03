@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -35,13 +36,11 @@ public class ProfileCaretakerFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
-    private TextView sex;
-    private TextView age;
     private TextView tell;
     private TextView occupation;
     private TextView number;
     private Button logout;
-    private Button qrCode;
+    private LinearLayout qrCode;
     private TextView email;
     private PullRefreshLayout pullRefreshLayout;
 
@@ -71,14 +70,12 @@ public class ProfileCaretakerFragment extends Fragment {
     private void setUI() {
         imageView = view.findViewById(R.id.image_profile);
         name = view.findViewById(R.id.name);
-        sex = view.findViewById(R.id.sex);
-        age = view.findViewById(R.id.age);
         tell = view.findViewById(R.id.tell);
         occupation = view.findViewById(R.id.occupation);
         logout = view.findViewById(R.id.logout);
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
-        qrCode = view.findViewById(R.id.qrcode);
+        qrCode = view.findViewById(R.id.qr_code);
         pullRefreshLayout = view.findViewById(R.id.pull_refresh);
     }
 
@@ -89,8 +86,6 @@ public class ProfileCaretakerFragment extends Fragment {
                 + caretaker.getFirstName()
                 + " "
                 + caretaker.getLastName());
-        sex.setText(caretaker.getSex().getName());
-        age.setText(caretaker.getAge());
         tell.setText(caretaker.getTell());
         email.setText(caretaker.getEmail());
         number.setText(caretaker.getCaretakerNumber());
