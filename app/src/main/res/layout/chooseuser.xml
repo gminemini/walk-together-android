@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.TopicsOneActivity">
+    tools:context="com.custu.project.walktogether.ChooseuserActivity">
 
 
     <LinearLayout
@@ -38,7 +38,7 @@
 
             <TextView
                 android:id="@+id/patientbtn"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/shape_gradient"
                 android:gravity="center"
@@ -48,7 +48,7 @@
 
             <TextView
                 android:id="@+id/caretakerbtn"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/shape_gradient"

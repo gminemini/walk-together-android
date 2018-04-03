@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exit_evaluation_title"
-            android:textColor="@color/colorComplete"
+            android:textColor="@color/colorAllblack"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exit_evaluation"
-            android:textColor="@color/colorBackground"
-            android:textSize="22sp" />
+            android:textColor="@color/colorAllblack"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <View
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ยกเลิก"
-                android:textColor="@color/colorBackground"
+                android:textColor="@color/colorRed"
                 android:textSize="22sp" />
 
         </LinearLayout>
