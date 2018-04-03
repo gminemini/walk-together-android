@@ -21,7 +21,7 @@ import com.custu.project.walktogether.util.PicassoUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileDetailFragment extends Fragment {
+public class ProfilePatientDetailFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
@@ -29,11 +29,10 @@ public class ProfileDetailFragment extends Fragment {
     private TextView occupation;
     private TextView number;
     private TextView email;
-    private ImageView dismissImageView;
     private FragmentActivity context;
     private Patient patient;
 
-    public ProfileDetailFragment() {
+    public ProfilePatientDetailFragment() {
         // Required empty public constructor
     }
 
@@ -61,7 +60,7 @@ public class ProfileDetailFragment extends Fragment {
         occupation = view.findViewById(R.id.occupation);
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
-        dismissImageView = view.findViewById(R.id.dismiss);
+        ImageView dismissImageView = view.findViewById(R.id.dismiss);
         dismissImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

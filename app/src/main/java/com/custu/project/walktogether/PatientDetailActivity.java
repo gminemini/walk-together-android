@@ -116,7 +116,7 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
     private void openProfileDetail() {
         Bundle bundle = new Bundle();
         bundle.putString("patient", getIntent().getStringExtra("patient"));
-        ProfileDetailFragment fragment = new ProfileDetailFragment();
+        ProfilePatientDetailFragment fragment = new ProfilePatientDetailFragment();
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.profile_content, fragment).commit();
     }

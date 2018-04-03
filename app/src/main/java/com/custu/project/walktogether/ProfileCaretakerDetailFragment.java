@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +61,7 @@ public class ProfileCaretakerDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profile_detail, container, false);
+        view = inflater.inflate(R.layout.profile_caretaker_detail, container, false);
         setUI();
         getData();
         return view;
@@ -67,6 +69,7 @@ public class ProfileCaretakerDetailFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void setUI() {
+        final Fragment fragment = this;
         imageView = view.findViewById(R.id.image_profile);
         name = view.findViewById(R.id.name);
         tell = view.findViewById(R.id.tell);
@@ -77,7 +80,10 @@ public class ProfileCaretakerDetailFragment extends Fragment {
         dismissImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FragmentManager fragmentManager = context.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(fragment);
+                fragmentTransaction.commit();
             }
         });
     }
