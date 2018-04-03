@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,22 +33,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class ProfilePatientFragment extends Fragment {
+public class ProfilePatientDetailFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
     private TextView tell;
     private TextView occupation;
     private TextView number;
-    private Button logout;
-    private LinearLayout qrCode;
     private TextView email;
-    private PullRefreshLayout pullRefreshLayout;
-
+    private ImageView dismissImageView;
     private FragmentActivity context;
     private Patient patient;
 
-    public ProfilePatientFragment() {
+    public ProfilePatientDetailFragment() {
         // Required empty public constructor
     }
 
@@ -60,7 +58,7 @@ public class ProfilePatientFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_profile_patient, container, false);
+        view = inflater.inflate(R.layout.profile_detail, container, false);
         setUI();
         getData();
         return view;
@@ -72,11 +70,15 @@ public class ProfilePatientFragment extends Fragment {
         name = view.findViewById(R.id.name);
         tell = view.findViewById(R.id.tell);
         occupation = view.findViewById(R.id.occupation);
-        logout = view.findViewById(R.id.logout);
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
-        qrCode = view.findViewById(R.id.qr);
-        pullRefreshLayout = view.findViewById(R.id.pull_refresh);
+        dismissImageView = view.findViewById(R.id.dismiss);
+        dismissImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.finish();
+            }
+        });
     }
 
     private void initValue() {
@@ -90,65 +92,12 @@ public class ProfilePatientFragment extends Fragment {
         email.setText(patient.getEmail());
         number.setText(patient.getPatientNumber());
         occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserManager.getInstance(context).removePatient();
-                startActivity(new Intent(context, LoginActivity.class));
-            }
-        });
-
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogQrCode.getInstance().showDialog(context, patient.getQrCode());
-            }
-        });
-
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pullRefreshLayout.setRefreshing(true);
-                getData();
-            }
-        });
-
     }
 
     public void getData() {
-        patient = UserManager.getInstance(context).getPatient();
-        pullRefreshLayout.setRefreshing(false);
-        ConnectServer.getInstance().get(new OnDataSuccessListener() {
-            @Override
-            public void onResponse(JsonObject object, Retrofit retrofit) {
-                if (object != null) {
-                    patient = PatientModel.getInstance().getPatient(object);
-                    UserManager.getInstance(context).storePatient(patient);
-                    patient = UserManager.getInstance(context).getPatient();
-                    initValue();
-                    if (object.get("isTestEvaluation").getAsBoolean()) {
-                        Intent intent = new Intent(context, ConditionActivity.class);
-                        DialogUtil.getInstance().showDialogStartIntent(context, getString(R.string.evaluation_dialog), intent);
-                    }
-                }
-            }
-
-            @Override
-            public void onBodyError(ResponseBody responseBodyError) {
-
-            }
-
-            @Override
-            public void onBodyErrorIsNull() {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                patient = UserManager.getInstance(context).getPatient();
-                initValue();
-                NetworkUtil.isOnline(context, imageView);
-            }
-        }, ConfigService.PATIENT + patient.getId());
+        if (getArguments() != null) {
+            patient = DataFormat.getInstance().getGsonParser().fromJson(getArguments().getString("patient"), Patient.class);
+        }
+        initValue();
     }
 }

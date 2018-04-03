@@ -29,6 +29,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -41,7 +42,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 
-public class ListPatientFragment extends Fragment implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
+public class ListPatientFragment extends Fragment implements BasicActivity, View.OnClickListener {
     private View view;
     private FragmentActivity context;
     private ListView listView;
@@ -130,7 +131,6 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_listname, container, false);
         listView = view.findViewById(R.id.list_patient);
-        listView.setOnItemClickListener(this);
         initValue();
         getDataUser();
         initProgressDialog();
@@ -248,7 +248,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
                 Patient patient = patientArrayList.get(position);
                 Intent intent = new Intent(context, PatientDetailActivity.class);
                 intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
-                intent.putExtra("idPatient", patient.getId());
+                intent.putExtra("patient", DataFormat.getInstance().getGsonParser().toJson(patient));
                 startActivity(intent);
 
             }
@@ -293,14 +293,5 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
                 startActivity(intent);
                 break;
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Patient patient = patientArrayList.get(i);
-        Intent intent = new Intent(context, PatientDetailActivity.class);
-        intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
-        intent.putExtra("idPatient", patient.getId());
-        startActivity(intent);
     }
 }
