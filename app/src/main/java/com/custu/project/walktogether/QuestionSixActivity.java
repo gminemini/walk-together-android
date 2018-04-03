@@ -92,7 +92,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-        titleTextView.setText(edittextBtn.getText().toString());
+        titleTextView.setText("' "+edittextBtn.getText().toString()+" '");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {

@@ -93,7 +93,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-        titleTextView.setText("'"+inputTopicFour.getText() + " " + titleTextView.getText()+"'");
+        titleTextView.setText("' "+inputTopicFour.getText() + " " + titleTextView.getText()+"'");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {

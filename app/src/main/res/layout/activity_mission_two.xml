@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorOffwhite"
+    android:orientation="vertical"
+    tools:context="com.custu.project.walktogether.mission.missiontwo.MissionTwoActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="9"
+        android:background="@drawable/shape_mainbox"
+        android:elevation="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10pt"
+            android:progressDrawable="@drawable/shape_progress" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="2.5"
+            android:background="@drawable/progressbar"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="คำถาม"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSize" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="มีกล่องทั้งหมดกี่ใบ ?"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSizeBold_20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:padding="4dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorOffwhite"
+                    android:maxHeight="200dp"
+                    android:maxWidth="180dp"
+                    android:src="@drawable/clock1" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="@dimen/height_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:background="@color/colorOffwhite"
+                    android:maxHeight="200dp"
+                    android:maxWidth="180dp"
+                    android:src="@drawable/clock2" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="1.2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:text="คำตอบ"
+                android:textColor="@color/colorAllblack"
+                android:textSize="@dimen/TextSize" />
+
+            <EditText
+                android:id="@+id/input_missionfive"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edittext_40dp"
+                android:layout_marginBottom="@dimen/margin_edittext_4dp"
+                android:layout_marginTop="@dimen/margin_edittext_4dp"
+                android:background="@drawable/shape_edittext"
+                android:hint="@string/pleaseinput"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_0dp"
+        android:layout_weight="1.2"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shapetopics"
+            android:text="ยืนยัน"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="@dimen/TextSize" />
+    </LinearLayout>
+</LinearLayout>
