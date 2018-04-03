@@ -5,18 +5,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
+import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.UserManager;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -190,6 +197,23 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
             }
         }
     }
+
+    public void openProfileDetail(Caretaker caretaker) {
+        Bundle bundle = new Bundle();
+        bundle.putString("caretaker", DataFormat.getInstance().getGsonParser().toJson(caretaker));
+        ProfileCaretakerDetailFragment fragment = new ProfileCaretakerDetailFragment();
+        fragment.setArguments(bundle);
+        openFragment(fragment);
+    }
+
+    public void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.profile_content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     @Override
     protected void attachBaseContext(Context base) {

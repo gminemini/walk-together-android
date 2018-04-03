@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Patient;
 
 /**
  * Created by pannawatnokket on 5/2/2018 AD.
@@ -94,6 +95,17 @@ public class DialogUtil {
                 dialog.dismiss();
             }
         });
+        dialog.show();
+    }
+
+    public void showDialogProfile(final Context context, Patient patient) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.error_dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
         dialog.show();
     }
 }

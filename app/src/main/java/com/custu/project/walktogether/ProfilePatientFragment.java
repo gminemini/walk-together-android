@@ -10,17 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
-import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
@@ -38,13 +36,11 @@ public class ProfilePatientFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
-    private TextView sex;
-    private TextView age;
     private TextView tell;
     private TextView occupation;
     private TextView number;
     private Button logout;
-    private Button qrCode;
+    private LinearLayout qrCode;
     private TextView email;
     private PullRefreshLayout pullRefreshLayout;
 
@@ -74,14 +70,12 @@ public class ProfilePatientFragment extends Fragment {
     private void setUI() {
         imageView = view.findViewById(R.id.image_profile);
         name = view.findViewById(R.id.name);
-        sex = view.findViewById(R.id.sex);
-        age = view.findViewById(R.id.age);
         tell = view.findViewById(R.id.tell);
         occupation = view.findViewById(R.id.occupation);
         logout = view.findViewById(R.id.logout);
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
-        qrCode = view.findViewById(R.id.qrcode);
+        qrCode = view.findViewById(R.id.qr);
         pullRefreshLayout = view.findViewById(R.id.pull_refresh);
     }
 
@@ -92,8 +86,6 @@ public class ProfilePatientFragment extends Fragment {
                 + patient.getFirstName()
                 + " "
                 + patient.getLastName());
-        sex.setText(patient.getSex().getName());
-        age.setText(patient.getAge());
         tell.setText(patient.getTell());
         email.setText(patient.getEmail());
         number.setText(patient.getPatientNumber());

@@ -15,4 +15,5 @@
     <string name="exit_evaluation">เมื่อออกจากการทำแบบทดสอบแล้ว จะต้องเริ่มทำใหม่ทั้งหมด</string>
     <string name="exit_evaluation_title">คุณแน่ใจที่จะออกจากการทำแบบทดสอบ?</string>
     <string name="evaluation_dialog">ได้เวลาทำแบบทดสอบ</string>
+    <string name="level">เลเวล</string>
 </resources>
