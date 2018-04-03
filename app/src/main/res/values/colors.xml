@@ -26,4 +26,7 @@
     <color name="blackGradient">#8C000000</color>
     <color name="blackCenterGradient">#0D000000</color>
 
+    <color name="colorBorder">#15A515</color>
+    <color name="colorOrange">#FF9521</color>
+
 </resources>

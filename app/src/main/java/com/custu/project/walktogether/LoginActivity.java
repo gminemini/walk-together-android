@@ -11,9 +11,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
@@ -42,6 +46,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private Button forgetBtn;
     private EditText username;
     private EditText password;
+    private LinearLayout tv;
     private ProgressDialog progressDialog;
     private CircularProgressButton circularProgressButton;
 
@@ -236,6 +241,13 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void setUI() {
+
+         tv = findViewById(R.id.nameapp);
+        SpannableString content = new SpannableString("WALKTOGETHER");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//        tv.setText(content);
+
+
         forgetBtn = findViewById(R.id.forgetpass);
         registerBtn = (Button) findViewById(R.id.register);
         loginBtn = (Button) findViewById(R.id.login);

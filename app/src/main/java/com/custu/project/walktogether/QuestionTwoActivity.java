@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_two);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
         setListener();
@@ -87,7 +89,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         TextView titleTextView = dialog.findViewById(R.id.title);
 
 
-        titleTextView.setText(edittextBtn.getText() + " " + titleTextView.getText());
+        titleTextView.setText("'"+ edittextBtn.getText() + " " + titleTextView.getText()+"'");
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
