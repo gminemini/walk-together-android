@@ -98,11 +98,5 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </RelativeLayout>
-    
-    <FrameLayout
-        android:id="@+id/profile_content"
-        android:layout_margin="10pt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </RelativeLayout>

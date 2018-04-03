@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -49,15 +51,12 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
 
     private ArrayList<Caretaker> caretakerArrayList;
     private Patient patient;
-
     private ListViewCaretakerAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_name_patient, container, false);
         listView = view.findViewById(R.id.list_patient);
-
         initValue();
         getDataUser();
         initProgressDialog();
@@ -178,19 +177,16 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
 
     @Override
     public void setUI() {
-
         mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListCaretakerFragment.this);
         listView = view.findViewById(R.id.list_patient);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-
+                ((ReHomePatientActivity)getActivity()).openProfileDetail(caretakerArrayList.get(position));
             }
         });
     }
-
 
     @Override
     public void getData() {

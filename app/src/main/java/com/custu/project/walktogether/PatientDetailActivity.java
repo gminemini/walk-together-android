@@ -1,7 +1,6 @@
 package com.custu.project.walktogether;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
@@ -15,12 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.adapter.PatientDetailPagerAdapter;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
-import com.custu.project.walktogether.util.UserManager;
 
 public class PatientDetailActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private String name;
@@ -119,7 +116,7 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
     private void openProfileDetail() {
         Bundle bundle = new Bundle();
         bundle.putString("patient", getIntent().getStringExtra("patient"));
-        ProfilePatientDetailFragment fragment = new ProfilePatientDetailFragment();
+        ProfileDetailFragment fragment = new ProfileDetailFragment();
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.profile_content, fragment).commit();
     }

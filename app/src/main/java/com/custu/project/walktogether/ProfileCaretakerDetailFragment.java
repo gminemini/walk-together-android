@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.PatientModel;
+import com.custu.project.walktogether.model.CaretakerModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
+import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DataFormat;
-import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class ProfilePatientDetailFragment extends Fragment {
+public class ProfileCaretakerDetailFragment extends Fragment {
     private View view;
     private CircleImageView imageView;
     private TextView name;
@@ -42,10 +42,11 @@ public class ProfilePatientDetailFragment extends Fragment {
     private TextView number;
     private TextView email;
     private ImageView dismissImageView;
-    private FragmentActivity context;
-    private Patient patient;
 
-    public ProfilePatientDetailFragment() {
+    private FragmentActivity context;
+    private Caretaker caretaker;
+
+    public ProfileCaretakerDetailFragment() {
         // Required empty public constructor
     }
 
@@ -76,27 +77,27 @@ public class ProfilePatientDetailFragment extends Fragment {
         dismissImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.finish();
+
             }
         });
     }
 
     private void initValue() {
-        PicassoUtil.getInstance().setImageProfile(context, patient.getImage(), imageView);
-        name.setText(patient.getTitleName()
+        PicassoUtil.getInstance().setImageProfile(context, caretaker.getImage(), imageView);
+        name.setText(caretaker.getTitleName()
                 + ""
-                + patient.getFirstName()
+                + caretaker.getFirstName()
                 + " "
-                + patient.getLastName());
-        tell.setText(patient.getTell());
-        email.setText(patient.getEmail());
-        number.setText(patient.getPatientNumber());
-        occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
+                + caretaker.getLastName());
+        tell.setText(caretaker.getTell());
+        email.setText(caretaker.getEmail());
+        number.setText(caretaker.getCaretakerNumber());
+        occupation.setText(DataFormat.getInstance().validateData(caretaker.getOccupation()));
     }
 
     public void getData() {
         if (getArguments() != null) {
-            patient = DataFormat.getInstance().getGsonParser().fromJson(getArguments().getString("patient"), Patient.class);
+            caretaker = DataFormat.getInstance().getGsonParser().fromJson(getArguments().getString("caretaker"), Caretaker.class);
         }
         initValue();
     }
