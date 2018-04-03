@@ -9,18 +9,44 @@
     tools:context="com.custu.project.walktogether.LoginActivity">
 
     <LinearLayout
-        android:layout_marginTop="10pt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
+        android:layout_marginTop="10pt"
         android:layout_weight="4"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="@dimen/width_img_logo"
-            android:layout_height="@dimen/height_img_logo"
-            android:src="@drawable/logo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="@dimen/width_img_logo"
+                android:layout_height="@dimen/height_img_logo"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="14dp"
+                android:src="@drawable/logo" />
+            <LinearLayout
+                android:id="@+id/nameapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:background="@drawable/shape_linetext">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="WALKTOGETHER"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOffwhite"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -30,7 +56,8 @@
         android:layout_weight="6"
         android:orientation="vertical"
         android:paddingLeft="48dp"
-        android:paddingRight="48dp">
+        android:paddingRight="48dp"
+        android:paddingTop="36dp">
 
         <EditText
             android:id="@+id/input_username"
@@ -49,7 +76,7 @@
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/shape"
             android:hint="@string/password"
             android:inputType="textPassword"
@@ -80,7 +107,7 @@
             android:textColor="@color/colorBackground"
             android:textSize="@dimen/TextSize"
             app:finalCornerAngle="48dp"
-            app:spinning_bar_color="@color/colorBackgroundDark"
+            app:spinning_bar_color="@color/colorOrange"
             app:spinning_bar_padding="6dp"
             app:spinning_bar_width="4dp" />
 

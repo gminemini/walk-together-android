@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.custu.project.walktogether.util.DialogUtil;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,6 +42,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_nine);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +93,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-        titleTextView.setText(inputTopicFour.getText() + " " + titleTextView.getText());
+        titleTextView.setText("'"+inputTopicFour.getText() + " " + titleTextView.getText()+"'");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
