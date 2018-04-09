@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -118,8 +121,18 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
         bundle.putString("patient", getIntent().getStringExtra("patient"));
         ProfilePatientDetailFragment fragment = new ProfilePatientDetailFragment();
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.profile_content, fragment).commit();
+        openFragment(fragment);
     }
+
+    public void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
+        transaction.replace(R.id.profile_content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     @Override
     public void onBackPressed() {
