@@ -209,6 +209,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
     public void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
         transaction.replace(R.id.profile_content, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

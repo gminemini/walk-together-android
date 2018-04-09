@@ -34,6 +34,7 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_change_password_patient);
         initProgressDialog();
         getData();

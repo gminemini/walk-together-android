@@ -34,6 +34,7 @@ public class ChangePasswordCaretakerActivity extends AppCompatActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_change_password_caretaker);
         initProgressDialog();
         getData();

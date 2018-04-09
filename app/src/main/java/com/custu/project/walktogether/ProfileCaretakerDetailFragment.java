@@ -82,6 +82,7 @@ public class ProfileCaretakerDetailFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fragmentManager = context.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
                 fragmentTransaction.remove(fragment);
                 fragmentTransaction.commit();
             }
