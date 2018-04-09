@@ -1,13 +1,18 @@
 package com.custu.project.walktogether.mission.missiontwo;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.QuestionFiveActivity;
+import com.custu.project.walktogether.QuestionSixActivity;
 import com.custu.project.walktogether.QuestionThirteenActivity;
 import com.custu.project.walktogether.QuestionTwelveActivity;
 import com.custu.project.walktogether.util.BasicActivity;
@@ -32,33 +39,37 @@ public class MissionFiveActivity extends AppCompatActivity implements BasicActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_five);
         setUI();
         setListener();
+        countDownTime();
 
     }
+    private void countDownTime() {
+        long timeInterval = ConfigService.TIME_INTERVAL;
+        final int[] time = {31};
+        final ProgressBar progress;
+        progress = findViewById(R.id.progress);
+        progress.setMax(time[0]);
+        progress.setProgress(time[0]);
+        countDownTimer = new CountDownTimer(timeInterval, 1000) {
+            public void onTick(long millisUntilFinished) {
+                progress.setProgress(--time[0]);
+            }
 
-//    private void countDownTime() {
-//        long timeInterval = ConfigService.TIME_INTERVAL;
-//        final int[] time = {31};
-//        final ProgressBar progress;
-//        progress = findViewById(R.id.progress);
-//        progress.setMax(time[0]);
-//        progress.setProgress(time[0]);
-//        countDownTimer = new CountDownTimer(timeInterval, 1000) {
-//            public void onTick(long millisUntilFinished) {
-//                progress.setProgress(--time[0]);
-//            }
-//
-//            public void onFinish() {
-//                progress.setProgress(0);
-//                countDownTimer.cancel();
-//                intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
-//                StoreAnswerTmse.getInstance().storeAnswer("no12", question.getId(), "");
+            public void onFinish() {
+                progress.setProgress(0);
+                countDownTimer.cancel();
+//                StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), "");
+//                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
 //                startActivity(intent);
-//            }
-//        }.start();
-//    }
+            }
+        }.start();
+    }
+
 //    private void showDialog(Context context) {
 //        final Dialog dialog = new Dialog(context);
 //        dialog.setContentView(R.layout.dialog);
