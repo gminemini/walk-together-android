@@ -89,7 +89,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         TextView titleTextView = dialog.findViewById(R.id.title);
 
 
-        titleTextView.setText("'"+ edittextBtn.getText() + " " + titleTextView.getText()+"'");
+        titleTextView.setText("' "+ edittextBtn.getText() + " " + titleTextView.getText()+"'");
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
