@@ -161,17 +161,19 @@
         <activity android:name="com.custu.project.walktogether.ChangePasswordPatientActivity" />
         <activity android:name="com.custu.project.walktogether.ForgetPasswordActivity" />
         <activity android:name="com.custu.project.walktogether.AddTabPatientActivity" />
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionFiveActivity">
+        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity"/>
+
+        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionClockActivity" />
+        <activity
+            android:name="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity"
+            android:label="@string/title_activity_mission_emotion"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-
-
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionTwoActivity"/>
-
     </application>
 
 </manifest>

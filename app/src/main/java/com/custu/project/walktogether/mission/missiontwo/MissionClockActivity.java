@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.custu.project.project.walktogether.R;
 
-public class MissionTwoActivity extends AppCompatActivity {
+public class MissionClockActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mission_two);
+        setContentView(R.layout.activity_mission_clock);
     }
 }
