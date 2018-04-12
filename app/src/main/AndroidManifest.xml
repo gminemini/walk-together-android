@@ -166,14 +166,17 @@
         <activity
             android:name="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity"
             android:label="@string/title_activity_mission_emotion"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
     </application>
 
