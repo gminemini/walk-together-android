@@ -139,6 +139,7 @@
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
         <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
+
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
 
         <meta-data
@@ -162,7 +163,14 @@
         <activity android:name="com.custu.project.walktogether.ForgetPasswordActivity" />
         <activity android:name="com.custu.project.walktogether.AddTabPatientActivity" />
         <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity" />
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionClockActivity" />
+        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionClockActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity"
             android:label="@string/title_activity_mission_emotion"
@@ -171,13 +179,8 @@
             android:name="com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity"/>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
     </application>
 
 </manifest>
