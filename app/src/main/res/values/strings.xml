@@ -16,4 +16,5 @@
     <string name="exit_evaluation_title">คุณแน่ใจที่จะออกจากการทำแบบทดสอบ?</string>
     <string name="evaluation_dialog">ได้เวลาทำแบบทดสอบ</string>
     <string name="level">เลเวล</string>
+    <string name="title_activity_mission_emotion">MissionEmotionActivity</string>
 </resources>
