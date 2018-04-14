@@ -11,15 +11,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.adapter.MapMissionAdapter;
+import com.custu.project.walktogether.data.mission.Map;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.MissionModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 public class SelectMissionFragment extends Fragment implements BasicActivity, View.OnClickListener {
     private ProgressDialog progressDialog;
     private FragmentActivity context;
     private View view;
+    private ArrayList<Map> mapArrayList = new ArrayList<>();
 
+    public SelectMissionFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -27,49 +44,19 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
         super.onAttach(context);
     }
 
-    public SelectMissionFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_choosemap, container, false);
-        view.findViewById(R.id.map1).setOnClickListener(this);
-        view.findViewById(R.id.map2).setOnClickListener(this);
-        view.findViewById(R.id.map3).setOnClickListener(this);
-        view.findViewById(R.id.map4).setOnClickListener(this);
         initProgressDialog();
+        getData();
         return view;
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        progressDialog.show();
         Intent intent;
-        switch (id) {
-            case R.id.map1:
-                intent = new Intent(context, MapsActivity.class);
-                intent.putExtra("map", "interPark");
-                startActivity(intent);
-                break;
-            case R.id.map2:
-                intent = new Intent(context, MapsActivity.class);
-                intent.putExtra("map", "lc2");
-                startActivity(intent);
-                break;
-            case R.id.map3:
-                intent = new Intent(context, MapsActivity.class);
-                intent.putExtra("map", "ekkami");
-                startActivity(intent);
-                break;
-            case R.id.map4:
-                intent = new Intent(context, MapsActivity.class);
-                intent.putExtra("map", "myHome");
-                startActivity(intent);
-                break;
-        }
 
     }
 
@@ -80,11 +67,39 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
 
     @Override
     public void setUI() {
+        ListView listView = view.findViewById(R.id.list_map);
+        listView.setAdapter(new MapMissionAdapter(context, mapArrayList));
 
     }
 
     @Override
     public void getData() {
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                if (object != null) {
+                    mapArrayList = MissionModel.getInstance().getMapArrayList(object);
+                    setUI();
+                }
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.MISSION + ConfigService.MAP_ALL);
+        setUI();
 
     }
 

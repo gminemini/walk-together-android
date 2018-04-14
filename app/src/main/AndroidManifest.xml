@@ -138,7 +138,13 @@
             android:name="com.custu.project.walktogether.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" />
+        <activity android:name="com.custu.project.walktogether.SplashScreenActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
 
@@ -164,11 +170,7 @@
         <activity android:name="com.custu.project.walktogether.AddTabPatientActivity" />
         <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity" />
         <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionClockActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
