@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,8 +13,14 @@ import android.location.Location;
 
 import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.data.mission.Position;
+import com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionClockActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
+import com.custu.project.walktogether.util.TypeMission;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.tony19.timber.loggly.LogglyTree;
 import com.google.android.gms.location.LocationListener;
@@ -50,8 +57,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +68,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener, GoogleMap.OnMarkerClickListener {
     private static final int REQUEST_PERMISSION_LOCATION = 255;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -163,6 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.googleMap.setOnMarkerClickListener(this);
     }
 
     @Override
@@ -172,9 +182,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int legCount = route.getLegList().size();
             for (int index = 0; index < legCount; index++) {
                 Leg leg = route.getLegList().get(index);
-                googleMap.addMarker(new MarkerOptions().position(leg.getStartLocation().getCoordination()));
+                googleMap.addMarker(new MarkerOptions().position(leg.getStartLocation().getCoordination())).setTag(index);
                 if (index == legCount - 1) {
-                    googleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination()));
+                    googleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination())).setTag(missionArrayList.size() - 1);
                 }
                 List<Step> stepList = leg.getStepList();
                 ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 3, Color.RED, 3, Color.BLUE);
@@ -325,5 +335,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return;
             }
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        int index = (int) marker.getTag();
+        String typeMission = missionArrayList.get(index).getMissionDetail().getType();
+        Intent intent;
+        switch (typeMission) {
+            case TypeMission.BOX:
+                intent = new Intent(MapsActivity.this, MissionBoxActivity.class);
+                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
+                startActivity(intent);
+                break;
+            case TypeMission.CLOCK:
+                intent = new Intent(MapsActivity.this, MissionClockActivity.class);
+                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
+                startActivity(intent);
+                break;
+            case TypeMission.EMOTION:
+                intent = new Intent(MapsActivity.this, MissionEmotionActivity.class);
+                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
+                startActivity(intent);
+                break;
+            case TypeMission.PROVERB:
+                intent = new Intent(MapsActivity.this, MissionProverbsActivity.class);
+                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
+                startActivity(intent);
+                break;
+            case TypeMission.TYPEGROUP:
+                intent = new Intent(MapsActivity.this, MissionTypegroupActivity.class);
+                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
+                startActivity(intent);
+                break;
+        }
+        return false;
     }
 }
