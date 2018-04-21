@@ -101,16 +101,13 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
     private void getMission(Long idMap) {
         progressDialog.show();
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
-            public ArrayList<Mission> temp;
-
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object != null) {
                     UserManager.getInstance(context).storeMission(MissionModel.getInstance().getMissionArrayList(object));
                     Intent intent = new Intent(context, MapsActivity.class);
-                    temp = UserManager.getInstance(context).getMission();
-                    Log.d("onResponse: ", "onResponse: "+temp);
+                    startActivity(intent);
                 }
             }
 

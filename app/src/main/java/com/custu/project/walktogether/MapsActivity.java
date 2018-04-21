@@ -10,8 +10,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 
+import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.data.mission.Position;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
+import com.custu.project.walktogether.util.UserManager;
 import com.github.tony19.timber.loggly.LogglyTree;
 import com.google.android.gms.location.LocationListener;
 
@@ -57,24 +60,21 @@ import java.util.List;
 import timber.log.Timber;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener {
-
+    private static final int REQUEST_PERMISSION_LOCATION = 255;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private GoogleMap googleMap;
     private LatLng origin;
     private LatLng destination;
     private List<LatLng> wayPoints;
-    private static final int REQUEST_PERMISSION_LOCATION = 255;
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
-
-
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private ArrayList<Mission> missionArrayList;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
     private ArrayList<LatLng> routePoints;
-
     private StepDetector simpleStepDetector;
-    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
     private SensorManager sensorManager;
     private Sensor angle;
@@ -145,43 +145,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initPositionMission() {
-        if (getIntent().getStringExtra("map").equalsIgnoreCase("ekkami")) {
-            origin = new LatLng(13.718757, 100.586516);
-            wayPoints = Arrays.asList(
-                    new LatLng(13.717756, 100.587782),
-                    new LatLng(13.718069, 100.588662)
-            );
+        missionArrayList = UserManager.getInstance(MapsActivity.this).getMission();
+        wayPoints = new ArrayList<>();
 
-            destination = new LatLng(13.724311, 100.588984);
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("lc2")) {
-            origin = new LatLng(14.074194, 100.606260);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.074850, 100.606260),
-                    new LatLng(14.074836, 100.605573),
-                    new LatLng(14.074831, 100.604801)
-            );
+        Position position = missionArrayList.get(0).getPosition();
+        origin = new LatLng(position.getLatitude(), position.getLongitude());
 
-            destination = new LatLng(14.074487, 100.604366);
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("interPark")) {
-            origin = new LatLng(14.065676, 100.605330);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.066160, 100.605536),
-                    new LatLng(14.066105, 100.607095),
-                    new LatLng(14.066131, 100.607875),
-                    new LatLng(14.066129, 100.606083));
-
-            destination = new LatLng(14.066129, 100.606655);
-
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("myHome")) {
-            origin = new LatLng(14.475281, 100.125060);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.475429, 100.124610),
-                    new LatLng(14.475858, 100.124578),
-                    new LatLng(14.475960, 100.124897)
-            );
-            destination = new LatLng(14.476327, 100.124544);
-
+        for (int i = 1; i < missionArrayList.size() - 1; i++) {
+            position = missionArrayList.get(i).getPosition();
+            wayPoints.add(new LatLng(position.getLatitude(), position.getLongitude()));
         }
+
+        position = missionArrayList.get(missionArrayList.size() - 1).getPosition();
+        destination = new LatLng(position.getLatitude(), position.getLongitude());
     }
 
     @Override
