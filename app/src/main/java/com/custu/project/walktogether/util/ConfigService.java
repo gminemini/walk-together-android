@@ -70,4 +70,6 @@ public class ConfigService {
 
     public static final long TIME_INTERVAL = 31000;
 
+    public static final double DEFAULT_LAT = 13.736717;
+    public static final double DEFAULT_LONG = 100.523186;
 }

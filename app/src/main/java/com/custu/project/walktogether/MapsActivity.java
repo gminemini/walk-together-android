@@ -87,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int numSteps;
     private SensorManager sensorManager;
     private Sensor angle;
+    private List<Step> stepList;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -173,6 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         this.googleMap.setOnMarkerClickListener(this);
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ConfigService.DEFAULT_LAT, ConfigService.DEFAULT_LONG), 8));
     }
 
     @Override
@@ -186,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (index == legCount - 1) {
                     googleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination())).setTag(missionArrayList.size() - 1);
                 }
-                List<Step> stepList = leg.getStepList();
+                stepList = leg.getStepList();
                 ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 3, Color.RED, 3, Color.BLUE);
                 for (PolylineOptions polylineOption : polylineOptionList) {
                     googleMap.addPolyline(polylineOption);
