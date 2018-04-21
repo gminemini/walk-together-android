@@ -7,6 +7,8 @@
     tools:context="com.custu.project.walktogether.SelectMissionFragment">
 
     <ListView
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:id="@+id/list_map"
         tools:listitem="@layout/list_map"
         android:layout_width="match_parent"

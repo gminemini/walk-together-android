@@ -5,71 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class Mission {
 
-    @SerializedName("id")
+    @SerializedName("position")
     @Expose
-    private Long id;
-    @SerializedName("latitude")
+    private Position position;
+    @SerializedName("missionDetail")
     @Expose
-    private Double latitude;
-    @SerializedName("longitude")
-    @Expose
-    private Double longitude;
-    @SerializedName("score")
-    @Expose
-    private Long score;
-    @SerializedName("cognitiveCategory")
-    @Expose
-    private CognitiveCategory cognitiveCategory;
-    @SerializedName("map")
-    @Expose
-    private Map map;
+    private MissionDetail missionDetail;
 
-    public Long getId() {
-        return id;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public MissionDetail getMissionDetail() {
+        return missionDetail;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public Long getScore() {
-        return score;
-    }
-
-    public void setScore(Long score) {
-        this.score = score;
-    }
-
-    public CognitiveCategory getCognitiveCategory() {
-        return cognitiveCategory;
-    }
-
-    public void setCognitiveCategory(CognitiveCategory cognitiveCategory) {
-        this.cognitiveCategory = cognitiveCategory;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
+    public void setMissionDetail(MissionDetail missionDetail) {
+        this.missionDetail = missionDetail;
     }
 
 }

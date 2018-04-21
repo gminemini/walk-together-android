@@ -5,22 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.MapMissionAdapter;
 import com.custu.project.walktogether.data.mission.Map;
+import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class SelectMissionFragment extends Fragment implements BasicActivity, View.OnClickListener {
+public class SelectMissionFragment extends Fragment implements BasicActivity, AdapterView.OnItemClickListener {
     private ProgressDialog progressDialog;
     private FragmentActivity context;
     private View view;
@@ -54,13 +56,6 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        Intent intent;
-
-    }
-
-    @Override
     public void initValue() {
 
     }
@@ -69,7 +64,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
     public void setUI() {
         ListView listView = view.findViewById(R.id.list_map);
         listView.setAdapter(new MapMissionAdapter(context, mapArrayList));
-
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -103,6 +98,39 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
 
     }
 
+    private void getMission(Long idMap) {
+        progressDialog.show();
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            public ArrayList<Mission> temp;
+
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (object != null) {
+                    UserManager.getInstance(context).storeMission(MissionModel.getInstance().getMissionArrayList(object));
+                    Intent intent = new Intent(context, MapsActivity.class);
+                    temp = UserManager.getInstance(context).getMission();
+                    Log.d("onResponse: ", "onResponse: "+temp);
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.MISSION+idMap);
+    }
+
     @Override
     public void initProgressDialog() {
         progressDialog = new ProgressDialog(context);
@@ -122,5 +150,10 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Vi
     public void onPause() {
         super.onPause();
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        getMission(mapArrayList.get(i).getId());
     }
 }
