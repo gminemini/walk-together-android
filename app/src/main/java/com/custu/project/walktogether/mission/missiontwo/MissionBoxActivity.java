@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.mission.missiontwo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +16,14 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 
-public class MissionBoxActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener{
+public class MissionBoxActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
     private EditText inputMision;
     private ImageView imageQuestion;
     private Button nextBtn;
     private Intent intent;
     private CountDownTimer countDownTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         countDownTime();
 
     }
+
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
         final int[] time = {31};
@@ -90,7 +93,11 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
 
     @Override
     public void onClick(View v) {
-
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
+        returnIntent.putExtra("isComplete", true);
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 
     @Override
@@ -101,14 +108,15 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
     @Override
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
-     inputMision = findViewById(R.id.input_missionfive);
-     imageQuestion = findViewById(R.id.image);
+        inputMision = findViewById(R.id.input_missionfive);
+        imageQuestion = findViewById(R.id.image);
     }
 
     private void setListener() {
         nextBtn.setOnClickListener(this);
 
     }
+
     @Override
     public void getData() {
 

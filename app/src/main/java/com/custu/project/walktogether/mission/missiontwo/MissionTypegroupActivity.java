@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.mission.missiontwo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -90,7 +91,11 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
 
     @Override
     public void onClick(View v) {
-
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
+        returnIntent.putExtra("isComplete", false);
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 
     @Override
@@ -117,5 +122,10 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

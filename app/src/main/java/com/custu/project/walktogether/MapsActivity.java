@@ -1,10 +1,13 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -54,6 +57,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -184,12 +188,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int legCount = route.getLegList().size();
             for (int index = 0; index < legCount; index++) {
                 Leg leg = route.getLegList().get(index);
-                googleMap.addMarker(new MarkerOptions().position(leg.getStartLocation().getCoordination())).setTag(index);
+                googleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
+                        .position(leg.getStartLocation().getCoordination()))
+                        .setTag(index);
                 if (index == legCount - 1) {
-                    googleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination())).setTag(missionArrayList.size() - 1);
+                    googleMap.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
+                            .position(leg.getEndLocation().getCoordination()))
+                            .setTag(missionArrayList.size() - 1);
                 }
                 stepList = leg.getStepList();
-                ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 3, Color.RED, 3, Color.BLUE);
+                ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 5, Color.parseColor("#3e8aed"), 5, Color.parseColor("#3e8aed"));
                 for (PolylineOptions polylineOption : polylineOptionList) {
                     googleMap.addPolyline(polylineOption);
                 }
@@ -208,7 +218,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        //googleMap.getUiSettings().setScrollGesturesEnabled(false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -342,35 +352,73 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         int index = (int) marker.getTag();
+        marker.remove();
         String typeMission = missionArrayList.get(index).getMissionDetail().getType();
         Intent intent;
         switch (typeMission) {
             case TypeMission.BOX:
                 intent = new Intent(MapsActivity.this, MissionBoxActivity.class);
                 intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                startActivity(intent);
+                intent.putExtra("index", index);
+                startActivityForResult(intent, 1);
                 break;
             case TypeMission.CLOCK:
                 intent = new Intent(MapsActivity.this, MissionClockActivity.class);
                 intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                startActivity(intent);
+                intent.putExtra("index", index);
+                startActivityForResult(intent, 1);
                 break;
             case TypeMission.EMOTION:
                 intent = new Intent(MapsActivity.this, MissionEmotionActivity.class);
                 intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                startActivity(intent);
+                intent.putExtra("index", index);
+                startActivityForResult(intent, 1);
                 break;
             case TypeMission.PROVERB:
                 intent = new Intent(MapsActivity.this, MissionProverbsActivity.class);
                 intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                startActivity(intent);
+                intent.putExtra("index", index);
+                startActivityForResult(intent, 1);
                 break;
             case TypeMission.TYPEGROUP:
                 intent = new Intent(MapsActivity.this, MissionTypegroupActivity.class);
                 intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                startActivity(intent);
+                intent.putExtra("index", index);
+                startActivityForResult(intent, 1);
                 break;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int index = data.getIntExtra("index",0);
+                boolean isComplete = data.getBooleanExtra("isComplete",false);
+                Position position = missionArrayList.get(index).getPosition();
+
+                if (isComplete) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_complete)))
+                            .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                    .setTag(index);
+                } else {
+                    googleMap.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_fail)))
+                            .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                            .setTag(index);
+                }
+            }
+        }
+    }
+
+    private Bitmap resizeMarker(int id) {
+        int height = 115;
+        int width = 85;
+        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(id);
+        Bitmap bitmap = drawable.getBitmap();
+        return Bitmap.createScaledBitmap(bitmap, width, height, false);
     }
 }

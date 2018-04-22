@@ -32,4 +32,8 @@ public class MissionModel {
         Type type = new TypeToken<ArrayList<Mission>>() {}.getType();
         return new Gson().fromJson(jsonObject.get("data").getAsJsonArray(), type);
     }
+
+    public boolean isCorrectMission(String answer, String input) {
+        return answer.equalsIgnoreCase(input);
+    }
 }
