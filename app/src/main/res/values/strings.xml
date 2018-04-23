@@ -19,4 +19,5 @@
     <string name="evaluation_dialog">ได้เวลาทำแบบทดสอบ</string>
     <string name="level">เลเวล</string>
     <string name="title_activity_mission_emotion">MissionEmotionActivity</string>
+    <string name="arrive_middion">กดที่จุดภารกิจที่ใกล้ตัวมากที่สุด</string>
 </resources>

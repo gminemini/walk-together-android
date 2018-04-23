@@ -355,7 +355,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 missionArrayList.get(count).getPosition().getLatitude(),
                 missionArrayList.get(count).getPosition().getLongitude())) {
             isArrive = true;
-            Snackbar.make(parentPanel, "กรุณาตรวจสอบการเชื่อมต่อเครือข่าย", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
         } else {
             isArrive = false;
         }
