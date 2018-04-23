@@ -34,6 +34,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
     private ProgressDialog progressDialog;
     private FragmentActivity context;
     private View view;
+    private Long mapId;
     private ArrayList<Map> mapArrayList = new ArrayList<>();
 
     public SelectMissionFragment() {
@@ -107,6 +108,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
                 if (object != null) {
                     UserManager.getInstance(context).storeMission(MissionModel.getInstance().getMissionArrayList(object));
                     Intent intent = new Intent(context, MapsActivity.class);
+                    intent.putExtra("mapId", mapId);
                     startActivity(intent);
                 }
             }
@@ -125,7 +127,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
             public void onFailure(Throwable t) {
 
             }
-        }, ConfigService.MISSION+idMap);
+        }, ConfigService.MISSION + idMap);
     }
 
     @Override
@@ -151,6 +153,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        mapId = mapArrayList.get(i).getId();
         getMission(mapArrayList.get(i).getId());
     }
 }

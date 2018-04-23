@@ -15,8 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.StoreMission;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -31,6 +36,8 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
     private Button nextBtn;
     private Intent intent;
     private CountDownTimer countDownTimer;
+    private Mission mission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_clock);
+        getData();
         setUI();
         setListener();
         countDownTime();
@@ -104,6 +112,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
     @Override
     public void onClick(View v) {
+        storeAnswerMission(mission);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
         returnIntent.putExtra("isComplete", true);
@@ -128,10 +137,6 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
     private void setListener() {
         nextBtn.setOnClickListener(this);
-
-    }
-    @Override
-    public void getData() {
 
     }
 
@@ -172,5 +177,24 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
             answerArray_minus.add(""+i+"");
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogUtil.getInstance().showDialogExitMission(MissionClockActivity.this);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void getData() {
+        mission = new Gson().fromJson(getIntent().getStringExtra("mission"), Mission.class);
+    }
+
+    private void storeAnswerMission(Mission mission) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
+        jsonObject.addProperty("idPosition", mission.getPosition().getId());
+        jsonObject.addProperty("score", mission.getMissionDetail().getScore());
+        StoreMission.getInstance().storeAnswer(jsonObject);
     }
 }

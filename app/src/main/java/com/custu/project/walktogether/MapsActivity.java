@@ -2,6 +2,7 @@ package com.custu.project.walktogether;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -16,13 +17,16 @@ import android.location.Location;
 
 import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.data.mission.Position;
+import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity;
 import com.custu.project.walktogether.mission.missiontwo.MissionClockActivity;
 import com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity;
 import com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity;
 import com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
+import com.custu.project.walktogether.util.StoreMission;
 import com.custu.project.walktogether.util.TypeMission;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.tony19.timber.loggly.LogglyTree;
@@ -32,11 +36,13 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -65,12 +71,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 import timber.log.Timber;
+
+import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener, GoogleMap.OnMarkerClickListener {
     private static final int REQUEST_PERMISSION_LOCATION = 255;
@@ -92,6 +103,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SensorManager sensorManager;
     private Sensor angle;
     private List<Step> stepList;
+    private int count;
+    private Long mapId;
+    private ProgressDialog progressDialog;
+    private boolean isArrive = false;
+
+    private SupportMapFragment mapFragment;
+    private LinearLayout parentPanel;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -100,9 +118,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         Timber.plant(new LogglyTree(ConfigService.LOG_KEY));
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        parentPanel = findViewById(R.id.parentPanel);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
@@ -117,7 +136,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
         }
-
+        initProgressDialog();
         initStepCounter();
         initPositionMission();
         initMap();
@@ -132,10 +151,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         simpleStepDetector.registerListener(this);
 
         numSteps = 0;
+        count = 0;
         sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     private void initLocation() {
+        mapId = getIntent().getLongExtra("mapId", 0);
         routePoints = new ArrayList<>();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -316,7 +337,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void step(long timeNs) {
         numSteps++;
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-
         PolylineOptions pOptions = new PolylineOptions()
                 .width(18)
                 .color(Color.GREEN)
@@ -330,6 +350,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         googleMap.addPolyline(pOptions);
         routePoints.add(latLng);
+        if (isPlayMission(currentLatitude,
+                currentLongitude,
+                missionArrayList.get(count).getPosition().getLatitude(),
+                missionArrayList.get(count).getPosition().getLongitude())) {
+            isArrive = true;
+            Snackbar.make(parentPanel, "กรุณาตรวจสอบการเชื่อมต่อเครือข่าย", Snackbar.LENGTH_LONG).show();
+        } else {
+            isArrive = false;
+        }
     }
 
     @Override
@@ -351,41 +380,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        int index = (int) marker.getTag();
-        marker.remove();
-        String typeMission = missionArrayList.get(index).getMissionDetail().getType();
-        Intent intent;
-        switch (typeMission) {
-            case TypeMission.BOX:
-                intent = new Intent(MapsActivity.this, MissionBoxActivity.class);
-                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 1);
-                break;
-            case TypeMission.CLOCK:
-                intent = new Intent(MapsActivity.this, MissionClockActivity.class);
-                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 1);
-                break;
-            case TypeMission.EMOTION:
-                intent = new Intent(MapsActivity.this, MissionEmotionActivity.class);
-                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 1);
-                break;
-            case TypeMission.PROVERB:
-                intent = new Intent(MapsActivity.this, MissionProverbsActivity.class);
-                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 1);
-                break;
-            case TypeMission.TYPEGROUP:
-                intent = new Intent(MapsActivity.this, MissionTypegroupActivity.class);
-                intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index).getMissionDetail()));
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 1);
-                break;
+        if (isArrive) {
+            int index = (int) marker.getTag();
+            marker.remove();
+            String typeMission = missionArrayList.get(index).getMissionDetail().getType();
+            Intent intent;
+            switch (typeMission) {
+                case TypeMission.BOX:
+                    intent = new Intent(MapsActivity.this, MissionBoxActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.CLOCK:
+                    intent = new Intent(MapsActivity.this, MissionClockActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.EMOTION:
+                    intent = new Intent(MapsActivity.this, MissionEmotionActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.PROVERB:
+                    intent = new Intent(MapsActivity.this, MissionProverbsActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.TYPEGROUP:
+                    intent = new Intent(MapsActivity.this, MissionTypegroupActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+            }
         }
         return false;
     }
@@ -395,20 +426,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                int index = data.getIntExtra("index",0);
-                boolean isComplete = data.getBooleanExtra("isComplete",false);
-                Position position = missionArrayList.get(index).getPosition();
+                isArrive = false;
+                count++;
+                if (count < 4) {
+                    int index = data.getIntExtra("index", 0);
+                    boolean isComplete = data.getBooleanExtra("isComplete", false);
+                    Position position = missionArrayList.get(index).getPosition();
 
-                if (isComplete) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_complete)))
-                            .position(new LatLng(position.getLatitude(), position.getLongitude())))
-                    .setTag(index);
+                    if (isComplete) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_complete)))
+                                .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                                .setTag(index);
+                    } else {
+                        googleMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_fail)))
+                                .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                                .setTag(index);
+                    }
                 } else {
-                    googleMap.addMarker(new MarkerOptions()
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_fail)))
-                            .position(new LatLng(position.getLatitude(), position.getLongitude())))
-                            .setTag(index);
+                    sendMission();
                 }
             }
         }
@@ -421,4 +458,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Bitmap bitmap = drawable.getBitmap();
         return Bitmap.createScaledBitmap(bitmap, width, height, false);
     }
+
+    private void sendMission() {
+        progressDialog.show();
+        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, "");
+        ConnectServer.getInstance().post(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.cancel();
+                if (object != null) {
+                    if (object.get("status").getAsInt() == 200) {
+                        startActivity(new Intent(MapsActivity.this, ReHomePatientActivity.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.MISSION + ConfigService.MISSION_SEND + UserManager.getInstance(MapsActivity.this).getPatient().getId(), jsonObject);
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(MapsActivity.this);
+        progressDialog.setTitle(getString(R.string.loading));
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+    }
+
+    private boolean isPlayMission(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = dist * 180.0 / Math.PI;
+        dist = dist * 60 * 1.1515 * 1000;
+        return dist > RADIUS_MISSION;
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
 }

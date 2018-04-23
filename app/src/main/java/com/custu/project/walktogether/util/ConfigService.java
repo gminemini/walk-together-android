@@ -67,9 +67,12 @@ public class ConfigService {
     //Mission
     public static final String MISSION = "mission/";
     public static final String MAP_ALL = "all-map/";
+    public static final String MISSION_SEND = "send/";
 
     public static final long TIME_INTERVAL = 31000;
 
     public static final double DEFAULT_LAT = 13.736717;
     public static final double DEFAULT_LONG = 100.523186;
+
+    public static final double RADIUS_MISSION = 3;
 }
