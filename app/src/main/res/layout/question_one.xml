@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.QuestionOneActivity">
+    tools:context="com.custu.project.walktogether.controller.tmse.QuestionOneActivity">
 
 
     <LinearLayout

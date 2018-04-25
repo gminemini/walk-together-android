@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.LoginActivity">
+    tools:context="com.custu.project.walktogether.controller.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

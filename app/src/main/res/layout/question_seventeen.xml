@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.QuestionSeventeenActivity">
+    tools:context="com.custu.project.walktogether.controller.tmse.QuestionSeventeenActivity">
 
 
     <LinearLayout
@@ -73,7 +73,7 @@
             android:orientation="vertical">
 
 
-            <com.custu.project.walktogether.DrawImage
+            <com.custu.project.walktogether.controller.tmse.DrawImage
                 android:id="@+id/draw_line"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
