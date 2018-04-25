@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_mission"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity">
+    tools:context="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

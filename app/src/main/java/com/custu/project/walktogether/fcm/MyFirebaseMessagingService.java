@@ -20,9 +20,8 @@ import android.support.v4.app.NotificationCompat;
 import java.util.Map;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.ReHomeCaretakerActivity;
-import com.custu.project.walktogether.ReHomePatientActivity;
-import com.custu.project.walktogether.SplashScreenActivity;
+import com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity;
+import com.custu.project.walktogether.controller.patient.ReHomePatientActivity;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

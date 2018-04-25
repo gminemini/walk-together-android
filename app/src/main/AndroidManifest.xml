@@ -25,7 +25,7 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.LoginActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.LoginActivity" />
 
         <service android:name="com.custu.project.walktogether.fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -52,11 +52,11 @@
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
         <activity
-            android:name="com.custu.project.walktogether.QuestionOneActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionOneActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionTwoActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionTwoActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
 
@@ -65,120 +65,120 @@
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
         <activity
-            android:name="com.custu.project.walktogether.QuestionSevenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionSevenActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionFourteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionFourteenActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionFifteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionFifteenActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionSixteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionSixteenActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionNineteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionNineteenActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionSeventeenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionSeventeenActivity"
             android:noHistory="true" />
-        <activity android:name="com.custu.project.walktogether.DrawImageActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionThreeActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionThreeActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionFourActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionFourActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionFiveActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionFiveActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionSixActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionSixActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionEightActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionEightActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionEighteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionEighteenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionTwelveActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionTwelveActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionThirteenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionThirteenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionNineActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionNineActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionTenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionTenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.QuestionElevenActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.QuestionElevenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
-            android:name="com.custu.project.walktogether.ChooseuserActivity"
+            android:name="com.custu.project.walktogether.controller.ChooseuserActivity"
             android:label="เลือกประเภทผู้ใช้" />
         <activity
-            android:name="com.custu.project.walktogether.RegisterCaretakerActivity"
+            android:name="com.custu.project.walktogether.controller.caretaker.RegisterCaretakerActivity"
             android:label="สมัครสมาชิก ผู้ดูแล" />
-        <activity android:name="com.custu.project.walktogether.ResultActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.tmse.ResultActivity" />
         <activity
-            android:name="com.custu.project.walktogether.RegisterPatientActivity"
+            android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
-        <activity android:name="com.custu.project.walktogether.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.SplashScreenActivity">
+        <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.ReHomeCaretakerActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.custu.project.walktogether.MapsActivity"
+            android:name="com.custu.project.walktogether.controller.patient.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name="com.custu.project.walktogether.ConditionActivity"
+            android:name="com.custu.project.walktogether.controller.tmse.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
-        <activity android:name="com.custu.project.walktogether.HistoryEvaluationActivity" />
-        <activity android:name="com.custu.project.walktogether.AddTabCaretakerActivity" />
-        <activity android:name="com.custu.project.walktogether.PatientDetailActivity" />
-        <activity android:name="com.custu.project.walktogether.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.ReHomePatientActivity" />
-        <activity android:name="com.custu.project.walktogether.ChangePasswordCaretakerActivity" />
-        <activity android:name="com.custu.project.walktogether.EditPatientProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.ChangePasswordPatientActivity" />
-        <activity android:name="com.custu.project.walktogether.ForgetPasswordActivity" />
-        <activity android:name="com.custu.project.walktogether.AddTabPatientActivity" />
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity" />
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionClockActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryEvaluationActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.caretaker.AddTabCaretakerActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.caretaker.PatientDetailActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.caretaker.EditCaretakerProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.ReHomePatientActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.caretaker.ChangePasswordCaretakerActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.EditPatientProfileActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.ChangePasswordPatientActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.ForgetPasswordActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.AddTabPatientActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionBoxActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionClockActivity" />
         <activity
-            android:name="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity"
+            android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity"
             android:label="@string/title_activity_mission_emotion"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity"
+            android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity" />
-        <activity android:name="com.custu.project.walktogether.HistoryMissionActivity" />
-        <activity android:name="com.custu.project.walktogether.HistoryMissionDetailActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity"></activity>
     </application>
 
 </manifest>

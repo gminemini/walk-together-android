@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context="com.custu.project.walktogether.EditPatientProfileActivity">
+    tools:context="com.custu.project.walktogether.controller.patient.EditPatientProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

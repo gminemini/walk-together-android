@@ -1,18 +1,6 @@
 package com.custu.project.walktogether.util.lib;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v4.content.ContextCompat;
-import android.view.animation.DecelerateInterpolator;
-
-import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.LoginActivity;
-import com.takusemba.spotlight.OnSpotlightEndedListener;
-import com.takusemba.spotlight.OnSpotlightStartedListener;
-import com.takusemba.spotlight.OnTargetStateChangedListener;
-import com.takusemba.spotlight.SimpleTarget;
-import com.takusemba.spotlight.Spotlight;
 
 
 class SpotlightUtil {
