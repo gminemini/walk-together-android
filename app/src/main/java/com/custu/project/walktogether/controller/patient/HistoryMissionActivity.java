@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.ListHistoryMissionAdapter;
@@ -32,6 +33,7 @@ import retrofit2.Retrofit;
 public class HistoryMissionActivity extends AppCompatActivity implements BasicActivity, AdapterView.OnItemClickListener {
     private ListView listView;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private TextView noDataTextView;
 
     private Patient patient;
     private ArrayList<HistoryMission> historyMissionArrayList;
@@ -47,13 +49,20 @@ public class HistoryMissionActivity extends AppCompatActivity implements BasicAc
 
     @Override
     public void initValue() {
-        listView.setAdapter(new ListHistoryMissionAdapter(HistoryMissionActivity.this, historyMissionArrayList));
+        if (historyMissionArrayList.size() > 0) {
+            listView.setAdapter(new ListHistoryMissionAdapter(HistoryMissionActivity.this, historyMissionArrayList));
+            listView.setVisibility(View.VISIBLE);
+            noDataTextView.setVisibility(View.GONE);
+        } else {
+            noDataTextView.setVisibility(View.VISIBLE);
+        }
         shimmerFrameLayout.stopShimmerAnimation();
         shimmerFrameLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void setUI() {
+        noDataTextView = findViewById(R.id.no_data);
         listView = findViewById(R.id.list);
         listView.setOnItemClickListener(this);
         shimmerFrameLayout = findViewById(R.id.shimmer_view_container);

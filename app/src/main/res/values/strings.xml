@@ -22,4 +22,5 @@
     <string name="arrive_middion">กดที่จุดภารกิจที่ใกล้ตัวมากที่สุด</string>
     <string name="result_score">คะแนน</string>
     <string name="history_mission">ประวัติการทำภารกิจ</string>
+    <string name="no_data">ไม่มีข้อมูล</string>
 </resources>
