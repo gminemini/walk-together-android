@@ -1,155 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.custu.project.walktogether.SelectMissionFragment">
 
-    <LinearLayout
+    <ListView
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:id="@+id/list_map"
+        tools:listitem="@layout/list_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"></ListView>
 
-        <RelativeLayout
-            android:id="@+id/map1"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="24dp"
-            >
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:id="@+id/image_privilege"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/interpark" />
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/gradient_map" />
-
-            <TextView
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="12dp"
-                android:text="INTER PARK"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/map2"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/lc2" />
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/gradient_map" />
-
-            <TextView
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="12dp"
-                android:text="LC 2"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/map3"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/colorBackground"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ekkamai" />
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/gradient_map" />
-
-            <TextView
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="12dp"
-                android:text="EKKAMAI"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/map4"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/shape"
-            android:backgroundTint="@color/colorBackground"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="12dp"
-                android:text="MY HOME"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

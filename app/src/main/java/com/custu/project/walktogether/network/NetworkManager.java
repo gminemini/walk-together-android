@@ -13,6 +13,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,6 +33,9 @@ public class NetworkManager {
                 .setLenient()
                 .create();
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -45,7 +49,7 @@ public class NetworkManager {
                         return chain.proceed(request);
                     }
                 })
-
+                .addInterceptor(logging)
                 .connectTimeout(10000, TimeUnit.SECONDS)
                 .readTimeout(10000, TimeUnit.SECONDS).build();
 
@@ -57,7 +61,7 @@ public class NetworkManager {
                 .build();
     }
 
-    public static String currentVersion() {
+    private String currentVersion() {
         double release = Double.parseDouble(Build.VERSION.RELEASE.replaceAll("(\\d+[.]\\d+)(.*)", "$1"));
         String codeName = "Unsupported";//below Jelly bean OR above Oreo
         if (release >= 4.1 && release < 4.4) codeName = "Jelly Bean";

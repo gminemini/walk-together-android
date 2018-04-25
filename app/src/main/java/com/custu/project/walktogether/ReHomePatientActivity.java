@@ -34,6 +34,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
     private TabLayout tabLayout;
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
+    private RelativeLayout historyMissionRelativeLayout;
     private TextView titleTextView;
     private String page;
 
@@ -60,6 +61,10 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                 intent = new Intent(ReHomePatientActivity.this, EditPatientProfileActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.history_mission:
+                intent = new Intent(ReHomePatientActivity.this, HistoryMissionActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -67,6 +72,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         titleTextView.setOnClickListener(this);
         addProfileRelativeLayout.setOnClickListener(this);
         editProfileRelativeLayout.setOnClickListener(this);
+        historyMissionRelativeLayout.setOnClickListener(this);
     }
 
     @Override
@@ -81,6 +87,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         tabLayout = findViewById(R.id.tabs);
         addProfileRelativeLayout = findViewById(R.id.add);
         editProfileRelativeLayout = findViewById(R.id.edit_profile);
+        historyMissionRelativeLayout = findViewById(R.id.history_mission);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager(), UserManager.getInstance(ReHomePatientActivity.this).getPatient());
         ViewPager viewPager = findViewById(R.id.container);
@@ -139,22 +146,27 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     titleTextView.setText("โปรไฟล์");
                     editProfileRelativeLayout.setVisibility(View.VISIBLE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1) {
                     titleTextView.setText("รายชื่อ");
-                    editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.VISIBLE);
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 2) {
                     titleTextView.setText("ภารกิจ");
+                    historyMissionRelativeLayout.setVisibility(View.VISIBLE);
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 3) {
                     titleTextView.setText("แบบทดสอบ");
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else {
                     titleTextView.setText("สะสม");
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 }
             }
 

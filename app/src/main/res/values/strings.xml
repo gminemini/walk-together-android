@@ -13,8 +13,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="exit_evaluation">เมื่อออกจากการทำแบบทดสอบแล้ว จะต้องเริ่มทำใหม่ทั้งหมด</string>
+    <string name="exit_mission">การออกจากการทำภารกิจ ทำให้การทำภารกิจนี้ล้มเหลว</string>
     <string name="exit_evaluation_title">คุณแน่ใจที่จะออกจากการทำแบบทดสอบ?</string>
+    <string name="exit_mission_title">คุณแน่ใจที่จะออกจากการทำภารกิจ?</string>
     <string name="evaluation_dialog">ได้เวลาทำแบบทดสอบ</string>
     <string name="level">เลเวล</string>
     <string name="title_activity_mission_emotion">MissionEmotionActivity</string>
+    <string name="arrive_middion">กดที่จุดภารกิจที่ใกล้ตัวมากที่สุด</string>
+    <string name="result_score">คะแนน</string>
+    <string name="history_mission">ประวัติการทำภารกิจ</string>
 </resources>
