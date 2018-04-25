@@ -68,6 +68,7 @@ public class ConfigService {
     public static final String MISSION = "mission/";
     public static final String MAP_ALL = "all-map/";
     public static final String MISSION_SEND = "send/";
+    public static final String HISTORY_MISSION = "history-by-id//";
 
     public static final long TIME_INTERVAL = 31000;
 

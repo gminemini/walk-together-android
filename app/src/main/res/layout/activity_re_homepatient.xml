@@ -23,7 +23,6 @@
 
         </android.support.v7.widget.Toolbar>
 
-
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -67,11 +66,28 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/editprofileicon" />
+                android:src="@drawable/edit_profile" />
 
         </RelativeLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/history_mission"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/marginTop"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/history" />
+        </RelativeLayout>
+
+        </RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@+id/head"
@@ -127,7 +143,7 @@
                     android:id="@+id/tab_reward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/list"
+                    android:icon="@drawable/gift"
                     android:text="สะสม" />
 
 

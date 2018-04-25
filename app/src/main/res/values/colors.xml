@@ -23,14 +23,19 @@
     <color name="colorHighlight">#37ab38</color>
 
     <color name="blackAlpha">#ca000000</color>
-    <color name="blackGradient">#8C000000</color>
+    <color name="blackGradient">#51000000</color>
     <color name="blackCenterGradient">#0D000000</color>
 
     <color name="colorBorder">#15A515</color>
     <color name="colorOrange">#FF9521</color>
     <color name="colorPath">#3e8aed</color>
 
-
     <color name="colorBgMission">#E3EAF2</color>
+
+    <color name="placeholder_bg">#dddddd</color>
+    <color name="item_name">#0c0c0c</color>
+    <color name="description">#1a1a1a</color>
+    <color name="chef">#777</color>
+    <color name="timestamp">#777</color>
 
 </resources>

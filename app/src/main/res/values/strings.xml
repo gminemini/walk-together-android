@@ -20,4 +20,6 @@
     <string name="level">เลเวล</string>
     <string name="title_activity_mission_emotion">MissionEmotionActivity</string>
     <string name="arrive_middion">กดที่จุดภารกิจที่ใกล้ตัวมากที่สุด</string>
+    <string name="result_score">คะแนน</string>
+    <string name="history_mission">ประวัติการทำภารกิจ</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -29,7 +28,6 @@ import com.custu.project.walktogether.stepcounter.StepListener;
 import com.custu.project.walktogether.util.StoreMission;
 import com.custu.project.walktogether.util.TypeMission;
 import com.custu.project.walktogether.util.UserManager;
-import com.github.tony19.timber.loggly.LogglyTree;
 import com.google.android.gms.location.LocationListener;
 
 import android.os.Build;
@@ -74,12 +72,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
-import timber.log.Timber;
 
 import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
@@ -116,7 +112,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Timber.plant(new LogglyTree(ConfigService.LOG_KEY));
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -303,10 +298,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-
         Toast.makeText(this, currentLatitude + " Changed " + currentLongitude + "", Toast.LENGTH_LONG).show();
         updateCameraBearing(googleMap, location.getBearing());
-
     }
 
     private void updateCameraBearing(GoogleMap googleMap, float bearing) {
