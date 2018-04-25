@@ -55,7 +55,7 @@ public class DrawImage extends View {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(10);
 
-        mEmboss = new EmbossMaskFilter(new float[] {1, 1, 1}, 0.4f, 6, 3.5f);
+        mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
     }
 
@@ -146,16 +146,16 @@ public class DrawImage extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN :
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_MOVE :
+            case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP :
+            case MotionEvent.ACTION_UP:
                 touchUp();
                 invalidate();
                 break;

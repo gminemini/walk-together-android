@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -10,9 +11,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.Caretaker;
@@ -23,6 +28,8 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DeviceToken;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -31,6 +38,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends Activity implements BasicActivity, View.OnClickListener {
     private Button registerBtn;
@@ -38,6 +46,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private Button forgetBtn;
     private EditText username;
     private EditText password;
+    private LinearLayout tv;
     private ProgressDialog progressDialog;
     private CircularProgressButton circularProgressButton;
 
@@ -115,6 +124,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", username.getText().toString().trim());
         jsonObject.addProperty("password", password.getText().toString().trim());
+        jsonObject.addProperty("deviceToken", DeviceToken.getInstance().getToken(LoginActivity.this));
 
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
@@ -141,7 +151,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                                 startActivity(intent);
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
-                                                startActivity(intent);
+                                                DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
                                             }
                                         }
                                     }, 700);
@@ -186,7 +196,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             public void run() {
                                                 circularProgressButton.revertAnimation();
                                                 circularProgressButton.setText("เข้าสู่ระบบ");
-                                                circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                                                circularProgressButton.setTextColor(Color.parseColor("#389A1E"));
                                                 circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
                                             }
                                         }, 1000);
@@ -231,6 +241,13 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void setUI() {
+
+         tv = findViewById(R.id.nameapp);
+        SpannableString content = new SpannableString("WALKTOGETHER");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//        tv.setText(content);
+
+
         forgetBtn = findViewById(R.id.forgetpass);
         registerBtn = (Button) findViewById(R.id.register);
         loginBtn = (Button) findViewById(R.id.login);
@@ -259,5 +276,10 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

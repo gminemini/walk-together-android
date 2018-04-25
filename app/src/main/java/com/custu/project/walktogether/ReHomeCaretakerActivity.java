@@ -20,29 +20,34 @@ import com.custu.project.walktogether.adapter.HomeCaretakerPagerAdapter;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private TabLayout tabLayout;
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
     private TextView titleTextView;
+    private String page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homecaretaker);
+        initValue();
         setUI();
         setListener();
     }
 
     @Override
     public void initValue() {
-
+        page = getIntent().getStringExtra("page") == null ? "" : getIntent().getStringExtra("page");
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     public void setUI() {
+        ShortcutBadger.removeCount(this);
         titleTextView = findViewById(R.id.title);
         addProfileRelativeLayout = findViewById(R.id.add);
         editProfileRelativeLayout = findViewById(R.id.edit_profile);
@@ -107,6 +112,9 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
             }
         });
+
+        if (page.equalsIgnoreCase("list"))
+            viewPager.setCurrentItem(1);
     }
 
 
@@ -133,7 +141,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
         Intent intent;
         switch (id) {
             case R.id.add:
-                intent = new Intent(ReHomeCaretakerActivity.this, AddTabActivity.class);
+                intent = new Intent(ReHomeCaretakerActivity.this, AddTabCaretakerActivity.class);
                 startActivity(intent);
                 break;
             case R.id.edit_profile:
@@ -151,6 +159,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
         if (imm != null) {
@@ -158,6 +167,11 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
 }

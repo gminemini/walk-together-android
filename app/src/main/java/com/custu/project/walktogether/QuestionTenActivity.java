@@ -21,7 +21,7 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
     private Button nextBtn;
     private EditText input_topicfour;
     private Intent intent;
-    private String   ans;
+    private String ans;
     private TextView question_ten;
 
     @Override
@@ -90,7 +90,7 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
 
     @Override
     public void getData() {
-         ans = getIntent().getStringExtra("EXTRA_ANS");
+        ans = getIntent().getStringExtra("EXTRA_ANS");
     }
 
     @Override

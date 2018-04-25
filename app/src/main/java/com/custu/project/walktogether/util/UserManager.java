@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Evaluation.Tmse;
 import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.data.mission.Mission;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,6 +42,19 @@ public class UserManager {
         return sharedPreferences.edit();
     }
 
+    public void storeMission(ArrayList<Mission> missionArrayList) {
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putString("mission", new Gson().toJson(missionArrayList));
+        editor.apply();
+    }
+
+    public ArrayList<Mission> getMission() {
+        String json = getSharedPreferences().getString("mission", "");
+        Type type = new TypeToken<ArrayList<Mission>>() {
+        }.getType();
+        return new Gson().fromJson(json, type);
+    }
+
     public void storeTMSE(ArrayList<Tmse> tmseArrayList) {
         SharedPreferences.Editor editor = getPrefsEditor();
         editor.putString("tmse", new Gson().toJson(tmseArrayList));
@@ -49,8 +63,15 @@ public class UserManager {
 
     public ArrayList<Tmse> getTMSE() {
         String json = getSharedPreferences().getString("tmse", "");
-        Type type = new TypeToken<ArrayList<Tmse>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Tmse>>() {
+        }.getType();
         return new Gson().fromJson(json, type);
+    }
+
+    public void setInstall() {
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putBoolean("isInstall", true);
+        editor.apply();
     }
 
     public void storeCaretaker(Caretaker caretaker) {
@@ -68,6 +89,10 @@ public class UserManager {
     public Caretaker getCaretaker() {
         String json = getSharedPreferences().getString("caretaker", "");
         return new Gson().fromJson(json, Caretaker.class);
+    }
+
+    public boolean isFirstInstall() {
+        return getSharedPreferences().getBoolean("isInstall", false);
     }
 
     public Patient getPatient() {

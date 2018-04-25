@@ -9,12 +9,15 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -27,6 +30,8 @@ import com.custu.project.walktogether.util.UserManager;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class QuestionTwoActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
     private TextView titleTextView;
@@ -37,6 +42,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_two);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
         setListener();
@@ -47,7 +53,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -60,7 +66,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
             public void onFinish() {
                 progress.setProgress(0);
                 countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), "");
+                StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), "0");
                 Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
                 startActivity(intent);
             }
@@ -70,12 +76,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {
@@ -88,7 +89,7 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
         TextView titleTextView = dialog.findViewById(R.id.title);
 
 
-        titleTextView.setText(edittextBtn.getText() + " " + titleTextView.getText());
+        titleTextView.setText("' "+ edittextBtn.getText() + " " + titleTextView.getText()+"'");
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
@@ -149,5 +150,10 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
             }
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

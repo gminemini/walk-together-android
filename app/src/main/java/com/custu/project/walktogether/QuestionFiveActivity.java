@@ -1,6 +1,7 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -8,7 +9,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -38,6 +41,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,9 +50,10 @@ import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionFiveActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, GoogleApiClient.ConnectionCallbacks {
-    private Spinner answerSpinner;
+    private SearchableSpinner answerSpinner;
     private Button nextBtn;
 
     private ArrayList<Province> provinceArrayList = new ArrayList<>();
@@ -73,7 +78,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -96,12 +101,7 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -135,11 +135,13 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
 
     public void setUI() {
         TextView titleTextView = (TextView) findViewById(R.id.title);
-        answerSpinner = (Spinner) findViewById(R.id.answer_day);
+        answerSpinner = findViewById(R.id.answer_day);
         nextBtn = (Button) findViewById(R.id.next);
         titleTextView.setText("(5) " + question.getTitle());
         ArrayAdapter<Province> adapterArray = new ArrayAdapter<Province>(this, android.R.layout.simple_dropdown_item_1line, provinceArrayList);
         answerSpinner.setAdapter(adapterArray);
+        answerSpinner.setTitle("กรุณาเลือกจังหวัด");
+        answerSpinner.setPositiveButton("ตกลง");
         setListener();
     }
 
@@ -235,5 +237,10 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
                 return;
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

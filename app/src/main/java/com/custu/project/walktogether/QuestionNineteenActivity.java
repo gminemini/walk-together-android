@@ -1,12 +1,15 @@
 package com.custu.project.walktogether;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,11 +23,11 @@ import com.custu.project.walktogether.data.Evaluation.NumberQuestion;
 import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.EvaluationModel;
+import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.NetworkUtil;
-import com.custu.project.walktogether.util.ProgressDialogCustom;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -34,6 +37,7 @@ import java.util.Collections;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionNineteenActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
@@ -41,7 +45,6 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private Question questionRef;
     private NumberQuestion numberQuestion;
     private RadioGroup radioGroup;
-    private Long id;
     private ProgressDialog progressDialog;
 
     @Override
@@ -60,7 +63,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -82,12 +85,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
 
@@ -176,15 +174,18 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     private void sendEvaluation() {
         JsonObject jsonObject = StoreAnswerTmse.getInstance().getAllAnswer();
         progressDialog.show();
+        boolean isRegister = false;
+        Long id;
         if (UserManager.getInstance(QuestionNineteenActivity.this).getPatient() != null) {
             id = UserManager.getInstance(QuestionNineteenActivity.this).getPatient().getId();
         } else {
             id = 0L;
+            isRegister = true;
         }
+        final boolean finalIsRegister = isRegister;
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
-                progressDialog.dismiss();
                 if (object != null) {
                     int score = object.getAsJsonObject("data").get("score").getAsInt();
                     boolean isPass = object.getAsJsonObject("data").get("isPass").getAsBoolean();
@@ -192,7 +193,8 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultPassActivity.class);
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
                         intent.putExtra("score", score);
-                        startActivity(intent);
+                        intent.putExtra("isRegister", finalIsRegister);
+                        storePatient(intent, object.getAsJsonObject("data").get("idPatient").getAsLong());
                     } else {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
                         intent.putExtra("score", score);
@@ -220,6 +222,37 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         }, ConfigService.EVALUATION + ConfigService.EVALUATION_CHECK + id, jsonObject);
     }
 
+    private void storePatient(final Intent intent, Long id) {
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (object != null) {
+                    UserManager.getInstance(QuestionNineteenActivity.this).storePatient(PatientModel.getInstance().getPatient(object));
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+                NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup);
+            }
+        }, ConfigService.PATIENT + id);
+
+
+    }
+
     private void initProgress() {
         progressDialog = new ProgressDialog(QuestionNineteenActivity.this);
         progressDialog.setTitle("รอสักครู่...");
@@ -233,5 +266,10 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

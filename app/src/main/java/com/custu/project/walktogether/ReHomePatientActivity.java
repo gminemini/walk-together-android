@@ -5,32 +5,45 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
+import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.UserManager;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ReHomePatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
     private TabLayout tabLayout;
     private RelativeLayout editProfileRelativeLayout;
     private RelativeLayout addProfileRelativeLayout;
+    private RelativeLayout historyMissionRelativeLayout;
     private TextView titleTextView;
+    private String page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_re_homepatient);
+        initValue();
         setUI();
         setListener();
     }
@@ -48,6 +61,10 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                 intent = new Intent(ReHomePatientActivity.this, EditPatientProfileActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.history_mission:
+                intent = new Intent(ReHomePatientActivity.this, HistoryMissionActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -55,19 +72,22 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         titleTextView.setOnClickListener(this);
         addProfileRelativeLayout.setOnClickListener(this);
         editProfileRelativeLayout.setOnClickListener(this);
+        historyMissionRelativeLayout.setOnClickListener(this);
     }
 
     @Override
     public void initValue() {
-
+        page = getIntent().getStringExtra("page") == null ? "" : getIntent().getStringExtra("page");
     }
 
     @Override
     public void setUI() {
+        ShortcutBadger.removeCount(this);
         titleTextView = findViewById(R.id.title);
         tabLayout = findViewById(R.id.tabs);
         addProfileRelativeLayout = findViewById(R.id.add);
         editProfileRelativeLayout = findViewById(R.id.edit_profile);
+        historyMissionRelativeLayout = findViewById(R.id.history_mission);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         HomePatientPagerAdapter adapter = new HomePatientPagerAdapter(getSupportFragmentManager(), UserManager.getInstance(ReHomePatientActivity.this).getPatient());
         ViewPager viewPager = findViewById(R.id.container);
@@ -126,22 +146,27 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     titleTextView.setText("โปรไฟล์");
                     editProfileRelativeLayout.setVisibility(View.VISIBLE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1) {
                     titleTextView.setText("รายชื่อ");
-                    editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.VISIBLE);
+                    editProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 2) {
                     titleTextView.setText("ภารกิจ");
+                    historyMissionRelativeLayout.setVisibility(View.VISIBLE);
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 3) {
                     titleTextView.setText("แบบทดสอบ");
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else {
                     titleTextView.setText("สะสม");
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
+                    historyMissionRelativeLayout.setVisibility(View.GONE);
                 }
             }
 
@@ -155,6 +180,11 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
 
             }
         });
+
+        if (page.equalsIgnoreCase("list"))
+            viewPager.setCurrentItem(1);
+        if (page.equalsIgnoreCase("historyEvaluation"))
+            viewPager.setCurrentItem(3);
     }
 
     @Override
@@ -170,6 +200,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
         if (imm != null) {
@@ -177,5 +208,28 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    public void openProfileDetail(Caretaker caretaker) {
+        Bundle bundle = new Bundle();
+        bundle.putString("caretaker", DataFormat.getInstance().getGsonParser().toJson(caretaker));
+        ProfileCaretakerDetailFragment fragment = new ProfileCaretakerDetailFragment();
+        fragment.setArguments(bundle);
+        openFragment(fragment);
+    }
+
+    public void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
+        transaction.replace(R.id.profile_content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

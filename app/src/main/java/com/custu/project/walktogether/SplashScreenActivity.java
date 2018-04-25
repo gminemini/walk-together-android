@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
@@ -25,7 +27,7 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
         handler = new Handler();
         ProgressBar progressBar = findViewById(R.id.progress);
@@ -36,14 +38,21 @@ public class SplashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 Intent intent;
                 if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
                     intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
                     startActivity(intent);
-                } else  if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null){
-                    intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
-                    startActivity(intent);
+                } else if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null) {
+                    Patient patient = UserManager.getInstance(SplashScreenActivity.this).getPatient();
+                    if (patient.getUserName() != null) {
+                        intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(SplashScreenActivity.this, RegisterPatientActivity.class);
+                        intent.putExtra("idPatient", patient.getId());
+                        intent.putExtra("isContinue", true);
+                        startActivity(intent);
+                    }
                 } else {
                     intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     startActivity(intent);

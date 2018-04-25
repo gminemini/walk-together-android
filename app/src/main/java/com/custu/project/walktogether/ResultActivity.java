@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ResultActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
@@ -23,15 +27,22 @@ public class ResultActivity extends AppCompatActivity implements BasicActivity, 
 
     private void setListener() {
         nextBtn.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
-                startActivity(intent);
+                if (UserManager.getInstance(ResultActivity.this).getPatient() != null) {
+                    Intent intent = new Intent(ResultActivity.this, ReHomePatientActivity.class);
+                    intent.putExtra("page", "historyEvaluation");
+                    startActivity(intent);
+                    break;
+                } else {
+                    Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
 
         }
@@ -57,5 +68,10 @@ public class ResultActivity extends AppCompatActivity implements BasicActivity, 
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

@@ -7,8 +7,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.custu.project.walktogether.util.DialogUtil;
+
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +24,8 @@ import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class QuestionNineActivity extends AppCompatActivity implements BasicActivity {
     private Button nextBtn;
@@ -37,6 +42,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_nine);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +59,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {21};
+        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -66,7 +72,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
             public void onFinish() {
                 progress.setProgress(0);
                 countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), "");
+                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
                 Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
                 startActivity(intent);
             }
@@ -76,12 +82,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
     private void showDialog(Context context) {
@@ -92,7 +93,7 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView titleTextView = dialog.findViewById(R.id.title);
-        titleTextView.setText(inputTopicFour.getText() + " " + titleTextView.getText());
+        titleTextView.setText("' "+inputTopicFour.getText() + " " + titleTextView.getText()+"'");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         done.setOnClickListener(new View.OnClickListener() {
@@ -168,5 +169,10 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

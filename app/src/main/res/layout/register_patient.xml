@@ -401,7 +401,7 @@
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize"
             app:finalCornerAngle="48dp"
-            app:spinning_bar_color="@color/colorOffwhite"
+            app:spinning_bar_color="@color/colorOrange"
             app:spinning_bar_padding="6dp"
             app:spinning_bar_width="4dp" />
     </LinearLayout>

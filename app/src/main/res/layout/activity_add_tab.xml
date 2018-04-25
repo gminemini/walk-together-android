@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.AddTabActivity">
+    tools:context="com.custu.project.walktogether.AddTabCaretakerActivity">
 
 
     <RelativeLayout
@@ -48,6 +48,7 @@
 
 
             <android.support.design.widget.TabLayout
+                app:tabTextAppearance="@style/tab_text"
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

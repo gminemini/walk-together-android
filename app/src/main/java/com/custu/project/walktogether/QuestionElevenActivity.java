@@ -19,7 +19,7 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
     private Button nextBtn;
     private EditText input_topicfour;
     private Intent intent;
-    private String   ans;
+    private String ans;
     private TextView question_eleven;
 
     @Override

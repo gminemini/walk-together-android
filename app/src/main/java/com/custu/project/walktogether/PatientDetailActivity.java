@@ -1,10 +1,12 @@
 package com.custu.project.walktogether;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +17,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.adapter.PatientDetailPagerAdapter;
+import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.BasicActivity;
-import com.custu.project.walktogether.util.UserManager;
+import com.custu.project.walktogether.util.DataFormat;
 
 public class PatientDetailActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private String name;
+    private Patient patient;
     private Long idPatient;
+    private RelativeLayout profileRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         titleTextView.setText(name);
+        profileRelativeLayout = findViewById(R.id.profile);
 
         PatientDetailPagerAdapter adapter = new PatientDetailPagerAdapter(getSupportFragmentManager(), idPatient);
         ViewPager viewPager = findViewById(R.id.container);
@@ -84,12 +89,15 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
 
 
     private void setListener() {
+        profileRelativeLayout.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
         name = getIntent().getStringExtra("name");
-        idPatient = getIntent().getLongExtra("idPatient", 0);
+        String s = getIntent().getStringExtra("patient");
+        patient = DataFormat.getInstance().getGsonParser().fromJson(getIntent().getStringExtra("patient"), Patient.class);
+        idPatient = patient.getId();
     }
 
     @Override
@@ -101,10 +109,30 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        Intent intent;
         switch (id) {
+            case R.id.profile:
+                openProfileDetail();
+                break;
         }
     }
+
+    private void openProfileDetail() {
+        Bundle bundle = new Bundle();
+        bundle.putString("patient", getIntent().getStringExtra("patient"));
+        ProfilePatientDetailFragment fragment = new ProfilePatientDetailFragment();
+        fragment.setArguments(bundle);
+        openFragment(fragment);
+    }
+
+    public void openFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
+        transaction.replace(R.id.profile_content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     @Override
     public void onBackPressed() {

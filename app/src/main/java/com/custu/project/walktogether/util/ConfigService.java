@@ -30,6 +30,7 @@ public class ConfigService {
 
     //Login
     public static final String LOGIN = "login";
+    public static final String FORGET_PASSWORD = "forget-password/";
 
     //Forget Password
     public static final String FORGET_PASSWORD_EMAIL = "forget-password-email/";
@@ -38,7 +39,6 @@ public class ConfigService {
     //Caretaker
     public static final String CARETAKER = "caretaker/";
     public static final String CARETAKER_BY_NUMBER = "caretaker/by-caretaker-number/";
-
 
     //Patient
     public static final String PATIENT = "patient/";
@@ -59,12 +59,21 @@ public class ConfigService {
     //Upload Image
     public static final String UPLOAD_IMAGE = "upload-image/";
 
-    public static final String FORGET_PASSWORD = "forget-password/";
-
+    //SMS API
     public static final String SMS_API_BASE = "http://www.thsms.com/api/";
     public static final String SMS_API = "rest?method=send&username=punnoket&password=e6eb8f&from=0000&to=";
     public static final String SMS_MESSAGE = "&message=";
 
+    //Mission
+    public static final String MISSION = "mission/";
+    public static final String MAP_ALL = "all-map/";
+    public static final String MISSION_SEND = "send/";
+    public static final String HISTORY_MISSION = "history-by-id//";
+
     public static final long TIME_INTERVAL = 31000;
 
+    public static final double DEFAULT_LAT = 13.736717;
+    public static final double DEFAULT_LONG = 100.523186;
+
+    public static final double RADIUS_MISSION = 3;
 }

@@ -62,16 +62,18 @@ public class AddPatientFragment extends Fragment implements BasicActivity, View.
         @Override
         public void onResponse(JsonObject object, Retrofit retrofit) {
             int status = object.get("status").getAsInt();
+            pullRefreshLayout.setRefreshing(false);
             if (status == 200) {
-                pullRefreshLayout.setRefreshing(false);
                 if (!object.get("data").isJsonNull()) {
                     patient = PatientModel.getInstance().getPatient(object);
                     setDataToUi();
                 } else {
-                    pullRefreshLayout.setRefreshing(false);
                     notFoundTextView.setVisibility(View.VISIBLE);
                     notFoundTextView.setText(object.get("message").getAsString());
                 }
+            } else {
+                notFoundTextView.setVisibility(View.VISIBLE);
+                notFoundTextView.setText(object.get("message").getAsString());
             }
         }
 

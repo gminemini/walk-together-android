@@ -3,6 +3,7 @@ package com.custu.project.walktogether.network;
 import com.custu.project.walktogether.util.ConfigService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;

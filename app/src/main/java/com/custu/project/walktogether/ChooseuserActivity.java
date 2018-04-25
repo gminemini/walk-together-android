@@ -12,11 +12,11 @@ import android.widget.TextView;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
 
-public class ChooseuserActivity extends AppCompatActivity implements  BasicActivity,View.OnClickListener  {
+public class ChooseuserActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private boolean checked;
     private Button nextBtn;
     private String checktype = "";
-    private TextView patientBtn,careBtn;
+    private TextView patientBtn, careBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +48,22 @@ public class ChooseuserActivity extends AppCompatActivity implements  BasicActiv
     public void initProgressDialog() {
 
     }
+
     private void setListener() {
         patientBtn.setOnClickListener(this);
         careBtn.setOnClickListener(this);
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case  R.id.patientbtn:{
+            case R.id.patientbtn: {
                 Intent intent = new Intent(ChooseuserActivity.this, ConditionActivity.class);
                 startActivity(intent);
                 break;
             }
-            case  R.id.caretakerbtn:{
+            case R.id.caretakerbtn: {
                 Intent intent = new Intent(ChooseuserActivity.this, RegisterCaretakerActivity.class);
                 startActivity(intent);
                 break;

@@ -11,7 +11,10 @@ import retrofit2.Retrofit;
 
 public interface OnDataSuccessListener {
     void onResponse(JsonObject object, Retrofit retrofit);
+
     void onBodyError(ResponseBody responseBodyError);
+
     void onBodyErrorIsNull();
+
     void onFailure(Throwable t);
 }

@@ -24,7 +24,7 @@ public class HistoryEvaluationModel {
         return instance;
     }
 
-    public ArrayList<HistoryEvaluation> getHistoryEvaluations (JsonObject jsonObject) {
+    public ArrayList<HistoryEvaluation> getHistoryEvaluations(JsonObject jsonObject) {
         JsonArray jsonArray = jsonObject.getAsJsonArray("data");
         ArrayList<HistoryEvaluation> historyEvaluations = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class HistoryEvaluationModel {
         for (int i = 0; i < input.getPatientTests().size(); i++) {
             if (input.getPatientTests().get(i).getEvaluationCategory().equalsIgnoreCase(category)) {
                 patientTestArrayList.add(input.getPatientTests().get(i));
-                resultScore+= Integer.parseInt(input.getPatientTests().get(i).getScore());
+                resultScore += Integer.parseInt(input.getPatientTests().get(i).getScore());
             }
         }
         evaluationTestSingle.setPatientTest(patientTestArrayList);

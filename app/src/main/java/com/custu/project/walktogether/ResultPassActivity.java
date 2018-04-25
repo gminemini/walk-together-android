@@ -1,5 +1,6 @@
 package com.custu.project.walktogether;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.UserManager;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ResultPassActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
@@ -32,7 +36,11 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
         TextView scoreTextView = findViewById(R.id.result_score);
         scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
         nextBtn = (Button) findViewById(R.id.next);
+        if (!getIntent().getBooleanExtra("isRegister", false)) {
+            nextBtn.setText("ถัดไป");
+        }
     }
+
     @Override
     public void getData() {
 
@@ -52,11 +60,24 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.next: {
-                Intent intent = new Intent(ResultPassActivity.this, RegisterPatientActivity.class);
-                intent.putExtra("idPatient", getIntent().getLongExtra("idPatient", 0));
-                startActivity(intent);
+                if (!getIntent().getBooleanExtra("isRegister", false)) {
+                    Intent intent = new Intent(ResultPassActivity.this, ReHomePatientActivity.class);
+                    intent.putExtra("page", "historyEvaluation");
+                    startActivity(intent);
+                    break;
+                } else {
+                    Intent intent = new Intent(ResultPassActivity.this, RegisterPatientActivity.class);
+                    intent.putExtra("idPatient", getIntent().getLongExtra("idPatient", 0));
+                    startActivity(intent);
+                    break;
+                }
             }
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

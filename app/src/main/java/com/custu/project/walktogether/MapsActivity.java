@@ -1,29 +1,46 @@
 package com.custu.project.walktogether;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 
+import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.data.mission.Position;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.mission.missiontwo.MissionBoxActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionClockActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionProverbsActivity;
+import com.custu.project.walktogether.mission.missiontwo.MissionTypegroupActivity;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
-import com.github.tony19.timber.loggly.LogglyTree;
+import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.TypeMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.android.gms.location.LocationListener;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -44,51 +61,62 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import timber.log.Timber;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener {
+import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener, GoogleMap.OnMarkerClickListener {
+    private static final int REQUEST_PERMISSION_LOCATION = 255;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private GoogleMap googleMap;
     private LatLng origin;
     private LatLng destination;
     private List<LatLng> wayPoints;
-    private static final int REQUEST_PERMISSION_LOCATION = 255;
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
-
-
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private ArrayList<Mission> missionArrayList;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
     private ArrayList<LatLng> routePoints;
-
     private StepDetector simpleStepDetector;
-    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
     private SensorManager sensorManager;
     private Sensor angle;
+    private List<Step> stepList;
+    private int count;
+    private Long mapId;
+    private ProgressDialog progressDialog;
+    private boolean isArrive = false;
+
+    private SupportMapFragment mapFragment;
+    private LinearLayout parentPanel;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Timber.plant(new LogglyTree(ConfigService.LOG_KEY));
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        parentPanel = findViewById(R.id.parentPanel);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
@@ -103,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
         }
-
+        initProgressDialog();
         initStepCounter();
         initPositionMission();
         initMap();
@@ -118,10 +146,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         simpleStepDetector.registerListener(this);
 
         numSteps = 0;
+        count = 0;
         sensorManager.registerListener(MapsActivity.this, angle, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     private void initLocation() {
+        mapId = getIntent().getLongExtra("mapId", 0);
         routePoints = new ArrayList<>();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -145,48 +175,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initPositionMission() {
-        if (getIntent().getStringExtra("map").equalsIgnoreCase("ekkami")) {
-            origin = new LatLng(13.718757, 100.586516);
-            wayPoints = Arrays.asList(
-                    new LatLng(13.717756, 100.587782),
-                    new LatLng(13.718069, 100.588662)
-            );
+        missionArrayList = UserManager.getInstance(MapsActivity.this).getMission();
+        wayPoints = new ArrayList<>();
 
-            destination = new LatLng(13.724311, 100.588984);
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("lc2")) {
-            origin = new LatLng(14.074194, 100.606260);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.074850, 100.606260),
-                    new LatLng(14.074836, 100.605573),
-                    new LatLng(14.074831, 100.604801)
-            );
+        Position position = missionArrayList.get(0).getPosition();
+        origin = new LatLng(position.getLatitude(), position.getLongitude());
 
-            destination = new LatLng(14.074487, 100.604366 );
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("interPark")) {
-            origin = new LatLng(14.065676, 100.605330);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.066160, 100.605536),
-                    new LatLng(14.066105, 100.607095),
-                    new LatLng(14.066131, 100.607875),
-                    new LatLng(14.066129, 100.606083));
-
-            destination = new LatLng(14.066129, 100.606655);
-
-        } else if (getIntent().getStringExtra("map").equalsIgnoreCase("myHome")) {
-            origin = new LatLng(14.475281, 100.125060);
-            wayPoints = Arrays.asList(
-                    new LatLng(14.475429, 100.124610),
-                    new LatLng(14.475858, 100.124578),
-                    new LatLng(14.475960, 100.124897)
-            );
-            destination = new LatLng(14.476327, 100.124544);
-
+        for (int i = 1; i < missionArrayList.size() - 1; i++) {
+            position = missionArrayList.get(i).getPosition();
+            wayPoints.add(new LatLng(position.getLatitude(), position.getLongitude()));
         }
+
+        position = missionArrayList.get(missionArrayList.size() - 1).getPosition();
+        destination = new LatLng(position.getLatitude(), position.getLongitude());
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.googleMap.setOnMarkerClickListener(this);
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ConfigService.DEFAULT_LAT, ConfigService.DEFAULT_LONG), 8));
     }
 
     @Override
@@ -196,12 +204,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int legCount = route.getLegList().size();
             for (int index = 0; index < legCount; index++) {
                 Leg leg = route.getLegList().get(index);
-                googleMap.addMarker(new MarkerOptions().position(leg.getStartLocation().getCoordination()));
+                googleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
+                        .position(leg.getStartLocation().getCoordination()))
+                        .setTag(index);
                 if (index == legCount - 1) {
-                    googleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination()));
+                    googleMap.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
+                            .position(leg.getEndLocation().getCoordination()))
+                            .setTag(missionArrayList.size() - 1);
                 }
-                List<Step> stepList = leg.getStepList();
-                ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 3, Color.RED, 3, Color.BLUE);
+                stepList = leg.getStepList();
+                ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 5, Color.parseColor("#3e8aed"), 5, Color.parseColor("#3e8aed"));
                 for (PolylineOptions polylineOption : polylineOptionList) {
                     googleMap.addPolyline(polylineOption);
                 }
@@ -220,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        //googleMap.getUiSettings().setScrollGesturesEnabled(false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -284,10 +298,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-
         Toast.makeText(this, currentLatitude + " Changed " + currentLongitude + "", Toast.LENGTH_LONG).show();
         updateCameraBearing(googleMap, location.getBearing());
-
     }
 
     private void updateCameraBearing(GoogleMap googleMap, float bearing) {
@@ -318,7 +330,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void step(long timeNs) {
         numSteps++;
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-
         PolylineOptions pOptions = new PolylineOptions()
                 .width(18)
                 .color(Color.GREEN)
@@ -332,6 +343,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         googleMap.addPolyline(pOptions);
         routePoints.add(latLng);
+        if (isPlayMission(currentLatitude,
+                currentLongitude,
+                missionArrayList.get(count).getPosition().getLatitude(),
+                missionArrayList.get(count).getPosition().getLongitude())) {
+            isArrive = true;
+            Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
+        } else {
+            isArrive = false;
+        }
     }
 
     @Override
@@ -350,4 +370,148 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (isArrive) {
+            int index = (int) marker.getTag();
+            marker.remove();
+            String typeMission = missionArrayList.get(index).getMissionDetail().getType();
+            Intent intent;
+            switch (typeMission) {
+                case TypeMission.BOX:
+                    intent = new Intent(MapsActivity.this, MissionBoxActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.CLOCK:
+                    intent = new Intent(MapsActivity.this, MissionClockActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.EMOTION:
+                    intent = new Intent(MapsActivity.this, MissionEmotionActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.PROVERB:
+                    intent = new Intent(MapsActivity.this, MissionProverbsActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+                case TypeMission.TYPEGROUP:
+                    intent = new Intent(MapsActivity.this, MissionTypegroupActivity.class);
+                    intent.putExtra("mission", new Gson().toJson(missionArrayList.get(index)));
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 1);
+                    break;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                isArrive = false;
+                count++;
+                if (count < 4) {
+                    int index = data.getIntExtra("index", 0);
+                    boolean isComplete = data.getBooleanExtra("isComplete", false);
+                    Position position = missionArrayList.get(index).getPosition();
+
+                    if (isComplete) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_complete)))
+                                .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                                .setTag(index);
+                    } else {
+                        googleMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker_fail)))
+                                .position(new LatLng(position.getLatitude(), position.getLongitude())))
+                                .setTag(index);
+                    }
+                } else {
+                    sendMission();
+                }
+            }
+        }
+    }
+
+    private Bitmap resizeMarker(int id) {
+        int height = 115;
+        int width = 85;
+        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(id);
+        Bitmap bitmap = drawable.getBitmap();
+        return Bitmap.createScaledBitmap(bitmap, width, height, false);
+    }
+
+    private void sendMission() {
+        progressDialog.show();
+        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, "");
+        ConnectServer.getInstance().post(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.cancel();
+                if (object != null) {
+                    if (object.get("status").getAsInt() == 200) {
+                        startActivity(new Intent(MapsActivity.this, ReHomePatientActivity.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.MISSION + ConfigService.MISSION_SEND + UserManager.getInstance(MapsActivity.this).getPatient().getId(), jsonObject);
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(MapsActivity.this);
+        progressDialog.setTitle(getString(R.string.loading));
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+    }
+
+    private boolean isPlayMission(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = dist * 180.0 / Math.PI;
+        dist = dist * 60 * 1.1515 * 1000;
+        return dist > RADIUS_MISSION;
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
 }

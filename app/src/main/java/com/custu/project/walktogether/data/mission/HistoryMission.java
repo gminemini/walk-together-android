@@ -3,17 +3,14 @@ package com.custu.project.walktogether.data.mission;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by pannawatnokket on 6/3/2018 AD.
- */
-
 public class HistoryMission {
+
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("score")
     @Expose
-    private Long score;
+    private Integer score;
     @SerializedName("patientGame")
     @Expose
     private PatientGame patientGame;
@@ -21,19 +18,19 @@ public class HistoryMission {
     @Expose
     private String historyDate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 

@@ -5,5 +5,5 @@ package com.custu.project.walktogether.data.Evaluation;
  */
 
 public class EvaluationCategory {
-    public static String[] EVALUATION_CATEGORY = {"Orientation","Registration","Attention","Calculation","Language","Recall"};
+    public static String[] EVALUATION_CATEGORY = {"Orientation", "Registration", "Attention", "Calculation", "Language", "Recall"};
 }

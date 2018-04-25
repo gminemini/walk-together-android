@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorOffwhite"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.TopicsOneActivity">
+    tools:context="com.custu.project.walktogether.ChooseuserActivity">
 
 
     <LinearLayout
@@ -32,15 +32,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/patientbtn"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/shape_gradient"
+                android:background="@drawable/shape_chooseuser"
                 android:gravity="center"
                 android:text="ผู้สูงอายุ"
                 android:textColor="@color/colorOffwhite"
@@ -48,10 +50,10 @@
 
             <TextView
                 android:id="@+id/caretakerbtn"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/shape_gradient"
+                android:background="@drawable/shape_chooseuser"
                 android:gravity="center"
                 android:text="ผู้ดูแลหรือญาติ"
                 android:textColor="@color/colorOffwhite"

@@ -131,7 +131,6 @@ public class AddCaretakerFragment extends Fragment implements BasicActivity, Vie
     @Override
     public void initValue() {
         patient = UserManager.getInstance(context).getPatient();
-
     }
 
     @Override
@@ -167,16 +166,18 @@ public class AddCaretakerFragment extends Fragment implements BasicActivity, Vie
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 pullRefreshLayout.setRefreshing(false);
-                if (object != null) {
-                    if (object.getAsJsonObject("data") != null) {
+                int status = object.get("status").getAsInt();
+                if (status == 200) {
+                    if (!object.get("data").isJsonNull()) {
                         caretaker = CaretakerModel.getInstance().getCaretaker(object);
                         setDataToUi();
-
                     } else {
                         notFoundTextView.setVisibility(View.VISIBLE);
                         notFoundTextView.setText(object.get("message").getAsString());
                     }
-
+                } else {
+                    notFoundTextView.setVisibility(View.VISIBLE);
+                    notFoundTextView.setText(object.get("message").getAsString());
                 }
             }
 

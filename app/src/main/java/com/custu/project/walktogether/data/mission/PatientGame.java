@@ -1,7 +1,6 @@
 package com.custu.project.walktogether.data.mission;
 
 import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,33 +8,33 @@ public class PatientGame {
 
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("resultScore")
     @Expose
-    private Long resultScore;
+    private Integer resultScore;
     @SerializedName("map")
     @Expose
     private Map map;
     @SerializedName("patientMissionList")
     @Expose
-    private List<PatientMission> patientMissionList = null;
+    private List<PatientMissionList> patientMissionList = null;
     @SerializedName("route")
     @Expose
     private String route;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getResultScore() {
+    public Integer getResultScore() {
         return resultScore;
     }
 
-    public void setResultScore(Long resultScore) {
+    public void setResultScore(Integer resultScore) {
         this.resultScore = resultScore;
     }
 
@@ -47,11 +46,11 @@ public class PatientGame {
         this.map = map;
     }
 
-    public List<PatientMission> getPatientMissionList() {
+    public List<PatientMissionList> getPatientMissionList() {
         return patientMissionList;
     }
 
-    public void setPatientMissionList(List<PatientMission> patientMissionList) {
+    public void setPatientMissionList(List<PatientMissionList> patientMissionList) {
         this.patientMissionList = patientMissionList;
     }
 
