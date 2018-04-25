@@ -47,22 +47,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include layout="@layout/history_mission_placeholder_item" />
+
             <include layout="@layout/history_mission_placeholder_item" />
+
             <include layout="@layout/history_mission_placeholder_item" />
+
             <include layout="@layout/history_mission_placeholder_item" />
+
             <include layout="@layout/history_mission_placeholder_item" />
+
             <include layout="@layout/history_mission_placeholder_item" />
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <TextView
+        android:id="@+id/no_data"
+        android:visibility="gone"
+        android:textSize="15pt"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <ListView
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:visibility="gone"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         tools:listitem="@layout/list_history_mission" />
 
 </LinearLayout>
