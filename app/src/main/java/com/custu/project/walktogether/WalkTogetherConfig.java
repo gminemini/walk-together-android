@@ -21,7 +21,7 @@ public class WalkTogetherConfig extends Application {
 
     private void initFont() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/SukhumvitSet.ttc")
+                .setDefaultFontPath("fonts/CSChatThaiUI.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
