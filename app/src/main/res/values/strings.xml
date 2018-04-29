@@ -45,6 +45,10 @@
 เพื่อให้ผู้ดูแลติดตามการทำแบบทดสอบ
 และการทำภารกิจขอบคุณ</string>
 
+    <string name="collection_title">ของสะสม</string>
+    <string name="collection_detail">สะสมของรางวัลที่ได้จาการทำภารกิจ
+    เพื่อเพิ่มแรงจูงใจในการออกมาเดินเล่นทำภารกิจ</string>
+
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="next">ถัดไป</string>

@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.custu.project.walktogether.controller.WelcomeActivity"
     tools:showIn="@layout/activity_welcome">
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:id="@+id/layoutDots"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dots_height"
+
+    <me.relex.circleindicator.CircleIndicator
         android:layout_alignParentBottom="true"
+        android:id="@+id/indicator"
         android:layout_marginBottom="@dimen/dots_margin_bottom"
         android:gravity="center"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dots_height" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_above="@id/btn_next"
         android:alpha=".5"
-        android:layout_above="@id/layoutDots"
         android:background="@android:color/white" />
 
     <Button
