@@ -122,6 +122,7 @@ public class EvaluationHistoryFragment extends Fragment {
         Line line = new Line(values);
         line.setColor(getResources().getColor(R.color.colorBackgroundDark));
         line.setPointColor(getResources().getColor(R.color.colorComplete));
+        line.setPointRadius(20);
 
         line.setFilled(true);
         line.setHasLabels(true);
