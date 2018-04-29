@@ -139,11 +139,7 @@
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
         <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
@@ -178,7 +174,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.WelcomeActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
