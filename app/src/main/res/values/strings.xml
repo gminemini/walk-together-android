@@ -23,4 +23,35 @@
     <string name="result_score">คะแนน</string>
     <string name="history_mission">ประวัติการทำภารกิจ</string>
     <string name="no_data">ไม่มีข้อมูล</string>
+
+    <string name="slide_1_title">วอล์คทูเก็ตเตอร์</string>
+    <string name="slide_1_desc">เกมแอปพลิเคชันบำบัดผู้ป่วยภาวะสมองเสื่อมในระยะเริ่มต้น
+โดยการออกกำลังกาย
+และการฝึกปริชานปัญญา
+</string>
+
+    <string name="slide_2_title">แบบทดสอบ</string>
+    <string name="slide_2_desc">ทำแบบทดสอบ TMSE เพื่อประเมินผลระดับการทำงานของสมอง</string>
+
+    <string name="slide_3_title">ภารกิจ</string>
+    <string name="slide_3_desc">ฐานกิจกรรมจะมีรูปแบบของกิจกรรมที่ฝึกปริชานปัญญา
+ที่ได้ออกแบบตามหลักของการฝึกปริชานปัญญา</string>
+
+    <string name="slide_4_title">สถิติ</string>
+    <string name="slide_4_desc">ดูสถิติการทำแบบทดสอบและการทำภารกิจ</string>
+
+    <string name="slide_5_title">จับคู่กับผู้ดูแล</string>
+    <string name="slide_5_desc">คุณสามารถจับคู่กับผู้ดูแลผ่าน QR code
+เพื่อให้ผู้ดูแลติดตามการทำแบบทดสอบ
+และการทำภารกิจขอบคุณ</string>
+
+    <string name="collection_title">ของสะสม</string>
+    <string name="collection_detail">สะสมของรางวัลที่ได้จาการทำภารกิจ
+    เพื่อเพิ่มแรงจูงใจในการออกมาเดินเล่นทำภารกิจ</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="next">ถัดไป</string>
+    <string name="skip">ข้าม</string>
+    <string name="start">เริ่มต้น</string>
 </resources>
