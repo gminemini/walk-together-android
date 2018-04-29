@@ -6,7 +6,7 @@
     android:background="@drawable/shape_mainbox"
     android:elevation="2dp"
     android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.ProfileCaretakerFragment">
+    tools:context="com.custu.project.walktogether.controller.caretaker.ProfileCaretakerFragment">
 
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/pull_refresh"

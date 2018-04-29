@@ -10,16 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.ListCaretakerFragment;
-import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.mission.HistoryMission;
 import com.custu.project.walktogether.util.PicassoUtil;
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.ArrayList;
 

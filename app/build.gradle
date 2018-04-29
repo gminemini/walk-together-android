@@ -93,6 +93,7 @@ dependencies {
     compile 'com.airbnb.android:lottie:2.5.4'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }

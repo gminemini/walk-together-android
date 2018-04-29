@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.custu.project.walktogether.mission.missiontwo.MissionEmotionActivity"
+    tools:context="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity"
     tools:showIn="@layout/activity_mission_emotion">
 
 </android.support.constraint.ConstraintLayout>

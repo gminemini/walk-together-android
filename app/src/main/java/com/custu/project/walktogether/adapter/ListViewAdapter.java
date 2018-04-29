@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.ListPatientFragment;
+import com.custu.project.walktogether.controller.caretaker.ListPatientFragment;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.daimajia.swipe.SwipeLayout;

@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.custu.project.walktogether.CollectionFragment;
-import com.custu.project.walktogether.EvaluationHistoryFragment;
-import com.custu.project.walktogether.ListCaretakerFragment;
-import com.custu.project.walktogether.ProfilePatientFragment;
-import com.custu.project.walktogether.SelectMissionFragment;
+import com.custu.project.walktogether.controller.patient.CollectionFragment;
+import com.custu.project.walktogether.controller.patient.EvaluationHistoryFragment;
+import com.custu.project.walktogether.controller.patient.ListCaretakerFragment;
+import com.custu.project.walktogether.controller.patient.ProfilePatientFragment;
+import com.custu.project.walktogether.controller.patient.SelectMissionFragment;
 import com.custu.project.walktogether.data.Patient;
 
 /**

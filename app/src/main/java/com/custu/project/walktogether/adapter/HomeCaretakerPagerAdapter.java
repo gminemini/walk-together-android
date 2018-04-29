@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.custu.project.walktogether.ListPatientFragment;
-import com.custu.project.walktogether.ProfileCaretakerFragment;
+import com.custu.project.walktogether.controller.caretaker.ListPatientFragment;
+import com.custu.project.walktogether.controller.caretaker.ProfileCaretakerFragment;
 
 /**
  * Created by pannawatnokket on 6/3/2018 AD.

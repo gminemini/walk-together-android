@@ -4,10 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.custu.project.walktogether.AddCaretakerFragment;
-import com.custu.project.walktogether.AddCaretakerQRCodeFragment;
-import com.custu.project.walktogether.AddPatientFragment;
-import com.custu.project.walktogether.AddPatientQRCodeFragment;
+import com.custu.project.walktogether.controller.patient.AddCaretakerFragment;
+import com.custu.project.walktogether.controller.patient.AddCaretakerQRCodeFragment;
 
 /**
  * Created by pannawatnokket on 6/3/2018 AD.

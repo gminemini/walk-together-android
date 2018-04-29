@@ -19,20 +19,31 @@
         android:background="@drawable/shape_mainbox"
         android:paddingRight="12dp">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_marginTop="-50dp"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_repeatCount="3"
+            app:lottie_rawRes="@raw/checked_done_"
+            android:layout_width="wrap_content" />
+
         <TextView
+            android:layout_marginTop="-50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ผลการประเมิน"
             android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/text_head_one"
+            android:textSize="@dimen/text_head_three"
             android:textStyle="bold" />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="คุณผ่านการประเมิน"
             android:textColor="@color/colorComplete"
-            android:textSize="@dimen/text_head_one"
+            android:textSize="@dimen/text_head_three"
             />
         <LinearLayout
             android:orientation="horizontal"
@@ -44,32 +55,33 @@
                 android:layout_height="wrap_content"
                 android:text="คะแนนที่ได้ : "
                 android:textColor="@color/colorComplete"
-                android:textSize="@dimen/text_head_one" />
+                android:textSize="@dimen/text_head_three" />
 
             <TextView
                 android:id="@+id/result_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorComplete"
-                android:textSize="@dimen/text_head_one" />
+                android:textSize="@dimen/text_head_three" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/30"
                 android:textColor="@color/colorComplete"
-                android:textSize="@dimen/text_head_one" />
+                android:textSize="@dimen/text_head_three" />
 
         </LinearLayout>
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="สามารถทำการสมัครสมาชิกเพื่อเข้าใช้งานแอปพลิเคชัน ได้ค่ะ"
             android:textColor="@color/colorAllblack"
-            android:textSize="@dimen/text_head_one"
+            android:textSize="@dimen/text_head_three"
             />
 
 
