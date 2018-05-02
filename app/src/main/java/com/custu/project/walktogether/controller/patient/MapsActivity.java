@@ -335,7 +335,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .color(Color.GREEN)
                 .geodesic(true);
         routePoints.add(latLng);
-        Toast.makeText(this, TEXT_NUM_STEPS + numSteps + " " + currentLatitude + " Changed " + currentLongitude + " " + routePoints.size(), Toast.LENGTH_LONG).show();
 
         for (int z = 0; z < routePoints.size(); z++) {
             LatLng point = routePoints.get(z);
@@ -507,7 +506,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dist = Math.acos(dist);
         dist = dist * 180.0 / Math.PI;
         dist = dist * 60 * 1.1515 * 1000;
-        return dist > RADIUS_MISSION;
+        Toast.makeText(this,"dist: "+dist , Toast.LENGTH_SHORT).show();
+        return dist < RADIUS_MISSION;
     }
 
     private double deg2rad(double deg) {
