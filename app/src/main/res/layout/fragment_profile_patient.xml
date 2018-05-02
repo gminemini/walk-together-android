@@ -242,13 +242,35 @@
 
                     </LinearLayout>
 
-                    <ProgressBar
-                        android:layout_marginHorizontal="5pt"
-                        android:id="@+id/progress"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:progressDrawable="@drawable/shape_progress" />
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progress"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5pt"
+                            android:max="100"
+                            android:progressDrawable="@drawable/shape_progress" />
+
+                        <TextView
+                            android:id="@+id/exp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginHorizontal="5pt"
+                            android:gravity="center"
+                            android:shadowColor="@color/colorAllblack"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="3"
+                            android:text="wfwefwe"
+                            android:textColor="@color/colorOffwhite" />
+                    </RelativeLayout>
 
                 </LinearLayout>
 

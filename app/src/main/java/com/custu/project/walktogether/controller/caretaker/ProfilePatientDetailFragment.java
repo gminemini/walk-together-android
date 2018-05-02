@@ -3,7 +3,9 @@ package com.custu.project.walktogether.controller.caretaker;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
@@ -29,6 +32,10 @@ public class ProfilePatientDetailFragment extends Fragment {
     private TextView occupation;
     private TextView number;
     private TextView email;
+    private TextView level;
+    private TextView exp;
+    private ProgressBar levelProgressBar;
+
     private FragmentActivity context;
     private Patient patient;
 
@@ -60,6 +67,9 @@ public class ProfilePatientDetailFragment extends Fragment {
         occupation = view.findViewById(R.id.occupation);
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
+        level = view.findViewById(R.id.level);
+        levelProgressBar = view.findViewById(R.id.progress);
+        exp = view.findViewById(R.id.exp);
         ImageView dismissImageView = view.findViewById(R.id.dismiss);
         dismissImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +83,7 @@ public class ProfilePatientDetailFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initValue() {
         PicassoUtil.getInstance().setImageProfile(context, patient.getImage(), imageView);
         name.setText(patient.getTitleName()
@@ -84,8 +95,12 @@ public class ProfilePatientDetailFragment extends Fragment {
         email.setText(patient.getEmail());
         number.setText(patient.getPatientNumber());
         occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
+        level.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getLevel())));
+        exp.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getExpPercent()))+" %");
+        levelProgressBar.setProgress((int) patient.getExpPercent(), true);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void getData() {
         if (getArguments() != null) {
             patient = DataFormat.getInstance().getGsonParser().fromJson(getArguments().getString("patient"), Patient.class);
