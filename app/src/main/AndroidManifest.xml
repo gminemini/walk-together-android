@@ -138,9 +138,7 @@
             android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity">
-
-        </activity>
+        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity"></activity>
         <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
         <meta-data
@@ -177,6 +175,8 @@
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
         <activity android:name="com.custu.project.walktogether.controller.WelcomeActivity">
 
+        </activity>
+        <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
