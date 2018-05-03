@@ -29,9 +29,12 @@ public class Patient {
     private String email;
     private String image;
     private String age;
-    private String level;
     private String frequency;
     private String qrCode;
+    private int level;
+    private double exp;
+    private double expPercent;
+    private boolean islevelUp;
 
     public Long getId() {
         return id;
@@ -177,12 +180,36 @@ public class Patient {
         this.age = age;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
+    }
+
+    public double getExp() {
+        return exp;
+    }
+
+    public void setExp(double exp) {
+        this.exp = exp;
+    }
+
+    public double getExpPercent() {
+        return expPercent;
+    }
+
+    public void setExpPercent(double expPercent) {
+        this.expPercent = expPercent;
+    }
+
+    public boolean isIslevelUp() {
+        return islevelUp;
+    }
+
+    public void setIslevelUp(boolean islevelUp) {
+        this.islevelUp = islevelUp;
     }
 
     public String getFrequency() {
