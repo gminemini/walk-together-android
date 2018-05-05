@@ -43,34 +43,23 @@ public class CollectionAdapter extends BaseAdapter {
         return 0;
     }
 
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater mInflater =
-                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v;
+        if (convertView == null) {  // if it's not recycled, initialize some attributes
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(     Context.LAYOUT_INFLATER_SERVICE );
+            v = inflater.inflate(R.layout.collection_item, parent, false);
+        } else {
+            v = (View) convertView;
+        }
 
-        if (view == null)
-            view = mInflater.inflate(R.layout.collection_item, parent, false);
 
-        if (collectionArrayList.get(position).getIsReceive()){
-            ImageView imageView = view.findViewById(R.id.image_map);
+        if (collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock() ){
+            ImageView imageView = convertView.findViewById(R.id.image_map);
             PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), imageView);
         }
-       else if(!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()){
-            ImageView imageview = view.findViewById(R.id.image_map);
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0);
-
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            imageview.setColorFilter(filter);
-
-        }else  if (collectionArrayList.get(position).getIsLock()){
-
-        }
 
 
-
-
-
-
-        return view;
+        return v;
     }
+
 }

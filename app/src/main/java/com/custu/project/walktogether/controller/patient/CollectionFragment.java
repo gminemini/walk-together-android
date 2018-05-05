@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,12 @@ public class CollectionFragment extends Fragment implements BasicActivity {
         if (collectionArrayList.size() > 0) {
             mAdapter = new CollectionAdapter(context, collectionArrayList);
             gridView.setAdapter(mAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    Log.d("MYINT","value: " +collectionArrayList.get(position).getReward().getId());
+                }
+            });
 
             gridView.setVisibility(View.VISIBLE);
 //            noDataTextView.setVisibility(View.GONE);
