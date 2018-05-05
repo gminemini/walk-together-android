@@ -20,8 +20,9 @@
             android:orientation="vertical">
 
             <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/file"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/gift"
                 android:layout_gravity="center"
                 android:id="@+id/image"
                 android:layout_width="250dp"
@@ -82,6 +83,7 @@
         android:layout_height="500dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
+        app:lottie_repeatCount="2"
         app:lottie_rawRes="@raw/confetti" />
 
 </RelativeLayout>

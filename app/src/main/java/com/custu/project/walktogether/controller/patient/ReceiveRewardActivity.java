@@ -11,8 +11,15 @@ import android.widget.LinearLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.PicassoUtil;
+import com.google.gson.JsonObject;
+
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 public class ReceiveRewardActivity extends AppCompatActivity implements BasicActivity {
     private LottieAnimationView giftLottieAnimationView;
@@ -28,13 +35,10 @@ public class ReceiveRewardActivity extends AppCompatActivity implements BasicAct
 
     @Override
     public void initValue() {
-        int splashInterval = 5000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        int splashInterval = 1000;
+        new Handler().postDelayed(() -> {
                 giftLottieAnimationView.setVisibility(View.GONE);
                 showDialog();
-            }
         }, splashInterval);
     }
 
@@ -46,6 +50,27 @@ public class ReceiveRewardActivity extends AppCompatActivity implements BasicAct
 
     @Override
     public void getData() {
+        ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        }, ConfigService.RANDOM_REWARD);
 
     }
 
@@ -63,16 +88,10 @@ public class ReceiveRewardActivity extends AppCompatActivity implements BasicAct
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         ImageView imageView = dialog.findViewById(R.id.image);
-        PicassoUtil.getInstance().setImage(ReceiveRewardActivity.this, "image/reward/6011/file.jpg", imageView);
+        PicassoUtil.getInstance().setImage(ReceiveRewardActivity.this, "image/reward/5999/file.jpg", imageView);
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
+        done.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
 
     }
