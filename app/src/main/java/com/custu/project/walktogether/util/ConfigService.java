@@ -76,4 +76,7 @@ public class ConfigService {
     public static final double DEFAULT_LONG = 100.523186;
 
     public static final double RADIUS_MISSION = 3;
+
+    //Collection
+    public static final String COLLECTION_BY_PATIENT = "collection/reward-by-patient/";
 }

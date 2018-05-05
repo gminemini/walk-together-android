@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/list"
-                    android:text="รายชื่อ" />
+                    android:text="ผู้ดูแล" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tab_test"
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/gift"
-                    android:text="สะสม" />
+                    android:text="รางวัล" />
 
 
 
