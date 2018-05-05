@@ -146,7 +146,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     addProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1) {
-                    titleTextView.setText("รายชื่อ");
+                    titleTextView.setText("ผู้ดูแล");
                     addProfileRelativeLayout.setVisibility(View.VISIBLE);
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
@@ -183,6 +183,8 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
             viewPager.setCurrentItem(1);
         if (page.equalsIgnoreCase("historyEvaluation"))
             viewPager.setCurrentItem(3);
+        if (page.equalsIgnoreCase("collection"))
+            viewPager.setCurrentItem(4);
     }
 
     @Override

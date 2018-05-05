@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.patient
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -34,8 +35,7 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receive_reward)
         supportActionBar!!.hide()
-        setUI()
-
+        getData()
     }
 
     override fun initValue() {
@@ -94,6 +94,9 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
                     override fun onResponse(jsonObject: JsonObject?, retrofit: Retrofit?) {
                         val patient: Patient = PatientModel.getInstance().getPatient(jsonObject)
                         UserManager.getInstance(this@ReceiveRewardActivity).storePatient(patient)
+                        val intent = Intent(this@ReceiveRewardActivity, ReHomePatientActivity::class.java)
+                        intent.putExtra("page", "collection")
+                        startActivity(intent)
                     }
 
                     override fun onBodyError(responseBodyError: ResponseBody?) {
