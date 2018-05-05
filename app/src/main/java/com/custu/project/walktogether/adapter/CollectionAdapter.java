@@ -31,35 +31,46 @@ public class CollectionAdapter extends BaseAdapter {
         this.collectionArrayList = collectionArrayList;
     }
 
+    @Override
     public int getCount() {
         return collectionArrayList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
     public Object getItem(int position) {
         return null;
     }
 
+    @Override
     public long getItemId(int position) {
         return 0;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(     Context.LAYOUT_INFLATER_SERVICE );
-            v = inflater.inflate(R.layout.collection_item, parent, false);
-        } else {
-            v = (View) convertView;
+    @Override
+    public View getView(final int position, View view, ViewGroup parent) {
+        LayoutInflater mInflater =
+                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if (view == null)
+            view = mInflater.inflate(R.layout.collection_item, parent, false);
+
+        ImageView showRewardImageView = view.findViewById(R.id.image_reward);
+
+        if (collectionArrayList.get(position).getIsReceive()){
+            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
         }
 
-
-        if (collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock() ){
-            ImageView imageView = convertView.findViewById(R.id.image_map);
-            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), imageView);
-        }
-
-
-        return v;
+        return view;
     }
 
 }
