@@ -70,6 +70,9 @@ public class ConfigService {
     public static final String MISSION_SEND = "send/";
     public static final String HISTORY_MISSION = "history-by-id//";
 
+    //Reward
+    public static final String RANDOM_REWARD = "collection/reward-by-level/";
+
     public static final long TIME_INTERVAL = 31000;
 
     public static final double DEFAULT_LAT = 13.736717;
