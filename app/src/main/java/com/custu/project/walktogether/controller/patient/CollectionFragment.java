@@ -113,7 +113,7 @@ public class CollectionFragment extends Fragment implements BasicActivity {
                     if (object != null) {
                         if (object.get("status").getAsInt() == 200) {
                             collectionArrayList = CollectionModel.getInstance().getCollectionArrayList(object);
-                            Collections.reverse(collectionArrayList);
+//                            Collections.reverse(collectionArrayList);
                            initValue();
                         } else {
 //                            DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());

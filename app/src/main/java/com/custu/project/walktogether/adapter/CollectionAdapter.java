@@ -65,10 +65,24 @@ public class CollectionAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.collection_item, parent, false);
 
         ImageView showRewardImageView = view.findViewById(R.id.image_reward);
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
 
         if (collectionArrayList.get(position).getIsReceive()){
             PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
+        }else if(!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()){
+            showRewardImageView.setColorFilter(filter);
+            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
         }
+
+
+
+
+
+
+
 
         return view;
     }
