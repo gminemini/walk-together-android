@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.model;
 
 import com.custu.project.walktogether.data.collection.Collection;
+import com.custu.project.walktogether.data.collection.Reward;
 import com.custu.project.walktogether.data.mission.HistoryMission;
 import com.custu.project.walktogether.data.mission.Map;
 import com.custu.project.walktogether.data.mission.Mission;
@@ -30,5 +31,9 @@ public class CollectionModel {
         Type type = new TypeToken<ArrayList<Collection>>() {
         }.getType();
         return new Gson().fromJson(jsonObject.get("data").getAsJsonArray(), type);
+    }
+
+    public Reward getReward(JsonObject jsonObject) {
+        return new Gson().fromJson(jsonObject.get("data"), Reward.class);
     }
 }

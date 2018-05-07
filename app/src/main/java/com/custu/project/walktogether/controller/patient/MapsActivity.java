@@ -461,7 +461,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 progressDialog.cancel();
                 if (object != null) {
                     if (object.get("status").getAsInt() == 200) {
-                        startActivity(new Intent(MapsActivity.this, ReHomePatientActivity.class));
+                        startActivity(new Intent(MapsActivity.this, ReceiveRewardActivity.class));
                     }
                 }
             }

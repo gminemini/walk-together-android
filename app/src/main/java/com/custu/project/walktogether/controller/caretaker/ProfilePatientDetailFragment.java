@@ -83,7 +83,6 @@ public class ProfilePatientDetailFragment extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initValue() {
         PicassoUtil.getInstance().setImageProfile(context, patient.getImage(), imageView);
         name.setText(patient.getTitleName()
@@ -97,10 +96,9 @@ public class ProfilePatientDetailFragment extends Fragment {
         occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
         level.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getLevel())));
         exp.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getExpPercent()))+" %");
-        levelProgressBar.setProgress((int) patient.getExpPercent(), true);
+        levelProgressBar.setProgress((int) patient.getExpPercent());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void getData() {
         if (getArguments() != null) {
             patient = DataFormat.getInstance().getGsonParser().fromJson(getArguments().getString("patient"), Patient.class);

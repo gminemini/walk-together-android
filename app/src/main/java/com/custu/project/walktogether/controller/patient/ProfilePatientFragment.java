@@ -1,12 +1,10 @@
 package com.custu.project.walktogether.controller.patient;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -92,8 +90,6 @@ public class ProfilePatientFragment extends Fragment {
         exp = view.findViewById(R.id.exp);
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initValue() {
         PicassoUtil.getInstance().setImageProfile(context, patient.getImage(), imageView);
         name.setText(patient.getTitleName()
@@ -129,7 +125,7 @@ public class ProfilePatientFragment extends Fragment {
                 getData();
             }
         });
-        levelProgressBar.setProgress((int) patient.getExpPercent(), true);
+        levelProgressBar.setProgress((int) patient.getExpPercent());
     }
 
     public void getData() {
