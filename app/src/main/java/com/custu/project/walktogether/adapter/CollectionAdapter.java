@@ -57,33 +57,28 @@ public class CollectionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
-        LayoutInflater mInflater =
-                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        if (view == null)
-            view = mInflater.inflate(R.layout.collection_item, parent, false);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        View view;
+        if (convertView == null) {  // if it's not recycled, initialize some attributes
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(     Context.LAYOUT_INFLATER_SERVICE );
+            view = inflater.inflate(R.layout.collection_item, parent, false);
+        } else {
+            view = convertView;
+        }
 
         ImageView showRewardImageView = view.findViewById(R.id.image_reward);
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-
         if (collectionArrayList.get(position).getIsReceive()){
-            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
+            showRewardImageView.setPadding(0,0,0,0);
+            PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
         }else if(!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()){
+            showRewardImageView.setPadding(0,0,0,0);
             showRewardImageView.setColorFilter(filter);
-            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
+            PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
         }
-
-
-
-
-
-
-
-
         return view;
     }
 
