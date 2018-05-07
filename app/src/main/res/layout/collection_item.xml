@@ -12,17 +12,20 @@
 
     <ImageView
         android:padding="10dp"
-        android:id="@+id/image_map"
+        android:id="@+id/image_reward"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/lock" />
 
     <ImageView
+        android:padding="10dp"
+        android:alpha="0.8"
+        android:id="@+id/lock"
+        android:src="@drawable/lock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/gradient_map"
         android:visibility="gone" />
 
 </RelativeLayout>

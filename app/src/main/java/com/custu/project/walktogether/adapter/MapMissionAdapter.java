@@ -53,7 +53,7 @@ public class MapMissionAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.list_map, parent, false);
 
         ImageView imageView = view.findViewById(R.id.image_map);
-        PicassoUtil.getInstance().setImage(mContext, mapArrayList.get(position).getImage(), imageView);
+        PicassoUtil.getInstance().setImageNoCatch(mContext, mapArrayList.get(position).getImage(), imageView);
 
         TextView name = view.findViewById(R.id.place);
         name.setText(mapArrayList.get(position).getNamePlace());
