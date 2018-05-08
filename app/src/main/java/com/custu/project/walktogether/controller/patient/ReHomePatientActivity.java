@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.collection.Reward;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.UserManager;
@@ -218,6 +219,14 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         openFragment(fragment);
     }
 
+    public void openRewardDetail(Reward reward) {
+        Bundle bundle = new Bundle();
+        bundle.putString("reward", DataFormat.getInstance().getGsonParser().toJson(reward));
+        ShowRewardDetailFragment fragment = new ShowRewardDetailFragment();
+        fragment.setArguments(bundle);
+        openFragment(fragment);
+    }
+
     public void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -226,6 +235,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 
 
     @Override

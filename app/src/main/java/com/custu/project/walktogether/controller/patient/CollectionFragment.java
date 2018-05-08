@@ -24,6 +24,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.custu.project.walktogether.util.lib.DialogQrCode;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
@@ -68,9 +69,15 @@ public class CollectionFragment extends Fragment implements BasicActivity {
         if (collectionArrayList.size() > 0) {
             mAdapter = new CollectionAdapter(context, collectionArrayList);
             gridView.setAdapter(mAdapter);
+
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    if (collectionArrayList.get(position).getIsReceive()){
+                        ((ReHomePatientActivity) context).openRewardDetail(collectionArrayList.get(position).getReward());
+                    }
+
+
                 }
             });
 

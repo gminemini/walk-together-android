@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.controller.patient.ReHomePatientActivity;
 import com.custu.project.walktogether.controller.LoginActivity;
+import com.custu.project.walktogether.controller.patient.ReHomePatientActivity;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.UserManager;
 
