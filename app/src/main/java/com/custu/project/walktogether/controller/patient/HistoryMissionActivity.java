@@ -127,6 +127,7 @@ public class HistoryMissionActivity extends AppCompatActivity implements BasicAc
         String data = new Gson().toJson(historyMissionArrayList.get(i).getPatientGame().getPatientMissionList());
         Intent intent = new Intent(HistoryMissionActivity.this, HistoryMissionDetailActivity.class);
         intent.putExtra("mission", data);
+        intent.putExtra("route", historyMissionArrayList.get(i).getPatientGame().getRoute());
         startActivity(intent);
     }
 }

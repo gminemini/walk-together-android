@@ -105,11 +105,11 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
     }
 
     private void getData() {
+        routePoints = MissionModel.getInstance().getRouteMissions(getIntent().getStringExtra("route"));
         missionArrayList = MissionModel.getInstance().getPatientMissionListArrayList(getIntent().getStringExtra("mission"));
     }
 
     private void initLocation() {
-        routePoints = new ArrayList<>();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -196,7 +196,8 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
         LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        //googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        drawRoute();
     }
 
     private Bitmap resizeMarker(int id) {
@@ -208,19 +209,16 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
     }
 
     private void drawRoute() {
-        LatLng latLng = new LatLng(99, 999);
         PolylineOptions pOptions = new PolylineOptions()
                 .width(18)
                 .color(Color.GREEN)
                 .geodesic(true);
-        routePoints.add(latLng);
 
         for (int z = 0; z < routePoints.size(); z++) {
             LatLng point = routePoints.get(z);
             pOptions.add(point);
         }
         googleMap.addPolyline(pOptions);
-        routePoints.add(latLng);
     }
 
     @Override

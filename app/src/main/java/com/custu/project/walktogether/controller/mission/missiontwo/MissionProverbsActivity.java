@@ -22,11 +22,13 @@ import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.CalculateScoreMission;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
     private ChoiceAnswerMissionAdapter listAdapter;
 
     private int index = -1;
+    private final int[] time = {31};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +57,12 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_proverbs);
         setUI();
-        getMission();
+        getData();
         setListener();
         countDownTime();
     }
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -145,38 +147,9 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         listView.setOnItemClickListener(this);
     }
 
-    private void getMission() {
-        ConnectServer.getInstance().get(new OnDataSuccessListener() {
-            @Override
-            public void onResponse(JsonObject object, Retrofit retrofit) {
-                if (object != null) {
-                    mission = new Mission();
-                    mission.setMissionDetail(MissionModel.getInstance().getMissionDetail(object));
-                    getData();
-                }
-
-            }
-
-            @Override
-            public void onBodyError(ResponseBody responseBodyError) {
-
-            }
-
-            @Override
-            public void onBodyErrorIsNull() {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        }, ConfigService.MISSION + ConfigService.MISSION_ID + "6620");
-
-    }
     @Override
     public void getData() {
-        //mission = new Gson().fromJson(getIntent().getStringExtra("mission"), Mission.class);
+        mission = new Gson().fromJson(getIntent().getStringExtra("mission"), Mission.class);
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
@@ -210,7 +183,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", mission.getMissionDetail().getScore());
+        jsonObject.addProperty("score", CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31));
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 

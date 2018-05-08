@@ -172,7 +172,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />

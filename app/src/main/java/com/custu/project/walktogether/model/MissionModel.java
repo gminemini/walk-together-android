@@ -6,6 +6,7 @@ import com.custu.project.walktogether.data.mission.Map;
 import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.data.mission.MissionDetail;
 import com.custu.project.walktogether.data.mission.PatientMissionList;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -63,5 +64,11 @@ public class MissionModel {
 
     public boolean isCorrectMission(String answer, String input) {
         return answer.equalsIgnoreCase(input);
+    }
+
+    public ArrayList<LatLng> getRouteMissions(String route) {
+        Type type = new TypeToken<ArrayList<LatLng>>() {
+        }.getType();
+        return new Gson().fromJson(route, type);
     }
 }

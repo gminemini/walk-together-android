@@ -1,33 +1,39 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.CalculateScoreMission;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class MissionBoxActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
-    private EditText inputMision;
+    private EditText inputMission;
+    private final int[] time = {31};
     private ImageView imageQuestion;
     private Button nextBtn;
     private Intent intent;
     private CountDownTimer countDownTimer;
     private Mission mission;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +44,13 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         setContentView(R.layout.activity_mission_box);
         getData();
         setUI();
+        initValue();
         setListener();
         countDownTime();
     }
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -72,7 +78,7 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 //
 //        TextView titleTextView = dialog.findViewById(R.id.title);
-//        titleTextView.setText(inputMision.getText() + " " + titleTextView.getText());
+//        titleTextView.setText(inputMission.getText() + " " + titleTextView.getText());
 //
 //        LinearLayout done = dialog.findViewById(R.id.submit);
 //        done.setOnClickListener(new View.OnClickListener() {
@@ -108,14 +114,16 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
 
     @Override
     public void initValue() {
-
+        PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
+        textView.setText(mission.getMissionDetail().getQuestion());
     }
 
     @Override
     public void setUI() {
-        nextBtn = (Button) findViewById(R.id.next);
-        inputMision = findViewById(R.id.input_missionfive);
+        nextBtn = findViewById(R.id.next);
+        inputMission = findViewById(R.id.input_missionfive);
         imageQuestion = findViewById(R.id.image);
+        textView = findViewById(R.id.title);
     }
 
     private void setListener() {
@@ -133,10 +141,17 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
     }
 
     private void storeAnswerMission(Mission mission) {
+        double score;
+        boolean isCorrectMission = MissionModel.getInstance().isCorrectMission(mission.getMissionDetail().getAnswerMissions().get(0).getAnswer(), inputMission.getText().toString().trim());
+        if (isCorrectMission)
+            score = CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31);
+        else
+            score = 0;
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", mission.getMissionDetail().getScore());
+        jsonObject.addProperty("score", score);
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 
