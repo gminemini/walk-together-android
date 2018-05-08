@@ -69,6 +69,8 @@ public class ConfigService {
     public static final String MAP_ALL = "all-map/";
     public static final String MISSION_SEND = "send/";
     public static final String HISTORY_MISSION = "history-by-id//";
+    public static final String DUMMY_CHOICE = "answer-by-type/";
+    public static final String MISSION_ID = "by-id/";
 
     //Reward
     public static final String RANDOM_REWARD = "collection/reward-by-level/";

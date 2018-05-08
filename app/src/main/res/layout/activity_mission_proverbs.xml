@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-
         android:orientation="horizontal">
 
         <LinearLayout
@@ -28,11 +26,13 @@
             android:paddingRight="6dp"
             android:orientation="horizontal"
             android:background="@drawable/shape_back_progressbar">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="6dp"
                 android:src="@drawable/time"/>
+
             <ProgressBar
                 android:id="@+id/progress"
                 style="@android:style/Widget.ProgressBar.Horizontal"
@@ -41,7 +41,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:progressDrawable="@drawable/shape_progress" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -58,6 +57,7 @@
                 android:textColor="@color/colorOffwhite"
                 android:textSize="@dimen/TextSize" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -103,15 +103,6 @@
                 android:text="เป็นความหมายของสุภาษิตในข้อใด"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp" />
-            <!--<ImageView-->
-                <!--android:id="@+id/image"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:background="@color/colorOffwhite"-->
-                <!--android:maxHeight="200dp"-->
-                <!--android:maxWidth="180dp"-->
-                <!--android:src="@drawable/emotion" />-->
 
         </LinearLayout>
 
@@ -131,75 +122,19 @@
                 android:textColor="@color/colorAllblack"
                 android:layout_marginBottom="@dimen/margin_btm_answer"
                 android:textSize="@dimen/TextSize" />
-            <LinearLayout
+
+            <ListView
+                android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:paddingTop="40dp"
-                android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_btm_answer">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:elevation="20dp"
-                    android:background="@drawable/shape_answer"
-                    android:gravity="center"
-                    android:layout_marginBottom="@dimen/margin_btm_answer"
-                    android:layout_marginRight="40dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_head_three"
-                        android:textColor="@color/colorBackground"
-                        android:background="@color/colorOffwhite"
-                        android:text="น้ำขึ้นให้รีบตัก"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:elevation="20dp"
-                    android:background="@drawable/shape_answer"
-                    android:gravity="center"
-                    android:layout_marginBottom="@dimen/margin_btm_answer"
-                    android:layout_marginRight="40dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_head_three"
-                        android:textColor="@color/colorBackground"
-                        android:background="@color/colorOffwhite"
-                        android:text="เห็นช้างขี้ ขี้ตามช้าง"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:elevation="20dp"
-                    android:background="@drawable/shape_answer"
-                    android:gravity="center"
-                    android:layout_marginRight="40dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_head_three"
-                        android:textColor="@color/colorBackground"
-                        android:background="@color/colorOffwhite"
-                        android:text="ตกกะไดพลอยโจน"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-
-
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"
+                tools:listitem="@layout/list_choice_mission"></ListView>
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -219,4 +154,5 @@
             android:textColor="@color/colorOffwhite"
             android:textSize="@dimen/TextSize" />
     </LinearLayout>
+
 </LinearLayout>
