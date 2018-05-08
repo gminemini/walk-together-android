@@ -10,24 +10,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.CalculateScoreMission;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class MissionTypegroupActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener{
 
-    private EditText inputMision;
+    private EditText inputMission;
     private ImageView imageQuestion;
     private Button nextBtn;
     private Intent intent;
     private CountDownTimer countDownTimer;
     private Mission mission;
+
+    private final int[] time = {31};
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
         getData();
         setUI();
         setListener();
+        initValue();
         countDownTime();
 
     }
@@ -101,21 +109,23 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
         storeAnswerMission(mission);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
-        returnIntent.putExtra("isComplete", false);
+        returnIntent.putExtra("isComplete", true);
         setResult(RESULT_OK, returnIntent);
         finish();
     }
 
     @Override
     public void initValue() {
-
+        PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
+        textView.setText(mission.getMissionDetail().getQuestion());
     }
 
     @Override
     public void setUI() {
         nextBtn = (Button) findViewById(R.id.next);
-        inputMision = findViewById(R.id.input_missionfive);
+        inputMission = findViewById(R.id.input_missionfive);
         imageQuestion = findViewById(R.id.image);
+        textView = findViewById(R.id.title);
     }
 
     private void setListener() {
@@ -125,15 +135,21 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
 
     @Override
     public void getData() {
-        String d = getIntent().getStringExtra("mission");
         mission = new Gson().fromJson(getIntent().getStringExtra("mission"), Mission.class);
     }
 
     private void storeAnswerMission(Mission mission) {
+        double score;
+        boolean isCorrectMission = MissionModel.getInstance().isCorrectMission(mission.getMissionDetail().getAnswerMissions().get(0).getAnswer(), inputMission.getText().toString().trim());
+        if (isCorrectMission)
+            score = CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31);
+        else
+            score = 0;
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", mission.getMissionDetail().getScore());
+        jsonObject.addProperty("score", score);
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 

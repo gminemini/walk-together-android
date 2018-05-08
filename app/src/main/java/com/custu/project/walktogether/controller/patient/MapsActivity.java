@@ -13,31 +13,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-
-import com.custu.project.walktogether.data.mission.Mission;
-import com.custu.project.walktogether.data.mission.Position;
-import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.controller.mission.missiontwo.MissionBoxActivity;
-import com.custu.project.walktogether.controller.mission.missiontwo.MissionClockActivity;
-import com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity;
-import com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity;
-import com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity;
-import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
-import com.custu.project.walktogether.stepcounter.StepDetector;
-import com.custu.project.walktogether.stepcounter.StepListener;
-import com.custu.project.walktogether.util.StoreMission;
-import com.custu.project.walktogether.util.TypeMission;
-import com.custu.project.walktogether.util.UserManager;
-import com.google.android.gms.location.LocationListener;
-
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -52,9 +35,24 @@ import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.model.Step;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.controller.mission.missiontwo.MissionBoxActivity;
+import com.custu.project.walktogether.controller.mission.missiontwo.MissionClockActivity;
+import com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity;
+import com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity;
+import com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity;
+import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.data.mission.Position;
+import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
+import com.custu.project.walktogether.stepcounter.StepDetector;
+import com.custu.project.walktogether.stepcounter.StepListener;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.TypeMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -102,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int count;
     private Long mapId;
     private ProgressDialog progressDialog;
-    private boolean isArrive = false;
+    private boolean isArrive = true;
 
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
@@ -335,7 +333,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .color(Color.GREEN)
                 .geodesic(true);
         routePoints.add(latLng);
-        Toast.makeText(this, TEXT_NUM_STEPS + numSteps + " " + currentLatitude + " Changed " + currentLongitude + " " + routePoints.size(), Toast.LENGTH_LONG).show();
 
         for (int z = 0; z < routePoints.size(); z++) {
             LatLng point = routePoints.get(z);
@@ -350,7 +347,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             isArrive = true;
             Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
         } else {
-            isArrive = false;
+            isArrive = true;
         }
     }
 
@@ -454,7 +451,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void sendMission() {
         progressDialog.show();
-        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, "");
+        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, new Gson().toJson(routePoints));
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
@@ -507,7 +504,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dist = Math.acos(dist);
         dist = dist * 180.0 / Math.PI;
         dist = dist * 60 * 1.1515 * 1000;
-        return dist > RADIUS_MISSION;
+        Toast.makeText(this,"dist: "+dist , Toast.LENGTH_SHORT).show();
+        return dist < RADIUS_MISSION;
     }
 
     private double deg2rad(double deg) {

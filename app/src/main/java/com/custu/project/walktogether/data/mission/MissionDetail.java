@@ -17,10 +17,10 @@ public class MissionDetail {
     private String type;
     @SerializedName("question")
     @Expose
-    private Object question;
+    private String question;
     @SerializedName("image")
     @Expose
-    private Object image;
+    private String image;
     @SerializedName("cognitiveCategory")
     @Expose
     private CognitiveCategory cognitiveCategory;
@@ -52,19 +52,19 @@ public class MissionDetail {
         this.type = type;
     }
 
-    public Object getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(Object question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public Object getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Object image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

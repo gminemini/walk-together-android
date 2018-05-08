@@ -30,4 +30,8 @@ public class DataFormat {
         }
         return gson;
     }
+
+    public String addDoubleCode(String question) {
+        return "\"" + question + "\"";
+    }
 }

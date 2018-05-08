@@ -1,23 +1,26 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.util.BasicActivity;
+import com.custu.project.walktogether.util.CalculateScoreMission;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -30,12 +33,15 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
     private ArrayList<String> answerArray_hour = new ArrayList<String>();
     private ArrayList<String> answerArray_minus = new ArrayList<String>();
 
-    private EditText inputMision;
     private ImageView imageQuestion;
     private Button nextBtn;
     private Intent intent;
     private CountDownTimer countDownTimer;
     private Mission mission;
+    private final int[] time = {31};
+    private TextView textView;
+    private String hour;
+    private String minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +59,11 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         ArrayAdapter<String> adapterArray_minus = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, answerArray_minus);
         answerSpinner_hour.setAdapter(adapterArray_hour);
         answerSpinner_minus.setAdapter(adapterArray_minus);
+        initValue();
 
     }
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
-        final int[] time = {31};
         final ProgressBar progress;
         progress = findViewById(R.id.progress);
         progress.setMax(time[0]);
@@ -121,22 +127,45 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
     @Override
     public void initValue() {
-
+        PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
+        textView.setText(mission.getMissionDetail().getQuestion());
     }
 
     @Override
     public void setUI() {
-        answerSpinner_hour = (Spinner) findViewById(R.id.input_hour);
-        answerSpinner_minus = (Spinner) findViewById(R.id.input_minus);
+        answerSpinner_hour = findViewById(R.id.input_hour);
+        answerSpinner_minus = findViewById(R.id.input_minus);
 
-        nextBtn = (Button) findViewById(R.id.next);
-        inputMision = findViewById(R.id.input_missionfive);
+        nextBtn = findViewById(R.id.next);
         imageQuestion = findViewById(R.id.image);
+        textView = findViewById(R.id.title);
+
     }
 
     private void setListener() {
         nextBtn.setOnClickListener(this);
+        answerSpinner_hour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                hour = answerArray_minus.get(i);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        answerSpinner_minus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                minute = answerArray_minus.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -175,7 +204,6 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         for (int i = 0 ;i<60;i++){
             answerArray_minus.add(""+i+"");
         }
-
     }
 
     @Override
@@ -190,10 +218,17 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
     }
 
     private void storeAnswerMission(Mission mission) {
+        String answer = hour + "." + minute;
+        double score;
+        if (answer.equalsIgnoreCase(mission.getMissionDetail().getAnswerMissions().get(0).getAnswer()))
+            score = CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31);
+        else
+            score = 0;
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", mission.getMissionDetail().getScore());
+        jsonObject.addProperty("score", score);
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 }
