@@ -21,6 +21,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -124,6 +125,8 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         inputMission = findViewById(R.id.input_missionfive);
         imageQuestion = findViewById(R.id.image);
         textView = findViewById(R.id.title);
+        inputMission.setText("");
+        ButtonClickAlpha.getInstance().setAlphaAnimation(nextBtn);
     }
 
     private void setListener() {

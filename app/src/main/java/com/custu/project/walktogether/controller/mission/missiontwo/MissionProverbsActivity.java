@@ -28,6 +28,7 @@ import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -140,6 +141,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         nextBtn = findViewById(R.id.next);
         listView = findViewById(R.id.list);
         titleTextView = findViewById(R.id.title);
+        ButtonClickAlpha.getInstance().setAlphaAnimation(nextBtn);
     }
 
     private void setListener() {
