@@ -3,16 +3,15 @@ package com.custu.project.walktogether.adapter;
 import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.collection.Collection;
-import com.custu.project.walktogether.data.mission.Map;
 import com.custu.project.walktogether.util.PicassoUtil;
 
 import java.util.ArrayList;
@@ -71,14 +70,19 @@ public class CollectionAdapter extends BaseAdapter {
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-        if (collectionArrayList.get(position).getIsReceive()){
-            showRewardImageView.setPadding(0,0,0,0);
+        if (collectionArrayList.get(position).getIsReceive()) {
+            showRewardImageView.setPadding(0, 0, 0, 0);
             PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
-        }else if(!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()){
-            showRewardImageView.setPadding(0,0,0,0);
+        } else if (!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()) {
+            showRewardImageView.setPadding(0, 0, 0, 0);
+            if (Build.VERSION.SDK_INT > 22)
+                PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
+              else
+                PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
+
             showRewardImageView.setColorFilter(filter);
-            PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), showRewardImageView);
         }
+
         return view;
     }
 
