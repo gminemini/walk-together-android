@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.collection.Reward;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.UserManager;
@@ -146,7 +147,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     addProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else if (position == 1) {
-                    titleTextView.setText("รายชื่อ");
+                    titleTextView.setText("รายชื่อผู้ดูแล");
                     addProfileRelativeLayout.setVisibility(View.VISIBLE);
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
@@ -161,7 +162,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                     addProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
                 } else {
-                    titleTextView.setText("สะสม");
+                    titleTextView.setText("ของรางวัลสะสม");
                     editProfileRelativeLayout.setVisibility(View.GONE);
                     addProfileRelativeLayout.setVisibility(View.GONE);
                     historyMissionRelativeLayout.setVisibility(View.GONE);
@@ -183,6 +184,8 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
             viewPager.setCurrentItem(1);
         if (page.equalsIgnoreCase("historyEvaluation"))
             viewPager.setCurrentItem(3);
+        if (page.equalsIgnoreCase("collection"))
+            viewPager.setCurrentItem(4);
     }
 
     @Override
@@ -216,6 +219,14 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         openFragment(fragment);
     }
 
+    public void openRewardDetail(Reward reward) {
+        Bundle bundle = new Bundle();
+        bundle.putString("reward", DataFormat.getInstance().getGsonParser().toJson(reward));
+        ShowRewardDetailFragment fragment = new ShowRewardDetailFragment();
+        fragment.setArguments(bundle);
+        openFragment(fragment);
+    }
+
     public void openFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -224,6 +235,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 
 
     @Override

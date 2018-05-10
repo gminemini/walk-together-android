@@ -3,7 +3,9 @@ package com.custu.project.walktogether.controller.patient;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -41,10 +44,13 @@ public class ProfilePatientFragment extends Fragment {
     private TextView tell;
     private TextView occupation;
     private TextView number;
+    private TextView level;
+    private TextView exp;
     private Button logout;
     private LinearLayout qrCode;
     private TextView email;
     private PullRefreshLayout pullRefreshLayout;
+    private ProgressBar levelProgressBar;
 
     private FragmentActivity context;
     private Patient patient;
@@ -78,7 +84,10 @@ public class ProfilePatientFragment extends Fragment {
         email = view.findViewById(R.id.email);
         number = view.findViewById(R.id.number);
         qrCode = view.findViewById(R.id.qr);
+        level = view.findViewById(R.id.level);
+        levelProgressBar = view.findViewById(R.id.progress);
         pullRefreshLayout = view.findViewById(R.id.pull_refresh);
+        exp = view.findViewById(R.id.exp);
     }
 
     private void initValue() {
@@ -91,6 +100,8 @@ public class ProfilePatientFragment extends Fragment {
         tell.setText(patient.getTell());
         email.setText(patient.getEmail());
         number.setText(patient.getPatientNumber());
+        level.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getLevel())));
+        exp.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getExpPercent()))+" %");
         occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,13 +125,14 @@ public class ProfilePatientFragment extends Fragment {
                 getData();
             }
         });
-
+        levelProgressBar.setProgress((int) patient.getExpPercent());
     }
 
     public void getData() {
         patient = UserManager.getInstance(context).getPatient();
         pullRefreshLayout.setRefreshing(false);
         ConnectServer.getInstance().get(new OnDataSuccessListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 if (object != null) {
@@ -145,6 +157,7 @@ public class ProfilePatientFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onFailure(Throwable t) {
                 patient = UserManager.getInstance(context).getPatient();

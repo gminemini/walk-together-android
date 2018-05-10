@@ -2,28 +2,29 @@ package com.custu.project.walktogether.controller.patient;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.CollectionAdapter;
-import com.custu.project.walktogether.adapter.MapMissionAdapter;
-import com.custu.project.walktogether.data.mission.Map;
+import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.data.collection.Collection;
 import com.custu.project.walktogether.manager.ConnectServer;
-import com.custu.project.walktogether.model.MissionModel;
+import com.custu.project.walktogether.model.CollectionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.custu.project.walktogether.util.lib.DialogQrCode;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
@@ -38,9 +39,10 @@ public class CollectionFragment extends Fragment implements BasicActivity {
     private FragmentActivity context;
     private View view;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private CollectionAdapter mAdapter;
     private GridView gridView;
-
-    private ArrayList<Integer> integers;
+    private ArrayList<Collection> collectionArrayList;
+    private Patient patient;
 
     public CollectionFragment() {
         // Required empty public constructor
@@ -57,16 +59,32 @@ public class CollectionFragment extends Fragment implements BasicActivity {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collection, container, false);
         initProgressDialog();
-        getData();
         setUI();
+        getData();
         return view;
     }
 
     @Override
     public void initValue() {
-        shimmerFrameLayout.stopShimmerAnimation();
-        shimmerFrameLayout.setVisibility(View.GONE);
-        gridView.setAdapter(new CollectionAdapter(context, integers));
+        if (collectionArrayList.size() > 0) {
+            mAdapter = new CollectionAdapter(context, collectionArrayList);
+            gridView.setAdapter(mAdapter);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    if (collectionArrayList.get(position).getIsReceive()){
+                        ((ReHomePatientActivity) context).openRewardDetail(collectionArrayList.get(position).getReward());
+                    }
+
+
+                }
+            });
+
+            gridView.setVisibility(View.VISIBLE);
+            shimmerFrameLayout.stopShimmerAnimation();
+            shimmerFrameLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -78,18 +96,43 @@ public class CollectionFragment extends Fragment implements BasicActivity {
 
     @Override
     public void getData() {
-        integers = new ArrayList<>();
-        for (int i = 0; i < 20 ; i++) {
-            integers.add(i);
-        }
-        int splashInterval = new Random().nextInt(1500)+500;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                initValue();
-            }
-        }, splashInterval);
+        patient = UserManager.getInstance(context).getPatient();
+            ConnectServer.getInstance().get(new OnDataSuccessListener() {
+                @Override
+                public void onResponse(JsonObject object, Retrofit retrofit) {
+                    if (object != null) {
+                        if (object.get("status").getAsInt() == 200) {
+                            collectionArrayList = CollectionModel.getInstance().getCollectionArrayList(object);
+                            int splashInterval = new Random().nextInt(1500) + 500;
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initValue();
+                                }
+                            }, splashInterval);
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onBodyError(ResponseBody responseBodyError) {
+
+                }
+
+                @Override
+                public void onBodyErrorIsNull() {
+
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    NetworkUtil.isOnline(context, gridView);
+
+                }
+            }, ConfigService.COLLECTION_BY_PATIENT + patient.getId());
     }
+
 
     @Override
     public void initProgressDialog() {

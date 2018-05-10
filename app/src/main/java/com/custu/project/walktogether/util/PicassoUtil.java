@@ -3,6 +3,8 @@ package com.custu.project.walktogether.util;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.custu.project.project.walktogether.R;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -62,6 +64,24 @@ public class PicassoUtil {
                     .error(R.drawable.image_not_found)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(imageView);
+        }
+
+    }
+
+    public void setImageNoCatch(Context context, String path, ImageView imageView) {
+        if (path != null) {
+            Glide.with(context)
+                    .load(ConfigService.BASE_URL_IMAGE + path)
+                    .placeholder(R.drawable.loading_gear)
+                    .error(R.drawable.image_not_found)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView);
+
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.image_not_found)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageView);
         }
 

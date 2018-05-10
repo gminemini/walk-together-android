@@ -30,6 +30,7 @@ public class StoreMission {
         mission.add("mission", jsonArray);
         mission.addProperty("mapId", mapId);
         mission.addProperty("route", route);
+        jsonArray = new JsonArray();
         return mission;
     }
 }

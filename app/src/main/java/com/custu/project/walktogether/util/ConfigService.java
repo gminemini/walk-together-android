@@ -69,11 +69,20 @@ public class ConfigService {
     public static final String MAP_ALL = "all-map/";
     public static final String MISSION_SEND = "send/";
     public static final String HISTORY_MISSION = "history-by-id//";
+    public static final String DUMMY_CHOICE = "answer-by-type/";
+    public static final String MISSION_ID = "by-id/";
+
+    //Reward
+    public static final String RANDOM_REWARD = "collection/reward-by-level/";
 
     public static final long TIME_INTERVAL = 31000;
+    public static final long TIME = 31;
 
     public static final double DEFAULT_LAT = 13.736717;
     public static final double DEFAULT_LONG = 100.523186;
 
     public static final double RADIUS_MISSION = 3;
+
+    //Collection
+    public static final String COLLECTION_BY_PATIENT = "collection/reward-by-patient/";
 }

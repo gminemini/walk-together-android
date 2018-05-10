@@ -51,6 +51,9 @@
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
+        <meta-data android:name="com.custu.project.walktogether.util.lib.GlideConfiguration"
+            android:value="GlideModule"/>
+
         <activity
             android:name="com.custu.project.walktogether.controller.tmse.QuestionOneActivity"
             android:label="@string/topics_name"
@@ -138,9 +141,7 @@
             android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity">
-
-        </activity>
+        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity" />
         <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
         <meta-data
@@ -171,18 +172,19 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
         <activity android:name="com.custu.project.walktogether.controller.WelcomeActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity"></activity>
     </application>
 
 </manifest>
