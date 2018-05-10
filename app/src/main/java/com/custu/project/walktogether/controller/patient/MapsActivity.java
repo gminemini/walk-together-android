@@ -100,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int count;
     private Long mapId;
     private ProgressDialog progressDialog;
-    private boolean isArrive = true;
+    private boolean isArrive = false;
 
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
@@ -347,7 +347,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             isArrive = true;
             Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
         } else {
-            isArrive = true;
+            isArrive = false;
         }
     }
 
