@@ -17,8 +17,7 @@
             android:scaleType="centerCrop"
             android:id="@+id/image_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/interpark" />
+            android:layout_height="match_parent" />
 
         <ImageView
             android:scaleType="centerCrop"
@@ -35,8 +34,6 @@
             android:textColor="@color/colorOffwhite"
             android:textSize="25dp"
             android:textStyle="bold" />
-
-
     </RelativeLayout>
 
 </LinearLayout>

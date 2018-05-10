@@ -17,6 +17,7 @@ import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -115,6 +116,7 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
         nextBtn = (Button) findViewById(R.id.next);
         inputMision = findViewById(R.id.input_missionfive);
         imageQuestion = findViewById(R.id.image);
+        ButtonClickAlpha.getInstance().setAlphaAnimation(nextBtn);
     }
 
     private void setListener() {

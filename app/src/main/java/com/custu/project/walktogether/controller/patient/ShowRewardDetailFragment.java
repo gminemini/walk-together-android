@@ -72,21 +72,10 @@ public class ShowRewardDetailFragment extends Fragment {
     }
 
     private void initValue() {
-        PicassoUtil.getInstance().setImageProfile(context, reward.getImage(),head);
+        PicassoUtil.getInstance().setImageNoCatch(context, reward.getImage(),head);
         rewardname.setText(String.valueOf(reward.getRewardName()));
         detailname.setText(reward.getDetail());
         lv.setText(String.valueOf(reward.getLevel()));
-
-//        name.setText(caretaker.getTitleName()
-//                + ""
-//                + caretaker.getFirstName()
-//                + "
-//                + caretaker.getLastName());
-//        tell.setText(caretaker.getTell());
-//        email.setText(caretaker.getEmail());
-//        number.setText(caretaker.getCaretakerNumber());
-//        occupation.setText(DataFormat.getInstance().validateData(caretaker.getOccupation()));
-
     }
 
     public void getData() {
