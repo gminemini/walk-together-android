@@ -1,10 +1,16 @@
 package com.custu.project.walktogether.controller;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +22,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.controller.patient.MapsActivity;
+import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.NetworkUtil;
 
 import me.relex.circleindicator.CircleIndicator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WelcomeActivity extends AppCompatActivity {
+    private static final int REQUEST_PERMISSION_LOCATION = 255;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -84,17 +95,41 @@ public class WelcomeActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, // Activity
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+        }
+        if (!NetworkUtil.isLocationEnabled(WelcomeActivity.this)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            DialogUtil.getInstance().showDialogStartIntent(WelcomeActivity.this, getString(R.string.open_location), intent);
+        }
+
+    }
+
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onPageSelected(int position) {
             if (position == layouts.length - 1) {
                 btnNext.setText(getString(R.string.start));
                 btnSkip.setVisibility(View.GONE);
-            } else {
+            } else if(position == 2) {
+                requestPermission();
+            }else {
                 btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }

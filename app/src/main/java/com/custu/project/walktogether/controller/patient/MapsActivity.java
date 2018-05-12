@@ -15,6 +15,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -47,6 +48,8 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.StoreMission;
 import com.custu.project.walktogether.util.TypeMission;
 import com.custu.project.walktogether.util.UserManager;
@@ -110,6 +113,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        if (!NetworkUtil.isLocationEnabled(MapsActivity.this)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            DialogUtil.getInstance().showDialogStartIntent(MapsActivity.this, getString(R.string.open_location), intent);
+        }
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -179,12 +187,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Position position = missionArrayList.get(0).getPosition();
         origin = new LatLng(position.getLatitude(), position.getLongitude());
 
-        for (int i = 1; i < missionArrayList.size() - 1; i++) {
+        for (int i = 1; i < missionArrayList.size(); i++) {
             position = missionArrayList.get(i).getPosition();
             wayPoints.add(new LatLng(position.getLatitude(), position.getLongitude()));
         }
 
-        position = missionArrayList.get(missionArrayList.size() - 1).getPosition();
+        position = missionArrayList.get(0).getPosition();
         destination = new LatLng(position.getLatitude(), position.getLongitude());
     }
 
