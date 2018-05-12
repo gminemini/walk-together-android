@@ -84,5 +84,6 @@ public class ConfigService {
     public static final double RADIUS_MISSION = 3;
 
     //Collection
+    public static final String COLLECTION_RANGE = "?range=";
     public static final String COLLECTION_BY_PATIENT = "collection/reward-by-patient/";
 }
