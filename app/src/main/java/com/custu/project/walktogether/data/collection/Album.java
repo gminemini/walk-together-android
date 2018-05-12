@@ -3,40 +3,51 @@ package com.custu.project.walktogether.data.collection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Album {
+import java.util.List;
 
-    @SerializedName("reward")
-    @Expose
-    private Reward reward;
+public class Album {
     @SerializedName("isLock")
     @Expose
     private Boolean isLock;
-    @SerializedName("isReceive")
+    @SerializedName("albumName")
     @Expose
-    private Boolean isReceive;
+    private String albumName;
+    @SerializedName("albumName")
+    @Expose
+    private List<Collection> collectionList;
+    @SerializedName("previewImage")
+    @Expose
+    private List<Collection> previewImage;
 
-    public Reward getReward() {
-        return reward;
-    }
-
-    public void setReward(Reward reward) {
-        this.reward = reward;
-    }
-
-    public Boolean getIsLock() {
+    public Boolean getLock() {
         return isLock;
     }
 
-    public void setIsLock(Boolean isLock) {
-        this.isLock = isLock;
+    public void setLock(Boolean lock) {
+        isLock = lock;
     }
 
-    public Boolean getIsReceive() {
-        return isReceive;
+    public String getAlbumName() {
+        return albumName;
     }
 
-    public void setIsReceive(Boolean isReceive) {
-        this.isReceive = isReceive;
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
     }
 
+    public List<Collection> getCollectionList() {
+        return collectionList;
+    }
+
+    public void setCollectionList(List<Collection> collectionList) {
+        this.collectionList = collectionList;
+    }
+
+    public List<Collection> getPreviewImage() {
+        return previewImage;
+    }
+
+    public void setPreviewImage(List<Collection> previewImage) {
+        this.previewImage = previewImage;
+    }
 }
