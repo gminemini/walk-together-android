@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.controller.patient.MapsActivity;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 
@@ -36,8 +35,70 @@ public class WelcomeActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button btnSkip;
+    private Button btnNext;
+    private Button btnBack;
     private CircleIndicator indicator;
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void onPageSelected(int position) {
+            if (position == layouts.length - 1) {
+                btnNext.setText(getString(R.string.start));
+                btnSkip.setVisibility(View.GONE);
+            } else if(position == 2) {
+                requestPermission();
+            } else if (position != 0) {
+                btnBack.setVisibility(View.VISIBLE);
+            }else if (position == 0) {
+                btnBack.setVisibility(View.GONE);
+            }else {
+                btnNext.setText(getString(R.string.next));
+                btnSkip.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, // Activity
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+        }
+        if (!NetworkUtil.isLocationEnabled(WelcomeActivity.this)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            DialogUtil.getInstance().showDialogStartIntent(WelcomeActivity.this, getString(R.string.open_location), intent);
+        }
+
+    }
+
+    private int getItem(int i) {
+        return viewPager.getCurrentItem() + i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +110,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getSupportActionBar().hide();
 
-        viewPager =  findViewById(R.id.view_pager);
-        indicator =  findViewById(R.id.indicator);
-        btnSkip =   findViewById(R.id.btn_skip);
+        viewPager = findViewById(R.id.view_pager);
+        indicator = findViewById(R.id.indicator);
+        btnSkip = findViewById(R.id.btn_skip);
         btnNext = findViewById(R.id.btn_next);
+        btnBack = findViewById(R.id.btn_back);
 
         layouts = new int[]{
                 R.layout.welcome_slide_1,
@@ -88,63 +150,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestPermission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, // Activity
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-
-        }
-        if (!NetworkUtil.isLocationEnabled(WelcomeActivity.this)) {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            DialogUtil.getInstance().showDialogStartIntent(WelcomeActivity.this, getString(R.string.open_location), intent);
-        }
-
-    }
-
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
-    }
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void onPageSelected(int position) {
-            if (position == layouts.length - 1) {
-                btnNext.setText(getString(R.string.start));
-                btnSkip.setVisibility(View.GONE);
-            } else if(position == 2) {
-                requestPermission();
-            }else {
-                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int current = getItem(-1);
+                viewPager.setCurrentItem(current);
             }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
+        });
+    }
 
     /**
      * Making notification bar transparent
