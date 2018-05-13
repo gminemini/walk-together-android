@@ -2,6 +2,7 @@ package com.custu.project.walktogether.controller.patient;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lecho.lib.hellocharts.formatter.SimpleAxisValueFormatter;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
@@ -44,6 +47,7 @@ public class EvaluationHistoryFragment extends Fragment {
     private ArrayList<EvaluationTestSingle> evaluationTestSingles = new ArrayList<>();
     private float minScore = Float.MAX_VALUE;
     private Long idPatient;
+    private int right;
 
     public EvaluationHistoryFragment() {
     }
@@ -93,12 +97,15 @@ public class EvaluationHistoryFragment extends Fragment {
 
     private void resetViewport() {
         final Viewport v = new Viewport(chart.getMaximumViewport());
-        v.bottom = minScore - 10;
+        v.bottom = 0;
         v.top = 30;
         v.left = 0;
-        v.right = Float.parseFloat(historyEvaluations.get(historyEvaluations.size() - 1).getEvaluationTest().getFrequencyPatient());
-        if (v.right == 0.0)
-            v.right = 30;
+        if (right < 6) {
+            right = 6;
+            v.right = right;
+        } else
+            v.right = right;
+
         chart.setMaximumViewport(v);
         chart.setCurrentViewport(v);
         chart.setCurrentViewportWithAnimation(v);
@@ -106,41 +113,94 @@ public class EvaluationHistoryFragment extends Fragment {
     }
 
     private void generateData() {
+        right = historyEvaluations.size();
         List<Line> lines = new ArrayList<>();
         List<PointValue> values = new ArrayList<>();
 
+        //Evaluation
         for (int i = 0; i < historyEvaluations.size(); i++) {
             EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
             String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
-            values.add(new PointValue(Float.parseFloat(evaluationTest.getFrequencyPatient()),
-                    Float.parseFloat(evaluationTest.getResultScore()))
+            values.add(new PointValue(i, Float.parseFloat(evaluationTest.getResultScore()))
                     .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
             if (minScore > Float.parseFloat(evaluationTest.getResultScore())) {
                 minScore = Float.parseFloat(evaluationTest.getResultScore());
             }
         }
+
         Line line = new Line(values);
         line.setColor(getResources().getColor(R.color.colorBackgroundDark));
         line.setPointColor(getResources().getColor(R.color.colorComplete));
         line.setPointRadius(8);
 
-        line.setFilled(true);
         line.setHasLabels(true);
         line.setHasLabelsOnlyForSelected(true);
 
         lines.add(line);
+
+        //Mission
+        values = new ArrayList<>();
+        for (int i = 0; i < historyEvaluations.size(); ++i) {
+            if (i == 0) {
+                EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
+                String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
+
+                values.add(new PointValue(i, Float.parseFloat(evaluationTest.getFrequencyPatient()))
+                        .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
+            } else {
+                EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
+                EvaluationTest evaluationTest2 = historyEvaluations.get(i - 1).getEvaluationTest();
+                Float frequency = Float.parseFloat(evaluationTest.getFrequencyPatient());
+                Float frequency2 = Float.parseFloat(evaluationTest2.getFrequencyPatient());
+                String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
+
+                values.add(new PointValue(i, frequency - frequency2)
+                        .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
+            }
+        }
+
+        line = new Line(values);
+        line.setColor(getResources().getColor(R.color.colorPath));
+        line.setPointColor(getResources().getColor(R.color.colorPath));
+        line.setPointRadius(8);
+        lines.add(line);
+
         data = new LineChartData(lines);
+        List<AxisValue> axisValues = new ArrayList<>();
+        for (int i = 0; i < right; i++) {
+            if (i < historyEvaluations.size()) {
+                EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
+                String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
+                axisValues.add(new AxisValue(i).setLabel(date));
+            } else {
+                axisValues.add(new AxisValue(i).setLabel(""));
+            }
+        }
 
-        Axis axisX = new Axis();
-        Axis axisY = new Axis().setHasLines(true);
+        Axis axisX = new Axis(axisValues);
+        axisX.setName("ครั้งที่ทำแบบทดสอบ");
+        axisX.setMaxLabelChars(4);
+        axisX.setHasTiltedLabels(true);
+        data.setAxisXBottom(axisX);
 
-        axisY.setName("คะแนนแบบทดสอบ");
-        axisX.setName("จำนวนครั้งที่เข้าใช้งาน");
+        Axis axisYLeft = new Axis().setHasLines(true);
+        axisYLeft.setName("คะแนนแบบทดสอบ");
+        axisYLeft.setLineColor(getResources().getColor(R.color.colorBackground));
+
+        Axis axisYRight = new Axis().setHasLines(true);
+        axisYRight.setName("จำนวนที่เข้าเล่นภารกิจ");
+        axisYRight.setLineColor(getResources().getColor(R.color.colorPath));
+
+
         axisX.setTextColor(getResources().getColor(R.color.colorAllblack));
-        axisY.setTextColor(getResources().getColor(R.color.colorAllblack));
+        axisYLeft.setTextColor(getResources().getColor(R.color.colorBackground));
+        axisYRight.setTextColor(getResources().getColor(R.color.colorPath));
 
         data.setAxisXBottom(axisX);
-        data.setAxisYLeft(axisY);
+
+        data.setAxisYLeft(axisYLeft);
+        data.setAxisYRight(axisYRight);
+
         chart.setValueSelectionEnabled(true);
         chart.setLineChartData(data);
         chart.setZoomType(ZoomType.HORIZONTAL);
