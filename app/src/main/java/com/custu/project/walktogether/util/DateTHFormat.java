@@ -63,12 +63,6 @@ public class DateTHFormat {
         return months[month] + " " + String.valueOf(year + 543).substring(2, 4);
     }
 
-    public String getPlusMonth(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM yyyy", new Locale("th", "TH"));
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return formatter.format(date);
-    }
-
     public String normalDateFormatPlus(Date date) {
         Date newDate = new Date();
         newDate.setDate(date.getDate());
