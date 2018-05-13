@@ -44,7 +44,6 @@ public class EvaluationHistoryFragment extends Fragment {
     private LineChartData data;
 
     private ArrayList<HistoryEvaluation> historyEvaluations = new ArrayList<>();
-    private ArrayList<EvaluationTestSingle> evaluationTestSingles = new ArrayList<>();
     private float minScore = Float.MAX_VALUE;
     private Long idPatient;
     private int right;
@@ -58,9 +57,10 @@ public class EvaluationHistoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_line_chart, container, false);
 
         chart = rootView.findViewById(R.id.chart);
-        chart.setOnValueTouchListener(new ValueTouchListener());
         chart.setViewportCalculationEnabled(false);
-        idPatient = getArguments().getLong("idPatient");
+        if (getArguments() != null) {
+            idPatient = getArguments().getLong("idPatient");
+        }
         getData();
         return rootView;
     }
@@ -143,19 +143,15 @@ public class EvaluationHistoryFragment extends Fragment {
         for (int i = 0; i < historyEvaluations.size(); ++i) {
             if (i == 0) {
                 EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
-                String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
-
-                values.add(new PointValue(i, Float.parseFloat(evaluationTest.getFrequencyPatient()))
-                        .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
+                values.add(new PointValue(i, Float.parseFloat(evaluationTest.getFrequencyPatient())));
             } else {
                 EvaluationTest evaluationTest = historyEvaluations.get(i).getEvaluationTest();
                 EvaluationTest evaluationTest2 = historyEvaluations.get(i - 1).getEvaluationTest();
                 Float frequency = Float.parseFloat(evaluationTest.getFrequencyPatient());
                 Float frequency2 = Float.parseFloat(evaluationTest2.getFrequencyPatient());
                 String date = DateTHFormat.getInstance().getMonth(new Date(evaluationTest.getTestDate()));
-
                 values.add(new PointValue(i, frequency - frequency2)
-                        .setLabel(date + " " + Integer.parseInt(evaluationTest.getResultScore()) + " คะแนน"));
+                        .setLabel(date + " " +(int)(frequency - frequency2) + " ครั้ง"));
             }
         }
 
@@ -164,6 +160,10 @@ public class EvaluationHistoryFragment extends Fragment {
         line.setPointColor(getResources().getColor(R.color.colorPath));
         line.setPointRadius(8);
         lines.add(line);
+
+        line.setHasLabels(true);
+        line.setHasLabelsOnlyForSelected(true);
+
 
         data = new LineChartData(lines);
         List<AxisValue> axisValues = new ArrayList<>();
@@ -205,25 +205,5 @@ public class EvaluationHistoryFragment extends Fragment {
         chart.setLineChartData(data);
         chart.setZoomType(ZoomType.HORIZONTAL);
         resetViewport();
-    }
-
-    private class ValueTouchListener implements LineChartOnValueSelectListener {
-        @Override
-        public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
-            evaluationTestSingles = new ArrayList<>();
-            for (String evaluationCategory : EVALUATION_CATEGORY) {
-                evaluationTestSingles.add(HistoryEvaluationModel.getInstance()
-                        .getEvaluationTestByCategory(evaluationCategory, historyEvaluations.get(pointIndex)
-                                .getEvaluationTest()));
-            }
-        }
-
-        @Override
-        public void onValueDeselected() {
-            // TODO Auto-generated method stub
-
-        }
-
     }
 }
