@@ -23,6 +23,7 @@
     <color name="colorHighlight">#37ab38</color>
 
     <color name="blackAlpha">#ca000000</color>
+    <color name="blackAlpha2">#ac000000</color>
     <color name="blackGradient">#51000000</color>
     <color name="blackCenterGradient">#0D000000</color>
 

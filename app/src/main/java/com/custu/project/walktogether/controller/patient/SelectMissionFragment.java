@@ -18,7 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
@@ -29,7 +32,9 @@ import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.UserManager;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
@@ -49,6 +54,10 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
     private Long mapId;
     private ArrayList<Map> mapArrayList = new ArrayList<>();
     private PullRefreshLayout pullRefreshLayout;
+    private TextView nameTextView;
+    private ImageView imageView;
+    private RelativeLayout relativeLayout;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     private GoogleApiClient mGoogleApiClient;
     private double currentLatitude;
@@ -104,15 +113,27 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
     @Override
     public void initValue() {
         pullRefreshLayout.setRefreshing(false);
-        listView.setAdapter(new MapMissionAdapter(context, mapArrayList));
+        listView.setAdapter(new MapMissionAdapter(context, mapArrayList.subList(1, mapArrayList.size() - 1)));
         listView.setOnItemClickListener(this);
+        nameTextView.setText(mapArrayList.get(0).getNamePlace());
+        PicassoUtil.getInstance().setImageNoCatch(context, mapArrayList.get(0).getImage(), imageView);
+        relativeLayout.setVisibility(View.VISIBLE);
+        relativeLayout.setOnClickListener((v) -> getMission(mapArrayList.get(0).getId()));
+        shimmerFrameLayout.stopShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void setUI() {
         listView = view.findViewById(R.id.list_map);
         pullRefreshLayout = view.findViewById(R.id.refresh_layout);
+        relativeLayout = view.findViewById(R.id.map1);
+        nameTextView = view.findViewById(R.id.place);
+        imageView = view.findViewById(R.id.image_map);
+        relativeLayout.setVisibility(View.GONE);
         pullRefreshLayout.setOnRefreshListener(this::initLocation);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout.startShimmerAnimation();
     }
 
     @Override
@@ -198,6 +219,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        i++;
         mapId = mapArrayList.get(i).getId();
         getMission(mapArrayList.get(i).getId());
     }
