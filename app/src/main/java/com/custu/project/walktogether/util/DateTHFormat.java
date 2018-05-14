@@ -1,6 +1,5 @@
 package com.custu.project.walktogether.util;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -25,6 +24,11 @@ public class DateTHFormat {
         return instance;
     }
 
+    private String months[] = {
+            "ม.ค", "ก.พ", "มี.ค", "เม.ย",
+            "พ.ค", "มิ.ย", "ก.ค", "ส.ค",
+            "ก.ย", "ต.ค", "พ.ย", "ธ.ค"};
+
     public boolean isDateValid(String dateToValidate) {
         if (dateToValidate == null) {
             return false;
@@ -48,9 +52,15 @@ public class DateTHFormat {
     }
 
     public String getMonth(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy", new Locale("th", "TH"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = 0;
+        int year = 0;
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+        SimpleDateFormat formatter = new SimpleDateFormat("MM yy", new Locale("th", "TH"));
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return formatter.format(date);
+        return months[month] + " " + String.valueOf(year + 543).substring(2, 4);
     }
 
     public String normalDateFormatPlus(Date date) {
@@ -63,14 +73,11 @@ public class DateTHFormat {
         return formatter.format(newDate);
     }
 
-    public String slashDateFormat(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", new Locale("th", "TH"));
-        return formatter.format(date);
-    }
-
-    public String timeFormat(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", new Locale("th", "TH"));
-        return formatter.format(date);
+    public void isTestEvaluation(Date lastDate) {
+        Calendar lastDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7"));
+        lastDateCalendar.set(Calendar.ZONE_OFFSET, TimeZone.getTimeZone("GMT+7").getRawOffset());
+        lastDateCalendar.setTime(lastDate);
+        lastDateCalendar.add(Calendar.DATE, 3);
     }
 
     public String birthDayToAge(String input) {
