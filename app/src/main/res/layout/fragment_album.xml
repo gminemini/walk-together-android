@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.custu.project.walktogether.controller.patient.CollectionFragment">
+
+<com.facebook.shimmer.ShimmerFrameLayout
+android:id="@+id/shimmer_view_container"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+<include layout="@layout/collection_placeholder_item" />
+<include layout="@layout/collection_placeholder_item" />
+<include layout="@layout/collection_placeholder_item" />
+<include layout="@layout/collection_placeholder_item" />
+<include layout="@layout/collection_placeholder_item" />
+<include layout="@layout/collection_placeholder_item" />
+
+</LinearLayout>
+
+
+</com.facebook.shimmer.ShimmerFrameLayout>
+
+<GridView
+    android:layout_margin="12dp"
+    android:horizontalSpacing="12dp"
+    android:verticalSpacing="24dp"
+    android:id="@+id/gridview"
+    tools:listitem="@layout/collection_new_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:numColumns="2"/>
+
+</LinearLayout>

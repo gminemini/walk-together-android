@@ -50,9 +50,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
-
-        <meta-data android:name="com.custu.project.walktogether.util.lib.GlideConfiguration"
-            android:value="GlideModule"/>
+        <meta-data
+            android:name="com.custu.project.walktogether.util.lib.GlideConfiguration"
+            android:value="GlideModule" />
 
         <activity
             android:name="com.custu.project.walktogether.controller.tmse.QuestionOneActivity"
@@ -172,8 +172,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
@@ -184,7 +183,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity"></activity>
+        <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.patient.CollectionActivity" />
     </application>
 
 </manifest>

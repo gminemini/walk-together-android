@@ -8,10 +8,10 @@ public class Collection {
     @SerializedName("reward")
     @Expose
     private Reward reward;
-    @SerializedName("isLock")
+    @SerializedName("lock")
     @Expose
     private Boolean isLock;
-    @SerializedName("isReceive")
+    @SerializedName("receive")
     @Expose
     private Boolean isReceive;
 

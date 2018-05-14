@@ -42,7 +42,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
+            android:layout_marginRight="10dp"
             android:gravity="center">
 
             <ImageView
@@ -60,13 +60,13 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
+            android:layout_marginRight="10dp"
             android:gravity="center">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/editprofileicon" />
+                android:src="@drawable/edit_profile" />
 
         </RelativeLayout>
 

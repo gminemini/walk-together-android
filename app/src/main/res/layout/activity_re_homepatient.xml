@@ -42,7 +42,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
+            android:layout_marginRight="@dimen/padding_10"
             android:gravity="center">
 
             <ImageView
@@ -60,7 +60,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
+            android:layout_marginRight="@dimen/padding_10"
             android:gravity="center">
 
             <ImageView
@@ -78,7 +78,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/marginTop"
+            android:layout_marginRight="@dimen/padding_10"
             android:gravity="center">
 
             <ImageView
