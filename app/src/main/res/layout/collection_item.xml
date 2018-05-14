@@ -10,13 +10,12 @@
     android:background="@drawable/shape_collection"
     android:padding="2dp">
 
-    <ImageView
-        android:padding="10dp"
-        android:id="@+id/image_reward"
+    <com.custu.project.walktogether.util.SquareImageView
+        android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/lock" />
+        android:src="@drawable/locked"
+        android:scaleType="fitXY"/>
 
     <ImageView
         android:padding="10dp"

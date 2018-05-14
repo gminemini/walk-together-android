@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.custu.project.walktogether.controller.patient.CollectionFragment;
 import com.custu.project.walktogether.controller.patient.EvaluationHistoryFragment;
 import com.custu.project.walktogether.controller.patient.ListCaretakerFragment;
+import com.custu.project.walktogether.controller.patient.AlbumFragment;
 import com.custu.project.walktogether.controller.patient.ProfilePatientFragment;
 import com.custu.project.walktogether.controller.patient.SelectMissionFragment;
 import com.custu.project.walktogether.data.Patient;
@@ -40,7 +40,7 @@ public class HomePatientPagerAdapter extends FragmentPagerAdapter {
                 historyEvaluationFragment.setArguments(bundle);
                 return historyEvaluationFragment;
             case 4:
-                return new CollectionFragment();
+                return new AlbumFragment();
             default:
                 return null;
         }

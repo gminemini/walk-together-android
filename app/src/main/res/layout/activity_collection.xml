@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.custu.project.walktogether.controller.patient.CollectionActivity">
+
+    <!--<com.facebook.shimmer.ShimmerFrameLayout-->
+    <!--android:id="@+id/shimmer_view_container"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+    <!--<include layout="@layout/reward_place_horder" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridviewReward"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:horizontalSpacing="6dp"
+        android:numColumns="3"
+        android:verticalSpacing="12dp"
+        tools:listitem="@layout/collection_item" />
+
+</LinearLayout>

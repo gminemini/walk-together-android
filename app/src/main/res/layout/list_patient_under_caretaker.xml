@@ -6,7 +6,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_marginBottom="12dp"
-    android:background="@drawable/shape_mainbox"
+    android:background="@drawable/shape_collection"
     android:layout_height="wrap_content">
     <ImageView
         android:layout_width="wrap_content"

@@ -41,7 +41,7 @@ public class CollectionModel {
         return new Gson().toJson(collections);
     }
 
-    public List<Collection> getCollections(String collection) {
+    public ArrayList<Collection> getCollections(String collection) {
         Type type = new TypeToken<ArrayList<Collection>>() {
         }.getType();
         return new Gson().fromJson(collection, type);

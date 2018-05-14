@@ -12,7 +12,7 @@ public class Album {
     @SerializedName("albumName")
     @Expose
     private String albumName;
-    @SerializedName("albumName")
+    @SerializedName("collection")
     @Expose
     private List<Collection> collectionList;
     @SerializedName("previewImage")
