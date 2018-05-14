@@ -137,12 +137,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
         }
+        initLocation();
         initProgressDialog();
         initStepCounter();
         initPositionMission();
         initMap();
-        initLocation();
-        //testPlay();
     }
 
     private void initStepCounter() {
@@ -348,14 +347,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         googleMap.addPolyline(pOptions);
         routePoints.add(latLng);
-        if (isPlayMission(currentLatitude,
-                currentLongitude,
-                missionArrayList.get(count).getPosition().getLatitude(),
-                missionArrayList.get(count).getPosition().getLongitude())) {
-            isArrive = true;
-            Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
-        } else {
-            isArrive = false;
+
+        for (int i = 0; i < missionArrayList.size(); i++) {
+            if (isPlayMission(currentLatitude,
+                    currentLongitude,
+                    missionArrayList.get(i).getPosition().getLatitude(),
+                    missionArrayList.get(i).getPosition().getLongitude())) {
+                isArrive = true;
+                Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
+                break;
+            } else {
+                isArrive = false;
+            }
         }
     }
 
@@ -500,6 +503,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+        sensorManager.unregisterListener(this);
     }
 
     private boolean isPlayMission(double lat1, double lon1, double lat2, double lon2) {

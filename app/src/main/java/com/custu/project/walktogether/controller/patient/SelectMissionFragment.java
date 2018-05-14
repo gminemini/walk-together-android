@@ -174,7 +174,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
                 if (object != null) {
                     UserManager.getInstance(context).storeMission(MissionModel.getInstance().getMissionArrayList(object));
                     Intent intent = new Intent(context, MapsActivity.class);
-                    intent.putExtra("mapId", mapId);
+                    intent.putExtra("mapId", idMap);
                     startActivity(intent);
                 }
             }
