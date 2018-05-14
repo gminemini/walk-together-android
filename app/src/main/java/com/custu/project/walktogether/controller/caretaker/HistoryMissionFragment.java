@@ -152,6 +152,7 @@ public class HistoryMissionFragment extends Fragment implements BasicActivity, A
         String data = new Gson().toJson(historyMissionArrayList.get(i).getPatientGame().getPatientMissionList());
         Intent intent = new Intent(context, HistoryMissionDetailActivity.class);
         intent.putExtra("mission", data);
+        intent.putExtra("route", historyMissionArrayList.get(i).getPatientGame().getRoute());
         startActivity(intent);
     }
 }
