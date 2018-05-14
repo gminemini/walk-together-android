@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.Patient;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -30,6 +29,8 @@ public class DialogUtil {
 
     public void showDialogStartIntent(Context context, String message) {
         final Dialog dialog = new Dialog(context);
+        if (dialog.isShowing())
+            dialog.cancel();
         dialog.setContentView(R.layout.error_dialog);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -50,6 +51,8 @@ public class DialogUtil {
 
     public void showDialogExitEvaluation(final Context context) {
         final Dialog dialog = new Dialog(context);
+        if (dialog.isShowing())
+            dialog.cancel();
         dialog.setContentView(R.layout.dialog_exit);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -81,6 +84,8 @@ public class DialogUtil {
 
     public void showDialogExitMission(final Context context) {
         final Dialog dialog = new Dialog(context);
+        if (dialog.isShowing())
+            dialog.cancel();
         dialog.setContentView(R.layout.dialog_exit);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -115,6 +120,9 @@ public class DialogUtil {
 
     public void showDialogStartIntent(final Context context, String message, final Intent intent) {
         final Dialog dialog = new Dialog(context);
+        if (dialog.isShowing())
+            dialog.cancel();
+
         dialog.setContentView(R.layout.error_dialog);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -128,6 +136,7 @@ public class DialogUtil {
             @Override
             public void onClick(View view) {
                 context.startActivity(intent);
+                ((Activity) context).finish();
                 dialog.dismiss();
             }
         });

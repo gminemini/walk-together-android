@@ -18,6 +18,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pannawatnokket on 6/2/2018 AD.
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 public class MapMissionAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<Map> mapArrayList;
+    private List<Map> mapArrayList;
 
-    public MapMissionAdapter(Context context, ArrayList<Map> mapArrayList) {
+    public MapMissionAdapter(Context context, List<Map> mapArrayList) {
         this.mContext = context;
         this.mapArrayList = mapArrayList;
     }

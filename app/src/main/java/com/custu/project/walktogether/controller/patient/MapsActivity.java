@@ -15,6 +15,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -47,6 +48,8 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
+import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.StoreMission;
 import com.custu.project.walktogether.util.TypeMission;
 import com.custu.project.walktogether.util.UserManager;
@@ -100,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int count;
     private Long mapId;
     private ProgressDialog progressDialog;
-    private boolean isArrive = true;
+    private boolean isArrive = false;
 
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
@@ -110,6 +113,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        if (!NetworkUtil.isLocationEnabled(MapsActivity.this)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            DialogUtil.getInstance().showDialogStartIntent(MapsActivity.this, getString(R.string.open_location), intent);
+        }
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -129,12 +137,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
         }
+        initLocation();
         initProgressDialog();
         initStepCounter();
         initPositionMission();
         initMap();
-        initLocation();
-        //testPlay();
     }
 
     private void initStepCounter() {
@@ -179,12 +186,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Position position = missionArrayList.get(0).getPosition();
         origin = new LatLng(position.getLatitude(), position.getLongitude());
 
-        for (int i = 1; i < missionArrayList.size() - 1; i++) {
+        for (int i = 1; i < missionArrayList.size(); i++) {
             position = missionArrayList.get(i).getPosition();
             wayPoints.add(new LatLng(position.getLatitude(), position.getLongitude()));
         }
 
-        position = missionArrayList.get(missionArrayList.size() - 1).getPosition();
+        position = missionArrayList.get(0).getPosition();
         destination = new LatLng(position.getLatitude(), position.getLongitude());
     }
 
@@ -340,14 +347,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         googleMap.addPolyline(pOptions);
         routePoints.add(latLng);
-        if (isPlayMission(currentLatitude,
-                currentLongitude,
-                missionArrayList.get(count).getPosition().getLatitude(),
-                missionArrayList.get(count).getPosition().getLongitude())) {
-            isArrive = true;
-            Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_LONG).show();
-        } else {
-            isArrive = true;
+
+        for (int i = 0; i < missionArrayList.size(); i++) {
+            if (isPlayMission(currentLatitude,
+                    currentLongitude,
+                    missionArrayList.get(i).getPosition().getLatitude(),
+                    missionArrayList.get(i).getPosition().getLongitude())) {
+                isArrive = true;
+                Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
+                break;
+            } else {
+                isArrive = false;
+            }
         }
     }
 
@@ -492,6 +503,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+        sensorManager.unregisterListener(this);
     }
 
     private boolean isPlayMission(double lat1, double lon1, double lat2, double lon2) {

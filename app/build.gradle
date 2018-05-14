@@ -22,7 +22,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "com.custu.project.walktogether"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"

@@ -99,6 +99,7 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
 
     @Override
     public void onClick(View v) {
+        storeAnswerMission(mission);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
         returnIntent.putExtra("isComplete", true);

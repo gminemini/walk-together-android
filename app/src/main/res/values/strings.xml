@@ -55,4 +55,7 @@
     <string name="skip">ข้าม</string>
     <string name="start">เริ่มต้น</string>
     <string name="your_reward">คุณได้รับของรางวัลใหม่</string>
+    <string name="open_location">กรุณาเปิดตำแหน่งของคุณ</string>
+    <string name="back">กลับ</string>
+    <string name="near_map">สถานที่ใกล้ที่สุด</string>
 </resources>
