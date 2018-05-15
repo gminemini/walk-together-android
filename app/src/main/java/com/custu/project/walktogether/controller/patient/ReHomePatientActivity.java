@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
@@ -179,6 +179,7 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
 
             }
         });
+        viewPager.setCurrentItem(2);
 
         if (page.equalsIgnoreCase("list"))
             viewPager.setCurrentItem(1);
@@ -186,8 +187,6 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
             viewPager.setCurrentItem(3);
         if (page.equalsIgnoreCase("collection"))
             viewPager.setCurrentItem(4);
-
-        viewPager.setCurrentItem(2);
     }
 
     @Override

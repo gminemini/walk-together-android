@@ -163,7 +163,6 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionTypegroupActivity.this);
-       super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionTypegroupActivity.this, mission.getMissionDetail().getId(), mission.getPosition().getId());
     }
 }

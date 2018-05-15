@@ -1,12 +1,8 @@
 package com.custu.project.walktogether.controller.caretaker;
 
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,35 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.ListHistoryMissionAdapter;
-import com.custu.project.walktogether.adapter.ListViewAdapter;
-import com.custu.project.walktogether.controller.LoginActivity;
-import com.custu.project.walktogether.controller.patient.AddTabPatientActivity;
-import com.custu.project.walktogether.controller.patient.HistoryMissionActivity;
 import com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity;
-import com.custu.project.walktogether.data.Caretaker;
-import com.custu.project.walktogether.data.Patient;
+import com.custu.project.walktogether.data.collection.Collection;
 import com.custu.project.walktogether.data.mission.HistoryMission;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
-import com.custu.project.walktogether.util.DataFormat;
-import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
-import com.custu.project.walktogether.util.UserManager;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import okhttp3.ResponseBody;
@@ -113,6 +100,7 @@ public class HistoryMissionFragment extends Fragment implements BasicActivity, A
                 public void onResponse(JsonObject object, Retrofit retrofit) {
                     if (object != null) {
                         historyMissionArrayList = MissionModel.getInstance().getHistoryMissionArrayList(object);
+                        Collections.reverse(historyMissionArrayList);
                         int splashInterval = new Random().nextInt(1500) + 500;
                         new Handler().postDelayed(new Runnable() {
                             @Override

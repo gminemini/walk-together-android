@@ -1,6 +1,10 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -160,7 +165,8 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionBoxActivity.this);
-        super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionBoxActivity.this,
+                mission.getMissionDetail().getId(),
+                mission.getPosition().getId());
     }
 }

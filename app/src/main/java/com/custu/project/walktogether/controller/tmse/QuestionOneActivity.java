@@ -79,7 +79,6 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
         DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
@@ -133,5 +132,11 @@ public class QuestionOneActivity extends AppCompatActivity implements BasicActiv
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
     }
 }

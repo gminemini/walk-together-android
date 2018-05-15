@@ -209,8 +209,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionClockActivity.this);
-        super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionClockActivity.this, mission.getMissionDetail().getId(), mission.getPosition().getId());
     }
 
     @Override

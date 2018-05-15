@@ -73,7 +73,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1.3"
             android:background="@drawable/shape_missionbox"
             android:orientation="vertical"
             android:paddingBottom="12dp"
@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_margin="10dp"
                 android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSize" />
@@ -93,7 +93,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="จากภาพกิจกรรมนี้ให้ความรู้สึกแบบใด ?"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
@@ -104,16 +103,14 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@color/colorOffwhite"
-                android:maxHeight="200dp"
-                android:maxWidth="180dp"
-                android:src="@drawable/emotion" />
+                android:padding="10dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.4"
             android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp">
@@ -127,69 +124,23 @@
                 android:layout_marginBottom="@dimen/margin_btm_answer"
                 android:textSize="@dimen/TextSize" />
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:elevation="20dp"
-              android:background="@drawable/shape_answer"
-                android:gravity="center"
-                android:layout_marginBottom="@dimen/margin_btm_answer"
-                android:layout_marginRight="40dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_head_three"
-                    android:textColor="@color/colorBackground"
-                    android:background="@color/colorOffwhite"
-                    android:text="คำตอบที่ 1"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:elevation="20dp"
-                android:background="@drawable/shape_answer"
-                android:gravity="center"
-                android:layout_marginBottom="@dimen/margin_btm_answer"
-                android:layout_marginRight="40dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_head_three"
-                    android:textColor="@color/colorBackground"
-                    android:background="@color/colorOffwhite"
-                    android:text="คำตอบที่ 2"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:elevation="20dp"
-                android:background="@drawable/shape_answer"
-                android:gravity="center"
-                android:layout_marginRight="40dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_head_three"
-                    android:textColor="@color/colorBackground"
-                    android:background="@color/colorOffwhite"
-                    android:text="คำตอบที่ 3"/>
-            </LinearLayout>
-
-
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"
+                tools:listitem="@layout/list_choice_mission"></ListView>
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
-        android:layout_weight="1.2"
+        android:layout_weight="1.3"
         android:paddingBottom="8dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

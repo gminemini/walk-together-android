@@ -182,10 +182,17 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
     }
 
     private void storeAnswerMission(Mission mission) {
+        double score;
+        boolean isCorrectMission = MissionModel.getInstance().isCorrectMission(mission.getMissionDetail().getAnswerMissions().get(0).getAnswer(), answerMissions.get(index).getAnswer());
+        if (isCorrectMission)
+            score = CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31);
+        else
+            score = 0;
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31));
+        jsonObject.addProperty("score", score);
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 
@@ -196,8 +203,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionProverbsActivity.this);
-       super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionProverbsActivity.this, mission.getMissionDetail().getId(), mission.getPosition().getId());
     }
 
     @Override

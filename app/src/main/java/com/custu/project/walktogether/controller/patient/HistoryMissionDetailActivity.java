@@ -137,14 +137,15 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
         Position position = missionArrayList.get(0).getPosition();
         origin = new LatLng(position.getLatitude(), position.getLongitude());
 
-        for (int i = 1; i < missionArrayList.size() - 1; i++) {
+        for (int i = 1; i < missionArrayList.size(); i++) {
             position = missionArrayList.get(i).getPosition();
             wayPoints.add(new LatLng(position.getLatitude(), position.getLongitude()));
         }
 
-        position = missionArrayList.get(missionArrayList.size() - 1).getPosition();
+        position = missionArrayList.get(0).getPosition();
         destination = new LatLng(position.getLatitude(), position.getLongitude());
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
