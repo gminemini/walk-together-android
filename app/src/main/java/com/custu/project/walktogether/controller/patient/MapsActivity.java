@@ -254,7 +254,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             currentLatitude = location.getLatitude();
             currentLongitude = location.getLongitude();
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -297,7 +296,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        Toast.makeText(this, currentLatitude + " Changed " + currentLongitude + "", Toast.LENGTH_LONG).show();
         updateCameraBearing(googleMap, location.getBearing());
     }
 
@@ -515,7 +513,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dist = Math.acos(dist);
         dist = dist * 180.0 / Math.PI;
         dist = dist * 60 * 1.1515 * 1000;
-        Toast.makeText(this,"dist: "+dist , Toast.LENGTH_SHORT).show();
         return dist < RADIUS_MISSION;
     }
 
