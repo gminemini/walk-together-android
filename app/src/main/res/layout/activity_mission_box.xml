@@ -28,10 +28,10 @@
             android:background="@drawable/shape_back_progressbar">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_marginRight="6dp"
-            android:src="@drawable/time"/>
+            android:src="@drawable/time_mission"/>
 
             <ProgressBar
                 android:id="@+id/progress"

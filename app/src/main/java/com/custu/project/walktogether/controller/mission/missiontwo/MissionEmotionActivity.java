@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -137,8 +139,11 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
+        TextView levelTextView = findViewById(R.id.show_level);
+        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
         titleTextView.setText(DataFormat.getInstance().addDoubleCode(mission.getMissionDetail().getQuestion()));
         listAdapter = new ChoiceAnswerMissionAdapter(this, answerMissions);
         listView.setAdapter(listAdapter);

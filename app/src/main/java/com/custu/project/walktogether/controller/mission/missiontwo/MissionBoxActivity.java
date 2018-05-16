@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -26,6 +27,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -118,8 +120,11 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         finish();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
+        TextView levelTextView = findViewById(R.id.show_level);
+        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
         PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
         textView.setText(mission.getMissionDetail().getQuestion());
     }

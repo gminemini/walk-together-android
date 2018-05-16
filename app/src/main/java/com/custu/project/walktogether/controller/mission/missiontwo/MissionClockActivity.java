@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,6 +23,7 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -126,8 +128,11 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         finish();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
+        TextView levelTextView = findViewById(R.id.show_level);
+        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
         PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
         textView.setText(mission.getMissionDetail().getQuestion());
     }
