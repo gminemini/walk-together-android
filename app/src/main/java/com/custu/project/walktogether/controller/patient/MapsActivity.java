@@ -213,12 +213,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
                         .position(leg.getStartLocation().getCoordination()))
                         .setTag(index);
-                if (index == legCount - 1) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
-                            .position(leg.getEndLocation().getCoordination()))
-                            .setTag(missionArrayList.size() - 1);
-                }
                 stepList = leg.getStepList();
                 ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 5, Color.parseColor("#3e8aed"), 5, Color.parseColor("#3e8aed"));
                 for (PolylineOptions polylineOption : polylineOptionList) {
@@ -383,6 +377,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(Marker marker) {
         if (isArrive) {
             int index = (int) marker.getTag();
+
             marker.remove();
             String typeMission = missionArrayList.get(index).getMissionDetail().getType();
             Intent intent;
