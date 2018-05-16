@@ -25,7 +25,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.custu.project.walktogether.controller.LoginActivity" />
+        <activity
+            android:name="com.custu.project.walktogether.controller.LoginActivity" />
 
         <service android:name="com.custu.project.walktogether.fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -158,7 +159,8 @@
         <activity android:name="com.custu.project.walktogether.controller.caretaker.AddTabCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.controller.caretaker.PatientDetailActivity" />
         <activity android:name="com.custu.project.walktogether.controller.caretaker.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.ReHomePatientActivity" />
+        <activity
+            android:name="com.custu.project.walktogether.controller.patient.ReHomePatientActivity" />
         <activity android:name="com.custu.project.walktogether.controller.caretaker.ChangePasswordCaretakerActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.EditPatientProfileActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.ChangePasswordPatientActivity" />
@@ -176,7 +178,9 @@
         <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.WelcomeActivity">
+        <activity
+            android:name="com.custu.project.walktogether.controller.WelcomeActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

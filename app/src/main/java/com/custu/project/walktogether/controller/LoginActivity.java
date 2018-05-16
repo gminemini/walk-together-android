@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -150,9 +151,15 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             UserManager.getInstance(LoginActivity.this).storePatient(patient);
                                             if (!object.get("isTestEvaluation").getAsBoolean()) {
                                                 Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                                                finish();
                                                 startActivity(intent);
                                             } else {
                                                 Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                                                finish();
                                                 DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
                                             }
                                         }
@@ -173,6 +180,9 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                             caretaker = CaretakerModel.getInstance().getCaretaker(object);
                                             UserManager.getInstance(LoginActivity.this).storeCaretaker(caretaker);
                                             Intent intent = new Intent(LoginActivity.this, ReHomeCaretakerActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                                            finish();
                                             startActivity(intent);
                                         }
                                     }, 700);
@@ -283,5 +293,10 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -94,7 +94,11 @@ public class ProfileCaretakerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 UserManager.getInstance(context).removeCaretaker();
-                startActivity(new Intent(context, LoginActivity.class));
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.finish();
+                startActivity(intent);
             }
         });
 

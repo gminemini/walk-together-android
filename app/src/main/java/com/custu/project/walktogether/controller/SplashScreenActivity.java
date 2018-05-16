@@ -37,30 +37,27 @@ public class SplashScreenActivity extends Activity {
         progressBar.setIndeterminateDrawable(threeBounce);
 
         int splashInterval = 2000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent;
-                if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
-                    intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
+        new Handler().postDelayed(() -> {
+            Intent intent;
+            if (UserManager.getInstance(SplashScreenActivity.this).getCaretaker() != null) {
+                intent = new Intent(SplashScreenActivity.this, ReHomeCaretakerActivity.class);
+                startActivity(intent);
+            } else if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null) {
+                Patient patient = UserManager.getInstance(SplashScreenActivity.this).getPatient();
+                if (patient.getUserName() != null) {
+                    intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
                     startActivity(intent);
-                } else if (UserManager.getInstance(SplashScreenActivity.this).getPatient() != null) {
-                    Patient patient = UserManager.getInstance(SplashScreenActivity.this).getPatient();
-                    if (patient.getUserName() != null) {
-                        intent = new Intent(SplashScreenActivity.this, ReHomePatientActivity.class);
-                        startActivity(intent);
-                    } else {
-                        intent = new Intent(SplashScreenActivity.this, RegisterPatientActivity.class);
-                        intent.putExtra("idPatient", patient.getId());
-                        intent.putExtra("isContinue", true);
-                        startActivity(intent);
-                    }
                 } else {
-                    intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, RegisterPatientActivity.class);
+                    intent.putExtra("idPatient", patient.getId());
+                    intent.putExtra("isContinue", true);
                     startActivity(intent);
                 }
-                finish();
+            } else {
+                intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
+            finish();
         }, splashInterval);
     }
 
@@ -75,6 +72,10 @@ public class SplashScreenActivity extends Activity {
         super.onPause();
         handler.removeCallbacks(runnable);
         time = delay_time - (System.currentTimeMillis() - time);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
 
