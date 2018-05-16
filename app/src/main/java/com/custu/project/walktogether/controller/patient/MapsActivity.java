@@ -2,6 +2,7 @@ package com.custu.project.walktogether.controller.patient;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -77,6 +78,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
@@ -518,6 +520,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
 }

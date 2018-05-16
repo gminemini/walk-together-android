@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.caretaker;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChangePasswordCaretakerActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private EditText oldPasswordEditText;
@@ -151,5 +153,10 @@ public class ChangePasswordCaretakerActivity extends AppCompatActivity implement
         }
 
         return validate;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

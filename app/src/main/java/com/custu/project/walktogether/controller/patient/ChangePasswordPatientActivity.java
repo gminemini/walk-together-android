@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.patient;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChangePasswordPatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private EditText oldPasswordEditText;
@@ -86,7 +88,10 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
                     if (object.get("status").getAsInt() == 201) {
                         patient = PatientModel.getInstance().getPatient(object);
                         UserManager.getInstance(ChangePasswordPatientActivity.this).storePatient(patient);
-                        startActivity(new Intent(ChangePasswordPatientActivity.this, ReHomePatientActivity.class));
+                        Intent intent = new Intent(ChangePasswordPatientActivity.this,ReHomePatientActivity.class);
+                        intent.putExtra("page", "profile");
+                        startActivity(intent);
+                        startActivity(intent);
                     } else {
                         NetworkUtil.showMessageResponse(ChangePasswordPatientActivity.this,
                                 oldPasswordEditText,
@@ -151,5 +156,10 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
         }
 
         return validate;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

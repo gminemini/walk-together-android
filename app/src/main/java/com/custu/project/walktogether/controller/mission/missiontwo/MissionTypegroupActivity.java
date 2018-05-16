@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MissionTypegroupActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener{
 
@@ -169,5 +172,10 @@ public class MissionTypegroupActivity extends AppCompatActivity implements Basic
     @Override
     public void onBackPressed() {
         DialogUtil.getInstance().showDialogExitMission(MissionTypegroupActivity.this, mission.getMissionDetail().getId(), mission.getPosition().getId());
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

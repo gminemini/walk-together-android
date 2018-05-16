@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.patient;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.custu.project.walktogether.util.PicassoUtil;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CollectionActivity extends AppCompatActivity implements BasicActivity, AdapterView.OnItemClickListener {
     private ArrayList<Collection> collectionArrayList;
@@ -80,5 +83,10 @@ public class CollectionActivity extends AppCompatActivity implements BasicActivi
     @Override
     public void initProgressDialog() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

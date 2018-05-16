@@ -22,6 +22,8 @@ import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class PatientDetailActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private String name;
     private Patient patient;
@@ -144,5 +146,10 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

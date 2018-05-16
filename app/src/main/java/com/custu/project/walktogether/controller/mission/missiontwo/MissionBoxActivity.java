@@ -32,6 +32,8 @@ import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MissionBoxActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
     private EditText inputMission;
@@ -173,5 +175,10 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         DialogUtil.getInstance().showDialogExitMission(MissionBoxActivity.this,
                 mission.getMissionDetail().getId(),
                 mission.getPosition().getId());
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

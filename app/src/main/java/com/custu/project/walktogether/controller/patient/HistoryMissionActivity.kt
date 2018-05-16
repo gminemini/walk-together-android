@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.patient
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +25,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
 class HistoryMissionActivity : AppCompatActivity(), BasicActivity, AdapterView.OnItemClickListener {
@@ -108,5 +110,9 @@ class HistoryMissionActivity : AppCompatActivity(), BasicActivity, AdapterView.O
         intent.putExtra("mission", data)
         intent.putExtra("route", historyMissionArrayList!![i].patientGame.route)
         startActivity(intent)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

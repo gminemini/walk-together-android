@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.controller.tmse.ConditionActivity;
 import com.custu.project.walktogether.controller.caretaker.RegisterCaretakerActivity;
 import com.custu.project.walktogether.util.BasicActivity;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChooseuserActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private boolean checked;
@@ -69,5 +72,10 @@ public class ChooseuserActivity extends AppCompatActivity implements BasicActivi
                 break;
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

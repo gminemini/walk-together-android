@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import java.util.Collections;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MissionProverbsActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView listView;
@@ -227,5 +229,10 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         linearLayout.setBackground(getResources().getDrawable(R.drawable.shape_answer_non_select));
         textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setBackgroundColor(Color.parseColor("#3FB53F"));
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }
