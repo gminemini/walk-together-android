@@ -24,6 +24,7 @@ import android.widget.Button;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
+import com.custu.project.walktogether.util.UserManager;
 
 import me.relex.circleindicator.CircleIndicator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -104,9 +105,20 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!UserManager.getInstance(this).isFirstInstall()) {
+            UserManager.getInstance(this).removePatient();
+            UserManager.getInstance(this).removeCaretaker();
+            UserManager.getInstance(this).setInstall();
+        } else {
+            Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         getSupportActionBar().hide();
 
@@ -134,7 +146,11 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this, SplashScreenActivity.class));
+                Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -146,7 +162,11 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(WelcomeActivity.this, SplashScreenActivity.class));
+                    Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                    finish();
+                    startActivity(intent);
                 }
             }
         });
@@ -206,5 +226,11 @@ public class WelcomeActivity extends AppCompatActivity {
             View view = (View) object;
             container.removeView(view);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -3,18 +3,13 @@ package com.custu.project.walktogether.adapter;
 import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.data.collection.Album;
 import com.custu.project.walktogether.data.collection.Collection;
 import com.custu.project.walktogether.util.PicassoUtil;
 
@@ -77,7 +72,7 @@ public class RewardAdapter extends BaseAdapter {
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
         if (collectionArrayList.get(position).getIsReceive()) {
-            PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), lock);
+            PicassoUtil.getInstance().setImageNoCatch(mContext, collectionArrayList.get(position).getReward().getImage(), lock);
 
         } else if(!collectionArrayList.get(position).getIsReceive() && !collectionArrayList.get(position).getIsLock()){
             PicassoUtil.getInstance().setImage(mContext, collectionArrayList.get(position).getReward().getImage(), lock);
@@ -85,9 +80,6 @@ public class RewardAdapter extends BaseAdapter {
         }else {
             lock.setPadding(14,14,14,14);
         }
-//        name.setText(albumArrayList.get(position).getAlbumName());
-
-
         return view;
     }
 

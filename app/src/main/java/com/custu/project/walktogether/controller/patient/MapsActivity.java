@@ -2,6 +2,7 @@ package com.custu.project.walktogether.controller.patient;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -77,6 +78,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
@@ -213,12 +215,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
                         .position(leg.getStartLocation().getCoordination()))
                         .setTag(index);
-                if (index == legCount - 1) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMarker(R.drawable.marker)))
-                            .position(leg.getEndLocation().getCoordination()))
-                            .setTag(missionArrayList.size() - 1);
-                }
                 stepList = leg.getStepList();
                 ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 5, Color.parseColor("#3e8aed"), 5, Color.parseColor("#3e8aed"));
                 for (PolylineOptions polylineOption : polylineOptionList) {
@@ -260,7 +256,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             currentLatitude = location.getLatitude();
             currentLongitude = location.getLongitude();
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -303,7 +298,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        Toast.makeText(this, currentLatitude + " Changed " + currentLongitude + "", Toast.LENGTH_LONG).show();
         updateCameraBearing(googleMap, location.getBearing());
     }
 
@@ -383,6 +377,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(Marker marker) {
         if (isArrive) {
             int index = (int) marker.getTag();
+
             marker.remove();
             String typeMission = missionArrayList.get(index).getMissionDetail().getType();
             Intent intent;
@@ -520,12 +515,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dist = Math.acos(dist);
         dist = dist * 180.0 / Math.PI;
         dist = dist * 60 * 1.1515 * 1000;
-        Toast.makeText(this,"dist: "+dist , Toast.LENGTH_SHORT).show();
         return dist < RADIUS_MISSION;
     }
 
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
 }

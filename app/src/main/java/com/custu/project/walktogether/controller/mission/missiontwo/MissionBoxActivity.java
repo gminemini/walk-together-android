@@ -1,6 +1,11 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,9 +27,12 @@ import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.PicassoUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MissionBoxActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
 
@@ -113,8 +122,11 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
         finish();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
+        TextView levelTextView = findViewById(R.id.show_level);
+        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
         PicassoUtil.getInstance().setImage(this, mission.getMissionDetail().getImage(), imageQuestion);
         textView.setText(mission.getMissionDetail().getQuestion());
     }
@@ -160,7 +172,13 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionBoxActivity.this);
-        super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionBoxActivity.this,
+                mission.getMissionDetail().getId(),
+                mission.getPosition().getId());
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

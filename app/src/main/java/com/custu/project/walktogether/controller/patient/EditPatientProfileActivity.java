@@ -367,7 +367,9 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                     if (object.get("status").getAsInt() == 201) {
                         patient = PatientModel.getInstance().getPatient(object);
                         UserManager.getInstance(EditPatientProfileActivity.this).storePatient(patient);
-                        startActivity(new Intent(EditPatientProfileActivity.this, ReHomePatientActivity.class));
+                        Intent intent = new Intent(EditPatientProfileActivity.this, ReHomePatientActivity.class);
+                        intent.putExtra("page", "profile");
+                        startActivity(intent);
                     } else {
                         NetworkUtil.showMessageResponse(EditPatientProfileActivity.this,
                                 firstNameEditText,

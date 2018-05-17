@@ -89,7 +89,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
         DialogUtil.getInstance().showDialogExitEvaluation(this);
     }
 
@@ -214,6 +213,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+        countDownTimer.cancel();
     }
 
     private void setListener() {

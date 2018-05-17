@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ForgetPasswordActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private TextView username;
@@ -176,5 +177,10 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

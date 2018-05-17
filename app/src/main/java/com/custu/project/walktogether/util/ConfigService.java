@@ -81,7 +81,7 @@ public class ConfigService {
     public static final double DEFAULT_LAT = 13.736717;
     public static final double DEFAULT_LONG = 100.523186;
 
-    public static final double RADIUS_MISSION = 3;
+    public static final double RADIUS_MISSION = 4;
 
     //Collection
     public static final String COLLECTION_RANGE = "?range=";

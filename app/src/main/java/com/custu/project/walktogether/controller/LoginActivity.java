@@ -1,22 +1,20 @@
 package com.custu.project.walktogether.controller;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity;
@@ -37,7 +35,6 @@ import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -48,7 +45,6 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     private Button forgetBtn;
     private EditText username;
     private EditText password;
-    private LinearLayout tv;
     private ProgressDialog progressDialog;
     private CircularProgressButton circularProgressButton;
 
@@ -74,7 +70,16 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
         registerBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         circularProgressButton.setOnClickListener(this);
-        findViewById(R.id.logo).setOnClickListener(this);
+        password.setOnEditorActionListener((textView, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                if (NetworkUtil.isOnline(LoginActivity.this, loginBtn))
+                    if (validate()) {
+                        circularProgressButton.startAnimation();
+                        new Handler().postDelayed(this::login, 1500);
+                    }
+            }
+            return false;
+        });
     }
 
     public void onClick(View view) {
@@ -97,13 +102,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
             case R.id.sign_in: {
                 if (validate()) {
                     circularProgressButton.startAnimation();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            login();
-                        }
-                    }, 1500);
+                    new Handler().postDelayed(this::login, 1500);
                 }
             }
 
@@ -136,76 +135,60 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                     if (status == 200) {
                         progressDialog.dismiss();
                         if (object.get("type").getAsString().equals("patient")) {
-                            circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                                @SuppressLint("ResourceAsColor")
-                                @Override
-                                public void onAnimationEnd() {
-                                    circularProgressButton.setText("เข้าสู่ระบบสำเร็จ");
-                                    circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                    circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            patient = PatientModel.getInstance().getPatient(object);
-                                            UserManager.getInstance(LoginActivity.this).storePatient(patient);
-                                            if (!object.get("isTestEvaluation").getAsBoolean()) {
-                                                Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
-                                                startActivity(intent);
-                                            } else {
-                                                Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
-                                                DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
-                                            }
-                                        }
-                                    }, 700);
-                                }
+                            circularProgressButton.revertAnimation(() -> {
+                                circularProgressButton.setText("เข้าสู่ระบบสำเร็จ");
+                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                                new Handler().postDelayed(() -> {
+                                    patient = PatientModel.getInstance().getPatient(object);
+                                    UserManager.getInstance(LoginActivity.this).storePatient(patient);
+                                    if (!object.get("isTestEvaluation").getAsBoolean()) {
+                                        Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        finish();
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                                        finish();
+                                        DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
+                                    }
+                                }, 700);
                             });
                         } else {
-                            circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                                @SuppressLint("ResourceAsColor")
-                                @Override
-                                public void onAnimationEnd() {
-                                    circularProgressButton.setText("เข้าสู่ระบบสำเร็จ");
-                                    circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                    circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            caretaker = CaretakerModel.getInstance().getCaretaker(object);
-                                            UserManager.getInstance(LoginActivity.this).storeCaretaker(caretaker);
-                                            Intent intent = new Intent(LoginActivity.this, ReHomeCaretakerActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }, 700);
-                                }
+                            circularProgressButton.revertAnimation(() -> {
+                                circularProgressButton.setText("เข้าสู่ระบบสำเร็จ");
+                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                                new Handler().postDelayed(() -> {
+                                    caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                                    UserManager.getInstance(LoginActivity.this).storeCaretaker(caretaker);
+                                    Intent intent = new Intent(LoginActivity.this, ReHomeCaretakerActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                                    finish();
+                                    startActivity(intent);
+                                }, 700);
                             });
                         }
 
                     } else {
-                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onAnimationEnd() {
-                                circularProgressButton.setText(object.get("message").getAsString());
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        circularProgressButton.startAnimation();
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                circularProgressButton.revertAnimation();
-                                                circularProgressButton.setText("เข้าสู่ระบบ");
-                                                circularProgressButton.setTextColor(Color.parseColor("#389A1E"));
-                                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
-                                            }
-                                        }, 1000);
+                        circularProgressButton.revertAnimation(() -> {
+                            circularProgressButton.setText(object.get("message").getAsString());
+                            circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                            circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
+                            new Handler().postDelayed(() -> {
+                                circularProgressButton.startAnimation();
+                                new Handler().postDelayed(() -> {
+                                    circularProgressButton.revertAnimation();
+                                    circularProgressButton.setText("เข้าสู่ระบบ");
+                                    circularProgressButton.setTextColor(Color.parseColor("#389A1E"));
+                                    circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
+                                }, 1000);
 
-                                    }
-                                }, 2000);
-                            }
+                            }, 2000);
                         });
 
                         progressDialog.dismiss();
@@ -226,14 +209,11 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
             @Override
             public void onFailure(Throwable t) {
                 circularProgressButton.startAnimation();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        circularProgressButton.revertAnimation();
-                        circularProgressButton.setText("เข้าสู่ระบบ");
-                        circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
-                        circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
-                    }
+                new Handler().postDelayed(() -> {
+                    circularProgressButton.revertAnimation();
+                    circularProgressButton.setText("เข้าสู่ระบบ");
+                    circularProgressButton.setTextColor(Color.parseColor("#3F51B5"));
+                    circularProgressButton.setBackgroundResource(R.drawable.shapebutton_normal);
                 }, 1000);
                 Snackbar.make(registerBtn, "กรุณาตรวจสอบการเชื่อมต่อเครือข่าย", Snackbar.LENGTH_LONG).show();
             }
@@ -243,19 +223,14 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void setUI() {
-
-         tv = findViewById(R.id.nameapp);
         SpannableString content = new SpannableString("WALKTOGETHER");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-//        tv.setText(content);
-
-
         forgetBtn = findViewById(R.id.forgetpass);
-        registerBtn = (Button) findViewById(R.id.register);
-        loginBtn = (Button) findViewById(R.id.login);
-        username = (EditText) findViewById(R.id.input_username);
-        password = (EditText) findViewById(R.id.input_password);
-        circularProgressButton = (CircularProgressButton) findViewById(R.id.sign_in);
+        registerBtn = findViewById(R.id.register);
+        loginBtn = findViewById(R.id.login);
+        username = findViewById(R.id.input_username);
+        password = findViewById(R.id.input_password);
+        circularProgressButton = findViewById(R.id.sign_in);
         circularProgressButton.setBackgroundResource(R.drawable.shapebutton);
     }
 
@@ -284,4 +259,10 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

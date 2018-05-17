@@ -70,8 +70,13 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
         DialogUtil.getInstance().showDialogExitEvaluation(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
     }
 
     private void showDialog(Context context) {

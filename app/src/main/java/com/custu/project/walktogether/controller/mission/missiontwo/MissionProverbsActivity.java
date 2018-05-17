@@ -1,5 +1,7 @@
 package com.custu.project.walktogether.controller.mission.missiontwo;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.custu.project.walktogether.util.DataFormat;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.StoreMission;
+import com.custu.project.walktogether.util.UserManager;
 import com.custu.project.walktogether.util.lib.ButtonClickAlpha;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -37,6 +40,7 @@ import java.util.Collections;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MissionProverbsActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView listView;
@@ -129,8 +133,11 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
+        TextView levelTextView = findViewById(R.id.show_level);
+        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
         titleTextView.setText(DataFormat.getInstance().addDoubleCode(mission.getMissionDetail().getQuestion()));
         listAdapter = new ChoiceAnswerMissionAdapter(this, answerMissions);
         listView.setAdapter(listAdapter);
@@ -182,10 +189,17 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
     }
 
     private void storeAnswerMission(Mission mission) {
+        double score;
+        boolean isCorrectMission = MissionModel.getInstance().isCorrectMission(mission.getMissionDetail().getAnswerMissions().get(0).getAnswer(), answerMissions.get(index).getAnswer());
+        if (isCorrectMission)
+            score = CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31);
+        else
+            score = 0;
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
         jsonObject.addProperty("idPosition", mission.getPosition().getId());
-        jsonObject.addProperty("score", CalculateScoreMission.getInstance().getScore(time[0], mission.getMissionDetail().getScore(), 31));
+        jsonObject.addProperty("score", score);
         StoreMission.getInstance().storeAnswer(jsonObject);
     }
 
@@ -196,8 +210,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void onBackPressed() {
-        DialogUtil.getInstance().showDialogExitMission(MissionProverbsActivity.this);
-       super.onBackPressed();
+        DialogUtil.getInstance().showDialogExitMission(MissionProverbsActivity.this, mission.getMissionDetail().getId(), mission.getPosition().getId());
     }
 
     @Override
@@ -216,5 +229,10 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         linearLayout.setBackground(getResources().getDrawable(R.drawable.shape_answer_non_select));
         textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setBackgroundColor(Color.parseColor("#3FB53F"));
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

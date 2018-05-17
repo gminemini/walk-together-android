@@ -67,8 +67,13 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
         DialogUtil.getInstance().showDialogExitEvaluation(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
     }
 
     @Override

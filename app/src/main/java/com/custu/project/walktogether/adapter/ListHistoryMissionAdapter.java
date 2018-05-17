@@ -17,12 +17,13 @@ import com.custu.project.walktogether.data.mission.HistoryMission;
 import com.custu.project.walktogether.util.PicassoUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListHistoryMissionAdapter extends BaseAdapter {
-    private ArrayList<HistoryMission> historyMissionArrayList;
+    private List<HistoryMission> historyMissionArrayList;
     private Context mContext;
 
-    public ListHistoryMissionAdapter(Context mContext, ArrayList<HistoryMission> historyMissionArrayList) {
+    public ListHistoryMissionAdapter(Context mContext, List<HistoryMission> historyMissionArrayList) {
         this.mContext = mContext;
         this.historyMissionArrayList = historyMissionArrayList;
     }
@@ -60,9 +61,22 @@ public class ListHistoryMissionAdapter extends BaseAdapter {
         score.setText(String.valueOf(historyMissionArrayList.get(position).getPatientGame().getResultScore()));
 
         TextView time = view.findViewById(R.id.time);
-        time.setText(historyMissionArrayList.get(position).getHistoryDate());
+        time.setText(getTime(historyMissionArrayList.get(position).getHistoryDate()));
+
+        TextView date = view.findViewById(R.id.date);
+        date.setText(getDate(historyMissionArrayList.get(position).getHistoryDate()));
 
         return view;
+    }
+
+    private String getTime(String input) {
+        String[] result = input.split(" ");
+        return result[1] + " น.";
+    }
+
+    private String getDate(String input) {
+        String[] result = input.split(" ");
+        return result[2] + " " + result[3] + " " + result[4] + " " + result[5] + " " + result[6];
     }
 }
 

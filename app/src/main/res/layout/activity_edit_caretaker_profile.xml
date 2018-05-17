@@ -110,7 +110,6 @@
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="นาย"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
@@ -127,7 +126,6 @@
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="ปัณวรรธน์"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
@@ -143,7 +141,6 @@
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="นกเกตุ"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
@@ -263,7 +260,6 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="0982709858"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner" />
 
@@ -292,7 +288,6 @@
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="นักศึกษา"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner" />
 
@@ -321,7 +316,6 @@
                         android:background="@drawable/shape_edittext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="นักศึกษา"
                         android:textColor="@color/colorDetailProfile"
                         android:textSize="@dimen/TextSize_Spinner" />
 
