@@ -41,6 +41,12 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jniLibs/'] } }
+    externalNativeBuild {
+        ndkBuild {
+            path '../openCVLibrary310/Android.mk'
+        }
+    }
 }
 
 dependencies {
@@ -61,12 +67,10 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     //noinspection GradleCompatible
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
     //Google Service
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-base:15.0.1'
-
     //UI
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -81,16 +85,15 @@ dependencies {
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
     implementation 'com.chaos.view:pinview:1.3.0'
-    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
-    implementation "me.leolin:ShortcutBadger:1.1.21@aar"
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
     implementation 'com.airbnb.android:lottie:2.5.4'
     implementation 'com.github.bumptech.glide:glide:3.5.2'
     implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     implementation 'me.relex:circleindicator:1.2.2@aar'
-
     //Network
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -100,12 +103,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-simplexml:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-
     //Firebase
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }
+    implementation project(':openCVLibrary310')
 }
 apply plugin: 'com.google.gms.google-services'
