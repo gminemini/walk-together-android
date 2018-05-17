@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:background="@color/bg_load"
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
@@ -12,13 +13,12 @@
             android:layout_below="@id/detail"
             android:layout_width="150dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/thumbnail"
             android:background="@color/placeholder_bg" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@color/bg_load"
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
@@ -27,13 +27,12 @@
             android:layout_below="@id/detail"
             android:layout_width="150dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/thumbnail"
             android:background="@color/placeholder_bg" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@color/bg_load"
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
@@ -42,8 +41,20 @@
             android:layout_below="@id/detail"
             android:layout_width="150dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/thumbnail"
+            android:background="@color/placeholder_bg" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@color/bg_load"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <View
+            android:layout_centerInParent="true"
+            android:layout_below="@id/detail"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
             android:background="@color/placeholder_bg" />
 
     </RelativeLayout>

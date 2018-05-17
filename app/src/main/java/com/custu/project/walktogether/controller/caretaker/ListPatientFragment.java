@@ -50,6 +50,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
     private ListView listView;
     private PullRefreshLayout pullRefreshLayout;
     private ProgressDialog progressDialog;
+    private TextView noDataTextView;
 
     private ArrayList<Patient> patientArrayList;
     private Caretaker caretaker;
@@ -242,18 +243,22 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
     public void setUI() {
         mAdapter = new ListViewAdapter(context, patientArrayList, ListPatientFragment.this);
         listView = view.findViewById(R.id.list_patient);
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                //((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
-                Patient patient = patientArrayList.get(position);
-                Intent intent = new Intent(context, PatientDetailActivity.class);
-                intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
-                intent.putExtra("patient", DataFormat.getInstance().getGsonParser().toJson(patient));
-                startActivity(intent);
+        noDataTextView = view.findViewById(R.id.no_data);
+        if (patientArrayList.size() > 0) {
+            listView.setAdapter(mAdapter);
+            listView.setVisibility(View.VISIBLE);
+            noDataTextView.setVisibility(View.GONE);
+        } else {
+            noDataTextView.setVisibility(View.VISIBLE);
+        }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            //((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
+            Patient patient = patientArrayList.get(position);
+            Intent intent = new Intent(context, PatientDetailActivity.class);
+            intent.putExtra("name", patient.getTitleName() + patient.getFirstName() + " " + patient.getLastName());
+            intent.putExtra("patient", DataFormat.getInstance().getGsonParser().toJson(patient));
+            startActivity(intent);
 
-            }
         });
     }
 
