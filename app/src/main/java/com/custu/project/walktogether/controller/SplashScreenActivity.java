@@ -12,12 +12,12 @@ import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.custu.project.project.walktogether.R;
-import com.custu.project.walktogether.util.lib.OpenCVUtil;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
@@ -28,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Collections;
 
 import io.fabric.sdk.android.Fabric;
-import org.opencv.android.Utils;
 
 public class SplashScreenActivity extends Activity {
     Handler handler;
@@ -115,10 +114,19 @@ public class SplashScreenActivity extends Activity {
     }
 
     private void compare() {
-        Bitmap b1 = BitmapFactory.decodeResource(getResources(), R.drawable.test1);
-        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.drawable.test2);
-        compare_image(b1, b2);
+        Bitmap b1 = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        int[] image = {
+                R.drawable.test3,
+                R.drawable.test4,
+                R.drawable.test5
+        };
+
+        for (int anImage : image) {
+            Bitmap b2 = BitmapFactory.decodeResource(getResources(), anImage);
+            compare_image(b1, b2);
+        }
     }
+
 
     public void compare_image(Bitmap img_1, Bitmap img_2)
     {
@@ -126,11 +134,15 @@ public class SplashScreenActivity extends Activity {
         Mat mat_2 = new Mat();
 
 
-        Bitmap bitmap1 = img_1.copy(Bitmap.Config.ARGB_8888, true);
+        /*Bitmap bitmap1 = img_1.copy(Bitmap.Config.ARGB_8888, true);
         Utils.bitmapToMat(bitmap1, mat_1);
 
         Bitmap bitmap2 = img_2.copy(Bitmap.Config.ARGB_8888, true);
         Utils.bitmapToMat(bitmap2, mat_2);
+*/
+
+        mat_1 = conv_Mat(img_1);
+        mat_2 = conv_Mat(img_2);
 
         Mat hist_1 = new Mat();
         Mat hist_2 = new Mat();
@@ -145,9 +157,20 @@ public class SplashScreenActivity extends Activity {
 
         double res = Imgproc.compareHist(hist_1, hist_2, Imgproc.CV_COMP_CORREL);
         Double d = res * 100;
-        Log.d("compare_image: ", "compare_image: "+d.intValue());
-        Log.d("compare_image: ", "compare_image: "+hist_1.dump());
-        Log.d("compare_image: ", "compare_image: "+hist_2.dump());
+        Log.d("compare_image: ", "compare_image: "+d);
+    }
+
+    private Mat conv_Mat(Bitmap img){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] data = stream.toByteArray();
+        Mat mat = new Mat(img.getHeight(),img.getWidth(), CvType.CV_8UC3);
+        mat.put(0,0,data);
+
+        Mat mat1 = new Mat(img.getHeight(),img.getWidth(),CvType.CV_8UC3);
+        Imgproc.cvtColor(mat, mat1, Imgproc.COLOR_RGB2HSV);
+
+        return mat1;
     }
 
 }
