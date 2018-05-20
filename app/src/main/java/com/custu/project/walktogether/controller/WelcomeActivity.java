@@ -76,15 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 btnBack.setVisibility(View.VISIBLE);
             }else if (position == 0) {
                 btnBack.setVisibility(View.GONE);
-            } else if (position == 0) {
-                if (OpenCVLoader.initDebug()) {
-                    Log.d("onManagerConnected: ", "onCreate: ");
-                } else {
-                    Log.d("onManagerConnected: ", "onManagerConnected:");
-                    OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, WelcomeActivity.this, baseLoaderCallback);
-                }
-                btnBack.setVisibility(View.GONE);
-            } else {
+            }  else {
                 btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }
@@ -135,6 +127,12 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (OpenCVLoader.initDebug()) {
+            Log.d("onManagerConnected: ", "onCreate: ");
+        } else {
+            Log.d("onManagerConnected: ", "onManagerConnected:");
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, WelcomeActivity.this, baseLoaderCallback);
+        }
         if (!UserManager.getInstance(this).isFirstInstall()) {
             UserManager.getInstance(this).removePatient();
             UserManager.getInstance(this).removeCaretaker();
