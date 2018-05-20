@@ -85,7 +85,7 @@ public class ConfigService {
     public static final double DEFAULT_LAT = 13.736717;
     public static final double DEFAULT_LONG = 100.523186;
     public static final double RADIUS_MISSION = 4;
-    public static final double AVERAGE_OPENCV = 99.99552247764787;
-    public static final double MIN_OPENCV = 99.98820573199957;
+    public static final double AVERAGE_OPENCV = 99.95552247764787;
+    public static final double MIN_OPENCV = 99.94820573199957;
 
 }

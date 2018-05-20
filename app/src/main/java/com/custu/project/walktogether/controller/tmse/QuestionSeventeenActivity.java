@@ -204,6 +204,9 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
             score = 2;
         else if (result >= ConfigService.MIN_OPENCV && result < ConfigService.AVERAGE_OPENCV)
             score = 1;
+
+        Log.d("compareImage: ", "compareImage: "+result);
+        Log.d("compareImage: ", "compareImage: "+score);
         progressDialog.dismiss();
         StoreAnswerTmse.getInstance().storeAnswer("no17", question.getId(), String.valueOf(score));
         Intent intent = new Intent(QuestionSeventeenActivity.this, QuestionEighteenActivity.class);
@@ -215,7 +218,8 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
         Mat mat2 = new Mat();
 
         inputBitmap = resize(inputBitmap, inputBitmap.getWidth(), inputBitmap.getHeight());
-        templateBitmap = resize(templateBitmap, inputBitmap.getWidth(), inputBitmap.getHeight());
+        templateBitmap = Bitmap.createScaledBitmap(templateBitmap, inputBitmap.getWidth(), inputBitmap.getHeight(), true);
+        saveBitmap(templateBitmap);
 
         Bitmap bitmap1 = inputBitmap.copy(Bitmap.Config.ARGB_8888, true);
         Utils.bitmapToMat(bitmap1, mat1);
