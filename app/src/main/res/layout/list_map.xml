@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/map1"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="150dp">
 
         <ImageView
             android:scaleType="centerCrop"
