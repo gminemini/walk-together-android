@@ -120,7 +120,6 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
 
     private void setListener() {
-        titleTextView.setOnClickListener(this);
         addProfileRelativeLayout.setOnClickListener(this);
         editProfileRelativeLayout.setOnClickListener(this);
     }
@@ -147,11 +146,6 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
                 break;
             case R.id.edit_profile:
                 intent = new Intent(ReHomeCaretakerActivity.this, EditCaretakerProfileActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.title:
-                UserManager.getInstance(ReHomeCaretakerActivity.this).removeCaretaker();
-                intent = new Intent(ReHomeCaretakerActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
         }
