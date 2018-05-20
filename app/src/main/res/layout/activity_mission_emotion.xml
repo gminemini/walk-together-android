@@ -72,7 +72,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1.3"
+            android:layout_weight="1.2"
             android:background="@drawable/shape_missionbox"
             android:orientation="vertical"
             android:paddingBottom="12dp"
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="4dp"
                 android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSize" />
@@ -109,7 +109,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1.4"
+            android:layout_weight="1.6"
             android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp">
@@ -139,7 +139,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_0dp"
-        android:layout_weight="1.3"
+        android:layout_weight="1.2"
         android:paddingBottom="8dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

@@ -26,7 +26,7 @@
             android:layout_below="@+id/near_map_layout"
             android:id="@+id/map1"
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="170dp">
 
             <ImageView
                 android:id="@+id/image_map"
@@ -86,6 +86,26 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/other_map_head"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/blackAlpha">
+
+        <TextView
+            android:id="@+id/other_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:text="@string/other_map"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -105,25 +125,6 @@
                 android:layout_height="match_parent"></ListView>
 
         </com.baoyz.widget.PullRefreshLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/blackAlpha2">
-
-            <TextView
-                android:id="@+id/other_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="5dp"
-                android:text="@string/other_map"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

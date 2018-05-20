@@ -70,8 +70,9 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+            android:layout_weight=".7"
             android:background="@drawable/shape_missionbox"
             android:orientation="vertical"
             android:paddingBottom="12dp"
@@ -79,9 +80,10 @@
             android:paddingRight="12dp">
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
                 android:text="คำถาม"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSize" />
@@ -90,15 +92,15 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text='"	จำเป็นต้องเข้าไปเกี่ยวข้องกับเหตุการณ์ที่เกิดขึ้นเมื่อไม่มีทางเลี่ยง" '
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:text="เป็นความหมายของสุภาษิตในข้อใด"
                 android:textColor="@color/colorAllblack"
                 android:textSize="@dimen/TextSizeBold_20sp" />
@@ -108,7 +110,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp">

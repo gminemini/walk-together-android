@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
@@ -87,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    @Nullable
     private GoogleMap googleMap;
     private LatLng origin;
     private LatLng destination;
@@ -327,33 +327,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void step(long timeNs) {
-        numSteps++;
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-        PolylineOptions pOptions = new PolylineOptions()
-                .width(18)
-                .color(Color.GREEN)
-                .geodesic(true);
-        routePoints.add(latLng);
+        if (googleMap != null) {
+            numSteps++;
+            LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            PolylineOptions pOptions = new PolylineOptions()
+                    .width(18)
+                    .color(Color.GREEN)
+                    .geodesic(true);
+            routePoints.add(latLng);
 
-        for (int z = 0; z < routePoints.size(); z++) {
-            LatLng point = routePoints.get(z);
-            pOptions.add(point);
-        }
-        googleMap.addPolyline(pOptions);
-        routePoints.add(latLng);
+            for (int z = 0; z < routePoints.size(); z++) {
+                LatLng point = routePoints.get(z);
+                pOptions.add(point);
+            }
 
-        for (int i = 0; i < missionArrayList.size(); i++) {
-            if (isPlayMission(currentLatitude,
-                    currentLongitude,
-                    missionArrayList.get(i).getPosition().getLatitude(),
-                    missionArrayList.get(i).getPosition().getLongitude())) {
-                isArrive = true;
-                Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
-                break;
-            } else {
-                isArrive = false;
+            googleMap.addPolyline(pOptions);
+            routePoints.add(latLng);
+
+            for (int i = 0; i < missionArrayList.size(); i++) {
+                if (isPlayMission(currentLatitude,
+                        currentLongitude,
+                        missionArrayList.get(i).getPosition().getLatitude(),
+                        missionArrayList.get(i).getPosition().getLongitude())) {
+                    isArrive = true;
+                    Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
+                    break;
+                } else {
+                    isArrive = false;
+                }
             }
         }
+
     }
 
     @Override
