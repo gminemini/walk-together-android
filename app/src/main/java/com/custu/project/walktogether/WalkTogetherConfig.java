@@ -16,7 +16,6 @@ public class WalkTogetherConfig extends Application {
     public void onCreate() {
         super.onCreate();
         initFont();
-        isFirstInstall();
     }
 
     private void initFont() {
@@ -25,13 +24,5 @@ public class WalkTogetherConfig extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-    }
-
-    private void isFirstInstall() {
-        if (!UserManager.getInstance(this).isFirstInstall()) {
-            UserManager.getInstance(this).removePatient();
-            UserManager.getInstance(this).removeCaretaker();
-            UserManager.getInstance(this).setInstall();
-        }
     }
 }

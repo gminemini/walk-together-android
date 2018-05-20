@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -14,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,11 @@ import android.widget.Button;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
+import com.custu.project.walktogether.util.UserManager;
+
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 
 import me.relex.circleindicator.CircleIndicator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -39,6 +46,22 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnNext;
     private Button btnBack;
     private CircleIndicator indicator;
+
+    private BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status) {
+                case LoaderCallbackInterface.INSTALL_CANCELED: {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.opencv.engine&hl=th")));
+                }
+                break;
+                default: {
+                    super.onManagerConnected(status);
+                }
+                break;
+            }
+        }
+    };
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @RequiresApi(api = Build.VERSION_CODES.M)
@@ -53,7 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 btnBack.setVisibility(View.VISIBLE);
             }else if (position == 0) {
                 btnBack.setVisibility(View.GONE);
-            }else {
+            }  else {
                 btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }
@@ -104,9 +127,26 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (OpenCVLoader.initDebug()) {
+            Log.d("onManagerConnected: ", "onCreate: ");
+        } else {
+            Log.d("onManagerConnected: ", "onManagerConnected:");
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, WelcomeActivity.this, baseLoaderCallback);
+        }
+        if (!UserManager.getInstance(this).isFirstInstall()) {
+            UserManager.getInstance(this).removePatient();
+            UserManager.getInstance(this).removeCaretaker();
+            UserManager.getInstance(this).setInstall();
+        } else {
+            Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         getSupportActionBar().hide();
 
@@ -134,7 +174,11 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this, SplashScreenActivity.class));
+                Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -146,7 +190,11 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(WelcomeActivity.this, SplashScreenActivity.class));
+                    Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                    finish();
+                    startActivity(intent);
                 }
             }
         });
@@ -206,5 +254,11 @@ public class WelcomeActivity extends AppCompatActivity {
             View view = (View) object;
             container.removeView(view);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

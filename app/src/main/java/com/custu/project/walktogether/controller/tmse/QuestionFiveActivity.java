@@ -96,8 +96,13 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
         DialogUtil.getInstance().showDialogExitEvaluation(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -200,14 +205,21 @@ public class QuestionFiveActivity extends AppCompatActivity implements BasicActi
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            double currentLatitude = location.getLatitude();
-            double currentLongitude = location.getLongitude();
-            Geocoder geocoder;
-            List<Address> addresses;
-            geocoder = new Geocoder(this, Locale.getDefault());
-            addresses = geocoder.getFromLocation(currentLatitude, currentLongitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-            province = addresses.get(0).getAdminArea();
+            @Nullable Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            double currentLongitude;
+            double currentLatitude;
+            if (location != null) {
+                currentLatitude = location.getLatitude();
+                currentLongitude = location.getLongitude();
+                Geocoder geocoder;
+                List<Address> addresses;
+                geocoder = new Geocoder(this, Locale.getDefault());
+                addresses = geocoder.getFromLocation(currentLatitude, currentLongitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                province = addresses.get(0).getAdminArea();
+            } else {
+                province = "";
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

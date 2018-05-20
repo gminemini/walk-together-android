@@ -1,37 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.custu.project.walktogether.controller.patient.CollectionActivity">
 
-    <!--<com.facebook.shimmer.ShimmerFrameLayout-->
-    <!--android:id="@+id/shimmer_view_container"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical">-->
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical">-->
-    <!--<include layout="@layout/reward_place_horder" />-->
-    <!--<include layout="@layout/reward_place_horder" />-->
-    <!--<include layout="@layout/reward_place_horder" />-->
-    <!--<include layout="@layout/reward_place_horder" />-->
-    <!--<include layout="@layout/reward_place_horder" />-->
-    <!--<include layout="@layout/reward_place_horder" />-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorBackground"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
 
-    <!--</LinearLayout>-->
+        </android.support.v7.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:textColor="@color/colorOffwhite"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <!--</com.facebook.shimmer.ShimmerFrameLayout>-->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_10"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/plus" />
 
+        </RelativeLayout>
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/edit_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_10"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/edit_profile" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/history_mission"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_10"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/history" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_below="@+id/head"
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/reward_place_horder" />
+
+            <include layout="@layout/reward_place_horder" />
+
+            <include layout="@layout/reward_place_horder" />
+
+            <include layout="@layout/reward_place_horder" />
+
+            <include layout="@layout/reward_place_horder" />
+
+            <include layout="@layout/reward_place_horder" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <GridView
+        android:layout_below="@+id/head"
         android:id="@+id/gridviewReward"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="12dp"
@@ -41,4 +128,28 @@
         android:verticalSpacing="12dp"
         tools:listitem="@layout/collection_item" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/view_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/dismiss"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="5pt"
+            android:src="@drawable/close" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

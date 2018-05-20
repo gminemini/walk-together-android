@@ -75,15 +75,17 @@ public class ConfigService {
     //Reward
     public static final String RANDOM_REWARD = "collection/reward-by-level/";
 
-    public static final long TIME_INTERVAL = 31000;
-    public static final long TIME = 31;
-
-    public static final double DEFAULT_LAT = 13.736717;
-    public static final double DEFAULT_LONG = 100.523186;
-
-    public static final double RADIUS_MISSION = 3;
-
     //Collection
     public static final String COLLECTION_RANGE = "?range=";
     public static final String COLLECTION_BY_PATIENT = "collection/reward-by-patient/";
+
+    //Constant
+    public static final long TIME_INTERVAL = 31000;
+    public static final long TIME = 31;
+    public static final double DEFAULT_LAT = 13.736717;
+    public static final double DEFAULT_LONG = 100.523186;
+    public static final double RADIUS_MISSION = 4;
+    public static final double AVERAGE_OPENCV = 99.95552247764787;
+    public static final double MIN_OPENCV = 99.94820573199957;
+
 }

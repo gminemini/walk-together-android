@@ -17,6 +17,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ResultPassActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Button nextBtn;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,6 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
         setContentView(R.layout.activity_result_pass);
         setUI();
         setListener();
-
     }
 
     @Override
@@ -36,9 +36,11 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     public void setUI() {
         TextView scoreTextView = findViewById(R.id.result_score);
         scoreTextView.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
-        nextBtn = (Button) findViewById(R.id.next);
+        nextBtn =  findViewById(R.id.next);
+        textView = findViewById(R.id.result);
         if (!getIntent().getBooleanExtra("isRegister", false)) {
             nextBtn.setText("ถัดไป");
+            textView.setText("");
         }
     }
 

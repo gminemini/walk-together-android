@@ -34,6 +34,7 @@
     <color name="colorBgMission">#E3EAF2</color>
 
     <color name="placeholder_bg">#dddddd</color>
+    <color name="bg_load">#bcbcbc</color>
     <color name="item_name">#0c0c0c</color>
     <color name="description">#1a1a1a</color>
     <color name="chef">#777</color>

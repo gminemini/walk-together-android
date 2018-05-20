@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
+import com.google.gson.JsonObject;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -82,7 +83,7 @@ public class DialogUtil {
         dialog.show();
     }
 
-    public void showDialogExitMission(final Context context) {
+    public void showDialogExitMission(final Context context, Integer id, Integer integer) {
         final Dialog dialog = new Dialog(context);
         if (dialog.isShowing())
             dialog.cancel();
@@ -100,11 +101,16 @@ public class DialogUtil {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("idMission", id);
+                jsonObject.addProperty("idPosition", integer);
+                jsonObject.addProperty("score", 0);
+                StoreMission.getInstance().storeAnswer(jsonObject);
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("index", ((Activity) context).getIntent().getIntExtra("index", 0));
                 returnIntent.putExtra("isComplete", false);
                 ((Activity) context).setResult(RESULT_OK, returnIntent);
-                ((Activity) context).onBackPressed();
+                ((Activity) context).finish();
                 dialog.dismiss();
             }
         });

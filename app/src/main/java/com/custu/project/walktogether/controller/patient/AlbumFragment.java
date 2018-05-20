@@ -86,6 +86,7 @@ public class AlbumFragment extends Fragment implements BasicActivity {
                     if (!albumArrayList.get(position).getLock()) {
                         Intent intent = new Intent(context,CollectionActivity.class);
                         intent.putExtra("collection",new Gson().toJson(albumArrayList.get(position).getCollectionList()));
+                        intent.putExtra("name",albumArrayList.get(position).getAlbumName());
                         startActivity(intent);
                     }
 

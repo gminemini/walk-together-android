@@ -46,6 +46,7 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
     private ListView listView;
     private PullRefreshLayout pullRefreshLayout;
     private ProgressDialog progressDialog;
+    private TextView noDataTextView;
 
     private ArrayList<Caretaker> caretakerArrayList;
     private Patient patient;
@@ -177,13 +178,15 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
     public void setUI() {
         mAdapter = new ListViewCaretakerAdapter(context, caretakerArrayList, ListCaretakerFragment.this);
         listView = view.findViewById(R.id.list_patient);
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                ((ReHomePatientActivity)getActivity()).openProfileDetail(caretakerArrayList.get(position));
-            }
-        });
+        noDataTextView = view.findViewById(R.id.no_data);
+        if (caretakerArrayList.size() > 0) {
+            listView.setAdapter(mAdapter);
+            listView.setVisibility(View.VISIBLE);
+            noDataTextView.setVisibility(View.GONE);
+        } else {
+            noDataTextView.setVisibility(View.VISIBLE);
+        }
+        listView.setOnItemClickListener((parent, view, position, id) -> ((ReHomePatientActivity)getActivity()).openProfileDetail(caretakerArrayList.get(position)));
     }
 
     @Override

@@ -47,6 +47,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisterPatientActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private Calendar calendar;
@@ -497,6 +498,11 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }
 

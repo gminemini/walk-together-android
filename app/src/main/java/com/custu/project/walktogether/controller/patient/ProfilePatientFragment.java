@@ -107,7 +107,11 @@ public class ProfilePatientFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 UserManager.getInstance(context).removePatient();
-                startActivity(new Intent(context, LoginActivity.class));
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+                context.finish();
+                startActivity(intent);
             }
         });
 
