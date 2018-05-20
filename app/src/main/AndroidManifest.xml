@@ -85,8 +85,11 @@
             android:noHistory="true" />
         <activity
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSeventeenActivity"
-            android:noHistory="true" />
-        <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity" />
+            android:noHistory="true" >
+
+        </activity>
+        <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity" >
+        </activity>
         <activity
             android:name="com.custu.project.walktogether.controller.tmse.QuestionThreeActivity"
             android:label="@string/topics_name"
@@ -142,7 +145,9 @@
             android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
         <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity" />
+        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity" >
+
+        </activity>
         <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
         <meta-data
@@ -186,6 +191,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity" />
         <activity android:name="com.custu.project.walktogether.controller.patient.CollectionActivity" />
