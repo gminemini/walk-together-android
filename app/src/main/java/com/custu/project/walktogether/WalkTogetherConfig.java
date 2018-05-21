@@ -3,6 +3,7 @@ package com.custu.project.walktogether;
 import android.app.Application;
 
 import com.custu.project.project.walktogether.R;
+import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.UserManager;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -16,6 +17,7 @@ public class WalkTogetherConfig extends Application {
     public void onCreate() {
         super.onCreate();
         initFont();
+        ConfigService.detectingBuild();
     }
 
     private void initFont() {
