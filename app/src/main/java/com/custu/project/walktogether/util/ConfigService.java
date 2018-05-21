@@ -1,5 +1,7 @@
 package com.custu.project.walktogether.util;
 
+import com.custu.project.project.walktogether.BuildConfig;
+
 /**
  * Created by pannawatnokket on 1/2/2018 AD.
  */
@@ -10,7 +12,7 @@ public class ConfigService {
     public static final String BASE_URL_IMAGE = "http://159.65.128.189:8181/";
 
     //Google MAp API Key
-    public static final String GOOGLE_API_KEY = "AIzaSyButAs0BAr5u7HX75zLiwr9rqWVSRTCFmc";
+    public static String GOOGLE_API_KEY = null;
 
     //Log
     public static final String LOG_KEY = "4257bd93-053b-489e-aba5-19abb78fcc36";
@@ -87,5 +89,15 @@ public class ConfigService {
     public static final double RADIUS_MISSION = 4;
     public static final double AVERAGE_OPENCV = 99.95552247764787;
     public static final double MIN_OPENCV = 99.94820573199957;
+
+    public static void detectingBuild() {
+        if (BuildConfig.DEBUG) {
+            //Debug build
+            GOOGLE_API_KEY = "AIzaSyD_gTByKJ8of3h6TqsHur4R0E5hfMCcgBg";
+        } else {
+            //Release
+            GOOGLE_API_KEY = "AIzaSyCNJV6mmMqxam86yCoMohABdGzsrKOGFos";
+        }
+    }
 
 }
