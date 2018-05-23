@@ -280,8 +280,6 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
         ConnectServer.getInstance().get(sexListener, ConfigService.SEX);
         ConnectServer.getInstance().get(educationListener, ConfigService.EDUCATION);
         idPatient = getIntent().getLongExtra("idPatient", 0);
-        if (getIntent().getBooleanExtra("isContinue", false))
-            DialogUtil.getInstance().showDialogStartIntent(RegisterPatientActivity.this, "ดำเนินการสมัครให้เสร็จสิ้น");
     }
 
     @Override
