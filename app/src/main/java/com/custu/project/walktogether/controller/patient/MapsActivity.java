@@ -42,8 +42,10 @@ import com.custu.project.walktogether.controller.mission.missiontwo.MissionEmoti
 import com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity;
 import com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity;
 import com.custu.project.walktogether.data.mission.Mission;
+import com.custu.project.walktogether.data.mission.PatientGame;
 import com.custu.project.walktogether.data.mission.Position;
 import com.custu.project.walktogether.manager.ConnectServer;
+import com.custu.project.walktogether.model.MissionModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.stepcounter.StepDetector;
 import com.custu.project.walktogether.stepcounter.StepListener;
@@ -478,7 +480,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 progressDialog.cancel();
                 if (object != null) {
                     if (object.get("status").getAsInt() == 200) {
-                        startActivity(new Intent(MapsActivity.this, ReceiveRewardActivity.class));
+                        Intent intent = new Intent(MapsActivity.this, MissionCompleteActivity.class);
+                        PatientGame patientGame = MissionModel.getInstance().getPatientGame(object);
+                        intent.putExtra("time", patientGame.getTime());
+                        intent.putExtra("distance", patientGame.getDistance());
+                        intent.putExtra("resultScore", patientGame.getResultScore());
+                        startActivity(intent);
                     }
                 }
             }

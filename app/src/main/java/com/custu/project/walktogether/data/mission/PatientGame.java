@@ -21,6 +21,12 @@ public class PatientGame {
     @SerializedName("route")
     @Expose
     private String route;
+    @SerializedName("distance")
+    @Expose
+    private int distance;
+    @SerializedName("time")
+    @Expose
+    private Long time;
 
     public Integer getId() {
         return id;
@@ -62,4 +68,19 @@ public class PatientGame {
         this.route = route;
     }
 
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 }

@@ -5,6 +5,7 @@ import com.custu.project.walktogether.data.mission.HistoryMission;
 import com.custu.project.walktogether.data.mission.Map;
 import com.custu.project.walktogether.data.mission.Mission;
 import com.custu.project.walktogether.data.mission.MissionDetail;
+import com.custu.project.walktogether.data.mission.PatientGame;
 import com.custu.project.walktogether.data.mission.PatientMissionList;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
@@ -70,5 +71,9 @@ public class MissionModel {
         Type type = new TypeToken<ArrayList<LatLng>>() {
         }.getType();
         return new Gson().fromJson(route, type);
+    }
+
+    public PatientGame getPatientGame(JsonObject jsonObject) {
+        return new Gson().fromJson(jsonObject.get("data").getAsJsonObject().get("patientGame").getAsJsonObject(), PatientGame.class);
     }
 }

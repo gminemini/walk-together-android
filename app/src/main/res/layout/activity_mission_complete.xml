@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -21,112 +22,142 @@
             android:elevation="20dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="@dimen/height_0dp">
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1.5"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
                 android:layout_height="@dimen/height_0dp"
-                android:orientation="vertical"
-            >
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:paddingLeft="40dp"
                     android:layout_marginBottom="12dp"
                     android:paddingRight="40dp"
                     android:layout_height="wrap_content">
+
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/clock_layout">
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bgresult"
+                            android:gravity="center"
+                            android:textColor="@color/colorOffwhite"
+                            android:textSize="30sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/clock_layout"
+                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_marginEnd="@dimen/margin_mission_complete">
+
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/timemission2"/>
+                            android:src="@drawable/timemission2" />
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:gravity="center"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/colorOffwhite"
-                            android:textSize="30sp"
-                            android:text="0:30:2"
-                            android:background="@drawable/bgresult"/>
 
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:paddingRight="40dp"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/distance"/>
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:gravity="center"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/colorOffwhite"
-                            android:textSize="30sp"
-                            android:text="200 m"
-                            android:background="@drawable/bgresult"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:paddingLeft="40dp"
+                    android:paddingRight="40dp">
 
-                    android:paddingRight="40dp"
-                    android:layout_height="wrap_content">
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/distance_layout">
+
+                        <TextView
+                            android:id="@+id/distance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bgresult"
+                            android:gravity="center"
+                            android:textColor="@color/colorOffwhite"
+                            android:textSize="30sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/distance_layout"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_mission_complete">
+
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/result"/>
+                            android:src="@drawable/distance" />
 
                     </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/result_layout">
+
                         <TextView
+                            android:id="@+id/resultScore"
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bgresult"
                             android:gravity="center"
-                            android:layout_height="match_parent"
                             android:textColor="@color/colorOffwhite"
-                            android:textSize="30sp"
-                            android:text="40/40"
-                            android:background="@drawable/bgresult"/>
+                            android:textSize="30sp" />
 
                     </LinearLayout>
-                </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/result_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_mission_complete">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/result" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -150,15 +181,26 @@
                 android:textSize="@dimen/TextSize" />
         </LinearLayout>
 
-
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/time_out_image"
+        android:id="@+id/level_up"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:src="@drawable/levelup"
         android:visibility="gone" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/confetti"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-100dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/mission_complete"
+        app:lottie_repeatCount="3" />
 
 </RelativeLayout>

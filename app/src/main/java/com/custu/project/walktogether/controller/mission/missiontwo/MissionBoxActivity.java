@@ -80,7 +80,6 @@ public class MissionBoxActivity extends AppCompatActivity implements BasicActivi
             setResult(RESULT_OK, returnIntent);
             finish();
         }, splashInterval);
-
     }
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
