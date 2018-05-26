@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +57,8 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
     private Intent intent;
     private CountDownTimer countDownTimer;
     private Mission mission;
-
+    private ImageView timeOutImageView;
+    private Animation timeOutAnimation;
     private ArrayList<AnswerMission> answerMissions;
     private ChoiceAnswerMissionAdapter listAdapter;
     private int index = -1;
@@ -67,13 +71,32 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_emotion);
+        timeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.time_out_anim);
         getData();
         setUI();
         setListener();
         countDownTime();
 
     }
+    private void showTimeOut() {
+        timeOutImageView.setVisibility(View.VISIBLE);
+        timeOutImageView.startAnimation(timeOutAnimation);
+        int splashInterval = 2000;
+        new Handler().postDelayed(() -> {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
+            jsonObject.addProperty("idPosition", mission.getPosition().getId());
+            jsonObject.addProperty("score", 0);
+            StoreMission.getInstance().storeAnswer(jsonObject);
 
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
+            returnIntent.putExtra("isComplete", false);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }, splashInterval);
+
+    }
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
         final ProgressBar progress;
@@ -87,6 +110,7 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
 
             public void onFinish() {
                 progress.setProgress(0);
+                showTimeOut();
                 countDownTimer.cancel();
 //                StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), "");
 //                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
@@ -154,6 +178,7 @@ public class MissionEmotionActivity extends AppCompatActivity implements BasicAc
 
     @Override
     public void setUI() {
+        timeOutImageView = (ImageView) findViewById(R.id.time_out_image);
         nextBtn = (Button) findViewById(R.id.next);
         inputMision = findViewById(R.id.input_missionfive);
         imageQuestion = findViewById(R.id.image);
