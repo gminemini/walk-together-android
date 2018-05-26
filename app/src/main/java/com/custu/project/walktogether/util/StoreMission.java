@@ -26,11 +26,18 @@ public class StoreMission {
         jsonArray.add(mission);
     }
 
-    public JsonObject getAllMission(Long mapId, String route) {
+    public JsonObject getAllMission(Long mapId, String route, Long time, int distance) {
         mission.add("mission", jsonArray);
         mission.addProperty("mapId", mapId);
         mission.addProperty("route", route);
+        mission.addProperty("time", time);
+        mission.addProperty("distance", distance);
         jsonArray = new JsonArray();
         return mission;
     }
+
+    public void destroyMission() {
+        jsonArray = new JsonArray();
+    }
+
 }

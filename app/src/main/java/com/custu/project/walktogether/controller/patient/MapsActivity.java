@@ -71,8 +71,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -110,6 +112,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
 
+    private Date startDate;
+    private JsonObject directionJsonObject;
+    private int distanceMeter;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +131,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         parentPanel = findViewById(R.id.parentPanel);
+
+        startDate = new Date();
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION);
@@ -207,6 +215,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
+            setDetailDirection(rawBody);
             Route route = direction.getRouteList().get(0);
             int legCount = route.getLegList().size();
             for (int index = 0; index < legCount; index++) {
@@ -461,7 +470,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void sendMission() {
         progressDialog.show();
-        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, new Gson().toJson(routePoints));
+        Long resultTime = new Date().getTime() - startDate.getTime();
+        JsonObject jsonObject = StoreMission.getInstance().getAllMission(mapId, new Gson().toJson(routePoints), resultTime, distanceMeter);
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
@@ -524,6 +534,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
+    }
+
+    private void setDetailDirection(String direction) {
+        JsonParser parser = new JsonParser();
+        directionJsonObject = parser.parse(direction).getAsJsonObject();
+        distanceMeter = directionJsonObject.getAsJsonArray("routes").get(0)
+                .getAsJsonObject().get("legs").getAsJsonArray().get(0)
+                .getAsJsonObject().get("distance")
+                .getAsJsonObject().get("value").getAsInt();
     }
 
     @Override
