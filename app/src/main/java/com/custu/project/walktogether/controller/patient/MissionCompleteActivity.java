@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.patient;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-public class MissionCompleteActivity extends  AppCompatActivity implements BasicActivity, View.OnClickListener  {
+public class MissionCompleteActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener  {
     private TextView timeTextView;
     private TextView distanceTextView;
     private TextView resultTextView;
@@ -141,5 +142,10 @@ public class MissionCompleteActivity extends  AppCompatActivity implements Basic
                 TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                 TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

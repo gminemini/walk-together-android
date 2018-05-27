@@ -67,115 +67,176 @@
             android:value="bf8ae8861d8ddd57c8ed262f0e3122f547feaf1f" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSevenActivity"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionFourteenActivity"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionFifteenActivity"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSixteenActivity"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionNineteenActivity"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSeventeenActivity"
             android:noHistory="true"></activity>
         <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity"></activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionThreeActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionFourActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionFiveActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSixActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionEightActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionEighteenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionTwelveActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionThirteenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionNineActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionTenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionElevenActivity"
             android:label="@string/topics_name"
             android:noHistory="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.ChooseuserActivity"
             android:label="เลือกประเภทผู้ใช้" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.caretaker.RegisterCaretakerActivity"
             android:label="สมัครสมาชิก ผู้ดูแล" />
         <activity android:name="com.custu.project.walktogether.controller.tmse.ResultActivity" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
-        <activity android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.SplashScreenActivity"></activity>
-        <activity android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.SplashScreenActivity"></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.patient.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryEvaluationActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.caretaker.AddTabCaretakerActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.caretaker.PatientDetailActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.caretaker.EditCaretakerProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.ReHomePatientActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.caretaker.ChangePasswordCaretakerActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.EditPatientProfileActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.ChangePasswordPatientActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.ForgetPasswordActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.AddTabPatientActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionBoxActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionClockActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.HistoryEvaluationActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.caretaker.AddTabCaretakerActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.caretaker.PatientDetailActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.caretaker.EditCaretakerProfileActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.ReHomePatientActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.caretaker.ChangePasswordCaretakerActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.EditPatientProfileActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.ChangePasswordPatientActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.ForgetPasswordActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.AddTabPatientActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionBoxActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionClockActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity"
             android:label="@string/title_activity_mission_emotion"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionProverbsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.mission.missiontwo.MissionTypegroupActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.HistoryMissionActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.HistoryMissionDetailActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.WelcomeActivity"
             android:noHistory="true">
             <intent-filter>
@@ -184,9 +245,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.CollectionActivity" />
-        <activity android:name="com.custu.project.walktogether.controller.patient.MissionCompleteActivity"></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.ReceiveRewardActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.CollectionActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.custu.project.walktogether.controller.patient.MissionCompleteActivity"></activity>
     </application>
 
 </manifest>
