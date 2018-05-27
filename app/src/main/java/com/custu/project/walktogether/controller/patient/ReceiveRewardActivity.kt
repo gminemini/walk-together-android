@@ -112,4 +112,5 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
         }
         dialog.show()
     }
+
 }

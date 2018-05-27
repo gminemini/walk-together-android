@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -51,9 +55,10 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
     private Mission mission;
     private ArrayList<AnswerMission> answerMissions;
     private ChoiceAnswerMissionAdapter listAdapter;
-
+    private ImageView timeOutImageView;
     private int index = -1;
     private final int[] time = {31};
+    private Animation timeOutAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +66,33 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_proverbs);
+        timeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.time_out_anim);
         setUI();
         getData();
         setListener();
         countDownTime();
     }
+
+    private void showTimeOut() {
+        timeOutImageView.setVisibility(View.VISIBLE);
+        timeOutImageView.startAnimation(timeOutAnimation);
+        int splashInterval = 2000;
+        new Handler().postDelayed(() -> {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
+            jsonObject.addProperty("idPosition", mission.getPosition().getId());
+            jsonObject.addProperty("score", 0);
+            StoreMission.getInstance().storeAnswer(jsonObject);
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
+            returnIntent.putExtra("isComplete", false);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }, splashInterval);
+
+    }
+
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
         final ProgressBar progress;
@@ -79,6 +106,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
 
             public void onFinish() {
                 progress.setProgress(0);
+                showTimeOut();
                 countDownTimer.cancel();
 //                StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), "");
 //                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
@@ -129,7 +157,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
             setResult(RESULT_OK, returnIntent);
             finish();
         } else {
-            NetworkUtil.showMessageResponse(this, listView, "กรุณาเลือกคำตอบ" );
+            NetworkUtil.showMessageResponse(this, listView, "กรุณาเลือกคำตอบ");
         }
     }
 
@@ -137,7 +165,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
     @Override
     public void initValue() {
         TextView levelTextView = findViewById(R.id.show_level);
-        levelTextView.setText("Lv. "+ UserManager.getInstance(this).getPatient().getLevel());
+        levelTextView.setText("Lv. " + UserManager.getInstance(this).getPatient().getLevel());
         titleTextView.setText(DataFormat.getInstance().addDoubleCode(mission.getMissionDetail().getQuestion()));
         listAdapter = new ChoiceAnswerMissionAdapter(this, answerMissions);
         listView.setAdapter(listAdapter);
@@ -145,6 +173,7 @@ public class MissionProverbsActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void setUI() {
+        timeOutImageView = (ImageView) findViewById(R.id.time_out_image);
         nextBtn = findViewById(R.id.next);
         listView = findViewById(R.id.list);
         titleTextView = findViewById(R.id.title);

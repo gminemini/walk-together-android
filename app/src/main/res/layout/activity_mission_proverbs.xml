@@ -1,160 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_mission"
-    android:orientation="vertical"
-    tools:context="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_mission"
+        android:orientation="vertical"
+        tools:context="com.custu.project.walktogether.controller.mission.missiontwo.MissionEmotionActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="4dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_weight="5"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:orientation="horizontal"
-            android:background="@drawable/shape_back_progressbar">
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/time_mission"/>
-
-            <ProgressBar
-                android:id="@+id/progress"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:progressDrawable="@drawable/shape_progress" />
-        </LinearLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="5"
+                android:background="@drawable/shape_back_progressbar"
+                android:orientation="horizontal"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp">
 
-        <LinearLayout
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/shape_lv"
-            android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/time_mission" />
 
-            <TextView
-                android:id="@+id/show_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorOffwhite"
-                android:textSize="@dimen/TextSize" />
-        </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:progressDrawable="@drawable/shape_progress" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/shape_lv"
+                android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="9"
-        android:background="@drawable/shape_mainbox"
-        android:elevation="20dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight=".7"
-            android:background="@drawable/shape_missionbox"
-            android:orientation="vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="คำถาม"
-                android:textColor="@color/colorAllblack"
-                android:textSize="@dimen/TextSize" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="@color/colorAllblack"
-                android:textSize="@dimen/TextSizeBold_20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="เป็นความหมายของสุภาษิตในข้อใด"
-                android:textColor="@color/colorAllblack"
-                android:textSize="@dimen/TextSizeBold_20sp" />
+                <TextView
+                    android:id="@+id/show_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorOffwhite"
+                    android:textSize="@dimen/TextSize" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_margin="8dp"
+            android:layout_weight="9"
+            android:background="@drawable/shape_mainbox"
+            android:elevation="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="คำตอบ"
-                android:textColor="@color/colorAllblack"
-                android:layout_marginBottom="@dimen/margin_btm_answer"
-                android:textSize="@dimen/TextSize" />
-
-            <ListView
-                android:layout_gravity="center"
-                android:id="@+id/list"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:listSelector="@android:color/transparent"
-                tools:listitem="@layout/list_choice_mission"></ListView>
+                android:layout_height="0dp"
+                android:layout_weight=".7"
+                android:background="@drawable/shape_missionbox"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="10dp"
+                    android:text="คำถาม"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSize" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSizeBold_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="เป็นความหมายของสุภาษิตในข้อใด"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSizeBold_20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_btm_answer"
+                    android:layout_marginTop="4dp"
+                    android:text="คำตอบ"
+                    android:textColor="@color/colorAllblack"
+                    android:textSize="@dimen/TextSize" />
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:listSelector="@android:color/transparent"
+                    tools:listitem="@layout/list_choice_mission"></ListView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_0dp"
+            android:layout_weight="1.2"
+            android:paddingBottom="8dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="8dp">
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shapetopics"
+                android:text="ยืนยัน"
+                android:textColor="@color/colorOffwhite"
+                android:textSize="@dimen/TextSize" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/time_out_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_0dp"
-        android:layout_weight="1.2"
-        android:paddingBottom="8dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="8dp">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:src="@drawable/time_ups"
+        android:visibility="gone" />
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shapetopics"
-            android:text="ยืนยัน"
-            android:textColor="@color/colorOffwhite"
-            android:textSize="@dimen/TextSize" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

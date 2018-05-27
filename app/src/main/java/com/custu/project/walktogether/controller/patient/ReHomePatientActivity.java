@@ -19,10 +19,14 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.adapter.HomePatientPagerAdapter;
+import com.custu.project.walktogether.controller.LoginActivity;
+import com.custu.project.walktogether.controller.tmse.ConditionActivity;
 import com.custu.project.walktogether.data.Caretaker;
+import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.data.collection.Reward;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.UserManager;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -189,6 +193,12 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
             viewPager.setCurrentItem(3);
         if (page.equalsIgnoreCase("collection"))
             viewPager.setCurrentItem(4);
+
+        boolean isTestEvaluation = getIntent().getBooleanExtra("isTestEvaluation", false);
+        if (isTestEvaluation) {
+            Intent intent = new Intent(ReHomePatientActivity.this, ConditionActivity.class);
+            DialogUtil.getInstance().showDialogStartIntent(ReHomePatientActivity.this, getString(R.string.evaluation_dialog), intent);
+        }
     }
 
     @Override

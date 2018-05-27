@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,6 +42,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
     private ArrayList<String> answerArray_hour = new ArrayList<String>();
     private ArrayList<String> answerArray_minus = new ArrayList<String>();
 
+    private ImageView timeOutImageView;
     private ImageView imageQuestion;
     private Button nextBtn;
     private Intent intent;
@@ -48,7 +52,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
     private TextView textView;
     private String hour;
     private String minute;
-
+    private Animation timeOutAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mission_clock);
+        timeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.time_out_anim);
         getData();
         setUI();
         setListener();
@@ -66,6 +71,25 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
         answerSpinner_hour.setAdapter(adapterArray_hour);
         answerSpinner_minus.setAdapter(adapterArray_minus);
         initValue();
+
+    }
+    private void showTimeOut() {
+        timeOutImageView.setVisibility(View.VISIBLE);
+        timeOutImageView.startAnimation(timeOutAnimation);
+        int splashInterval = 2000;
+        new Handler().postDelayed(() -> {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("idMission", mission.getMissionDetail().getId());
+            jsonObject.addProperty("idPosition", mission.getPosition().getId());
+            jsonObject.addProperty("score", 0);
+            StoreMission.getInstance().storeAnswer(jsonObject);
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("index", getIntent().getIntExtra("index", 0));
+            returnIntent.putExtra("isComplete", false);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }, splashInterval);
 
     }
     private void countDownTime() {
@@ -81,6 +105,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
             public void onFinish() {
                 progress.setProgress(0);
+                showTimeOut();
                 countDownTimer.cancel();
 //                StoreAnswerTmse.getInstance().storeAnswer("no5", question.getId(), "");
 //                Intent intent = new Intent(QuestionFiveActivity.this, QuestionSixActivity.class);
@@ -142,6 +167,7 @@ public class MissionClockActivity extends AppCompatActivity implements BasicActi
 
     @Override
     public void setUI() {
+        timeOutImageView = (ImageView) findViewById(R.id.time_out_image);
         answerSpinner_hour = findViewById(R.id.input_hour);
         answerSpinner_minus = findViewById(R.id.input_minus);
 

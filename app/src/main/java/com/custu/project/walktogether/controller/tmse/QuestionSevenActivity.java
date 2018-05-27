@@ -1,8 +1,10 @@
 package com.custu.project.walktogether.controller.tmse;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -199,14 +202,49 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 playSound();
                 break;
             case R.id.next: {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
-                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
-                startActivity(intent);
+                showDialog(QuestionSevenActivity.this);
+//                countDownTimer.cancel();
+//                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
+//                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
+//                startActivity(intent);
             }
         }
     }
+    private void showDialog(Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
+        TextView titleTextView = dialog.findViewById(R.id.title);
+        TextView long_title = dialog.findViewById(R.id.long_title);
+
+
+        titleTextView.setText("กรุณาจำคำตอบไว้");
+        long_title.setText("อีกสักครู่จะถามใหม่");
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
+                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
+                dialog.dismiss();
+                startActivity(intent);
+            }
+        });
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+//                edittextBtn.setText("");
+            }
+        });
+        dialog.show();
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
