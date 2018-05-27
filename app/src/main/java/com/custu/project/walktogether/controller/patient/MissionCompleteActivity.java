@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MissionCompleteActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener  {
     private TextView timeTextView;
