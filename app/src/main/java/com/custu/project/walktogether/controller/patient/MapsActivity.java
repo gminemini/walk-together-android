@@ -1,6 +1,8 @@
 package com.custu.project.walktogether.controller.patient;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -25,7 +28,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
@@ -109,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int count;
     private Long mapId;
     private ProgressDialog progressDialog;
-    private boolean isArrive = false;
+    private boolean isArrive = true;
 
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
@@ -364,7 +369,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
                     break;
                 } else {
-                    isArrive = false;
+                    isArrive = true;
                 }
             }
         }
@@ -437,7 +442,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                isArrive = false;
+                isArrive = true;
                 count++;
                 if (count < 4) {
                     int index = data.getIntExtra("index", 0);
@@ -555,6 +560,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @Override
+    public void onBackPressed() {
+        showDialogExitMission();
+    }
+
+    public void showDialogExitMission() {
+        final Dialog dialog = new Dialog(MapsActivity.this);
+        if (dialog.isShowing())
+            dialog.cancel();
+        dialog.setContentView(R.layout.dialog_exit);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        TextView title = dialog.findViewById(R.id.title);
+        TextView detail = dialog.findViewById(R.id.detail);
+        title.setText(MapsActivity.this.getResources().getString(R.string.exit_mission_title));
+        detail.setText(MapsActivity.this.getResources().getString(R.string.exit_mission));
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StoreMission.getInstance().destroyMission();
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 }

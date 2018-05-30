@@ -221,6 +221,10 @@ public class ReHomePatientActivity extends AppCompatActivity implements BasicAct
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
     public void openProfileDetail(Caretaker caretaker) {

@@ -149,4 +149,9 @@ public class MissionCompleteActivity extends AppCompatActivity implements BasicA
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

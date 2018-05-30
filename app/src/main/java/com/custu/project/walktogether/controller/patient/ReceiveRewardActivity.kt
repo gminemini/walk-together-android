@@ -113,4 +113,7 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
         dialog.show()
     }
 
+    override fun onBackPressed() {
+    }
+
 }
