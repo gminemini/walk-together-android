@@ -63,6 +63,7 @@ public class MissionCompleteActivity extends AppCompatActivity implements BasicA
     public void onClick(View view) {
         Intent intent = new Intent(MissionCompleteActivity.this, ReceiveRewardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @SuppressLint("SetTextI18n")

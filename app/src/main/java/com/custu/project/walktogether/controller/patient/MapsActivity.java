@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int count;
     private Long mapId;
     private ProgressDialog progressDialog;
-    private boolean isArrive = true;
+    private boolean isArrive = false;
 
     private SupportMapFragment mapFragment;
     private LinearLayout parentPanel;
@@ -369,7 +369,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Snackbar.make(parentPanel, R.string.arrive_middion, Snackbar.LENGTH_SHORT).show();
                     break;
                 } else {
-                    isArrive = true;
+                    isArrive = false;
                 }
             }
         }
@@ -442,7 +442,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                isArrive = true;
+                isArrive = false;
                 count++;
                 if (count < 4) {
                     int index = data.getIntExtra("index", 0);
@@ -491,6 +491,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         intent.putExtra("distance", patientGame.getDistance());
                         intent.putExtra("resultScore", patientGame.getResultScore());
                         startActivity(intent);
+                        finish();
                     }
                 }
             }
