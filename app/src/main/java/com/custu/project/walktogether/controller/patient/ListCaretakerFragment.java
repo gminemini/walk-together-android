@@ -68,12 +68,7 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
 
 
     private void setListener() {
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getData();
-            }
-        });
+        pullRefreshLayout.setOnRefreshListener(() -> getData());
     }
 
     @SuppressLint("SetTextI18n")
@@ -87,48 +82,38 @@ public class ListCaretakerFragment extends Fragment implements BasicActivity, Vi
         titleTextView.setText(titleTextView.getText().toString() + " " + caretakerArrayList.get(position).getFirstName() + " " + caretakerArrayList.get(position).getLastName());
         LinearLayout done = dialog.findViewById(R.id.submit);
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                ConnectServer.getInstance().delete(new OnDataSuccessListener() {
-                    @Override
-                    public void onResponse(JsonObject object, Retrofit retrofit) {
-                        if (object.get("status").getAsInt() == 200) {
-                            caretakerArrayList.remove(position);
-                            setUI();
+        done.setOnClickListener(view -> {
+            dialog.dismiss();
+            ConnectServer.getInstance().delete(new OnDataSuccessListener() {
+                @Override
+                public void onResponse(JsonObject object, Retrofit retrofit) {
+                    if (object.get("status").getAsInt() == 200) {
+                        caretakerArrayList.remove(position);
+                        setUI();
 
-                        } else {
-                            DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
-                        }
-
+                    } else {
+                        DialogUtil.getInstance().showDialogStartIntent(context, object.get("message").getAsString());
                     }
 
-                    @Override
-                    public void onBodyError(ResponseBody responseBodyError) {
+                }
 
-                    }
+                @Override
+                public void onBodyError(ResponseBody responseBodyError) {
 
-                    @Override
-                    public void onBodyErrorIsNull() {
+                }
 
-                    }
+                @Override
+                public void onBodyErrorIsNull() {
 
-                    @Override
-                    public void onFailure(Throwable t) {
+                }
 
-                    }
-                }, ConfigService.MATCHING + ConfigService.MATCHING_REMOVE_CARETAKER + patient.getId() + ConfigService.MATCHING_CARETAKER_NUMBER + caretakerNumber);
-            }
+                @Override
+                public void onFailure(Throwable t) {
 
+                }
+            }, ConfigService.MATCHING + ConfigService.MATCHING_REMOVE_CARETAKER + patient.getId() + ConfigService.MATCHING_CARETAKER_NUMBER + caretakerNumber);
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
 
     }

@@ -171,9 +171,20 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
         indicator.setViewPager(viewPager);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSkip.setOnClickListener(v -> {
+            Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+            finish();
+            startActivity(intent);
+        });
+
+        btnNext.setOnClickListener(v -> {
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                // move to next screen
+                viewPager.setCurrentItem(current);
+            } else {
                 Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
@@ -182,29 +193,9 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-                    Intent intent = new Intent(WelcomeActivity.this, SplashScreenActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
-                    finish();
-                    startActivity(intent);
-                }
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = getItem(-1);
-                viewPager.setCurrentItem(current);
-            }
+        btnBack.setOnClickListener(v -> {
+            int current = getItem(-1);
+            viewPager.setCurrentItem(current);
         });
     }
 

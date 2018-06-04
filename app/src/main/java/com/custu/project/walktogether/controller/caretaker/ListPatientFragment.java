@@ -153,12 +153,7 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
     }
 
     private void setListener() {
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getData();
-            }
-        });
+        pullRefreshLayout.setOnRefreshListener(() -> getData());
     }
 
     @SuppressLint("SetTextI18n")
@@ -180,21 +175,12 @@ public class ListPatientFragment extends Fragment implements BasicActivity, View
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deletePatient(patientNumber, caretaker.getId(), position);
-                dialog.dismiss();
-            }
+        done.setOnClickListener(view -> {
+            deletePatient(patientNumber, caretaker.getId(), position);
+            dialog.dismiss();
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 

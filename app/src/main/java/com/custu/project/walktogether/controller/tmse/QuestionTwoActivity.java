@@ -93,23 +93,17 @@ public class QuestionTwoActivity extends AppCompatActivity implements BasicActiv
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), edittextBtn.getText().toString());
-                Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no2", numberQuestion.getQuestion().getId(), edittextBtn.getText().toString());
+            Intent intent = new Intent(QuestionTwoActivity.this, QuestionThreeActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                edittextBtn.setText("");
-            }
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            edittextBtn.setText("");
         });
         dialog.show();
     }

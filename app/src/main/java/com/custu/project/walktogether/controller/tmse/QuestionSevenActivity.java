@@ -169,13 +169,10 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
             progressDialog.show();
             isPlaying = true;
             mediaPlayer = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    progressDialog.dismiss();
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
-                    mp.start();
-                }
+            mediaPlayer.setOnPreparedListener(mp -> {
+                progressDialog.dismiss();
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+                mp.start();
             });
 
             mediaPlayer.setOnCompletionListener(this);
@@ -225,23 +222,17 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         long_title.setText("อีกสักครู่จะถามใหม่");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
-                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
+            Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
 //                edittextBtn.setText("");
-            }
         });
         dialog.show();
     }

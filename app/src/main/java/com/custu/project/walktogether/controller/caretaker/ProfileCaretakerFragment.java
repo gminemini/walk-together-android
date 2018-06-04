@@ -90,31 +90,20 @@ public class ProfileCaretakerFragment extends Fragment {
         email.setText(caretaker.getEmail());
         number.setText(caretaker.getCaretakerNumber());
         occupation.setText(DataFormat.getInstance().validateData(caretaker.getOccupation()));
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserManager.getInstance(context).removeCaretaker();
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                context.finish();
-                startActivity(intent);
-            }
+        logout.setOnClickListener(view -> {
+            UserManager.getInstance(context).removeCaretaker();
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.finish();
+            startActivity(intent);
         });
 
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogQrCode.getInstance().showDialog(context, caretaker.getQrCode());
-            }
-        });
+        qrCode.setOnClickListener(view -> DialogQrCode.getInstance().showDialog(context, caretaker.getQrCode()));
 
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pullRefreshLayout.setRefreshing(true);
-                getData();
-            }
+        pullRefreshLayout.setOnRefreshListener(() -> {
+            pullRefreshLayout.setRefreshing(true);
+            getData();
         });
 
     }

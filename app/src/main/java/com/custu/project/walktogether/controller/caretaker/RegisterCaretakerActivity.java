@@ -200,12 +200,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 if (NetworkUtil.isOnline(RegisterCaretakerActivity.this, circularProgressButton))
                     if (validate()) {
                         circularProgressButton.startAnimation();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                register();
-                            }
-                        }, 1500);
+                        new Handler().postDelayed(() -> register(), 1500);
                     }
             }
         }
@@ -380,50 +375,32 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 if (object != null) {
                     int status = object.get("status").getAsInt();
                     if (status == 201) {
-                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onAnimationEnd() {
-                                circularProgressButton.setText("สมัครสมาชิกสำเร็จ");
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Caretaker caretaker = CaretakerModel.getInstance().getCaretaker(object);
-                                        UserManager.getInstance(RegisterCaretakerActivity.this).storeCaretaker(caretaker);
-                                        Intent intent = new Intent(RegisterCaretakerActivity.this, ReHomeCaretakerActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }, 700);
-                            }
+                        circularProgressButton.revertAnimation(() -> {
+                            circularProgressButton.setText("สมัครสมาชิกสำเร็จ");
+                            circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                            circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                            new Handler().postDelayed(() -> {
+                                Caretaker caretaker = CaretakerModel.getInstance().getCaretaker(object);
+                                UserManager.getInstance(RegisterCaretakerActivity.this).storeCaretaker(caretaker);
+                                Intent intent = new Intent(RegisterCaretakerActivity.this, ReHomeCaretakerActivity.class);
+                                startActivity(intent);
+                            }, 700);
                         });
                     } else {
-                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onAnimationEnd() {
-                                circularProgressButton.setText(object.get("message").getAsString());
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        circularProgressButton.startAnimation();
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                circularProgressButton.revertAnimation();
-                                                circularProgressButton.setText("ตกลง");
-                                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-                                            }
-                                        }, 1000);
+                        circularProgressButton.revertAnimation(() -> {
+                            circularProgressButton.setText(object.get("message").getAsString());
+                            circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                            circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
+                            new Handler().postDelayed(() -> {
+                                circularProgressButton.startAnimation();
+                                new Handler().postDelayed(() -> {
+                                    circularProgressButton.revertAnimation();
+                                    circularProgressButton.setText("ตกลง");
+                                    circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                    circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                                }, 1000);
 
-                                    }
-                                }, 2000);
-                            }
+                            }, 2000);
                         });
                     }
                 }
@@ -441,21 +418,15 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             @Override
             public void onFailure(Throwable t) {
                 NetworkUtil.isOnline(RegisterCaretakerActivity.this, circularProgressButton);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        circularProgressButton.startAnimation();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                circularProgressButton.revertAnimation();
-                                circularProgressButton.setText("ตกลง");
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-                            }
-                        }, 1000);
+                new Handler().postDelayed(() -> {
+                    circularProgressButton.startAnimation();
+                    new Handler().postDelayed(() -> {
+                        circularProgressButton.revertAnimation();
+                        circularProgressButton.setText("ตกลง");
+                        circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                    }, 1000);
 
-                    }
                 }, 2000);
 
             }

@@ -158,13 +158,10 @@ public class QuestionFourteenActivity extends AppCompatActivity implements Basic
             progressDialog.show();
             isPlaying = true;
             mediaPlayer = MediaPlayer.create(QuestionFourteenActivity.this, Uri.parse(pathSound));
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    progressDialog.dismiss();
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
-                    mp.start();
-                }
+            mediaPlayer.setOnPreparedListener(mp -> {
+                progressDialog.dismiss();
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+                mp.start();
             });
 
             mediaPlayer.setOnCompletionListener(this);

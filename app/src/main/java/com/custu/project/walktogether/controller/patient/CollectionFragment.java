@@ -70,15 +70,12 @@ public class CollectionFragment extends Fragment implements BasicActivity {
 //            mAdapter = new CollectionAdapter(context, collectionArrayList,1);
             gridView.setAdapter(mAdapter);
 
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    if (collectionArrayList.get(position).getIsReceive()){
-                        ((ReHomePatientActivity) context).openRewardDetail(collectionArrayList.get(position).getReward());
-                    }
-
-
+            gridView.setOnItemClickListener((parent, view, position, id) -> {
+                if (collectionArrayList.get(position).getIsReceive()){
+                    ((ReHomePatientActivity) context).openRewardDetail(collectionArrayList.get(position).getReward());
                 }
+
+
             });
 
             gridView.setVisibility(View.VISIBLE);
@@ -104,12 +101,7 @@ public class CollectionFragment extends Fragment implements BasicActivity {
                         if (object.get("status").getAsInt() == 200) {
                             collectionArrayList = CollectionModel.getInstance().getCollectionArrayList(object);
                             int splashInterval = new Random().nextInt(1500) + 500;
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    initValue();
-                                }
-                            }, splashInterval);
+                            new Handler().postDelayed(() -> initValue(), splashInterval);
                         }
                     }
 

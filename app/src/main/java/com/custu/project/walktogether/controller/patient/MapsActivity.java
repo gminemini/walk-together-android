@@ -583,21 +583,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView detail = dialog.findViewById(R.id.detail);
         title.setText(MapsActivity.this.getResources().getString(R.string.exit_mission_title));
         detail.setText(MapsActivity.this.getResources().getString(R.string.exit_mission));
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StoreMission.getInstance().destroyMission();
-                finish();
-                dialog.dismiss();
-            }
+        done.setOnClickListener(view -> {
+            StoreMission.getInstance().destroyMission();
+            finish();
+            dialog.dismiss();
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 

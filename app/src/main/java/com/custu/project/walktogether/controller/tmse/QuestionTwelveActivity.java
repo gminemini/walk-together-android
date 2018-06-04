@@ -40,13 +40,7 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
         getData();
         setUI();
         setListener();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionTwelveActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionTwelveActivity.this));
 
         countDownTime();
     }
@@ -97,23 +91,17 @@ public class QuestionTwelveActivity extends AppCompatActivity implements BasicAc
         titleTextView.setText("' "+inputTopicFive.getText() + " " + titleTextView.getText()+"'");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
-                StoreAnswerTmse.getInstance().storeAnswer("no12", question.getId(), inputTopicFive.getText().toString());
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            intent = new Intent(QuestionTwelveActivity.this, QuestionThirteenActivity.class);
+            StoreAnswerTmse.getInstance().storeAnswer("no12", question.getId(), inputTopicFive.getText().toString());
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                inputTopicFive.setText("");
-            }
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            inputTopicFive.setText("");
         });
         dialog.show();
     }

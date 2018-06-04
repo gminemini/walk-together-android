@@ -71,15 +71,12 @@ public class ProfilePatientDetailFragment extends Fragment {
         levelProgressBar = view.findViewById(R.id.progress);
         exp = view.findViewById(R.id.exp);
         ImageView dismissImageView = view.findViewById(R.id.dismiss);
-        dismissImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = context.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
-                fragmentTransaction.remove(fragment);
-                fragmentTransaction.commit();
-            }
+        dismissImageView.setOnClickListener(view -> {
+            FragmentManager fragmentManager = context.getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_fragment, R.anim.exit_fragment);
+            fragmentTransaction.remove(fragment);
+            fragmentTransaction.commit();
         });
     }
 

@@ -80,18 +80,15 @@ public class AlbumFragment extends Fragment implements BasicActivity {
             gridView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
 
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    if (!albumArrayList.get(position).getLock()) {
-                        Intent intent = new Intent(context,CollectionActivity.class);
-                        intent.putExtra("collection",new Gson().toJson(albumArrayList.get(position).getCollectionList()));
-                        intent.putExtra("name",albumArrayList.get(position).getAlbumName());
-                        startActivity(intent);
-                    }
-
-
+            gridView.setOnItemClickListener((parent, view, position, id) -> {
+                if (!albumArrayList.get(position).getLock()) {
+                    Intent intent = new Intent(context,CollectionActivity.class);
+                    intent.putExtra("collection",new Gson().toJson(albumArrayList.get(position).getCollectionList()));
+                    intent.putExtra("name",albumArrayList.get(position).getAlbumName());
+                    startActivity(intent);
                 }
+
+
             });
 
             gridView.setVisibility(View.VISIBLE);
@@ -129,12 +126,7 @@ public class AlbumFragment extends Fragment implements BasicActivity {
                     if (object.get("status").getAsInt() == 200) {
                         albumArrayList = CollectionModel.getInstance().getAlbumArrayList(object);
                         int splashInterval = new Random().nextInt(1500) + 500;
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                initValue();
-                            }
-                        }, splashInterval);
+                        new Handler().postDelayed(() -> initValue(), splashInterval);
                     }
                 }
 

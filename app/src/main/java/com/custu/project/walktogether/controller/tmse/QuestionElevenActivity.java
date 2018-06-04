@@ -29,14 +29,7 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
         getData();
         setUI();
         setListener();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                showDialog(QuestionElevenActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionElevenActivity.this));
     }
 
     private void showDialog(Context context) {
@@ -53,22 +46,13 @@ public class QuestionElevenActivity extends AppCompatActivity implements BasicAc
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(QuestionElevenActivity.this, QuestionTwelveActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            Intent intent = new Intent(QuestionElevenActivity.this, QuestionTwelveActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 

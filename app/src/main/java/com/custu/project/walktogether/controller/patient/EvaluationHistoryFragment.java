@@ -2,15 +2,12 @@ package com.custu.project.walktogether.controller.patient;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.historyevaluation.EvaluationTest;
-import com.custu.project.walktogether.data.historyevaluation.EvaluationTestSingle;
 import com.custu.project.walktogether.data.historyevaluation.HistoryEvaluation;
 import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.HistoryEvaluationModel;
@@ -23,23 +20,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import lecho.lib.hellocharts.formatter.SimpleAxisValueFormatter;
 import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-import static com.custu.project.walktogether.data.Evaluation.EvaluationCategory.EVALUATION_CATEGORY;
-
 public class EvaluationHistoryFragment extends Fragment {
-
+    private static int TEXT_SIZE = 13;
     private LineChartView chart;
     private LineChartData data;
 
@@ -158,7 +152,8 @@ public class EvaluationHistoryFragment extends Fragment {
         line = new Line(values);
         line.setColor(getResources().getColor(R.color.colorPath));
         line.setPointColor(getResources().getColor(R.color.colorPath));
-        line.setPointRadius(8);
+        line.setPointRadius(7);
+        line.setShape(ValueShape.SQUARE);
         lines.add(line);
 
         line.setHasLabels(true);
@@ -178,17 +173,20 @@ public class EvaluationHistoryFragment extends Fragment {
         }
 
         Axis axisX = new Axis(axisValues);
-        axisX.setName("ครั้งที่ทำแบบทดสอบ");
-        axisX.setMaxLabelChars(4);
+        axisX.setName("");
+        axisX.setTextSize(TEXT_SIZE);
+        axisX.setMaxLabelChars(5);
         axisX.setHasTiltedLabels(true);
         data.setAxisXBottom(axisX);
 
         Axis axisYLeft = new Axis().setHasLines(true);
         axisYLeft.setName("คะแนนแบบทดสอบ");
+        axisYLeft.setTextSize(TEXT_SIZE);
         axisYLeft.setLineColor(getResources().getColor(R.color.colorBackground));
 
         Axis axisYRight = new Axis().setHasLines(true);
         axisYRight.setName("จำนวนที่เข้าเล่นภารกิจ");
+        axisYRight.setTextSize(TEXT_SIZE);
         axisYRight.setLineColor(getResources().getColor(R.color.colorPath));
 
 

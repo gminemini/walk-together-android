@@ -37,13 +37,7 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionEighteenActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionEighteenActivity.this));
         countDownTime();
     }
 
@@ -93,23 +87,17 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         titleTextView.setText("' "+inputEditText.getText().toString()+" '");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no18", question.getId(), inputEditText.getText().toString());
-                Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no18", question.getId(), inputEditText.getText().toString());
+            Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                inputEditText.setText("");
-            }
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            inputEditText.setText("");
         });
         dialog.show();
     }

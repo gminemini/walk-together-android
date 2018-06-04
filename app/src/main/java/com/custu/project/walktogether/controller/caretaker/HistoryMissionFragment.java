@@ -102,12 +102,7 @@ public class HistoryMissionFragment extends Fragment implements BasicActivity, A
                         historyMissionArrayList = MissionModel.getInstance().getHistoryMissionArrayList(object);
                         Collections.reverse(historyMissionArrayList);
                         int splashInterval = new Random().nextInt(1500) + 500;
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                initValue();
-                            }
-                        }, splashInterval);
+                        new Handler().postDelayed(() -> initValue(), splashInterval);
                     }
 
                 }

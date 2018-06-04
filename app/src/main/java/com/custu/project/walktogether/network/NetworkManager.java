@@ -37,17 +37,14 @@ public class NetworkManager {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Request original = chain.request();
-                        Request request = original.newBuilder()
-                                .header("User-Agent", "ANDROID " + currentVersion())
-                                .method(original.method(), original.body())
-                                .build();
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    Request request = original.newBuilder()
+                            .header("User-Agent", "ANDROID " + currentVersion())
+                            .method(original.method(), original.body())
+                            .build();
 
-                        return chain.proceed(request);
-                    }
+                    return chain.proceed(request);
                 })
                 .addInterceptor(logging)
                 .connectTimeout(10000, TimeUnit.SECONDS)

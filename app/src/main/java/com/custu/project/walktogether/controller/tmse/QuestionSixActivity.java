@@ -41,13 +41,7 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         getData();
         setUI();
         setListener();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionSixActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionSixActivity.this));
 
         countDownTime();
     }
@@ -98,24 +92,18 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         titleTextView.setText("' "+edittextBtn.getText().toString()+" '");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no6", question.getId(), edittextBtn.getText().toString());
-                intent = new Intent(QuestionSixActivity.this, QuestionSevenActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no6", question.getId(), edittextBtn.getText().toString());
+            intent = new Intent(QuestionSixActivity.this, QuestionSevenActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edittextBtn.setText("");
-                dialog.dismiss();
+        cancel.setOnClickListener(view -> {
+            edittextBtn.setText("");
+            dialog.dismiss();
 
-            }
         });
         dialog.show();
     }

@@ -56,26 +56,18 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         TextView sex = view.findViewById(R.id.sex);
         sex.setText(patientArrayList.get(position).getSex().getName());
 
-        view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listPatientFragment.showDialog(mContext, patientArrayList.get(position).getPatientNumber(), position);
+        view.findViewById(R.id.delete).setOnClickListener(view12 -> listPatientFragment.showDialog(mContext, patientArrayList.get(position).getPatientNumber(), position));
+
+
+        openRelativeLayout.setOnClickListener(view1 -> {
+            if (!isOpen[0]) {
+                isOpen[0] = !isOpen[0];
+                swipeLayout.open(true);
+            } else {
+                isOpen[0] = !isOpen[0];
+                swipeLayout.close(true);
             }
-        });
 
-
-        openRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isOpen[0]) {
-                    isOpen[0] = !isOpen[0];
-                    swipeLayout.open(true);
-                } else {
-                    isOpen[0] = !isOpen[0];
-                    swipeLayout.close(true);
-                }
-
-            }
         });
 
 

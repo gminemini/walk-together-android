@@ -109,12 +109,9 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
                 if (object.get("status").getAsInt() == 200) {
                     NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, "รหัสผ่านส่งไปยังเบอร์โทรศัพท์ของท่าน");
                     int splashInterval = 1000;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
+                    new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     }, splashInterval);
                 } else {
                     username.setText("");

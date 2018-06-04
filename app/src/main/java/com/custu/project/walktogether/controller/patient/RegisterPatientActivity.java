@@ -205,14 +205,11 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.input_dob: {
-                DatePickerDialog datePickerIssue = new DatePickerDialog(RegisterPatientActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        updateLabel(inputDob);
-                    }
+                DatePickerDialog datePickerIssue = new DatePickerDialog(RegisterPatientActivity.this, (datePicker, year, monthOfYear, dayOfMonth) -> {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, monthOfYear);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateLabel(inputDob);
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerIssue.show();
                 break;
@@ -226,12 +223,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 if (NetworkUtil.isOnline(RegisterPatientActivity.this, circularProgressButton))
                     if (validate()) {
                         circularProgressButton.startAnimation();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                register();
-                            }
-                        }, 1500);
+                        new Handler().postDelayed(() -> register(), 1500);
                     }
             }
         }
@@ -410,50 +402,32 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                 if (object != null) {
                     int status = object.get("status").getAsInt();
                     if (status == 201) {
-                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onAnimationEnd() {
-                                circularProgressButton.setText("สมัครสมาชิกสำเร็จ");
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Patient patient = PatientModel.getInstance().getPatient(object);
-                                        UserManager.getInstance(RegisterPatientActivity.this).storePatient(patient);
-                                        Intent intent = new Intent(RegisterPatientActivity.this, ReHomePatientActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }, 700);
-                            }
+                        circularProgressButton.revertAnimation(() -> {
+                            circularProgressButton.setText("สมัครสมาชิกสำเร็จ");
+                            circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                            circularProgressButton.setBackgroundResource(R.drawable.shapebutton_complete);
+                            new Handler().postDelayed(() -> {
+                                Patient patient = PatientModel.getInstance().getPatient(object);
+                                UserManager.getInstance(RegisterPatientActivity.this).storePatient(patient);
+                                Intent intent = new Intent(RegisterPatientActivity.this, ReHomePatientActivity.class);
+                                startActivity(intent);
+                            }, 700);
                         });
                     } else {
-                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onAnimationEnd() {
-                                circularProgressButton.setText(object.get("message").getAsString());
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        circularProgressButton.startAnimation();
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                circularProgressButton.revertAnimation();
-                                                circularProgressButton.setText("ตกลง");
-                                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-                                            }
-                                        }, 1000);
+                        circularProgressButton.revertAnimation(() -> {
+                            circularProgressButton.setText(object.get("message").getAsString());
+                            circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                            circularProgressButton.setBackgroundResource(R.drawable.shapebutton_error);
+                            new Handler().postDelayed(() -> {
+                                circularProgressButton.startAnimation();
+                                new Handler().postDelayed(() -> {
+                                    circularProgressButton.revertAnimation();
+                                    circularProgressButton.setText("ตกลง");
+                                    circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                                    circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                                }, 1000);
 
-                                    }
-                                }, 2000);
-                            }
+                            }, 2000);
                         });
                     }
                 }
@@ -471,21 +445,15 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
             @Override
             public void onFailure(Throwable t) {
                 NetworkUtil.isOnline(RegisterPatientActivity.this, circularProgressButton);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        circularProgressButton.startAnimation();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                circularProgressButton.revertAnimation();
-                                circularProgressButton.setText("ตกลง");
-                                circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
-                                circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
-                            }
-                        }, 1000);
+                new Handler().postDelayed(() -> {
+                    circularProgressButton.startAnimation();
+                    new Handler().postDelayed(() -> {
+                        circularProgressButton.revertAnimation();
+                        circularProgressButton.setText("ตกลง");
+                        circularProgressButton.setTextColor(Color.parseColor("#FFFFFF"));
+                        circularProgressButton.setBackgroundResource(R.drawable.shapetopics);
+                    }, 1000);
 
-                    }
                 }, 2000);
             }
         }, ConfigService.PATIENT, jsonObject);
