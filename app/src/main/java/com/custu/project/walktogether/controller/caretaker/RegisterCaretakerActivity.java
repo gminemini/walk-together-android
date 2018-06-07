@@ -51,7 +51,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     private EditText inputUsername;
     private EditText inputPassword;
     private EditText inputConfirmPass;
-    private EditText inputTitlename;
     private EditText inputFirstname;
     private EditText inputLastname;
     private EditText inputDob;
@@ -174,7 +173,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         inputUsername = findViewById(R.id.input_username);
         inputPassword = findViewById(R.id.input_password);
         inputConfirmPass = findViewById(R.id.input_confirm_pass);
-        inputTitlename = findViewById(R.id.input_titlename);
         inputFirstname = findViewById(R.id.input_firstname);
         inputLastname = findViewById(R.id.input_lastname);
         inputDob = findViewById(R.id.input_dob);
@@ -278,7 +276,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
             inputPassword.requestFocus();
         }
 
-
         if (inputConfirmPass.length() == 0) {
             inputConfirmPass.setError("กรุณาใส่ยืนยันรหัสผ่าน");
             inputConfirmPass.requestFocus();
@@ -286,12 +283,6 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         } else if (!(inputPassword.getText().toString().equals(inputConfirmPass.getText().toString()))) {
             inputConfirmPass.setError("กรุณาใส่รหัสผ่านให้ตรงกัน");
             inputConfirmPass.requestFocus();
-        }
-
-
-        if (inputTitlename.length() == 0) {
-            inputTitlename.setError("กรุณาใส่คำนำหน้าชื่อ");
-            inputTitlename.requestFocus();
         }
 
         if (inputFirstname.length() == 0) {
@@ -328,10 +319,8 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                 inputPassword.length() != 0 &&
                 inputConfirmPass.length() != 0 &&
                 (inputPassword.getText().toString().equals(inputConfirmPass.getText().toString())) &&
-                inputTitlename.length() != 0 &&
                 inputFirstname.length() != 0 &&
                 inputLastname.length() != 0 &&
-                inputTitlename.length() != 0 &&
                 inputTell.length() == 10 &&
                 inputTell.length() != 0 &&
                 inputEmail.length() != 0 &&
@@ -358,7 +347,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userName", inputUsername.getText().toString().trim());
         jsonObject.addProperty("password", inputPassword.getText().toString().trim());
-        jsonObject.addProperty("titleName", inputTitlename.getText().toString().trim());
+        jsonObject.addProperty("titleName", "");
         jsonObject.addProperty("firstName", inputFirstname.getText().toString().trim());
         jsonObject.addProperty("lastName", inputLastname.getText().toString().trim());
         jsonObject.addProperty("sexId", idSex);

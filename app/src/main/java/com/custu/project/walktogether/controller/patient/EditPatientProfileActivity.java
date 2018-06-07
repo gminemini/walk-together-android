@@ -44,7 +44,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class EditPatientProfileActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
     private final int RESULT_LOAD_IMAGE = 1;
 
-    private EditText titleNamEditText;
     private EditText inputDob;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
@@ -63,7 +62,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
     private Patient patient;
     private ProgressDialog progressDialog;
     private String picturePath;
-    private String title;
     private String firstName;
     private String lastName;
     private String tell;
@@ -128,7 +126,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
 
     @Override
     public void initValue() {
-        titleNamEditText.setText(patient.getTitleName());
         firstNameEditText.setText(patient.getFirstName());
         lastNameEditText.setText(patient.getLastName());
         tellEditText.setText(patient.getTell());
@@ -140,7 +137,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                         , patient.getImage()
                         , profileImageView);
 
-        title = titleNamEditText.getText().toString().trim();
         firstName = firstNameEditText.getText().toString().trim();
         lastName = lastNameEditText.getText().toString().trim();
         tell = tellEditText.getText().toString().trim();
@@ -151,7 +147,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
     @Override
     public void setUI() {
         inputDob = findViewById(R.id.input_dob);
-        titleNamEditText = findViewById(R.id.title);
         firstNameEditText = findViewById(R.id.firstname);
         lastNameEditText = findViewById(R.id.lastname);
         tellEditText = findViewById(R.id.tell);
@@ -198,7 +193,7 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
                 initValue();
                 setDobSpinner();
                 setListener();
-                NetworkUtil.isOnline(EditPatientProfileActivity.this, titleNamEditText);
+                NetworkUtil.isOnline(EditPatientProfileActivity.this, firstNameEditText);
             }
         }, ConfigService.PATIENT + patient.getId());
     }
@@ -338,9 +333,6 @@ public class EditPatientProfileActivity extends AppCompatActivity implements Bas
 
     public void editProfile() {
         JsonObject jsonObject = new JsonObject();
-
-        if (!title.equalsIgnoreCase(titleNamEditText.getText().toString().trim()))
-            jsonObject.addProperty("titleName", titleNamEditText.getText().toString().trim());
 
         if (!firstName.equalsIgnoreCase(firstNameEditText.getText().toString().trim()))
             jsonObject.addProperty("firstName", firstNameEditText.getText().toString().trim());

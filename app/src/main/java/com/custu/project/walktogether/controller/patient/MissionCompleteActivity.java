@@ -23,6 +23,7 @@ import com.custu.project.walktogether.model.PatientModel;
 import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -69,7 +70,7 @@ public class MissionCompleteActivity extends AppCompatActivity implements BasicA
     @SuppressLint("SetTextI18n")
     @Override
     public void initValue() {
-        timeTextView.setText(String.valueOf(convertTime(time)));
+        timeTextView.setText(String.valueOf(DateTHFormat.getInstance().convertTime(time)));
         distanceTextView.setText(String.valueOf(distance) + " เมตร");
         resultTextView.setText(String.valueOf(resultScore + " คะแนน"));
 
@@ -135,14 +136,6 @@ public class MissionCompleteActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void initProgressDialog() {
-
-    }
-
-    @SuppressLint("DefaultLocale")
-    private String convertTime(Long millis) {
-        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 
     }
 
