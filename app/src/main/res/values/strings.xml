@@ -62,4 +62,5 @@
     <string name="near_map">สถานที่ใกล้ที่สุด</string>
     <string name="other_map">สถานที่อื่น ๆ</string>
     <string name="date_evaluation">เดือนที่ทำแบบทดสอบ</string>
+    <string name="distance">เมตร</string>
 </resources>

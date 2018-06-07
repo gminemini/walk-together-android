@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginVertical="10pt"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSizeBold_20sp"
                         android:textStyle="bold" />
 
@@ -184,7 +184,7 @@
                             android:text="@string/level"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorBackground"
+                            android:textColor="@color/colorAllblack"
                             android:textSize="@dimen/TextSize_Spinner"
                             android:textStyle="bold" />
 
@@ -193,7 +193,7 @@
                             android:id="@+id/level"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorBackground"
+                            android:textColor="@color/colorAllblack"
                             android:textSize="@dimen/TextSize_Spinner"
                             android:textStyle="bold" />
 

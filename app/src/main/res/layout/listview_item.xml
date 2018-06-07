@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="บุษฑิตา วงศ์ธีระวิทย์"
-                    android:textColor="@color/colorBackground"
+                    android:textColor="@color/colorAllblack"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="อายุ: "
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -92,17 +92,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="60"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                       />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" ปี"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                       />
 
                 </LinearLayout>
 
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="เพศ: "
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -124,9 +124,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="หญิง"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                         />
 
                 </LinearLayout>
 

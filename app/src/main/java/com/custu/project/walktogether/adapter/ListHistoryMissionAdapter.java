@@ -66,6 +66,9 @@ public class ListHistoryMissionAdapter extends BaseAdapter {
         TextView date = view.findViewById(R.id.date);
         date.setText(getDate(historyMissionArrayList.get(position).getHistoryDate()));
 
+        TextView distance = view.findViewById(R.id.result_distance);
+        distance.setText(String.valueOf(historyMissionArrayList.get(position).getPatientGame().getDistance()));
+
         return view;
     }
 

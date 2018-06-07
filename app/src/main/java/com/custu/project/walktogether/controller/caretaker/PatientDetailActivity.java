@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.controller.caretaker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -22,6 +23,7 @@ import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.DataFormat;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PatientDetailActivity extends AppCompatActivity implements BasicActivity, View.OnClickListener {
@@ -45,13 +47,16 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
 
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
     public void setUI() {
+        ShortcutBadger.removeCount(this);
         TextView titleTextView = findViewById(R.id.title);
+        profileRelativeLayout = findViewById(R.id.profile);
+
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setTabTextColors(Color.parseColor("#8E8E93"), Color.parseColor("#389A1E"));
         titleTextView.setText(name);
-        profileRelativeLayout = findViewById(R.id.profile);
+
 
         PatientDetailPagerAdapter adapter = new PatientDetailPagerAdapter(getSupportFragmentManager(), idPatient);
         ViewPager viewPager = findViewById(R.id.container);
@@ -88,6 +93,7 @@ public class PatientDetailActivity extends AppCompatActivity implements BasicAct
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.setCurrentItem(0);
     }
+
 
 
     private void setListener() {

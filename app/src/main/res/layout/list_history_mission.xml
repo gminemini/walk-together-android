@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/placeholder_text_height"
                     android:text="ewrer"
-                    android:textColor="@color/colorBackground"
+                    android:textColor="@color/colorAllblack"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -78,24 +78,61 @@
                     android:layout_marginTop="4dp"
                     android:src="@drawable/trophy" />
 
-
                 <TextView
-                    android:layout_marginEnd="4dp"
-                    android:id="@+id/result_score_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/placeholder_text_height"
-                    android:textSize="@dimen/mission_history_text"
-                    android:text="@string/result_score"
-                    android:textColor="@color/colorBackground" />
-
-                <TextView
+                    android:layout_marginEnd="4dp"
                     android:textSize="@dimen/mission_history_text"
                     android:id="@+id/result_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="13"
-                    android:textColor="@color/colorBackground" />
+                    android:textColor="@color/colorAllblack" />
+                <TextView
+
+                    android:id="@+id/result_score_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="@dimen/mission_history_text"
+                    android:text="@string/result_score"
+                    android:textColor="@color/colorAllblack" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/distance_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/score_content"
+                android:layout_marginBottom="3pt"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_dimen"
+                    android:layout_height="@dimen/icon_dimen"
+                    android:layout_marginEnd="@dimen/placeholder_text_height"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/distance2" />
+
+                <TextView
+                    android:layout_marginStart="@dimen/placeholder_text_height"
+                    android:textSize="@dimen/mission_history_text"
+                    android:id="@+id/result_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13"
+                    android:layout_marginEnd="4dp"
+                    android:textColor="@color/colorAllblack" />
+
+                <TextView
+                    android:id="@+id/result_distance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/mission_history_text"
+                    android:text="@string/distance"
+                    android:textColor="@color/colorAllblack" />
+
 
             </LinearLayout>
 
@@ -103,7 +140,7 @@
                 android:id="@+id/time_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/score_content"
+                android:layout_below="@+id/distance_content"
                 android:layout_marginBottom="3pt"
                 android:orientation="horizontal">
 
@@ -120,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/placeholder_text_height"
                     android:text="ewrer"
-                    android:textColor="@color/colorBackground"
+                    android:textColor="@color/colorAllblack"
                     android:textSize="@dimen/mission_history_text" />
 
             </LinearLayout>
@@ -146,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/placeholder_text_height"
                     android:text="ewrer"
-                    android:textColor="@color/colorBackground"
+                    android:textColor="@color/colorAllblack"
                     android:textSize="@dimen/mission_history_text" />
 
             </LinearLayout>

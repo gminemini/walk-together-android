@@ -158,7 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="วันเดือนปีเกิด:"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/marginTop"
                         android:text="อายุ:"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -229,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ปี"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="3pt"
                         android:text="เบอร์โทรศัพท์:"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -275,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/marginTop"
                         android:text="อาชีพ:"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -303,7 +303,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/marginTop"
                         android:text="อีเมลล์:"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize_Spinner"
                         android:textStyle="bold" />
 
@@ -331,7 +331,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_button"
                         android:text="เปลี่ยนรหัสผ่าน"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/colorAllblack"
                         android:textSize="@dimen/TextSize" />
                 </LinearLayout>
 
