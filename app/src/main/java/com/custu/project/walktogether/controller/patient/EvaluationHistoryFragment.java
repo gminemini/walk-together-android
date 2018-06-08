@@ -33,7 +33,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 public class EvaluationHistoryFragment extends Fragment {
-    private static int TEXT_SIZE = 18;
+    private static int TEXT_SIZE = 13;
     private LineChartView chart;
     private LineChartData data;
 

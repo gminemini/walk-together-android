@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.mission.HistoryMission;
+import com.custu.project.walktogether.util.DateTHFormat;
 import com.custu.project.walktogether.util.PicassoUtil;
 
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class ListHistoryMissionAdapter extends BaseAdapter {
         TextView distance = view.findViewById(R.id.result_distance);
         distance.setText(String.valueOf(historyMissionArrayList.get(position).getPatientGame().getDistance()));
 
+        TextView countTime = view.findViewById(R.id.count_time);
+        countTime.setText(String.valueOf(DateTHFormat.getInstance().convertTime(historyMissionArrayList.get(position).getPatientGame().getTime())));
         return view;
     }
 
