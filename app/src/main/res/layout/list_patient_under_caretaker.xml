@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="อายุ: "
                     android:textColor="@color/colorAllblack"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/TextSize"
                     android:textStyle="bold" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="เพศ: "
                     android:textColor="@color/colorAllblack"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/TextSize"
                     android:textStyle="bold" />
 
                 <TextView

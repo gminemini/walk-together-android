@@ -8,7 +8,7 @@
     <lecho.lib.hellocharts.view.LineChartView
         android:layout_weight="8"
         android:layout_marginTop="20pt"
-        android:layout_marginHorizontal="10pt"
+        android:layout_marginHorizontal="4pt"
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="0dp" />

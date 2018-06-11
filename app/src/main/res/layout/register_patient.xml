@@ -297,21 +297,21 @@
                             android:id="@+id/day"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="3"
+                            android:layout_weight="1.4"
                             android:spinnerMode="dialog" />
 
                         <Spinner
                             android:id="@+id/month"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="5"
+                            android:layout_weight="2"
                             android:spinnerMode="dialog" />
 
                         <Spinner
                             android:id="@+id/year"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="5"
+                            android:layout_weight="1.7"
                             android:spinnerMode="dialog" />
                     </LinearLayout>
 
