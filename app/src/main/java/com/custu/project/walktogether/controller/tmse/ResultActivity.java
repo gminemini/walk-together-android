@@ -76,4 +76,8 @@ public class ResultActivity extends AppCompatActivity implements BasicActivity, 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

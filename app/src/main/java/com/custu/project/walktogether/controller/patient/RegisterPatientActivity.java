@@ -402,6 +402,7 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
                                 UserManager.getInstance(RegisterPatientActivity.this).storePatient(patient);
                                 Intent intent = new Intent(RegisterPatientActivity.this, ReHomePatientActivity.class);
                                 startActivity(intent);
+                                finish();
                             }, 700);
                         });
                     } else {
@@ -462,6 +463,11 @@ public class RegisterPatientActivity extends AppCompatActivity implements BasicA
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
 

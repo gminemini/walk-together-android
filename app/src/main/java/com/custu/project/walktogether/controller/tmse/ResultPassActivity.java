@@ -83,4 +83,8 @@ public class ResultPassActivity extends AppCompatActivity implements BasicActivi
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

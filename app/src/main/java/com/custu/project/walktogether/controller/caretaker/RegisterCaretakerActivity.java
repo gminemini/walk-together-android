@@ -373,6 +373,7 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
                                 UserManager.getInstance(RegisterCaretakerActivity.this).storeCaretaker(caretaker);
                                 Intent intent = new Intent(RegisterCaretakerActivity.this, ReHomeCaretakerActivity.class);
                                 startActivity(intent);
+                                finish();
                             }, 700);
                         });
                     } else {
@@ -434,6 +435,11 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
 
