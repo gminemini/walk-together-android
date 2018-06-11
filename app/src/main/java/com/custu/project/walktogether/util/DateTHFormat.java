@@ -1,5 +1,6 @@
 package com.custu.project.walktogether.util;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -8,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by pannawatnokket on 1/2/2018 AD.
@@ -97,6 +99,15 @@ public class DateTHFormat {
         } catch (ParseException e) {
             return new Date();
         }
+    }
+
+
+    @SuppressLint("DefaultLocale")
+    public String convertTime(Long millis) {
+        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
     }
 }
 
