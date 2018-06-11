@@ -253,7 +253,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void onBackPressed() {
-        finish();
+        moveTaskToBack(true);
     }
 
 }

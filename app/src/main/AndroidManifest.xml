@@ -89,8 +89,9 @@
         <activity
             android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionSeventeenActivity"
-            android:noHistory="true"></activity>
-        <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity"></activity>
+            android:noHistory="true" />
+
+        <activity android:name="com.custu.project.walktogether.controller.tmse.DrawImageActivity" />
         <activity
             android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.tmse.QuestionThreeActivity"
@@ -154,17 +155,22 @@
             android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.caretaker.RegisterCaretakerActivity"
             android:label="สมัครสมาชิก ผู้ดูแล" />
-        <activity android:name="com.custu.project.walktogether.controller.tmse.ResultActivity" />
+
+        <activity
+            android:name="com.custu.project.walktogether.controller.tmse.ResultActivity"
+            android:noHistory="true" />
         <activity
             android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.patient.RegisterPatientActivity"
             android:label="สมัครสมาชิก " />
+
         <activity
             android:screenOrientation="portrait"
+            android:noHistory="true"
             android:name="com.custu.project.walktogether.controller.tmse.ResultPassActivity" />
         <activity
             android:screenOrientation="portrait"
-            android:name="com.custu.project.walktogether.controller.SplashScreenActivity"></activity>
+            android:name="com.custu.project.walktogether.controller.SplashScreenActivity" />
         <activity
             android:screenOrientation="portrait"
             android:name="com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity" />
@@ -179,6 +185,7 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:screenOrientation="portrait"
+            android:noHistory="true"
             android:name="com.custu.project.walktogether.controller.tmse.ConditionActivity"
             android:label="ข้อกำหนดการใช้งาน" />
         <activity
