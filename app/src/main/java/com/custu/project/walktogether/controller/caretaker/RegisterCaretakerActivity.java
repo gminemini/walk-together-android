@@ -437,9 +437,5 @@ public class RegisterCaretakerActivity extends AppCompatActivity implements Basi
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
 }
 
