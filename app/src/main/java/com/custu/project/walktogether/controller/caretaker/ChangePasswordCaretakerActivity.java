@@ -3,8 +3,8 @@ package com.custu.project.walktogether.controller.caretaker;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -79,21 +79,20 @@ public class ChangePasswordCaretakerActivity extends AppCompatActivity implement
     public void changePassword() {
         progressDialog.show();
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("password", confirmPasswordEditText.getText().toString().trim());
+        jsonObject.addProperty("oldPassword", oldPasswordEditText.getText().toString().trim());
+        jsonObject.addProperty("newPassword", confirmPasswordEditText.getText().toString().trim());
         ConnectServer.getInstance().update(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object != null) {
-                    if (object.get("status").getAsInt() == 201) {
+                    if (object.get("status").getAsInt() == 200) {
                         caretaker = CaretakerModel.getInstance().getCaretaker(object);
                         UserManager.getInstance(ChangePasswordCaretakerActivity.this).storeCaretaker(caretaker);
                         startActivity(new Intent(ChangePasswordCaretakerActivity.this, ReHomeCaretakerActivity.class));
-                    } else {
-                        NetworkUtil.showMessageResponse(ChangePasswordCaretakerActivity.this,
-                                oldPasswordEditText,
-                                object.get("message").getAsString());
-
+                    } else if (object.get("status").getAsInt() == 404) {
+                        oldPasswordEditText.setError(object.get("message").getAsString());
+                        oldPasswordEditText.requestFocus();
                     }
                 }
             }
@@ -113,7 +112,7 @@ public class ChangePasswordCaretakerActivity extends AppCompatActivity implement
                 progressDialog.dismiss();
                 NetworkUtil.isOnline(ChangePasswordCaretakerActivity.this, oldPasswordEditText);
             }
-        }, ConfigService.CARETAKER + caretaker.getId(), jsonObject);
+        }, ConfigService.CARETAKER_CHANGE_PASSWORD + caretaker.getId(), jsonObject);
     }
 
     @Override
@@ -128,10 +127,6 @@ public class ChangePasswordCaretakerActivity extends AppCompatActivity implement
 
         if (oldPasswordEditText.length() == 0) {
             oldPasswordEditText.setError("กรุณาใส่รหัสผ่าน");
-            oldPasswordEditText.requestFocus();
-            validate = false;
-        } else if (!(oldPasswordEditText.getText().toString().equals(caretaker.getPassword()))) {
-            oldPasswordEditText.setError("รหัสผ่านเดิมไม่ถูกต้อง");
             oldPasswordEditText.requestFocus();
             validate = false;
         }

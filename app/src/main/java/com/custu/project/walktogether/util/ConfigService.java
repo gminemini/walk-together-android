@@ -10,6 +10,8 @@ public class ConfigService {
     //public static final String BASE_URL = "http://10.0.2.2:8181/api/v1/";
     public static final String BASE_URL = "http://159.65.128.189:8181/api/v1/";
     public static final String BASE_URL_IMAGE = "http://159.65.128.189:8181/";
+    public static final String USERNAME = "walk-together-api";
+    public static final String PASSWORD = "72SpIhczsAIMNsa8wuBGX35h5i18XA";
 
     //Google MAp API Key
     public static String GOOGLE_API_KEY = null;
@@ -41,11 +43,13 @@ public class ConfigService {
     //Caretaker
     public static final String CARETAKER = "caretaker/";
     public static final String CARETAKER_BY_NUMBER = "caretaker/by-caretaker-number/";
+    public static final String CARETAKER_CHANGE_PASSWORD = "caretaker/change-password/";
 
     //Patient
     public static final String PATIENT = "patient/";
     public static final String PATIENT_BY_NUMBER = "by-patient-number/";
     public static final String HISTORY_EVALUATION = "history-evaluation/";
+    public static final String PATIENT_CHANGE_PASSWORD = "patient/change-password/";
 
     //Matching
     public static final String MATCHING = "matching/";
