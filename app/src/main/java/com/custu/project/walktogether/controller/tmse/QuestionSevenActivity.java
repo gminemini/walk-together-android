@@ -11,9 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-
-import com.custu.project.walktogether.util.DialogUtil;
-
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,11 +28,17 @@ import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import okhttp3.Credentials;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -51,6 +54,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     private ImageView playSoundImageView;
     private NumberQuestion numberQuestion;
     private Question question;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         setListener();
         countDownTime();
     }
-
-    private CountDownTimer countDownTimer;
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
@@ -164,21 +166,40 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     }
 
     public void playSound() {
+        String credential = Credentials.basic(ConfigService.USERNAME, ConfigService.PASSWORD);
         final AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        if (!isPlaying) {
-            progressDialog.show();
-            isPlaying = true;
-            mediaPlayer = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
-            mediaPlayer.setOnPreparedListener(mp -> {
-                progressDialog.dismiss();
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
-                mp.start();
-            });
+        Uri uri = Uri.parse(pathSound);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", credential);
+        mediaPlayer = new MediaPlayer();
+        Method method;
+        try {
+            method = mediaPlayer.getClass().getMethod("setDataSource", Context.class, Uri.class, Map.class);
 
-            mediaPlayer.setOnCompletionListener(this);
+            method.invoke(mediaPlayer, this, uri, headers);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.prepareAsync();
 
-        } else {
-            stopPlaying();
+            if (!isPlaying) {
+                progressDialog.show();
+                isPlaying = true;
+                mediaPlayer.setOnPreparedListener(mp -> {
+                    progressDialog.dismiss();
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+                    mp.start();
+                });
+
+                mediaPlayer.setOnCompletionListener(this);
+
+            } else {
+                stopPlaying();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
@@ -207,6 +228,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
             }
         }
     }
+
     private void showDialog(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog);
@@ -236,6 +258,7 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         });
         dialog.show();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
