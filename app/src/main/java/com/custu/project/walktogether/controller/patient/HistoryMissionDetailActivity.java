@@ -1,6 +1,7 @@
 package com.custu.project.walktogether.controller.patient;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -18,9 +19,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.akexorcist.googledirection.DirectionCallback;
-import com.akexorcist.googledirection.GoogleDirection;
-import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Route;
@@ -29,7 +27,9 @@ import com.akexorcist.googledirection.util.DirectionConverter;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.data.mission.PatientMissionList;
 import com.custu.project.walktogether.data.mission.Position;
+import com.custu.project.walktogether.manager.ConnectServer;
 import com.custu.project.walktogether.model.MissionModel;
+import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.ConfigService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,13 +46,17 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HistoryMissionDetailActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
+public class HistoryMissionDetailActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
     private static final int REQUEST_PERMISSION_LOCATION = 255;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -66,9 +70,12 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
     private LatLng wayPoints2;
     private LatLng wayPoints3;
     private LatLng wayPoints4;
+    private List<LatLng> wayPoints;
+
     private GoogleMap googleMap;
     private List<Step> stepList;
     private ArrayList<PatientMissionList> missionArrayList;
+    private ProgressDialog progressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -93,6 +100,7 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
         }
+        initProgressDialog();
         getData();
         initPositionMission();
         initMap();
@@ -118,28 +126,51 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
     }
 
     private void initMap() {
-        GoogleDirection.withServerKey(ConfigService.GOOGLE_API_KEY)
-                .from(origin)
-                .and(wayPoints2)
-                .and(wayPoints3)
-                .and(wayPoints4)
-                .to(destination)
-                .transportMode(TransportMode.WALKING)
-                .execute(this);
+        progressDialog.show();
+        JsonObject jsonObject = MissionModel.getInstance().mappingMission(origin, wayPoints, destination);
+        ConnectServer.getInstance().post(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (object != null) {
+                    onDirectionSuccess(new Gson().fromJson(object.get("data"), Direction.class), new Gson().toJson(object.get("data")));
+                }
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+            }
+        }, ConfigService.DIRECTION, jsonObject);
     }
 
     private void initPositionMission() {
+        wayPoints = new ArrayList<>();
         Position position = missionArrayList.get(0).getPosition();
         origin = new LatLng(position.getLatitude(), position.getLongitude());
 
         position = missionArrayList.get(1).getPosition();
         wayPoints2 = new LatLng(position.getLatitude(), position.getLongitude());
+        wayPoints.add(wayPoints2);
 
         position = missionArrayList.get(2).getPosition();
         wayPoints3 = new LatLng(position.getLatitude(), position.getLongitude());
+        wayPoints.add(wayPoints3);
 
         position = missionArrayList.get(3).getPosition();
         wayPoints4 = new LatLng(position.getLatitude(), position.getLongitude());
+        wayPoints.add(wayPoints4);
 
         position = missionArrayList.get(0).getPosition();
         destination = new LatLng(position.getLatitude(), position.getLongitude());
@@ -164,7 +195,6 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
         initMarker();
     }
 
-    @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
             Route route = direction.getRouteList().get(0);
@@ -179,11 +209,6 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
             }
             setCameraWithCoordinationBounds(route);
         }
-    }
-
-    @Override
-    public void onDirectionFailure(Throwable t) {
-        Log.d("onDirectionFailure: ", "onDirectionFailure: " + t);
     }
 
     private String setTitleMarker(String input) {
@@ -281,5 +306,19 @@ public class HistoryMissionDetailActivity extends FragmentActivity implements On
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(HistoryMissionDetailActivity.this);
+        progressDialog.setTitle(getString(R.string.loading));
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
     }
 }

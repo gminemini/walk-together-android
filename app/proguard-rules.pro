@@ -20,8 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
- -dontwarn com.**
- -dontwarn org.**
- -dontwarn orgokio.**
- -dontwarn retrofit2.**
+
+-dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8
+-dontwarn org.xmlpull.v1.**
 
