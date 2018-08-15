@@ -65,19 +65,21 @@ public class CollectionActivity extends AppCompatActivity implements BasicActivi
     public void getData() {
         textView.setText(getIntent().getStringExtra("name"));
         collectionArrayList = CollectionModel.getInstance().getCollections(getIntent().getStringExtra("collection"));
-        RewardAdapter rewardAdapter = new RewardAdapter(CollectionActivity.this, collectionArrayList);
-        rewardAdapter.notifyDataSetChanged();
-        gridView.setAdapter(rewardAdapter);
-        rewardAdapter.notifyDataSetChanged();
-        shimmerFrameLayout.stopShimmerAnimation();
-        shimmerFrameLayout.setVisibility(View.GONE);
-        gridView.setVisibility(View.VISIBLE);
-        gridView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if (collectionArrayList.get(i).getIsReceive()) {
-                viewImageRelativeLayout.setVisibility(View.VISIBLE);
-                PicassoUtil.getInstance().setImageNoCatch(CollectionActivity.this, collectionArrayList.get(i).getReward().getImage(), imageView);
-            }
-        });
+        if (collectionArrayList.size() > 0) {
+            RewardAdapter rewardAdapter = new RewardAdapter(CollectionActivity.this, collectionArrayList);
+            rewardAdapter.notifyDataSetChanged();
+            gridView.setAdapter(rewardAdapter);
+            rewardAdapter.notifyDataSetChanged();
+            shimmerFrameLayout.stopShimmerAnimation();
+            shimmerFrameLayout.setVisibility(View.GONE);
+            gridView.setVisibility(View.VISIBLE);
+            gridView.setOnItemClickListener((adapterView, view, i, l) -> {
+                if (collectionArrayList.get(i).getIsReceive()) {
+                    viewImageRelativeLayout.setVisibility(View.VISIBLE);
+                    PicassoUtil.getInstance().setImageNoCatch(CollectionActivity.this, collectionArrayList.get(i).getReward().getImage(), imageView);
+                }
+            });
+        }
     }
 
     @Override

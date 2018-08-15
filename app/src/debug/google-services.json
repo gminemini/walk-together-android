@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "787419666081",
+    "firebase_url": "https://walk-together-1518546100715.firebaseio.com",
+    "project_id": "walk-together-1518546100715",
+    "storage_bucket": "walk-together-1518546100715.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787419666081:android:d7de7596220ff6e2",
+        "android_client_info": {
+          "package_name": "com.custu.project.walktogether.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787419666081-ovm5oha0nbsr37hi7etat6bqjqct791q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCZh-Ku2olPWkBN_zBPCFkMCrChT2aiWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787419666081:android:406154c2c463a94d",
+        "android_client_info": {
+          "package_name": "cc.c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787419666081-ovm5oha0nbsr37hi7etat6bqjqct791q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCZh-Ku2olPWkBN_zBPCFkMCrChT2aiWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

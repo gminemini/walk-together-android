@@ -88,7 +88,6 @@ public class AlbumFragment extends Fragment implements BasicActivity {
                     startActivity(intent);
                 }
 
-
             });
 
             gridView.setVisibility(View.VISIBLE);

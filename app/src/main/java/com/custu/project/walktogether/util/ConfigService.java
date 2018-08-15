@@ -77,6 +77,7 @@ public class ConfigService {
     public static final String HISTORY_MISSION = "history-by-id//";
     public static final String DUMMY_CHOICE = "answer-by-type/";
     public static final String MISSION_ID = "by-id/";
+    public static final String DIRECTION = "mission/direction/";
 
     //Reward
     public static final String RANDOM_REWARD = "collection/reward-by-level/";
@@ -100,7 +101,7 @@ public class ConfigService {
             GOOGLE_API_KEY = "AIzaSyD_gTByKJ8of3h6TqsHur4R0E5hfMCcgBg";
         } else {
             //Release
-            GOOGLE_API_KEY = "AIzaSyCNJV6mmMqxam86yCoMohABdGzsrKOGFos";
+            GOOGLE_API_KEY = "AIzaSyCqCrvJKf3g95PMQL6QsHxby7190-XZFqc";
         }
     }
 

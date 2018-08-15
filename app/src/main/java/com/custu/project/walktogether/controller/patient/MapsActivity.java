@@ -1,7 +1,6 @@
 package com.custu.project.walktogether.controller.patient;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,13 +27,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.akexorcist.googledirection.DirectionCallback;
-import com.akexorcist.googledirection.GoogleDirection;
-import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Route;
@@ -90,7 +85,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.custu.project.walktogether.util.ConfigService.RADIUS_MISSION;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener, GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener, StepListener, GoogleMap.OnMarkerClickListener {
     private static final int REQUEST_PERMISSION_LOCATION = 255;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -188,12 +183,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initMap() {
-        GoogleDirection.withServerKey(ConfigService.GOOGLE_API_KEY)
-                .from(origin)
-                .and(wayPoints)
-                .to(destination)
-                .transportMode(TransportMode.WALKING)
-                .execute(this);
+        progressDialog.show();
+        JsonObject jsonObject = MissionModel.getInstance().mappingMission(origin, wayPoints, destination);
+        ConnectServer.getInstance().post(new OnDataSuccessListener() {
+            @Override
+            public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (object != null) {
+                    onDirectionSuccess(new Gson().fromJson(object.get("data"), Direction.class), new Gson().toJson(object.get("data")));
+                }
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBodyError) {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+            }
+        }, ConfigService.DIRECTION, jsonObject);
     }
 
     private void initPositionMission() {
@@ -219,7 +235,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ConfigService.DEFAULT_LAT, ConfigService.DEFAULT_LONG), 8));
     }
 
-    @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
             setDetailDirection(rawBody);
@@ -239,11 +254,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             setCameraWithCoordinationBounds(route);
         }
-    }
-
-    @Override
-    public void onDirectionFailure(Throwable t) {
-        Log.d("onDirectionFailure: ", "onDirectionFailure: " + t);
     }
 
     private void setCameraWithCoordinationBounds(Route route) {
