@@ -104,12 +104,9 @@ public class AddCaretakerQRCodeFragment extends Fragment implements ZXingScanner
     @Override
     public void handleResult(final Result result) {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mScannerView.resumeCameraPreview(AddCaretakerQRCodeFragment.this);
-                addUser(result.getText());
-            }
+        handler.postDelayed(() -> {
+            mScannerView.resumeCameraPreview(AddCaretakerQRCodeFragment.this);
+            addUser(result.getText());
         }, 2000);
     }
 

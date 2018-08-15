@@ -34,12 +34,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ชื่อผู้ใช้"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ชื่อผู้ใช้"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_username"
@@ -60,12 +73,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="รหัสผ่าน"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="รหัสผ่าน"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_password"
@@ -86,12 +112,25 @@
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ยืนยันรหัสผ่าน"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ยืนยันรหัสผ่าน"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_confirm_pass"
@@ -106,11 +145,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,6 +159,7 @@
                         android:text="คำนำหน้าชื่อ"
                         android:textColor="@color/colorBackground"
                         android:textSize="@dimen/TextSizeBold_20sp" />
+
 
                     <EditText
                         android:id="@+id/input_titlename"
@@ -138,12 +180,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ชื่อ"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ชื่อ"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_firstname"
@@ -164,12 +219,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="นามสกุล"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="นามสกุล"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_lastname"
@@ -193,18 +261,31 @@
                         android:layout_height="35dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="วัน/เดิอน/ปี ที่เกิด"
-                            android:textColor="@color/colorBackground"
-                            android:textSize="@dimen/TextSizeBold_20sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="วัน/เดิอน/ปี ที่เกิด"
+                                android:textColor="@color/colorBackground"
+                                android:textSize="@dimen/TextSizeBold_20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="@color/colorRed"
+                                android:textSize="@dimen/TextSizeBold_20sp" />
+                        </LinearLayout>
+
 
                         <EditText
-                            android:background="@null"
                             android:id="@+id/input_dob"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@null"
                             android:focusable="false" />
 
                     </LinearLayout>
@@ -219,19 +300,19 @@
                             android:id="@+id/day"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="3" />
+                            android:layout_weight="1.4" />
 
                         <Spinner
                             android:id="@+id/month"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="5" />
+                            android:layout_weight="2" />
 
                         <Spinner
                             android:id="@+id/year"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_edittext_40dp"
-                            android:layout_weight="5" />
+                            android:layout_weight="1.7" />
                     </LinearLayout>
 
 
@@ -250,12 +331,25 @@
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="เพศ"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="เพศ"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <Spinner
                         android:id="@+id/input_sex"
@@ -276,12 +370,25 @@
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ระดับการศึกษา"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ระดับการศึกษา"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <Spinner
                         android:id="@+id/input_education"
@@ -304,12 +411,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="เบอร์โทร"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="เบอร์โทร"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_tell"
@@ -356,12 +476,25 @@
 
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="อีเมล"
-                        android:textColor="@color/colorBackground"
-                        android:textSize="@dimen/TextSizeBold_20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="อีเมล"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/TextSizeBold_20sp" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/input_email"

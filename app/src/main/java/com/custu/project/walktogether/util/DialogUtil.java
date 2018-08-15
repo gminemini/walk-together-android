@@ -41,12 +41,7 @@ public class DialogUtil {
         titleTextView.setText(message);
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        done.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 
@@ -61,25 +56,17 @@ public class DialogUtil {
 
         LinearLayout done = dialog.findViewById(R.id.submit);
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
-                ((Activity) context).finish();
-                System.exit(0);
-                dialog.dismiss();
-            }
+        done.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+            ((Activity) context).finish();
+            System.exit(0);
+            dialog.dismiss();
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 
@@ -98,29 +85,21 @@ public class DialogUtil {
         TextView detail = dialog.findViewById(R.id.detail);
         title.setText(context.getResources().getString(R.string.exit_mission_title));
         detail.setText(context.getResources().getString(R.string.exit_mission));
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("idMission", id);
-                jsonObject.addProperty("idPosition", integer);
-                jsonObject.addProperty("score", 0);
-                StoreMission.getInstance().storeAnswer(jsonObject);
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("index", ((Activity) context).getIntent().getIntExtra("index", 0));
-                returnIntent.putExtra("isComplete", false);
-                ((Activity) context).setResult(RESULT_OK, returnIntent);
-                ((Activity) context).finish();
-                dialog.dismiss();
-            }
+        done.setOnClickListener(view -> {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("idMission", id);
+            jsonObject.addProperty("idPosition", integer);
+            jsonObject.addProperty("score", 0);
+            StoreMission.getInstance().storeAnswer(jsonObject);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("index", ((Activity) context).getIntent().getIntExtra("index", 0));
+            returnIntent.putExtra("isComplete", false);
+            ((Activity) context).setResult(RESULT_OK, returnIntent);
+            ((Activity) context).finish();
+            dialog.dismiss();
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 
@@ -138,13 +117,10 @@ public class DialogUtil {
         titleTextView.setText(message);
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(intent);
-                ((Activity) context).finish();
-                dialog.dismiss();
-            }
+        done.setOnClickListener(view -> {
+            context.startActivity(intent);
+            ((Activity) context).finish();
+            dialog.dismiss();
         });
         dialog.show();
     }

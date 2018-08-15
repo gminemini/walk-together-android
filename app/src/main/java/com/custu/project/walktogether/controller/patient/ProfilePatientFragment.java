@@ -103,31 +103,20 @@ public class ProfilePatientFragment extends Fragment {
         level.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getLevel())));
         exp.setText(DataFormat.getInstance().validateData(String.valueOf(patient.getExpPercent()))+" %");
         occupation.setText(DataFormat.getInstance().validateData(patient.getOccupation()));
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserManager.getInstance(context).removePatient();
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
-                context.finish();
-                startActivity(intent);
-            }
+        logout.setOnClickListener(view -> {
+            UserManager.getInstance(context).removePatient();
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
+            context.finish();
+            startActivity(intent);
         });
 
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogQrCode.getInstance().showDialog(context, patient.getQrCode());
-            }
-        });
+        qrCode.setOnClickListener(view -> DialogQrCode.getInstance().showDialog(context, patient.getQrCode()));
 
-        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pullRefreshLayout.setRefreshing(true);
-                getData();
-            }
+        pullRefreshLayout.setOnRefreshListener(() -> {
+            pullRefreshLayout.setRefreshing(true);
+            getData();
         });
         levelProgressBar.setProgress((int) patient.getExpPercent());
     }

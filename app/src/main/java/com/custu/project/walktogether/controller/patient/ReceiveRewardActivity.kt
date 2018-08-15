@@ -97,6 +97,7 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
                         val intent = Intent(this@ReceiveRewardActivity, ReHomePatientActivity::class.java)
                         intent.putExtra("page", "collection")
                         startActivity(intent)
+                        finish()
                     }
 
                     override fun onBodyError(responseBodyError: ResponseBody?) {
@@ -112,4 +113,8 @@ class ReceiveRewardActivity : AppCompatActivity(), BasicActivity {
         }
         dialog.show()
     }
+
+    override fun onBackPressed() {
+    }
+
 }

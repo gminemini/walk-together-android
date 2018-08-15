@@ -3,8 +3,8 @@ package com.custu.project.walktogether.controller.patient;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -79,24 +79,23 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
     public void changePassword() {
         progressDialog.show();
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("password", confirmPasswordEditText.getText().toString().trim());
+        jsonObject.addProperty("oldPassword", oldPasswordEditText.getText().toString().trim());
+        jsonObject.addProperty("newPassword", confirmPasswordEditText.getText().toString().trim());
         ConnectServer.getInstance().update(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object != null) {
-                    if (object.get("status").getAsInt() == 201) {
+                    if (object.get("status").getAsInt() == 200) {
                         patient = PatientModel.getInstance().getPatient(object);
                         UserManager.getInstance(ChangePasswordPatientActivity.this).storePatient(patient);
-                        Intent intent = new Intent(ChangePasswordPatientActivity.this,ReHomePatientActivity.class);
+                        Intent intent = new Intent(ChangePasswordPatientActivity.this, ReHomePatientActivity.class);
                         intent.putExtra("page", "profile");
                         startActivity(intent);
                         startActivity(intent);
-                    } else {
-                        NetworkUtil.showMessageResponse(ChangePasswordPatientActivity.this,
-                                oldPasswordEditText,
-                                object.get("message").getAsString());
-
+                    } else if (object.get("status").getAsInt() == 404) {
+                        oldPasswordEditText.setError(object.get("message").getAsString());
+                        oldPasswordEditText.requestFocus();
                     }
                 }
             }
@@ -116,7 +115,7 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
                 progressDialog.dismiss();
                 NetworkUtil.isOnline(ChangePasswordPatientActivity.this, oldPasswordEditText);
             }
-        }, ConfigService.PATIENT + patient.getId(), jsonObject);
+        }, ConfigService.PATIENT_CHANGE_PASSWORD + patient.getId(), jsonObject);
     }
 
     @Override
@@ -131,10 +130,6 @@ public class ChangePasswordPatientActivity extends AppCompatActivity implements 
 
         if (oldPasswordEditText.length() == 0) {
             oldPasswordEditText.setError("กรุณาใส่รหัสผ่าน");
-            oldPasswordEditText.requestFocus();
-            validate = false;
-        } else if (!(oldPasswordEditText.getText().toString().equals(patient.getPassword()))) {
-            oldPasswordEditText.setError("รหัสผ่านเดิมไม่ถูกต้อง");
             oldPasswordEditText.requestFocus();
             validate = false;
         }

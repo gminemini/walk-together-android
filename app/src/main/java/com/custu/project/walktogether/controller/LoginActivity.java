@@ -19,7 +19,6 @@ import android.widget.EditText;
 import com.custu.project.project.walktogether.R;
 import com.custu.project.walktogether.controller.caretaker.ReHomeCaretakerActivity;
 import com.custu.project.walktogether.controller.patient.ReHomePatientActivity;
-import com.custu.project.walktogether.controller.tmse.ConditionActivity;
 import com.custu.project.walktogether.data.Caretaker;
 import com.custu.project.walktogether.data.Patient;
 import com.custu.project.walktogether.manager.ConnectServer;
@@ -29,7 +28,6 @@ import com.custu.project.walktogether.network.callback.OnDataSuccessListener;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
 import com.custu.project.walktogether.util.DeviceToken;
-import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.NetworkUtil;
 import com.custu.project.walktogether.util.UserManager;
 import com.google.gson.JsonObject;
@@ -142,19 +140,12 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
                                 new Handler().postDelayed(() -> {
                                     patient = PatientModel.getInstance().getPatient(object);
                                     UserManager.getInstance(LoginActivity.this).storePatient(patient);
-                                    if (!object.get("isTestEvaluation").getAsBoolean()) {
-                                        Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        finish();
-                                        startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(LoginActivity.this, ConditionActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // clears all previous activities task
-                                        finish();
-                                        DialogUtil.getInstance().showDialogStartIntent(LoginActivity.this, getString(R.string.evaluation_dialog), intent);
-                                    }
+                                    Intent intent = new Intent(LoginActivity.this, ReHomePatientActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.putExtra("isTestEvaluation", object.get("isTestEvaluation").getAsBoolean());
+                                    finish();
+                                    startActivity(intent);
                                 }, 700);
                             });
                         } else {
@@ -262,7 +253,7 @@ public class LoginActivity extends Activity implements BasicActivity, View.OnCli
 
     @Override
     public void onBackPressed() {
-        finish();
+        moveTaskToBack(true);
     }
 
 }

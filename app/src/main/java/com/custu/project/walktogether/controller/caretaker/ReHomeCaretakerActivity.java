@@ -153,7 +153,7 @@ public class ReHomeCaretakerActivity extends AppCompatActivity implements BasicA
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        moveTaskToBack(true);
         finish();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();

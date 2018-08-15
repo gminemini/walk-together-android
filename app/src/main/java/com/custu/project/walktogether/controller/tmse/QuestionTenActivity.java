@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,17 +27,13 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_ten);
         getData();
         setUI();
         setListener();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionTenActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionTenActivity.this));
     }
 
     private void showDialog(Context context) {
@@ -52,23 +50,14 @@ public class QuestionTenActivity extends AppCompatActivity implements BasicActiv
 
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(QuestionTenActivity.this, QuestionElevenActivity.class);
-                dialog.dismiss();
-                intent.putExtra("EXTRA_ANS", input_topicfour.getText().toString());
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            Intent intent = new Intent(QuestionTenActivity.this, QuestionElevenActivity.class);
+            dialog.dismiss();
+            intent.putExtra("EXTRA_ANS", input_topicfour.getText().toString());
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 

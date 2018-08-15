@@ -21,6 +21,7 @@
             android:textStyle="bold" />
 
         <TextView
+           android:id="@+id/long_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="คือคำตอบของคุณ กรุณายืนยันคำตอบ"
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ยกเลิก"
-                android:textColor="@color/colorRed"
+                android:textColor="@color/colorAllblack"
                 android:textSize="22sp" />
 
         </LinearLayout>
@@ -69,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ตกลง"
+                android:text="ยืนยัน"
                 android:textColor="@color/colorBackground"
                 android:textSize="22sp"
                 android:textStyle="bold" />

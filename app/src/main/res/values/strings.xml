@@ -26,7 +26,7 @@
     <string name="no_caretaker">คุณยังไม่มีผู้ดูแล</string>
     <string name="no_patient">คุณยังไม่มีผู้สูงอายุ</string>
 
-    <string name="slide_1_title">วอล์คทูเก็ตเตอร์</string>
+    <string name="slide_1_title">วอล์คทูเก็ทเตอร์</string>
     <string name="slide_1_desc">เกมแอปพลิเคชันบำบัดผู้ป่วยภาวะสมองเสื่อมในระยะเริ่มต้น
 โดยการออกกำลังกาย
 และการฝึกปริชานปัญญา
@@ -61,4 +61,6 @@
     <string name="back">กลับ</string>
     <string name="near_map">สถานที่ใกล้ที่สุด</string>
     <string name="other_map">สถานที่อื่น ๆ</string>
+    <string name="date_evaluation">เดือนที่ทำแบบทดสอบ</string>
+    <string name="distance">เมตร</string>
 </resources>

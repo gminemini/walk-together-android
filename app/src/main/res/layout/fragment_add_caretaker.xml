@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="กรอกรหัสประจำตัว"
-            android:textColor="@color/colorBackground"
+            android:textColor="@color/colorAllblack"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -158,7 +158,7 @@
                 android:layout_height="48dp"
                 android:layout_margin="@dimen/marginTopButtin"
                 android:background="@drawable/shapebutton_complete"
-                android:text="เพิ่มผู้ป่วย"
+                android:text="เพิ่มผู้ดูแล"
                 android:textColor="@color/colorOffwhite"
                 android:textSize="@dimen/TextSize" />
 

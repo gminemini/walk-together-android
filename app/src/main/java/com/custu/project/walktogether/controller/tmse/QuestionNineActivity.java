@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.custu.project.walktogether.util.DialogUtil;
 
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,17 +42,13 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_nine);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionNineActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionNineActivity.this));
         countDownTime();
     }
 
@@ -101,31 +98,25 @@ public class QuestionNineActivity extends AppCompatActivity implements BasicActi
         titleTextView.setText("' "+inputTopicFour.getText() + " " + titleTextView.getText()+"'");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                count++;
-                resultScore += getScore();
-                if (count == 3) {
-                    countDownTimer.cancel();
-                    StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
-                    Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
-                    dialog.dismiss();
-                    startActivity(intent);
-                } else {
-                    numberQ++;
-                    dialog.dismiss();
-                    nextQuestion(String.valueOf(questionNext));
-                }
+        done.setOnClickListener(view -> {
+            count++;
+            resultScore += getScore();
+            if (count == 3) {
+                countDownTimer.cancel();
+                StoreAnswerTmse.getInstance().storeAnswer("no9", question.getId(), String.valueOf(resultScore));
+                Intent intent = new Intent(QuestionNineActivity.this, QuestionTwelveActivity.class);
+                dialog.dismiss();
+                startActivity(intent);
+            } else {
+                numberQ++;
+                dialog.dismiss();
+                nextQuestion(String.valueOf(questionNext));
             }
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                inputTopicFour.setText("");
-            }
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            inputTopicFour.setText("");
         });
         dialog.show();
     }

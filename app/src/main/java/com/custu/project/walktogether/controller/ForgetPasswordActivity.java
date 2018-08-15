@@ -38,7 +38,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
         initProgressDialog();
         setUI();
         setListener();
-
     }
 
     public void onClick(View v) {
@@ -70,6 +69,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
         ConnectServer.getInstance().post(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
+                progressDialog.dismiss();
                 if (object.get("status").getAsInt() == 200) {
                     JsonObject data = object.getAsJsonObject("data");
                     password = data.get("password").getAsString();
@@ -101,20 +101,17 @@ public class ForgetPasswordActivity extends AppCompatActivity implements BasicAc
     }
 
     private void sendSMS() {
-        String url = ConfigService.SMS_API + tell + ConfigService.SMS_MESSAGE + "รหัสผ่านของคุณคือ " + password;
+        String url = ConfigService.SMS_API + tell + ConfigService.SMS_MESSAGE + "WalkTogether: รหัสผ่านใหม่ของคุณคือ " + password;
         ConnectServer.getInstance().sendSMS(new OnDataSuccessListener() {
             @Override
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (object.get("status").getAsInt() == 200) {
-                    NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, "รหัสผ่านส่งไปยังเบอร์โทรศัพท์ของท่าน");
-                    int splashInterval = 1000;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
+                    NetworkUtil.showMessageResponse(ForgetPasswordActivity.this, username, "รหัสผ่านใหม่ส่งไปยังเบอร์โทรศัพท์ของท่าน");
+                    int splashInterval = 3000;
+                    new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     }, splashInterval);
                 } else {
                     username.setText("");

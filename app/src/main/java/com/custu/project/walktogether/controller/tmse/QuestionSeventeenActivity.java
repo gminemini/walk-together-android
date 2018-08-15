@@ -98,8 +98,8 @@ public class QuestionSeventeenActivity extends AppCompatActivity implements Basi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_seventeen);
         initProgressDialog();
         getData();

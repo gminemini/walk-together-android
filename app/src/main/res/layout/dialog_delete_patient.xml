@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="คุณต้องการลบ "
-            android:textColor="@color/colorBackground"
+            android:textColor="@color/colorAllblack"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ออกจากผู้ป่วยในการดูแลหรือไม่"
-            android:textColor="@color/colorBackground"
+            android:textColor="@color/colorAllblack"
             android:textSize="20sp"/>
 
     </LinearLayout>

@@ -56,26 +56,18 @@ public class ListViewCaretakerAdapter extends BaseSwipeAdapter {
         TextView sex = view.findViewById(R.id.sex);
         sex.setText(caretakerArrayList.get(position).getSex().getName());
 
-        view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listCaretakerFragment.showDialog(mContext, caretakerArrayList.get(position).getCaretakerNumber(), position);
+        view.findViewById(R.id.delete).setOnClickListener(view12 -> listCaretakerFragment.showDialog(mContext, caretakerArrayList.get(position).getCaretakerNumber(), position));
+
+
+        openRelativeLayout.setOnClickListener(view1 -> {
+            if (!isOpen[0]) {
+                isOpen[0] = !isOpen[0];
+                swipeLayout.open(true);
+            } else {
+                isOpen[0] = !isOpen[0];
+                swipeLayout.close(true);
             }
-        });
 
-
-        openRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isOpen[0]) {
-                    isOpen[0] = !isOpen[0];
-                    swipeLayout.open(true);
-                } else {
-                    isOpen[0] = !isOpen[0];
-                    swipeLayout.close(true);
-                }
-
-            }
         });
 
 

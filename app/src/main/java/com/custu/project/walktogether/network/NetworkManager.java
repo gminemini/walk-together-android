@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +29,7 @@ public class NetworkManager {
 
     public NetworkManager() {
         RxJavaCallAdapterFactory rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
+        String authToken = Credentials.basic(ConfigService.USERNAME, ConfigService.PASSWORD);
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -37,17 +39,15 @@ public class NetworkManager {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Request original = chain.request();
-                        Request request = original.newBuilder()
-                                .header("User-Agent", "ANDROID " + currentVersion())
-                                .method(original.method(), original.body())
-                                .build();
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    Request request = original.newBuilder()
+                            .header("User-Agent", "ANDROID " + currentVersion())
+                            .header("Authorization", authToken)
+                            .method(original.method(), original.body())
+                            .build();
 
-                        return chain.proceed(request);
-                    }
+                    return chain.proceed(request);
                 })
                 .addInterceptor(logging)
                 .connectTimeout(10000, TimeUnit.SECONDS)

@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,17 +34,12 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_eighteen);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);setContentView(R.layout.question_eighteen);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getData();
         setUI();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionEighteenActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionEighteenActivity.this));
         countDownTime();
     }
 
@@ -93,23 +89,17 @@ public class QuestionEighteenActivity extends AppCompatActivity implements Basic
         titleTextView.setText("' "+inputEditText.getText().toString()+" '");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no18", question.getId(), inputEditText.getText().toString());
-                Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no18", question.getId(), inputEditText.getText().toString());
+            Intent intent = new Intent(QuestionEighteenActivity.this, QuestionNineteenActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                inputEditText.setText("");
-            }
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+            inputEditText.setText("");
         });
         dialog.show();
     }

@@ -1,23 +1,23 @@
 package com.custu.project.walktogether.controller.tmse;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-
-import com.custu.project.walktogether.util.DialogUtil;
-
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,11 +28,17 @@ import com.custu.project.walktogether.data.Evaluation.Question;
 import com.custu.project.walktogether.model.EvaluationModel;
 import com.custu.project.walktogether.util.BasicActivity;
 import com.custu.project.walktogether.util.ConfigService;
+import com.custu.project.walktogether.util.DialogUtil;
 import com.custu.project.walktogether.util.StoreAnswerTmse;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import okhttp3.Credentials;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -48,12 +54,13 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     private ImageView playSoundImageView;
     private NumberQuestion numberQuestion;
     private Question question;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_seven);
         getData();
         initValue();
@@ -62,8 +69,6 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
         setListener();
         countDownTime();
     }
-
-    private CountDownTimer countDownTimer;
 
     private void countDownTime() {
         long timeInterval = ConfigService.TIME_INTERVAL;
@@ -161,24 +166,40 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
     }
 
     public void playSound() {
+        String credential = Credentials.basic(ConfigService.USERNAME, ConfigService.PASSWORD);
         final AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        if (!isPlaying) {
-            progressDialog.show();
-            isPlaying = true;
-            mediaPlayer = MediaPlayer.create(QuestionSevenActivity.this, Uri.parse(pathSound));
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
+        Uri uri = Uri.parse(pathSound);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", credential);
+        mediaPlayer = new MediaPlayer();
+        Method method;
+        try {
+            method = mediaPlayer.getClass().getMethod("setDataSource", Context.class, Uri.class, Map.class);
+
+            method.invoke(mediaPlayer, this, uri, headers);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.prepareAsync();
+
+            if (!isPlaying) {
+                progressDialog.show();
+                isPlaying = true;
+                mediaPlayer.setOnPreparedListener(mp -> {
                     progressDialog.dismiss();
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
                     mp.start();
-                }
-            });
+                });
 
-            mediaPlayer.setOnCompletionListener(this);
+                mediaPlayer.setOnCompletionListener(this);
 
-        } else {
-            stopPlaying();
+            } else {
+                stopPlaying();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
@@ -199,12 +220,43 @@ public class QuestionSevenActivity extends AppCompatActivity implements BasicAct
                 playSound();
                 break;
             case R.id.next: {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
-                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
-                startActivity(intent);
+                showDialog(QuestionSevenActivity.this);
+//                countDownTimer.cancel();
+//                StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
+//                Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
+//                startActivity(intent);
             }
         }
+    }
+
+    private void showDialog(Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView titleTextView = dialog.findViewById(R.id.title);
+        TextView long_title = dialog.findViewById(R.id.long_title);
+
+
+        titleTextView.setText("กรุณาจำคำตอบไว้");
+        long_title.setText("อีกสักครู่จะถามใหม่");
+
+        LinearLayout done = dialog.findViewById(R.id.submit);
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no7", question.getId(), getAnswer());
+            Intent intent = new Intent(QuestionSevenActivity.this, QuestionEightActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
+        });
+        LinearLayout cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+//                edittextBtn.setText("");
+        });
+        dialog.show();
     }
 
     @Override

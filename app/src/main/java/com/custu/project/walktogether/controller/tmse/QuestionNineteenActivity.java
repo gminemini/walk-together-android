@@ -50,8 +50,8 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_nineteen);
         getData();
         setUI();
@@ -192,7 +192,7 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                         intent.putExtra("idPatient", object.getAsJsonObject("data").get("idPatient").getAsLong());
                         intent.putExtra("score", score);
                         intent.putExtra("isRegister", finalIsRegister);
-                        storePatient(intent, object.getAsJsonObject("data").get("idPatient").getAsLong());
+                        startActivity(intent);
                     } else {
                         Intent intent = new Intent(QuestionNineteenActivity.this, ResultActivity.class);
                         intent.putExtra("score", score);
@@ -218,37 +218,6 @@ public class QuestionNineteenActivity extends AppCompatActivity implements Basic
                 NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup);
             }
         }, ConfigService.EVALUATION + ConfigService.EVALUATION_CHECK + id, jsonObject);
-    }
-
-    private void storePatient(final Intent intent, Long id) {
-        ConnectServer.getInstance().get(new OnDataSuccessListener() {
-            @Override
-            public void onResponse(JsonObject object, Retrofit retrofit) {
-                progressDialog.dismiss();
-                if (object != null) {
-                    UserManager.getInstance(QuestionNineteenActivity.this).storePatient(PatientModel.getInstance().getPatient(object));
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onBodyError(ResponseBody responseBodyError) {
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onBodyErrorIsNull() {
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                progressDialog.dismiss();
-                NetworkUtil.isOnline(QuestionNineteenActivity.this, radioGroup);
-            }
-        }, ConfigService.PATIENT + id);
-
-
     }
 
     private void initProgress() {

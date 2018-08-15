@@ -109,12 +109,9 @@ public class AddPatientQRCodeFragment extends Fragment implements ZXingScannerVi
     @Override
     public void handleResult(final Result result) {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mScannerView.resumeCameraPreview(AddPatientQRCodeFragment.this);
-                addUser(result.getText());
-            }
+        handler.postDelayed(() -> {
+            mScannerView.resumeCameraPreview(AddPatientQRCodeFragment.this);
+            addUser(result.getText());
         }, 2000);
     }
 

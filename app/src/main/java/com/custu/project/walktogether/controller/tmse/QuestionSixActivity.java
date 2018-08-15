@@ -8,6 +8,8 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,17 +39,13 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.question_six);
         getData();
         setUI();
         setListener();
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(QuestionSixActivity.this);
-
-            }
-        });
+        nextBtn.setOnClickListener(v -> showDialog(QuestionSixActivity.this));
 
         countDownTime();
     }
@@ -98,24 +96,18 @@ public class QuestionSixActivity extends AppCompatActivity implements BasicActiv
         titleTextView.setText("' "+edittextBtn.getText().toString()+" '");
 
         LinearLayout done = dialog.findViewById(R.id.submit);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countDownTimer.cancel();
-                StoreAnswerTmse.getInstance().storeAnswer("no6", question.getId(), edittextBtn.getText().toString());
-                intent = new Intent(QuestionSixActivity.this, QuestionSevenActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-            }
+        done.setOnClickListener(view -> {
+            countDownTimer.cancel();
+            StoreAnswerTmse.getInstance().storeAnswer("no6", question.getId(), edittextBtn.getText().toString());
+            intent = new Intent(QuestionSixActivity.this, QuestionSevenActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
         });
         LinearLayout cancel = dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edittextBtn.setText("");
-                dialog.dismiss();
+        cancel.setOnClickListener(view -> {
+            edittextBtn.setText("");
+            dialog.dismiss();
 
-            }
         });
         dialog.show();
     }
