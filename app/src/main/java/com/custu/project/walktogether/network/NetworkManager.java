@@ -2,18 +2,16 @@ package com.custu.project.walktogether.network;
 
 import android.os.Build;
 
+import com.custu.project.project.walktogether.BuildConfig;
 import com.custu.project.walktogether.util.ConfigService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Credentials;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -38,7 +36,8 @@ public class NetworkManager {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient client = new OkHttpClient.Builder()
+        OkHttpClient client;
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request original = chain.request();
                     Request request = original.newBuilder()
@@ -49,9 +48,16 @@ public class NetworkManager {
 
                     return chain.proceed(request);
                 })
-                .addInterceptor(logging)
                 .connectTimeout(10000, TimeUnit.SECONDS)
-                .readTimeout(10000, TimeUnit.SECONDS).build();
+                .readTimeout(10000, TimeUnit.SECONDS);
+
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(logging);
+            client = builder.build();
+        } else {
+            client = builder
+                    .build();
+        }
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(ConfigService.BASE_URL)
