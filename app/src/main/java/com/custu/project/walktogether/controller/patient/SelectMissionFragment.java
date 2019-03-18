@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +41,12 @@ import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+
+import static io.fabric.sdk.android.Fabric.TAG;
 
 public class SelectMissionFragment extends Fragment implements BasicActivity, AdapterView.OnItemClickListener, GoogleApiClient.ConnectionCallbacks {
     private static final int REQUEST_PERMISSION_LOCATION = 255;
@@ -112,8 +116,9 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
 
     @Override
     public void initValue() {
+        List<Map> maps = mapArrayList.subList(1, mapArrayList.size());
         pullRefreshLayout.setRefreshing(false);
-        listView.setAdapter(new MapMissionAdapter(context, mapArrayList.subList(1, mapArrayList.size() - 1)));
+        listView.setAdapter(new MapMissionAdapter(context, maps));
         listView.setOnItemClickListener(this);
         nameTextView.setText(mapArrayList.get(0).getNamePlace());
         PicassoUtil.getInstance().setImageNoCatch(context, mapArrayList.get(0).getImage(), imageView);
@@ -143,6 +148,7 @@ public class SelectMissionFragment extends Fragment implements BasicActivity, Ad
             public void onResponse(JsonObject object, Retrofit retrofit) {
                 if (object != null) {
                     mapArrayList = MissionModel.getInstance().getMapArrayList(object);
+                    Log.d(TAG, "onResponse: "+mapArrayList);
                     initValue();
                 }
 
